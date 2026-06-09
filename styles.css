@@ -537,6 +537,10 @@ h1 {
   --section-bg: var(--surface-warm);
 }
 
+.work-heading {
+  padding-top: 42px;
+}
+
 #deliverables {
   --section-bg: var(--surface-olive);
 }
@@ -1189,6 +1193,10 @@ h1 {
   .split {
     grid-template-columns: 1fr;
     gap: 52px;
+  }
+
+  .work-heading {
+    padding-top: 0;
   }
 
   #workspace .split {
