@@ -314,11 +314,6 @@ h1 {
   display: block;
 }
 
-.stack-logo-openai img {
-  width: 118px;
-  height: 36px;
-}
-
 .stack-logo span {
   color: var(--muted);
   font-size: 14px;
