@@ -202,12 +202,96 @@
               <h2 class="section-title">The observability suite lets you measure the job and control the agent.</h2>
             </div>
 
-            <div class="workspace-preview" aria-label="Agentia Workspace observability suite preview">
-              <img
-                class="workspace-render"
-                src="assets/agentia-workspace-render.png"
-                alt="Agentia Workspace showing headless agents running with job KPIs and operational output"
-              />
+            <div class="workspace-preview" aria-label="Agentia Workspace SaaS observability suite preview">
+              <aside class="workspace-rail" aria-hidden="true">
+                <span class="workspace-mark"></span>
+                <span class="rail-item rail-item-active"></span>
+                <span class="rail-item"></span>
+                <span class="rail-item"></span>
+                <span class="rail-item"></span>
+              </aside>
+
+              <div class="workspace-app">
+                <div class="workspace-topbar">
+                  <div>
+                    <span>Agentia Workspace</span>
+                    <strong>Operations control layer</strong>
+                  </div>
+                  <div class="workspace-topbar-actions">
+                    <span>7 running agents</span>
+                    <button type="button">Review queue</button>
+                  </div>
+                </div>
+
+                <div class="workspace-tabs" aria-label="Workspace views">
+                  <span class="workspace-tab-active">Observability</span>
+                  <span>Agents</span>
+                  <span>Exceptions</span>
+                  <span>Cadence</span>
+                </div>
+
+                <div class="workspace-metrics">
+                  <div>
+                    <span>Jobs completed</span>
+                    <strong>5,887</strong>
+                    <small>This month</small>
+                  </div>
+                  <div>
+                    <span>Exception queue</span>
+                    <strong>42</strong>
+                    <small>Awaiting judgement</small>
+                  </div>
+                  <div>
+                    <span>Hours released</span>
+                    <strong>318h</strong>
+                    <small>Across operations</small>
+                  </div>
+                  <div>
+                    <span>Quality pass</span>
+                    <strong>98.4%</strong>
+                    <small>Checked outputs</small>
+                  </div>
+                </div>
+
+                <div class="workspace-table">
+                  <div class="workspace-table-head">
+                    <span>Headless agent</span>
+                    <span>Job KPI</span>
+                    <span>Output</span>
+                    <span>Status</span>
+                  </div>
+
+                  <div class="workspace-agent-row">
+                    <div>
+                      <strong>Finance Ops Agent</strong>
+                      <small>Invoice intake, validation and routing</small>
+                    </div>
+                    <div><strong>1,284</strong><small>invoices processed</small></div>
+                    <div><strong>98.6%</strong><small>matched to PO</small></div>
+                    <div><span class="running-dot"></span>Running</div>
+                  </div>
+
+                  <div class="workspace-agent-row">
+                    <div>
+                      <strong>Growth Agent</strong>
+                      <small>Lead research and sales-ready handoff</small>
+                    </div>
+                    <div><strong>412</strong><small>leads researched</small></div>
+                    <div><strong>73</strong><small>ready for sales</small></div>
+                    <div><span class="running-dot"></span>Running</div>
+                  </div>
+
+                  <div class="workspace-agent-row">
+                    <div>
+                      <strong>CX Agent</strong>
+                      <small>Customer inquiries triaged or resolved</small>
+                    </div>
+                    <div><strong>3,241</strong><small>inquiries handled</small></div>
+                    <div><strong>91%</strong><small>resolved first pass</small></div>
+                    <div><span class="running-dot"></span>Running</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
