@@ -2,6 +2,12 @@
   --page: #f5f2ea;
   --paper: #fbfaf6;
   --paper-2: #ece6da;
+  --surface-warm: #f2ede2;
+  --surface-paper: #fbfaf6;
+  --surface-olive: #eef1e8;
+  --surface-stone: #edf0ec;
+  --surface-linen: #f6f1e7;
+  --surface-cloud: #f1f2ef;
   --ink: #12130f;
   --muted: #5d5b52;
   --quiet: #817b70;
@@ -315,8 +321,28 @@ h1 {
 
 .section {
   padding: 116px 0;
-  background: var(--page);
+  background: var(--section-bg, var(--page));
   border-bottom: 1px solid var(--line);
+}
+
+#work {
+  --section-bg: var(--surface-warm);
+}
+
+#method {
+  --section-bg: var(--surface-olive);
+}
+
+#use-cases {
+  --section-bg: var(--surface-linen);
+}
+
+.kpi-section {
+  --section-bg: var(--surface-stone);
+}
+
+.founder-section {
+  --section-bg: var(--surface-cloud);
 }
 
 .section-kicker {
@@ -410,7 +436,7 @@ h1 {
 }
 
 .agent-types-section {
-  background: var(--paper);
+  --section-bg: var(--surface-paper);
 }
 
 .agent-type-grid {
