@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Agentia mark">
+  <g fill="#fbfaf6">
+    <circle cx="14" cy="14" r="1.8" opacity="0.72" />
+    <circle cx="23" cy="14" r="1.8" opacity="0.72" />
+    <circle cx="32" cy="14" r="1.8" opacity="0.72" />
+    <circle cx="41" cy="14" r="1.8" opacity="0.72" />
+    <circle cx="50" cy="14" r="1.8" opacity="0.72" />
+    <circle cx="14" cy="23" r="1.8" opacity="0.72" />
+    <circle cx="23" cy="23" r="3.6" />
+    <circle cx="32" cy="23" r="3.6" />
+    <circle cx="41" cy="23" r="3.6" />
+    <circle cx="14" cy="32" r="1.8" opacity="0.72" />
+    <circle cx="23" cy="32" r="3.6" />
+    <circle cx="32" cy="32" r="6" />
+    <circle cx="41" cy="32" r="3.6" />
+    <circle cx="50" cy="32" r="1.8" opacity="0.72" />
+    <circle cx="14" cy="41" r="1.8" opacity="0.72" />
+    <circle cx="23" cy="41" r="3.6" />
+    <circle cx="32" cy="41" r="3.6" />
+    <circle cx="41" cy="41" r="3.6" />
+    <circle cx="14" cy="50" r="1.8" opacity="0.72" />
+    <circle cx="23" cy="50" r="1.8" opacity="0.72" />
+    <circle cx="32" cy="50" r="1.8" opacity="0.72" />
+    <circle cx="41" cy="50" r="1.8" opacity="0.72" />
+  </g>
+  <g fill="#c9b98a">
+    <circle cx="50" cy="23" r="2.1" />
+    <circle cx="50" cy="41" r="2.1" />
+  </g>
+</svg>
