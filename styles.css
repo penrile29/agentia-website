@@ -549,10 +549,6 @@ h1 {
   --section-bg: var(--surface-linen);
 }
 
-.kpi-section {
-  --section-bg: var(--surface-stone);
-}
-
 .founder-section {
   --section-bg: var(--surface-cloud);
 }
@@ -594,7 +590,6 @@ h1 {
 }
 
 .card,
-.outcome,
 .founder-panel,
 .cta-box {
   border: 0;
@@ -1114,38 +1109,6 @@ h1 {
   font-weight: 800;
 }
 
-.outcome-strip {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0;
-  margin-top: 42px;
-  border: 1px solid var(--line);
-  background: var(--paper);
-}
-
-.outcome {
-  min-height: 172px;
-  padding: 28px;
-  border-right: 1px solid var(--line);
-}
-
-.outcome:last-child {
-  border-right: 0;
-}
-
-.outcome strong {
-  display: block;
-  color: var(--brass);
-  font-size: 30px;
-  line-height: 1.05;
-  margin-bottom: 12px;
-}
-
-.outcome span {
-  color: var(--muted);
-  font-size: 16px;
-}
-
 .stack-section {
   padding: 78px 0 86px;
   color: var(--paper);
@@ -1326,7 +1289,6 @@ h1 {
   .card-grid,
   .principle-grid,
   .job-design-chain,
-  .outcome-strip,
   .stack-logos,
   .agent-type-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1334,7 +1296,6 @@ h1 {
 
   .card,
   .job-design-chain article,
-  .outcome,
   .stack-logo,
   .agent-type {
     border-right: 1px solid var(--line);
@@ -1347,7 +1308,6 @@ h1 {
 
   .card:nth-child(2n),
   .job-design-chain article:nth-child(2n),
-  .outcome:nth-child(2n),
   .stack-logo:nth-child(2n),
   .agent-type:nth-child(2n) {
     border-right: 0;
@@ -1356,7 +1316,6 @@ h1 {
   .card-grid .card:nth-last-child(-n+1),
   .principle-grid .card:nth-last-child(-n+2),
   .job-design-chain article:nth-last-child(-n+2),
-  .outcome:nth-last-child(-n+2),
   .stack-logo:nth-last-child(-n+2),
   .agent-type:nth-last-child(-n+2) {
     border-bottom: 0;
@@ -1494,8 +1453,7 @@ h1 {
   .card-grid,
   .principle-grid,
   .agent-type-grid,
-  .job-design-chain,
-  .outcome-strip {
+  .job-design-chain {
     margin-top: 30px;
   }
 
@@ -1574,7 +1532,6 @@ h1 {
   .card-grid,
   .principle-grid,
   .job-design-chain,
-  .outcome-strip,
   .stack-logos,
   .agent-type-grid {
     grid-template-columns: 1fr;
@@ -1582,7 +1539,6 @@ h1 {
 
   .card,
   .job-design-chain article,
-  .outcome,
   .stack-logo,
   .agent-type {
     border-right: 0;
@@ -1596,7 +1552,6 @@ h1 {
 
   .card:last-child,
   .job-design-chain article:last-child,
-  .outcome:last-child,
   .stack-logo:last-child,
   .agent-type:last-child {
     border-bottom: 0;
@@ -1664,10 +1619,6 @@ h1 {
 
   .workspace-preview {
     margin-top: 6px;
-  }
-
-  .outcome {
-    min-height: 132px;
   }
 
   .founder-panel {
