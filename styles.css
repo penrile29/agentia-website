@@ -357,14 +357,6 @@ h1 {
   margin-bottom: 24px;
 }
 
-.section-copy {
-  max-width: 720px;
-  color: var(--muted);
-  font-size: 21px;
-  line-height: 1.48;
-  letter-spacing: 0;
-}
-
 .split {
   display: grid;
   grid-template-columns: 0.92fr 1.08fr;
@@ -532,10 +524,6 @@ h1 {
   border-bottom-color: var(--dark-line);
 }
 
-#workspace .section-copy {
-  color: rgba(251, 250, 246, 0.68);
-}
-
 #workspace .section-kicker {
   color: #c9b98a;
 }
@@ -666,22 +654,11 @@ h1 {
 }
 
 .stack-intro {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 44px;
   margin-bottom: 28px;
 }
 
 .stack-intro span {
   color: #c9b98a;
-}
-
-.stack-intro p {
-  max-width: 640px;
-  color: rgba(251, 250, 246, 0.66);
-  font-size: 19px;
-  text-align: right;
 }
 
 .stack-logos {
@@ -733,13 +710,7 @@ h1 {
   font-size: 58px;
   line-height: 1.02;
   letter-spacing: 0;
-  margin-bottom: 22px;
-}
-
-.founder-panel p {
-  max-width: 790px;
-  color: var(--muted);
-  font-size: 21px;
+  margin-bottom: 0;
 }
 
 .cta-section {
@@ -759,14 +730,7 @@ h1 {
   font-size: 74px;
   line-height: 1;
   letter-spacing: 0;
-  margin-bottom: 24px;
-}
-
-.cta-box p {
-  max-width: 680px;
   margin-bottom: 34px;
-  color: rgba(251, 250, 246, 0.70);
-  font-size: 22px;
 }
 
 .cta-section .button-primary {
@@ -975,23 +939,6 @@ h1 {
   .founder-panel h2,
   .cta-box h2 {
     font-size: 38px;
-  }
-
-  .section-copy,
-  .founder-panel p,
-  .cta-box p,
-  .stack-intro p {
-    font-size: 18px;
-  }
-
-  .stack-intro {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .stack-intro p {
-    text-align: left;
   }
 
   .card-grid,
