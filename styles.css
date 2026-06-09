@@ -806,6 +806,7 @@ h1 {
 
   .split {
     grid-template-columns: 1fr;
+    gap: 52px;
   }
 
   .card-grid,
@@ -880,7 +881,7 @@ h1 {
 
   .hero {
     min-height: auto;
-    padding: 116px 0 66px;
+    padding: 104px 0 38px;
   }
 
   .hero::after {
@@ -896,7 +897,7 @@ h1 {
     right: auto;
     top: auto;
     width: 100%;
-    margin-top: 36px;
+    margin-top: 28px;
     opacity: 1;
   }
 
@@ -930,7 +931,10 @@ h1 {
   }
 
   .section,
-  .stack-section,
+  .stack-section {
+    padding: 58px 0;
+  }
+
   .cta-section {
     padding: 76px 0;
   }
@@ -939,6 +943,27 @@ h1 {
   .founder-panel h2,
   .cta-box h2 {
     font-size: 38px;
+  }
+
+  .section-title {
+    margin-bottom: 0;
+  }
+
+  .split {
+    gap: 30px;
+  }
+
+  .card-grid,
+  .principle-grid,
+  .agent-type-grid,
+  .use-cases,
+  .outcome-strip {
+    margin-top: 30px;
+  }
+
+  .split .principle-grid,
+  .split .workspace-ledger {
+    margin-top: 0;
   }
 
   .card-grid,
@@ -977,7 +1002,7 @@ h1 {
   }
 
   .agent-type-label {
-    margin-bottom: 46px;
+    margin-bottom: 32px;
   }
 
   .agent-type h3 {
@@ -989,11 +1014,11 @@ h1 {
   }
 
   .card {
-    min-height: 210px;
+    min-height: 176px;
   }
 
   .card-number {
-    margin-bottom: 42px;
+    margin-bottom: 28px;
   }
 
   .workspace-ledger {
@@ -1011,8 +1036,12 @@ h1 {
   }
 
   .use-case {
-    min-height: 126px;
+    min-height: 112px;
     font-size: 22px;
+  }
+
+  .outcome {
+    min-height: 132px;
   }
 
   .founder-panel {
