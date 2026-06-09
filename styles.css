@@ -305,23 +305,48 @@ h1 {
 
 .product-stage {
   position: absolute;
-  right: -10px;
+  right: -40px;
   top: 190px;
-  width: 520px;
+  width: 500px;
   opacity: 0.96;
   z-index: 1;
 }
 
 .orchestration-chart {
   position: relative;
+  overflow: hidden;
   padding: 24px;
   border: 1px solid rgba(18, 19, 15, 0.14);
-  background: rgba(251, 250, 246, 0.86);
+  background:
+    radial-gradient(circle at 50% 43%, rgba(156, 122, 62, 0.22) 0 2px, transparent 3px),
+    repeating-radial-gradient(circle at 50% 43%, transparent 0 52px, rgba(18, 19, 15, 0.08) 53px 54px, transparent 55px 104px),
+    repeating-conic-gradient(from -10deg at 50% 43%, rgba(18, 19, 15, 0.08) 0deg 1deg, transparent 1deg 24deg),
+    linear-gradient(135deg, rgba(251, 250, 246, 0.94), rgba(242, 237, 226, 0.82));
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
 }
 
+.orchestration-chart::before,
+.orchestration-chart::after {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  pointer-events: none;
+}
+
+.orchestration-chart::before {
+  border: 1px solid rgba(18, 19, 15, 0.06);
+}
+
+.orchestration-chart::after {
+  background:
+    linear-gradient(26deg, transparent 0 47%, rgba(18, 19, 15, 0.08) 47.2% 47.6%, transparent 47.8%),
+    linear-gradient(154deg, transparent 0 48%, rgba(18, 19, 15, 0.07) 48.2% 48.6%, transparent 48.8%);
+}
+
 .chart-header {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -340,6 +365,7 @@ h1 {
   width: min(100%, 380px);
   min-height: 96px;
   position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 16px;
@@ -359,17 +385,84 @@ h1 {
   background: rgba(18, 19, 15, 0.24);
 }
 
-.agent-pulse {
-  width: 14px;
-  height: 14px;
+.agent-icon {
+  width: 34px;
+  height: 34px;
+  position: relative;
   flex: 0 0 auto;
-  border: 2px solid rgba(251, 250, 246, 0.62);
-  background: #c9b98a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(18, 19, 15, 0.16);
+  background: rgba(251, 250, 246, 0.72);
+}
+
+.chief-agent .agent-icon {
+  border-color: rgba(251, 250, 246, 0.28);
+  background: rgba(251, 250, 246, 0.08);
+}
+
+.agent-icon::before,
+.agent-icon::after {
+  content: "";
+  position: absolute;
+}
+
+.icon-chief::before {
+  inset: 9px;
+  background:
+    linear-gradient(90deg, transparent 45%, #c9b98a 45% 55%, transparent 55%),
+    linear-gradient(0deg, transparent 45%, #c9b98a 45% 55%, transparent 55%);
+  border: 1px solid #c9b98a;
+}
+
+.icon-sales::before {
+  width: 18px;
+  height: 11px;
+  border-left: 2px solid var(--olive);
+  border-bottom: 2px solid var(--olive);
+  transform: translateY(1px);
+}
+
+.icon-sales::after {
+  width: 15px;
+  height: 15px;
+  border-top: 2px solid var(--olive);
+  border-right: 2px solid var(--olive);
+  transform: rotate(-15deg) translate(2px, -2px);
+}
+
+.icon-marketing::before {
+  width: 7px;
+  height: 7px;
+  left: 8px;
+  border-radius: 50%;
+  background: var(--olive);
+}
+
+.icon-marketing::after {
+  width: 17px;
+  height: 17px;
+  left: 10px;
+  border-top: 2px solid var(--olive);
+  border-right: 2px solid var(--olive);
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+
+.icon-invoice::before {
+  width: 15px;
+  height: 19px;
+  border: 2px solid var(--olive);
+  background:
+    linear-gradient(var(--olive), var(--olive)) 4px 6px / 7px 1px no-repeat,
+    linear-gradient(var(--olive), var(--olive)) 4px 10px / 7px 1px no-repeat,
+    linear-gradient(var(--olive), var(--olive)) 4px 14px / 5px 1px no-repeat;
 }
 
 .chief-agent strong,
 .chief-agent span,
-.agent-node span,
+.node-head span,
 .agent-node strong {
   display: block;
 }
@@ -388,6 +481,7 @@ h1 {
 
 .agent-branches {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
@@ -407,12 +501,14 @@ h1 {
 .agent-node {
   min-height: 126px;
   position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 18px;
   border: 1px solid rgba(18, 19, 15, 0.14);
-  background: rgba(251, 250, 246, 0.86);
+  background: rgba(251, 250, 246, 0.76);
+  backdrop-filter: blur(8px);
 }
 
 .agent-node::before {
@@ -425,7 +521,13 @@ h1 {
   background: rgba(18, 19, 15, 0.24);
 }
 
-.agent-node span {
+.node-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.node-head span:last-child {
   color: var(--muted);
   font-size: 13px;
   font-weight: 800;
