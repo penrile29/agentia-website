@@ -9,3 +9,9 @@ The current narrative focuses on the sharper commercial offer:
 - Build AI agents around real business work.
 - Operate them through a private Agentia Workspace.
 - Measure value through jobs completed, hours released and bottlenecks removed.
+
+Visual direction:
+
+- Apple-inspired product page.
+- Light interface, generous spacing and minimal navigation.
+- Large centered hero with a rendered Agentia Workspace product visual.
