@@ -710,7 +710,14 @@ h1 {
   font-size: 58px;
   line-height: 1.02;
   letter-spacing: 0;
-  margin-bottom: 0;
+  margin-bottom: 22px;
+}
+
+.founder-panel p {
+  max-width: 880px;
+  color: var(--muted);
+  font-size: 23px;
+  line-height: 1.35;
 }
 
 .cta-section {
@@ -943,6 +950,10 @@ h1 {
   .founder-panel h2,
   .cta-box h2 {
     font-size: 38px;
+  }
+
+  .founder-panel p {
+    font-size: 18px;
   }
 
   .section-title {
