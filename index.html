@@ -17,7 +17,7 @@
     rel="stylesheet"
   />
   <link rel="icon" type="image/svg+xml" href="assets/agentia-mark-h.svg" />
-  <link rel="stylesheet" href="styles.css?v=c84b072" />
+  <link rel="stylesheet" href="styles.css?v=section-flow" />
 </head>
 
 <body>
@@ -182,12 +182,12 @@
               </p>
 
               <div class="hero-actions">
-                <a class="button button-primary" href="mailto:hello@agentialabs.ai?subject=Analyse%20your%20first%20job">
-                  Analyse your first job
+                <a class="button button-primary" href="#digital-workforce">
+                  How we do it
                 </a>
-                <a class="button button-secondary" href="#workspace">
-                  See the control layer
-                </a>
+                <button class="button button-secondary button-disabled" type="button" aria-disabled="true">
+                  Customer Stories
+                </button>
               </div>
             </div>
 
@@ -200,21 +200,6 @@
           <span class="kinetic-item" data-es="Dise&ntilde;ar">Design</span>
           <span class="kinetic-item" data-es="Crear">Create</span>
           <span class="kinetic-item" data-es="Operar">Maintain</span>
-          <span class="kinetic-item" data-es="Mano de obra digital">Digital workforce</span>
-          <span class="kinetic-item" data-es="Trabajos por hacer">Jobs to be done</span>
-          <span class="kinetic-item" data-es="Agentes headless">Headless agents</span>
-          <span class="kinetic-item" data-es="Agentes conversacionales">Conversational agents</span>
-          <span class="kinetic-item" data-es="Observabilidad">Observability</span>
-        </div>
-        <div class="kinetic-track" aria-hidden="true">
-          <span class="kinetic-item" data-es="Dise&ntilde;ar">Design</span>
-          <span class="kinetic-item" data-es="Crear">Create</span>
-          <span class="kinetic-item" data-es="Operar">Maintain</span>
-          <span class="kinetic-item" data-es="Mano de obra digital">Digital workforce</span>
-          <span class="kinetic-item" data-es="Trabajos por hacer">Jobs to be done</span>
-          <span class="kinetic-item" data-es="Agentes headless">Headless agents</span>
-          <span class="kinetic-item" data-es="Agentes conversacionales">Conversational agents</span>
-          <span class="kinetic-item" data-es="Observabilidad">Observability</span>
         </div>
       </section>
 
@@ -621,8 +606,8 @@
         ".eyebrow": '<span class="eyebrow-dot" aria-hidden="true"></span>Boutique de transformaci\u00f3n agentic',
         ".hero h1": "\u00bfQu\u00e9 pasar\u00eda si tu mano de obra fuera ilimitada?",
         ".hero-copy strong": "Agentia Labs ayuda a compa\u00f1\u00edas founder-led a convertir trabajo operativo en capacidad IA gestionada.",
-        ".hero-actions .button-primary": "Analizar tu primer trabajo",
-        ".hero-actions .button-secondary": "Ver la capa de control",
+        ".hero-actions .button-primary": "How we do it",
+        ".hero-actions .button-secondary": "Customer Stories",
         "#digital-workforce .section-kicker": "Mano de obra digital",
         "#digital-workforce .section-title": "Dise\u00f1amos, creamos y mantenemos tu mano de obra digital.",
         ".workforce-pillar:nth-child(1) .workforce-stage": "Dise\u00f1ar",
@@ -756,7 +741,6 @@
 
       const mailSubjects = [
         [".nav-cta", "Empezar por un trabajo"],
-        [".hero-actions .button-primary", "Analizar tu primer trabajo"],
         [".cta-box .button", "Reservar un sprint de dise\u00f1o de mano de obra"]
       ];
 
