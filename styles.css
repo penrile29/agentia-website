@@ -620,42 +620,53 @@ h1 {
 }
 
 .workforce-grid {
+  --workforce-top: 68px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0;
   margin-top: 44px;
   border: 1px solid var(--line);
-  background: var(--paper);
+  background:
+    linear-gradient(90deg, transparent 0 calc(33.333% - 1px), var(--line) calc(33.333% - 1px) 33.333%, transparent 33.333% calc(66.666% - 1px), var(--line) calc(66.666% - 1px) 66.666%, transparent 66.666%),
+    var(--paper);
 }
 
 .workforce-pillar {
-  min-height: 330px;
+  min-height: 304px;
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 34px;
-  border-right: 1px solid var(--line);
+  padding: 28px 32px 30px;
 }
 
-.workforce-pillar:last-child {
-  border-right: 0;
-}
-
-.workforce-pillar:not(:last-child)::after {
-  content: "->";
+.workforce-pillar::before {
+  content: "";
   position: absolute;
-  right: -13px;
-  top: 34px;
+  left: 32px;
+  right: 32px;
+  top: var(--workforce-top);
+  height: 1px;
+  background: var(--line);
+}
+
+.workforce-pillar::after {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: calc(var(--workforce-top) - 5px);
   z-index: 1;
-  width: 26px;
-  height: 26px;
-  display: grid;
-  place-items: center;
-  color: var(--olive);
-  border: 1px solid var(--line);
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--brass);
   background: var(--paper);
-  font-size: 12px;
-  font-weight: 900;
+}
+
+.workforce-pillar-top {
+  min-height: 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .workforce-stage {
@@ -663,13 +674,121 @@ h1 {
   font-size: 13px;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: auto;
+}
+
+.workforce-number {
+  color: rgba(18, 19, 15, 0.34);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 42px;
+  line-height: 0.8;
+}
+
+.workforce-visual {
+  width: 132px;
+  height: 76px;
+  position: relative;
+  margin-top: 54px;
+  margin-bottom: 32px;
+}
+
+.workforce-visual-map {
+  display: grid;
+  grid-template-columns: repeat(3, 34px);
+  grid-template-rows: repeat(2, 24px);
+  gap: 9px;
+}
+
+.workforce-visual-map span {
+  border: 1px solid rgba(18, 19, 15, 0.18);
+  background: rgba(251, 250, 246, 0.72);
+}
+
+.workforce-visual-map span:nth-child(2),
+.workforce-visual-map span:nth-child(5) {
+  background: rgba(156, 122, 62, 0.22);
+}
+
+.workforce-visual-agents::before,
+.workforce-visual-agents::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 37px;
+  height: 1px;
+  background: var(--line);
+}
+
+.workforce-visual-agents::after {
+  left: 65px;
+  right: auto;
+  top: 16px;
+  width: 1px;
+  height: 46px;
+}
+
+.workforce-visual-agents span {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(18, 19, 15, 0.2);
+  background: var(--paper);
+}
+
+.workforce-visual-agents span:nth-child(1) {
+  left: 55px;
+  top: 27px;
+  width: 28px;
+  height: 28px;
+  background: rgba(156, 122, 62, 0.22);
+}
+
+.workforce-visual-agents span:nth-child(2) {
+  left: 6px;
+  top: 28px;
+}
+
+.workforce-visual-agents span:nth-child(3) {
+  right: 6px;
+  top: 28px;
+}
+
+.workforce-visual-agents span:nth-child(4) {
+  left: 55px;
+  bottom: 0;
+}
+
+.workforce-visual-observe {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: start;
+  gap: 10px;
+}
+
+.workforce-visual-observe span {
+  height: 16px;
+  border: 1px solid rgba(18, 19, 15, 0.18);
+  background:
+    linear-gradient(90deg, rgba(156, 122, 62, 0.28) var(--fill, 62%), transparent 0),
+    rgba(251, 250, 246, 0.72);
+}
+
+.workforce-visual-observe span:nth-child(2) {
+  --fill: 44%;
+}
+
+.workforce-visual-observe span:nth-child(3) {
+  --fill: 78%;
+}
+
+.workforce-copy {
+  margin-top: auto;
 }
 
 .workforce-pillar h3 {
   max-width: 300px;
-  font-size: 31px;
-  line-height: 1.04;
+  font-size: 28px;
+  line-height: 1.02;
   margin-bottom: 14px;
 }
 
@@ -1606,15 +1725,35 @@ h1 {
   }
 
   .workforce-pillar {
-    min-height: 218px;
+    min-height: 258px;
   }
 
-  .workforce-pillar:not(:last-child)::after {
-    display: none;
+  .workforce-grid {
+    background: var(--paper);
+  }
+
+  .workforce-pillar::before {
+    left: 24px;
+    right: 24px;
+    top: 62px;
+  }
+
+  .workforce-pillar::after {
+    left: 24px;
+    top: 57px;
   }
 
   .workforce-stage {
-    margin-bottom: 34px;
+    margin-bottom: 0;
+  }
+
+  .workforce-number {
+    font-size: 36px;
+  }
+
+  .workforce-visual {
+    margin-top: 46px;
+    margin-bottom: 26px;
   }
 
   .job-design-chain article {
