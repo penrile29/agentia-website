@@ -1236,6 +1236,7 @@ h1 {
 }
 
 .founder-panel {
+  --founder-statement-size: clamp(36px, 4.2vw, 58px);
   padding: 74px;
   border: 1px solid var(--line);
   background:
@@ -1243,19 +1244,24 @@ h1 {
     var(--paper);
 }
 
-.founder-panel h2 {
+.founder-panel h2,
+.founder-panel p {
   max-width: 950px;
-  font-size: 58px;
+  color: var(--ink);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: var(--founder-statement-size);
+  font-weight: 650;
   line-height: 1.02;
   letter-spacing: 0;
-  margin-bottom: 22px;
+  text-wrap: balance;
+}
+
+.founder-panel h2 {
+  margin-bottom: 18px;
 }
 
 .founder-panel p {
-  max-width: 880px;
-  color: var(--muted);
-  font-size: 23px;
-  line-height: 1.35;
+  margin: 0;
 }
 
 .cta-section {
@@ -1339,6 +1345,10 @@ h1 {
 
   h1 {
     font-size: 66px;
+  }
+
+  .founder-panel {
+    --founder-statement-size: 48px;
   }
 
   .section-title,
@@ -1500,14 +1510,27 @@ h1 {
     padding: 76px 0;
   }
 
+  .founder-panel {
+    --founder-statement-size: 36px;
+  }
+
   .section-title,
-  .founder-panel h2,
   .cta-box h2 {
     font-size: 38px;
   }
 
+  .founder-panel h2,
   .founder-panel p {
-    font-size: 18px;
+    font-size: var(--founder-statement-size);
+    line-height: 1.04;
+  }
+
+  .founder-panel h2 {
+    margin-bottom: 22px;
+  }
+
+  .founder-panel p {
+    max-width: 100%;
   }
 
   .section-title {
