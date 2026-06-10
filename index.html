@@ -51,12 +51,51 @@
       <section class="hero">
         <div class="hero-network" aria-hidden="true">
           <svg viewBox="0 0 920 620" role="presentation" focusable="false">
-            <path d="M-20 250 C150 80 280 180 410 96 S650 30 940 118" />
-            <path d="M-30 420 C180 330 230 520 420 390 S630 210 940 340" />
-            <path d="M80 130 C240 270 340 120 500 250 S680 440 910 270" />
-            <path d="M120 540 C270 450 410 560 560 460 S720 300 960 500" />
-            <path d="M250 40 C300 230 410 310 520 520" />
-            <path d="M720 40 C650 190 770 330 720 600" />
+            <defs>
+              <g id="network-traveler-agent">
+                <circle class="traveler-halo" cx="0" cy="0" r="17"></circle>
+                <rect class="traveler-body" x="-10" y="-8" width="20" height="16" rx="5"></rect>
+                <line class="traveler-antenna" x1="0" y1="-8" x2="0" y2="-14"></line>
+                <circle class="traveler-eye" cx="-4" cy="-1" r="1.6"></circle>
+                <circle class="traveler-eye" cx="4" cy="-1" r="1.6"></circle>
+                <line class="traveler-mouth" x1="-3" y1="5" x2="3" y2="5"></line>
+              </g>
+            </defs>
+
+            <path id="network-path-1" d="M-20 250 C150 80 280 180 410 96 S650 30 940 118" />
+            <path id="network-path-2" d="M-30 420 C180 330 230 520 420 390 S630 210 940 340" />
+            <path id="network-path-3" d="M80 130 C240 270 340 120 500 250 S680 440 910 270" />
+            <path id="network-path-4" d="M120 540 C270 450 410 560 560 460 S720 300 960 500" />
+            <path id="network-path-5" d="M250 40 C300 230 410 310 520 520" />
+            <path id="network-path-6" d="M720 40 C650 190 770 330 720 600" />
+
+            <g class="network-traveler network-traveler-1">
+              <animateMotion dur="34s" begin="-8s" repeatCount="indefinite">
+                <mpath href="#network-path-1"></mpath>
+              </animateMotion>
+              <use href="#network-traveler-agent"></use>
+            </g>
+
+            <g class="network-traveler network-traveler-2">
+              <animateMotion dur="38s" begin="-18s" repeatCount="indefinite">
+                <mpath href="#network-path-2"></mpath>
+              </animateMotion>
+              <use href="#network-traveler-agent"></use>
+            </g>
+
+            <g class="network-traveler network-traveler-3">
+              <animateMotion dur="42s" begin="-4s" repeatCount="indefinite">
+                <mpath href="#network-path-3"></mpath>
+              </animateMotion>
+              <use href="#network-traveler-agent"></use>
+            </g>
+
+            <g class="network-traveler network-traveler-4">
+              <animateMotion dur="46s" begin="-27s" repeatCount="indefinite">
+                <mpath href="#network-path-4"></mpath>
+              </animateMotion>
+              <use href="#network-traveler-agent"></use>
+            </g>
           </svg>
 
           <span class="network-node network-node-large network-node-1"><span class="network-agent-icon"></span></span>
