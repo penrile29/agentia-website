@@ -195,6 +195,29 @@
         </div>
       </section>
 
+      <section class="kinetic-strip" aria-label="Agentia operating loop">
+        <div class="kinetic-track">
+          <span class="kinetic-item" data-es="Dise&ntilde;ar">Design</span>
+          <span class="kinetic-item" data-es="Crear">Create</span>
+          <span class="kinetic-item" data-es="Operar">Maintain</span>
+          <span class="kinetic-item" data-es="Digital workforce">Digital workforce</span>
+          <span class="kinetic-item" data-es="Jobs to be done">Jobs to be done</span>
+          <span class="kinetic-item" data-es="Agentes headless">Headless agents</span>
+          <span class="kinetic-item" data-es="Agentes conversacionales">Conversational agents</span>
+          <span class="kinetic-item" data-es="Observabilidad">Observability</span>
+        </div>
+        <div class="kinetic-track" aria-hidden="true">
+          <span class="kinetic-item" data-es="Dise&ntilde;ar">Design</span>
+          <span class="kinetic-item" data-es="Crear">Create</span>
+          <span class="kinetic-item" data-es="Operar">Maintain</span>
+          <span class="kinetic-item" data-es="Digital workforce">Digital workforce</span>
+          <span class="kinetic-item" data-es="Jobs to be done">Jobs to be done</span>
+          <span class="kinetic-item" data-es="Agentes headless">Headless agents</span>
+          <span class="kinetic-item" data-es="Agentes conversacionales">Conversational agents</span>
+          <span class="kinetic-item" data-es="Observabilidad">Observability</span>
+        </div>
+      </section>
+
       <section class="section workforce-section" id="digital-workforce">
         <div class="container">
           <div class="section-kicker">Digital workforce</div>
@@ -367,22 +390,22 @@
                 <div class="workspace-metrics">
                   <div>
                     <span>Jobs completed</span>
-                    <strong>5,887</strong>
+                    <strong data-count-to="5887" data-count-format="comma">5,887</strong>
                     <small>This month</small>
                   </div>
                   <div>
                     <span>Exception queue</span>
-                    <strong>42</strong>
+                    <strong data-count-to="42">42</strong>
                     <small>Awaiting judgement</small>
                   </div>
                   <div>
                     <span>Hours released</span>
-                    <strong>318h</strong>
+                    <strong data-count-to="318" data-count-suffix="h">318h</strong>
                     <small>Across operations</small>
                   </div>
                   <div>
                     <span>Quality pass</span>
-                    <strong>98.4%</strong>
+                    <strong data-count-to="98.4" data-count-decimals="1" data-count-suffix="%">98.4%</strong>
                     <small>Checked outputs</small>
                   </div>
                 </div>
@@ -718,9 +741,14 @@
         }
       });
 
+      document.querySelectorAll("[data-es]").forEach((node) => {
+        node.textContent = node.dataset.es;
+      });
+
       const attributes = [
         [".nav", "aria-label", "Navegaci\u00f3n principal"],
         [".brand", "aria-label", "Inicio de Agentia Labs"],
+        [".kinetic-strip", "aria-label", "Bucle operativo de Agentia"],
         [".workforce-grid", "aria-label", "Modelo operativo de workforce digital de Agentia"],
         [".workspace-preview", "aria-label", "Vista previa de la suite SaaS de observabilidad de Agentia Workspace"],
         [".workspace-tabs", "aria-label", "Vistas del workspace"],
@@ -745,6 +773,110 @@
         if (!node) return;
         node.setAttribute("href", `mailto:hello@agentialabs.ai?subject=${encodeURIComponent(subject)}`);
       });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealTargets = [
+        ".kinetic-strip",
+        ".section",
+        ".stack-section",
+        ".cta-section",
+        ".workforce-pillar",
+        ".card",
+        ".agent-type",
+        ".workspace-preview",
+        ".job-design-chain article",
+        ".process-step",
+        ".stack-logo",
+        ".founder-panel"
+      ].join(",");
+
+      if (reducedMotion) {
+        document.documentElement.classList.add("motion-off");
+        document.querySelectorAll(revealTargets).forEach((node) => node.classList.add("is-visible"));
+        return;
+      }
+
+      document.documentElement.classList.add("motion-ready");
+
+      const revealNodes = Array.from(document.querySelectorAll(revealTargets));
+      const countNodes = Array.from(document.querySelectorAll("[data-count-to]"));
+      let ticking = false;
+
+      revealNodes.forEach((node, index) => {
+        node.style.setProperty("--reveal-index", index % 6);
+      });
+
+      const formatCount = (value, node) => {
+        const decimals = Number(node.dataset.countDecimals || 0);
+        const suffix = node.dataset.countSuffix || "";
+        const formatted = value.toLocaleString("en-US", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        });
+        return `${formatted}${suffix}`;
+      };
+
+      const animateCount = (node) => {
+        const target = Number(node.dataset.countTo || 0);
+        const started = performance.now();
+        const duration = 1200;
+
+        const tick = (now) => {
+          const progress = Math.min((now - started) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          node.textContent = formatCount(target * eased, node);
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            node.textContent = formatCount(target, node);
+          }
+        };
+
+        requestAnimationFrame(tick);
+      };
+
+      const isInView = (node, offset = 0.88) => {
+        const rect = node.getBoundingClientRect();
+        return rect.top < window.innerHeight * offset && rect.bottom > 0;
+      };
+
+      const checkMotion = () => {
+        revealNodes.forEach((node) => {
+          if (!node.classList.contains("is-visible") && isInView(node)) {
+            node.classList.add("is-visible");
+          }
+        });
+
+        countNodes.forEach((node) => {
+          if (node.dataset.countDone === "true" || !isInView(node, 0.82)) return;
+          node.dataset.countDone = "true";
+          animateCount(node);
+        });
+
+        const revealDone = revealNodes.every((node) => node.classList.contains("is-visible"));
+        const countDone = countNodes.every((node) => node.dataset.countDone === "true");
+        if (revealDone && countDone) {
+          window.removeEventListener("scroll", scheduleMotion);
+          window.removeEventListener("resize", scheduleMotion);
+        }
+      };
+
+      const scheduleMotion = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          checkMotion();
+        });
+      };
+
+      window.addEventListener("scroll", scheduleMotion, { passive: true });
+      window.addEventListener("resize", scheduleMotion);
+      requestAnimationFrame(checkMotion);
     })();
   </script>
 </body>
