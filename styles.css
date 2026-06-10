@@ -409,14 +409,33 @@ h1 {
 }
 
 .traveler-antenna,
-.traveler-mouth {
+.traveler-mouth,
+.traveler-detail,
+.traveler-headset {
+  fill: none;
   stroke: var(--agent-feature);
   stroke-width: 1.2;
   stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .traveler-eye {
   fill: var(--agent-feature);
+}
+
+.traveler-detail {
+  opacity: 0.42;
+  stroke-width: 1;
+}
+
+.traveler-headset {
+  opacity: 0.56;
+  stroke-width: 1.15;
+}
+
+.traveler-signal {
+  fill: var(--agent-feature);
+  opacity: 0.5;
 }
 
 @keyframes networkDashFlow {
