@@ -350,11 +350,11 @@ h1 {
 }
 
 .network-traveler {
-  --agent-halo: rgba(247, 247, 244, 0.58);
-  --agent-ring: rgba(84, 86, 82, 0.16);
-  --agent-body: rgba(247, 247, 244, 0.74);
-  --agent-stroke: rgba(84, 86, 82, 0.58);
-  --agent-feature: rgba(70, 72, 69, 0.72);
+  --agent-halo: rgba(249, 248, 244, 0.58);
+  --agent-ring: rgba(71, 75, 70, 0.12);
+  --agent-body: rgba(232, 232, 226, 0.72);
+  --agent-stroke: rgba(80, 84, 79, 0.42);
+  --agent-feature: rgba(47, 51, 48, 0.72);
   opacity: 0.66;
   filter: drop-shadow(0 12px 24px rgba(18, 19, 15, 0.1));
 }
@@ -373,28 +373,28 @@ h1 {
   filter: drop-shadow(0 7px 14px rgba(18, 19, 15, 0.08));
 }
 
-.network-tone-silver {
-  --agent-halo: rgba(250, 250, 248, 0.62);
-  --agent-ring: rgba(124, 126, 121, 0.15);
-  --agent-body: rgba(250, 250, 248, 0.8);
-  --agent-stroke: rgba(126, 128, 122, 0.52);
-  --agent-feature: rgba(100, 103, 98, 0.7);
+.network-tone-slate {
+  --agent-halo: rgba(246, 248, 248, 0.6);
+  --agent-ring: rgba(70, 83, 91, 0.14);
+  --agent-body: rgba(191, 202, 208, 0.68);
+  --agent-stroke: rgba(78, 91, 99, 0.46);
+  --agent-feature: rgba(50, 60, 66, 0.76);
 }
 
-.network-tone-smoke {
-  --agent-halo: rgba(232, 232, 228, 0.58);
-  --agent-ring: rgba(94, 96, 92, 0.18);
-  --agent-body: rgba(238, 238, 234, 0.76);
-  --agent-stroke: rgba(88, 90, 86, 0.58);
-  --agent-feature: rgba(74, 76, 72, 0.72);
+.network-tone-sage {
+  --agent-halo: rgba(247, 249, 244, 0.58);
+  --agent-ring: rgba(91, 107, 78, 0.14);
+  --agent-body: rgba(194, 207, 179, 0.66);
+  --agent-stroke: rgba(87, 102, 75, 0.44);
+  --agent-feature: rgba(57, 69, 50, 0.74);
 }
 
-.network-tone-charcoal {
-  --agent-halo: rgba(212, 213, 209, 0.46);
-  --agent-ring: rgba(52, 54, 51, 0.14);
-  --agent-body: rgba(226, 226, 222, 0.68);
-  --agent-stroke: rgba(54, 56, 53, 0.5);
-  --agent-feature: rgba(44, 46, 43, 0.64);
+.network-tone-clay {
+  --agent-halo: rgba(250, 247, 240, 0.56);
+  --agent-ring: rgba(134, 100, 62, 0.14);
+  --agent-body: rgba(214, 188, 148, 0.62);
+  --agent-stroke: rgba(123, 91, 55, 0.38);
+  --agent-feature: rgba(83, 61, 39, 0.68);
 }
 
 .traveler-halo {
@@ -408,34 +408,8 @@ h1 {
   stroke-width: 1.3;
 }
 
-.traveler-antenna,
-.traveler-mouth,
-.traveler-detail,
-.traveler-headset {
-  fill: none;
-  stroke: var(--agent-feature);
-  stroke-width: 1.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .traveler-eye {
   fill: var(--agent-feature);
-}
-
-.traveler-detail {
-  opacity: 0.42;
-  stroke-width: 1;
-}
-
-.traveler-headset {
-  opacity: 0.56;
-  stroke-width: 1.15;
-}
-
-.traveler-signal {
-  fill: var(--agent-feature);
-  opacity: 0.5;
 }
 
 @keyframes networkDashFlow {
