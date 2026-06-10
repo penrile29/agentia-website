@@ -570,5 +570,182 @@
     </footer>
 
   </div>
+
+  <script>
+    (() => {
+      const forcedLanguage = new URLSearchParams(window.location.search).get("lang");
+      const browserLanguages = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || "en"];
+      const language = (forcedLanguage || browserLanguages[0] || "en").toLowerCase();
+
+      if (!language.startsWith("es")) {
+        document.documentElement.lang = "en";
+        return;
+      }
+
+      document.documentElement.lang = "es";
+      document.title = "Agentia Labs - Boutique de operaciones IA y workspace";
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute(
+          "content",
+          "Agentia Labs es una boutique de servicios profesionales high-end para operaciones con IA: consultor\u00eda, implementaci\u00f3n y una capa SaaS de control para agentes que ejecutan trabajo real."
+        );
+      }
+
+      const text = {
+        ".brand span:last-child": "Agentia Labs",
+        ".nav-links a:nth-child(1)": "Workforce",
+        ".nav-links a:nth-child(2)": "Dise\u00f1ar",
+        ".nav-links a:nth-child(3)": "Crear",
+        ".nav-links a:nth-child(4)": "Operar",
+        ".nav-links a:nth-child(5)": "Jobs",
+        ".nav-cta": "Empezar por un job",
+        ".eyebrow": '<span class="eyebrow-dot" aria-hidden="true"></span>Boutique de transformaci\u00f3n agentic',
+        ".hero h1": "\u00bfQu\u00e9 pasar\u00eda si tu workforce fuera ilimitada?",
+        ".hero-copy strong": "Agentia Labs ayuda a compa\u00f1\u00edas founder-led a convertir trabajo operativo en capacidad IA gestionada.",
+        ".hero-actions .button-primary": "Analizar tu primer job",
+        ".hero-actions .button-secondary": "Ver la capa de control",
+        "#digital-workforce .section-kicker": "Digital workforce",
+        "#digital-workforce .section-title": "Dise\u00f1amos, creamos y mantenemos tu digital workforce.",
+        ".workforce-pillar:nth-child(1) .workforce-stage": "Dise\u00f1ar",
+        ".workforce-pillar:nth-child(1) h3": "Mapa de workforce digital",
+        ".workforce-pillar:nth-child(1) p": "As-is / to-be, Jobs to be done, objetivos KPI y casos de uso priorizados.",
+        ".workforce-pillar:nth-child(2) .workforce-stage": "Crear",
+        ".workforce-pillar:nth-child(2) h3": "Agentes desplegados",
+        ".workforce-pillar:nth-child(2) p": "Agentes headless y conversacionales llevados a workflows reales.",
+        ".workforce-pillar:nth-child(3) .workforce-stage": "Operar",
+        ".workforce-pillar:nth-child(3) h3": "Suite de observabilidad",
+        ".workforce-pillar:nth-child(3) p": "KPIs del job, excepciones, controles de calidad y cadencia operativa.",
+        "#work .section-kicker": "Dise\u00f1o / m\u00e9todo Jobs to be done",
+        "#work .section-title": "Dise\u00f1amos la workforce alrededor del job, no de la herramienta.",
+        "#work .card:nth-child(1) h3": "Mapear el trabajo real",
+        "#work .card:nth-child(1) p": "Flujos as-is, handoffs, excepciones y demanda oculta.",
+        "#work .card:nth-child(2) h3": "Dise\u00f1ar el modelo objetivo",
+        "#work .card:nth-child(2) p": "Roles to-be para personas, agentes, aprobaciones y controles.",
+        "#work .card:nth-child(3) h3": "Priorizar los jobs correctos",
+        "#work .card:nth-child(3) p": "Casos de uso ordenados por valor, fricci\u00f3n y viabilidad.",
+        "#work .card:nth-child(4) h3": "Fijar la cadencia operativa",
+        "#work .card:nth-child(4) p": "KPIs, ownership y controles antes de poner agentes en producci\u00f3n.",
+        "#agents .section-kicker": "Crear / agent build",
+        "#agents .section-title": "Creamos los agentes que ejecutan el trabajo.",
+        ".agent-type:nth-child(1) .agent-type-label": "Conversacionales",
+        ".agent-type:nth-child(1) h3": "Cuando el job necesita di\u00e1logo.",
+        ".agent-type:nth-child(1) p": "Soporte, cualificaci\u00f3n, acceso a conocimiento y flujos de servicio guiados.",
+        ".agent-type:nth-child(1) .agent-type-meta span": "Superficie principal",
+        ".agent-type:nth-child(1) .agent-type-meta strong": "Chat, voz, portal o asistente embebido",
+        ".agent-type:nth-child(2) .agent-type-label": "Headless",
+        ".agent-type:nth-child(2) h3": "Cuando el job necesita ejecuci\u00f3n.",
+        ".agent-type:nth-child(2) p": "Documentos, enriquecimiento, integraciones, follow-up, routing y back-office workflows.",
+        ".agent-type:nth-child(2) .agent-type-meta span": "Superficie principal",
+        ".agent-type:nth-child(2) .agent-type-meta strong": "Triggers de workflow, herramientas MCP y colas de excepciones",
+        "#workspace .section-kicker": "Operar / suite de observabilidad",
+        "#workspace .section-title": "La suite de observabilidad te permite medir el job y controlar el agente.",
+        ".workspace-topbar > div:first-child strong": "Capa de control operativo",
+        ".workspace-topbar-actions span": "7 agentes activos",
+        ".workspace-topbar-actions button": "Revisar cola",
+        ".workspace-tabs span:nth-child(1)": "Observabilidad",
+        ".workspace-tabs span:nth-child(2)": "Agentes",
+        ".workspace-tabs span:nth-child(3)": "Excepciones",
+        ".workspace-tabs span:nth-child(4)": "Cadencia",
+        ".workspace-metrics div:nth-child(1) span": "Jobs completados",
+        ".workspace-metrics div:nth-child(1) small": "Este mes",
+        ".workspace-metrics div:nth-child(2) span": "Cola de excepciones",
+        ".workspace-metrics div:nth-child(2) small": "Pendientes de criterio",
+        ".workspace-metrics div:nth-child(3) span": "Horas liberadas",
+        ".workspace-metrics div:nth-child(3) small": "En operaciones",
+        ".workspace-metrics div:nth-child(4) span": "Quality pass",
+        ".workspace-metrics div:nth-child(4) small": "Outputs revisados",
+        ".workspace-table-head span:nth-child(1)": "Agente headless",
+        ".workspace-table-head span:nth-child(2)": "KPI del job",
+        ".workspace-table-head span:nth-child(3)": "Output",
+        ".workspace-table-head span:nth-child(4)": "Estado",
+        ".workspace-agent-row:nth-child(2) > div:first-child strong": "Finance Ops Agent",
+        ".workspace-agent-row:nth-child(2) > div:first-child small": "Entrada, validaci\u00f3n y routing de facturas",
+        ".workspace-agent-row:nth-child(2) > div:nth-child(2) small": "facturas procesadas",
+        ".workspace-agent-row:nth-child(2) > div:nth-child(3) small": "emparejadas con PO",
+        ".workspace-agent-row:nth-child(2) > div:nth-child(4)": '<span class="running-dot"></span>Activo',
+        ".workspace-agent-row:nth-child(3) > div:first-child strong": "Growth Agent",
+        ".workspace-agent-row:nth-child(3) > div:first-child small": "Research de leads y handoff comercial",
+        ".workspace-agent-row:nth-child(3) > div:nth-child(2) small": "leads investigados",
+        ".workspace-agent-row:nth-child(3) > div:nth-child(3) small": "listos para ventas",
+        ".workspace-agent-row:nth-child(3) > div:nth-child(4)": '<span class="running-dot"></span>Activo',
+        ".workspace-agent-row:nth-child(4) > div:first-child strong": "CX Agent",
+        ".workspace-agent-row:nth-child(4) > div:first-child small": "Consultas de cliente triadas o resueltas",
+        ".workspace-agent-row:nth-child(4) > div:nth-child(2) small": "consultas gestionadas",
+        ".workspace-agent-row:nth-child(4) > div:nth-child(3) small": "resueltas first pass",
+        ".workspace-agent-row:nth-child(4) > div:nth-child(4)": '<span class="running-dot"></span>Activo',
+        "#use-cases .section-kicker": "D\u00f3nde empezar",
+        "#use-cases .section-title": "Los jobs se convierten en KPIs, casos de uso y agentes.",
+        ".job-design-chain article:nth-child(1) h3": "Jobs",
+        ".job-design-chain article:nth-child(1) p": "Lead-to-cash, procure-to-pay, soporte al cliente, operaciones sociales.",
+        ".job-design-chain article:nth-child(2) h3": "KPIs a conseguir",
+        ".job-design-chain article:nth-child(2) p": "Tiempo de ciclo, quality pass, conversi\u00f3n, backlog, cost-to-serve.",
+        ".job-design-chain article:nth-child(3) h3": "Casos de uso",
+        ".job-design-chain article:nth-child(3) p": "Research, triage, enriquecimiento, aprobaciones, routing, follow-up.",
+        ".job-design-chain article:nth-child(4) h3": "Agentes",
+        ".job-design-chain article:nth-child(4) p": "Capacidad headless y conversacional operando dentro del flujo.",
+        ".macro-process-header span": "Ejemplo de macroproceso",
+        ".macro-process-header strong": "Lead-to-cash agentificado",
+        ".process-step:nth-child(1) span": "Job",
+        ".process-step:nth-child(1) strong": "Capturar demanda",
+        ".process-step:nth-child(2) strong": "Leads listos para ventas",
+        ".process-step:nth-child(3) span": "Caso de uso",
+        ".process-step:nth-child(3) strong": "Cotizar y aprobar",
+        ".process-step:nth-child(4) span": "Caso de uso",
+        ".process-step:nth-child(4) strong": "Cerrar y handoff",
+        ".process-step:nth-child(5) span": "Agente",
+        ".process-step:nth-child(5) strong": "Facturar y cobrar",
+        ".stack-intro span": "Ecosistema de modelos",
+        ".founder-section .section-kicker": "Compa\u00f1\u00eda agentic",
+        ".founder-panel h2": "Convertirse en una compa\u00f1\u00eda agentic no es solo automatizar un proceso.",
+        ".founder-panel p": "Es entender el cambio tecnol\u00f3gico, desplegar casos reales de alto impacto y transformar la forma en la que trabajas.",
+        ".cta-box h2": "Empieza por un job.",
+        ".cta-box .button": "Reservar un Workforce Design Sprint",
+        ".footer-inner > div:first-child": "\u00a9 2026 Agentia Labs. Boutique de operaciones IA y workspace.",
+        ".footer-links a": "Contacto"
+      };
+
+      Object.entries(text).forEach(([selector, value]) => {
+        const node = document.querySelector(selector);
+        if (!node) return;
+        if (value.includes("<")) {
+          node.innerHTML = value;
+        } else {
+          node.textContent = value;
+        }
+      });
+
+      const attributes = [
+        [".nav", "aria-label", "Navegaci\u00f3n principal"],
+        [".brand", "aria-label", "Inicio de Agentia Labs"],
+        [".workforce-grid", "aria-label", "Modelo operativo de workforce digital de Agentia"],
+        [".workspace-preview", "aria-label", "Vista previa de la suite SaaS de observabilidad de Agentia Workspace"],
+        [".workspace-tabs", "aria-label", "Vistas del workspace"],
+        [".job-design-chain", "aria-label", "Secuencia de dise\u00f1o de jobs de Agentia"],
+        [".macro-process", "aria-label", "Macroproceso lead-to-cash agentificado"],
+        ["#stack", "aria-label", "Stack tecnol\u00f3gico"]
+      ];
+
+      attributes.forEach(([selector, attribute, value]) => {
+        const node = document.querySelector(selector);
+        if (node) node.setAttribute(attribute, value);
+      });
+
+      const mailSubjects = [
+        [".nav-cta", "Empezar por un job"],
+        [".hero-actions .button-primary", "Analizar tu primer job"],
+        [".cta-box .button", "Reservar un Workforce Design Sprint"]
+      ];
+
+      mailSubjects.forEach(([selector, subject]) => {
+        const node = document.querySelector(selector);
+        if (!node) return;
+        node.setAttribute("href", `mailto:hello@agentialabs.ai?subject=${encodeURIComponent(subject)}`);
+      });
+    })();
+  </script>
 </body>
 </html>
