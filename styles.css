@@ -289,18 +289,6 @@ h1 {
   color: var(--olive);
 }
 
-.hero-note {
-  max-width: 640px;
-  margin-top: 28px;
-  color: var(--quiet);
-  font-size: 17px;
-}
-
-.hero-note span {
-  color: var(--ink);
-  font-weight: 800;
-}
-
 .hero-network {
   position: absolute;
   inset: 72px 0 0 35%;
@@ -535,12 +523,12 @@ h1 {
   --section-bg: var(--surface-warm);
 }
 
-.work-heading {
-  padding-top: 42px;
+.workforce-section {
+  --section-bg: var(--surface-paper);
 }
 
-#deliverables {
-  --section-bg: var(--surface-olive);
+.work-heading {
+  padding-top: 42px;
 }
 
 #use-cases {
@@ -629,6 +617,67 @@ h1 {
 .card p {
   color: var(--muted);
   font-size: 17px;
+}
+
+.workforce-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 44px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.workforce-pillar {
+  min-height: 330px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 34px;
+  border-right: 1px solid var(--line);
+}
+
+.workforce-pillar:last-child {
+  border-right: 0;
+}
+
+.workforce-pillar:not(:last-child)::after {
+  content: "->";
+  position: absolute;
+  right: -13px;
+  top: 34px;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  color: var(--olive);
+  border: 1px solid var(--line);
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.workforce-stage {
+  color: var(--brass);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: auto;
+}
+
+.workforce-pillar h3 {
+  max-width: 300px;
+  font-size: 31px;
+  line-height: 1.04;
+  margin-bottom: 14px;
+}
+
+.workforce-pillar p {
+  max-width: 330px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.38;
 }
 
 .agent-types-section {
@@ -1447,6 +1496,7 @@ h1 {
 
   .card-grid,
   .principle-grid,
+  .workforce-grid,
   .agent-type-grid,
   .job-design-chain {
     margin-top: 30px;
@@ -1526,6 +1576,7 @@ h1 {
 
   .card-grid,
   .principle-grid,
+  .workforce-grid,
   .job-design-chain,
   .stack-logos,
   .agent-type-grid {
@@ -1533,6 +1584,7 @@ h1 {
   }
 
   .card,
+  .workforce-pillar,
   .job-design-chain article,
   .stack-logo,
   .agent-type {
@@ -1546,10 +1598,23 @@ h1 {
   }
 
   .card:last-child,
+  .workforce-pillar:last-child,
   .job-design-chain article:last-child,
   .stack-logo:last-child,
   .agent-type:last-child {
     border-bottom: 0;
+  }
+
+  .workforce-pillar {
+    min-height: 218px;
+  }
+
+  .workforce-pillar:not(:last-child)::after {
+    display: none;
+  }
+
+  .workforce-stage {
+    margin-bottom: 34px;
   }
 
   .job-design-chain article {
