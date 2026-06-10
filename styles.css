@@ -773,74 +773,147 @@ h1 {
 .workforce-visual-map span {
   border: 1px solid rgba(18, 19, 15, 0.18);
   background: rgba(251, 250, 246, 0.72);
+  animation: mapCellSignal 5.4s ease-in-out infinite;
 }
 
-.workforce-visual-map span:nth-child(2),
-.workforce-visual-map span:nth-child(5) {
-  background: rgba(156, 122, 62, 0.22);
-  animation: quietPulse 3.6s ease-in-out infinite;
+.workforce-visual-map span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.workforce-visual-map span:nth-child(2) {
+  animation-delay: 0.45s;
+}
+
+.workforce-visual-map span:nth-child(3) {
+  animation-delay: 0.9s;
+}
+
+.workforce-visual-map span:nth-child(4) {
+  animation-delay: 1.35s;
 }
 
 .workforce-visual-map span:nth-child(5) {
-  animation-delay: 1.2s;
+  animation-delay: 1.8s;
+}
+
+.workforce-visual-map span:nth-child(6) {
+  animation-delay: 2.25s;
+}
+
+@keyframes mapCellSignal {
+  0%,
+  18%,
+  100% {
+    border-color: rgba(18, 19, 15, 0.18);
+    background: rgba(251, 250, 246, 0.72);
+    box-shadow: none;
+  }
+
+  32%,
+  48% {
+    border-color: rgba(156, 122, 62, 0.48);
+    background: rgba(156, 122, 62, 0.22);
+    box-shadow: inset 0 0 0 999px rgba(88, 107, 76, 0.04);
+  }
 }
 
 .workforce-visual-agents {
-  width: 144px;
-  height: 104px;
+  width: 132px;
+  height: 76px;
+  margin-top: 54px;
+  margin-bottom: 32px;
 }
 
 .workforce-visual-agents::before,
 .workforce-visual-agents::after {
   content: "";
   position: absolute;
-  left: 18px;
-  right: 18px;
-  top: 40px;
+  left: 13px;
+  right: 13px;
+  top: 33px;
   height: 1px;
-  background: var(--line);
+  background:
+    linear-gradient(90deg, var(--line), rgba(156, 122, 62, 0.72), var(--line), rgba(88, 107, 76, 0.46), var(--line));
+  background-size: 260% 100%;
+  animation: agentTransferFlow 3.8s linear infinite;
 }
 
 .workforce-visual-agents::after {
-  left: 71px;
+  left: 65px;
   right: auto;
-  top: 55px;
+  top: 45px;
   width: 1px;
-  height: 24px;
+  height: 20px;
+  background:
+    linear-gradient(180deg, var(--line), rgba(156, 122, 62, 0.7), var(--line));
+  background-size: 100% 220%;
+  animation: agentTransferDrop 2.8s linear infinite;
 }
 
 .workforce-visual-agents span {
   position: absolute;
   z-index: 1;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border: 1px solid rgba(18, 19, 15, 0.2);
   background: var(--paper);
-  box-shadow: 0 0 0 8px var(--paper);
+  box-shadow: 0 0 0 6px rgba(251, 250, 246, 0.82);
 }
 
 .workforce-visual-agents span:nth-child(1) {
-  left: 56px;
-  top: 24px;
+  left: 50px;
+  top: 14px;
   width: 32px;
   height: 32px;
   background: rgba(156, 122, 62, 0.22);
-  animation: quietPulse 3s ease-in-out infinite;
+  animation: agentNodeSignal 3.8s ease-in-out infinite;
 }
 
 .workforce-visual-agents span:nth-child(2) {
   left: 0;
-  top: 28px;
+  top: 22px;
+  animation: agentNodeSignal 3.8s ease-in-out infinite;
+  animation-delay: 0.7s;
 }
 
 .workforce-visual-agents span:nth-child(3) {
   right: 0;
-  top: 28px;
+  top: 22px;
+  animation: agentNodeSignal 3.8s ease-in-out infinite;
+  animation-delay: 1.4s;
 }
 
 .workforce-visual-agents span:nth-child(4) {
-  left: 60px;
-  top: 78px;
+  left: 55px;
+  top: 54px;
+  animation: agentNodeSignal 3.8s ease-in-out infinite;
+  animation-delay: 2.1s;
+}
+
+@keyframes agentTransferFlow {
+  to {
+    background-position: -260% 0;
+  }
+}
+
+@keyframes agentTransferDrop {
+  to {
+    background-position: 0 220%;
+  }
+}
+
+@keyframes agentNodeSignal {
+  0%,
+  100% {
+    border-color: rgba(18, 19, 15, 0.2);
+    background: var(--paper);
+  }
+
+  42%,
+  58% {
+    border-color: rgba(156, 122, 62, 0.5);
+    background: rgba(156, 122, 62, 0.22);
+  }
 }
 
 .workforce-visual-observe {
