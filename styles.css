@@ -1116,7 +1116,7 @@ h1 {
   overflow: hidden;
   position: relative;
   display: grid;
-  grid-template-columns: 64px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   border: 1px solid var(--dark-line);
   background:
     linear-gradient(135deg, rgba(251, 250, 246, 0.06), transparent 32%),
@@ -1146,54 +1146,6 @@ h1 {
   100% {
     transform: translateX(120%);
   }
-}
-
-.workspace-rail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  padding: 18px 12px;
-  border-right: 1px solid var(--dark-line);
-  background: #151812;
-}
-
-.workspace-mark {
-  width: 32px;
-  height: 32px;
-  margin-bottom: 16px;
-  background: url("assets/agentia-mark-h-light.svg") center / contain no-repeat;
-}
-
-.rail-item {
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(251, 250, 246, 0.12);
-  background:
-    linear-gradient(90deg, transparent 46%, rgba(251, 250, 246, 0.26) 46% 54%, transparent 54%),
-    linear-gradient(0deg, transparent 46%, rgba(251, 250, 246, 0.26) 46% 54%, transparent 54%),
-    rgba(251, 250, 246, 0.04);
-}
-
-.rail-item:nth-child(3) {
-  background:
-    radial-gradient(circle, rgba(251, 250, 246, 0.34) 0 3px, transparent 4px),
-    rgba(251, 250, 246, 0.04);
-}
-
-.rail-item:nth-child(4) {
-  background:
-    linear-gradient(135deg, transparent 44%, rgba(251, 250, 246, 0.32) 44% 56%, transparent 56%),
-    rgba(251, 250, 246, 0.04);
-}
-
-.rail-item-active {
-  border-color: rgba(201, 185, 138, 0.62);
-  background:
-    linear-gradient(90deg, transparent 46%, #c9b98a 46% 54%, transparent 54%),
-    linear-gradient(0deg, transparent 46%, #c9b98a 46% 54%, transparent 54%),
-    rgba(201, 185, 138, 0.12);
-  animation: quietPulse 3s ease-in-out infinite;
 }
 
 .workspace-app {
@@ -1958,10 +1910,6 @@ h1 {
 
   .workspace-preview {
     grid-template-columns: 1fr;
-  }
-
-  .workspace-rail {
-    display: none;
   }
 
   .workspace-topbar {
