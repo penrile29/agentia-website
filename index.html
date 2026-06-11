@@ -17,7 +17,7 @@
     rel="stylesheet"
   />
   <link rel="icon" type="image/svg+xml" href="assets/agentia-mark-h.svg" />
-  <link rel="stylesheet" href="styles.css?v=industries" />
+  <link rel="stylesheet" href="styles.css?v=language" />
 </head>
 
 <body>
@@ -40,9 +40,16 @@
             <a href="industries.html">Industries</a>
           </div>
 
-          <a href="mailto:hello@agentialabs.ai?subject=Workforce%20Design%20Sprint" class="nav-cta">
-            Start with one job
-          </a>
+          <div class="nav-actions">
+            <div class="language-switcher" aria-label="Language selector">
+              <button type="button" data-lang-option="en" aria-pressed="true">EN</button>
+              <button type="button" data-lang-option="es" aria-pressed="false">ES</button>
+            </div>
+
+            <a href="mailto:hello@agentialabs.ai?subject=Workforce%20Design%20Sprint" class="nav-cta">
+              Start with one job
+            </a>
+          </div>
         </nav>
       </div>
     </header>
@@ -575,18 +582,52 @@
 
   <script>
     (() => {
-      const forcedLanguage = new URLSearchParams(window.location.search).get("lang");
+      const safeStorage = {
+        get(key) {
+          try {
+            return window.localStorage.getItem(key);
+          } catch {
+            return null;
+          }
+        },
+        set(key, value) {
+          try {
+            window.localStorage.setItem(key, value);
+          } catch {}
+        }
+      };
+
+      const normalizeLanguage = (value) => {
+        const languageValue = (value || "").toLowerCase();
+        return languageValue.startsWith("es") ? "es" : "en";
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const forcedLanguage = params.get("lang");
+      const storedLanguage = safeStorage.get("agentia-language");
       const browserLanguages = navigator.languages && navigator.languages.length
         ? navigator.languages
         : [navigator.language || "en"];
-      const language = (forcedLanguage || browserLanguages[0] || "en").toLowerCase();
+      const language = normalizeLanguage(forcedLanguage || storedLanguage || browserLanguages[0] || "en");
 
-      if (!language.startsWith("es")) {
-        document.documentElement.lang = "en";
-        return;
-      }
+      if (forcedLanguage) safeStorage.set("agentia-language", language);
+      document.documentElement.lang = language;
 
-      document.documentElement.lang = "es";
+      document.querySelectorAll("[data-lang-option]").forEach((button) => {
+        const option = normalizeLanguage(button.dataset.langOption);
+        const isActive = option === language;
+        button.setAttribute("aria-pressed", String(isActive));
+
+        button.addEventListener("click", () => {
+          safeStorage.set("agentia-language", option);
+          const url = new URL(window.location.href);
+          url.searchParams.set("lang", option);
+          window.location.href = url.toString();
+        });
+      });
+
+      if (language !== "es") return;
+
       document.title = "Agentia Labs - Boutique de operaciones IA y workspace";
 
       const metaDescription = document.querySelector('meta[name="description"]');
@@ -729,6 +770,7 @@
       const attributes = [
         [".nav", "aria-label", "Navegaci\u00f3n principal"],
         [".brand", "aria-label", "Inicio de Agentia Labs"],
+        [".language-switcher", "aria-label", "Selector de idioma"],
         [".kinetic-strip", "aria-label", "Bucle operativo de Agentia"],
         [".workforce-grid", "aria-label", "Modelo operativo de mano de obra digital de Agentia"],
         [".workspace-preview", "aria-label", "Vista previa de la suite SaaS de observabilidad de Agentia Workspace"],
