@@ -2169,17 +2169,24 @@ h1 {
   }
 
   .nav-actions {
-    right: 0;
+    position: fixed;
+    top: 78px;
+    right: 14px;
+    z-index: 60;
   }
 
   .language-switcher {
-    min-height: 34px;
+    min-height: 40px;
+    padding: 4px;
+    border-color: rgba(18, 19, 15, 0.34);
+    background: rgba(251, 250, 246, 0.98);
+    box-shadow: 0 10px 30px rgba(18, 19, 15, 0.12);
   }
 
   .language-switcher button {
-    min-width: 32px;
-    min-height: 28px;
-    font-size: 11px;
+    min-width: 40px;
+    min-height: 30px;
+    font-size: 12px;
   }
 
   .hero {
