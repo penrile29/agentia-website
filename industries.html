@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Industries - Agentia Labs</title>
+  <meta
+    name="description"
+    content="Industries where Agentia Labs designs, creates and maintains managed digital workforce capacity: legal, e-commerce, pharma and manufacturing."
+  />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700;9..40,800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="icon" type="image/svg+xml" href="assets/agentia-mark-h.svg" />
+  <link rel="stylesheet" href="styles.css?v=industries" />
+</head>
+
+<body class="industries-page">
+  <div class="page" id="top">
+
+    <header class="site-header">
+      <div class="container">
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html" class="brand" aria-label="Agentia Labs home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>Agentia Labs</span>
+          </a>
+
+          <div class="nav-links">
+            <a href="index.html#digital-workforce">Workforce</a>
+            <a href="index.html#work">Design</a>
+            <a href="index.html#agents">Create</a>
+            <a href="index.html#workspace">Maintain</a>
+            <a href="index.html#use-cases">Jobs</a>
+            <a href="industries.html" aria-current="page">Industries</a>
+          </div>
+
+          <a href="mailto:hello@agentialabs.ai?subject=Workforce%20Design%20Sprint" class="nav-cta">
+            Start with one job
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="industry-hero">
+        <div class="container">
+          <div class="industry-hero-layout">
+            <div class="industry-hero-copy">
+              <div class="section-kicker">Industries</div>
+              <h1>Digital workforce, by industry.</h1>
+              <p>Same operating model, tuned to the work that matters in each sector.</p>
+
+              <div class="hero-actions">
+                <a class="button button-primary" href="index.html#digital-workforce">How we do it</a>
+                <a class="button button-secondary" href="mailto:hello@agentialabs.ai?subject=Industry%20Workforce%20Map">
+                  Start with one job
+                </a>
+              </div>
+            </div>
+
+            <div class="industry-orbit" aria-hidden="true">
+              <span>Legal</span>
+              <span>E-commerce</span>
+              <span>Pharma</span>
+              <span>Manufacturing</span>
+              <i></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section industries-directory" aria-label="Industries directory">
+        <div class="container">
+          <div class="section-kicker">Initial focus</div>
+          <h2 class="section-title">Four operating environments where agentic work gets concrete.</h2>
+
+          <div class="industry-grid">
+            <article class="industry-card">
+              <span class="industry-index">01</span>
+              <h3>Legal</h3>
+              <p>Matter intake, contract workflows, document review and knowledge retrieval.</p>
+            </article>
+
+            <article class="industry-card">
+              <span class="industry-index">02</span>
+              <h3>E-commerce</h3>
+              <p>CX triage, catalog operations, returns, social operations and merchandising support.</p>
+            </article>
+
+            <article class="industry-card">
+              <span class="industry-index">03</span>
+              <h3>Pharma</h3>
+              <p>Regulated documents, field support, medical inquiries and quality workflows.</p>
+            </article>
+
+            <article class="industry-card">
+              <span class="industry-index">04</span>
+              <h3>Manufacturing</h3>
+              <p>Procure-to-pay, supplier operations, maintenance intake and production reporting.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="industry-cta">
+        <div class="container">
+          <div class="industry-cta-inner">
+            <h2>Start with the work. Then build the workforce.</h2>
+            <a class="button button-primary" href="mailto:hello@agentialabs.ai?subject=Industry%20Workforce%20Map">
+              Map an industry workflow
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-inner">
+          <div>&copy; 2026 Agentia Labs. AI Operations Boutique &amp; Workspace.</div>
+
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="mailto:hello@agentialabs.ai">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    (() => {
+      const forcedLanguage = new URLSearchParams(window.location.search).get("lang");
+      const browserLanguages = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || "en"];
+      const language = (forcedLanguage || browserLanguages[0] || "en").toLowerCase();
+
+      if (!language.startsWith("es")) {
+        document.documentElement.lang = "en";
+        return;
+      }
+
+      document.documentElement.lang = "es";
+      document.title = "Industrias - Agentia Labs";
+
+      const metaDescription = document.querySelector('meta[name="description"]');
+      if (metaDescription) {
+        metaDescription.setAttribute(
+          "content",
+          "Industrias donde Agentia Labs dise\u00f1a, crea y opera capacidad de mano de obra digital gestionada: Legal, E-commerce, Pharma y Manufacturing."
+        );
+      }
+
+      const text = {
+        ".nav-links a:nth-child(1)": "Mano de obra",
+        ".nav-links a:nth-child(2)": "Dise\u00f1ar",
+        ".nav-links a:nth-child(3)": "Crear",
+        ".nav-links a:nth-child(4)": "Operar",
+        ".nav-links a:nth-child(5)": "Trabajos",
+        ".nav-links a:nth-child(6)": "Industrias",
+        ".nav-cta": "Empezar por un trabajo",
+        ".industry-hero .section-kicker": "Industrias",
+        ".industry-hero h1": "Mano de obra digital por industria.",
+        ".industry-hero-copy p": "El mismo modelo operativo, adaptado al trabajo que importa en cada sector.",
+        ".industry-hero .button-primary": "How we do it",
+        ".industry-hero .button-secondary": "Empezar por un trabajo",
+        ".industries-directory .section-kicker": "Foco inicial",
+        ".industries-directory .section-title": "Cuatro entornos donde la mano de obra digital se vuelve concreta.",
+        ".industry-card:nth-child(1) p": "Intake de asuntos, workflows de contratos, revisi\u00f3n documental y recuperaci\u00f3n de conocimiento.",
+        ".industry-card:nth-child(2) p": "Triage de CX, operaciones de cat\u00e1logo, devoluciones, operaciones sociales y soporte de merchandising.",
+        ".industry-card:nth-child(3) p": "Documentos regulados, soporte de campo, consultas m\u00e9dicas y workflows de calidad.",
+        ".industry-card:nth-child(4) p": "Procure-to-pay, operaciones de proveedores, intake de mantenimiento y reporting de producci\u00f3n.",
+        ".industry-cta h2": "Empieza por el trabajo. Luego construye la mano de obra.",
+        ".industry-cta .button": "Mapear un workflow de industria",
+        ".footer-inner > div:first-child": "\u00a9 2026 Agentia Labs. Boutique de operaciones IA y workspace.",
+        ".footer-links a:nth-child(1)": "Inicio",
+        ".footer-links a:nth-child(2)": "Contacto"
+      };
+
+      Object.entries(text).forEach(([selector, value]) => {
+        const node = document.querySelector(selector);
+        if (!node) return;
+        node.textContent = value;
+      });
+
+      const attributes = [
+        [".nav", "aria-label", "Navegaci\u00f3n principal"],
+        [".brand", "aria-label", "Inicio de Agentia Labs"],
+        [".brand", "href", "index.html?lang=es"],
+        [".nav-links a:nth-child(1)", "href", "index.html?lang=es#digital-workforce"],
+        [".nav-links a:nth-child(2)", "href", "index.html?lang=es#work"],
+        [".nav-links a:nth-child(3)", "href", "index.html?lang=es#agents"],
+        [".nav-links a:nth-child(4)", "href", "index.html?lang=es#workspace"],
+        [".nav-links a:nth-child(5)", "href", "index.html?lang=es#use-cases"],
+        [".nav-links a:nth-child(6)", "href", "industries.html?lang=es"],
+        [".industry-hero .button-primary", "href", "index.html?lang=es#digital-workforce"],
+        [".footer-links a:nth-child(1)", "href", "index.html?lang=es"],
+        [".industries-directory", "aria-label", "Directorio de industrias"]
+      ];
+
+      attributes.forEach(([selector, attribute, value]) => {
+        const node = document.querySelector(selector);
+        if (node) node.setAttribute(attribute, value);
+      });
+
+      const mailSubjects = [
+        [".nav-cta", "Empezar por un trabajo"],
+        [".industry-hero .button-secondary", "Mapa de mano de obra por industria"],
+        [".industry-cta .button", "Mapa de mano de obra por industria"]
+      ];
+
+      mailSubjects.forEach(([selector, subject]) => {
+        const node = document.querySelector(selector);
+        if (!node) return;
+        node.setAttribute("href", `mailto:hello@agentialabs.ai?subject=${encodeURIComponent(subject)}`);
+      });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealTargets = [
+        ".industry-hero-copy",
+        ".industry-orbit",
+        ".industries-directory",
+        ".industry-card",
+        ".industry-cta-inner"
+      ].join(",");
+
+      if (reducedMotion) {
+        document.documentElement.classList.add("motion-off");
+        document.querySelectorAll(revealTargets).forEach((node) => node.classList.add("is-visible"));
+        return;
+      }
+
+      document.documentElement.classList.add("motion-ready");
+
+      const revealNodes = Array.from(document.querySelectorAll(revealTargets));
+      let ticking = false;
+
+      revealNodes.forEach((node, index) => {
+        node.style.setProperty("--reveal-index", index % 6);
+      });
+
+      const isInView = (node, offset = 0.88) => {
+        const rect = node.getBoundingClientRect();
+        return rect.top < window.innerHeight * offset && rect.bottom > 0;
+      };
+
+      const checkMotion = () => {
+        revealNodes.forEach((node) => {
+          if (!node.classList.contains("is-visible") && isInView(node)) {
+            node.classList.add("is-visible");
+          }
+        });
+
+        if (revealNodes.every((node) => node.classList.contains("is-visible"))) {
+          window.removeEventListener("scroll", scheduleMotion);
+          window.removeEventListener("resize", scheduleMotion);
+        }
+      };
+
+      const scheduleMotion = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          checkMotion();
+        });
+      };
+
+      window.addEventListener("scroll", scheduleMotion, { passive: true });
+      window.addEventListener("resize", scheduleMotion);
+      requestAnimationFrame(checkMotion);
+    })();
+  </script>
+</body>
+</html>
