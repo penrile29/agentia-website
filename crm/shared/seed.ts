@@ -1,0 +1,352 @@
+import {
+  type Account,
+  type CaseRecord,
+  type Contact,
+  type CrmData,
+  type Invoice,
+  type InvoiceLine,
+  type Lead,
+  type Opportunity,
+  type OpportunityLineItem,
+  type Product,
+  type Proposal,
+  type ProposalLineItem,
+  type User,
+  defaultPathConfigs,
+} from "./schema.ts";
+
+const now = "2026-06-24T09:00:00.000Z";
+
+function stamp<T extends { id: string }>(record: T): T & { createdAt: string; updatedAt: string } {
+  return { ...record, createdAt: now, updatedAt: now };
+}
+
+export function createSeedData(): CrmData {
+  const users: User[] = [
+    stamp({ id: "usr_admin", name: "Nuria Cobo", email: "nuria@agentialabs.ai", role: "Admin", isAdmin: true }),
+    stamp({ id: "usr_sales", name: "Mateo Ruiz", email: "mateo@agentialabs.ai", role: "Ventas", isAdmin: false }),
+    stamp({ id: "usr_success", name: "Lucia Martin", email: "lucia@agentialabs.ai", role: "Customer Success", isAdmin: false }),
+  ];
+
+  const products: Product[] = [
+    stamp({
+      id: "prd_workforce_design",
+      name: "Digital Workforce Design Sprint",
+      productCode: "DW-SPRINT",
+      family: "Consulting",
+      revenueType: "oneOff",
+      isActive: true,
+      listPrice: 12000,
+      currencyIsoCode: "EUR",
+      ownerId: "usr_admin",
+      description: "Sprint inicial para mapear cuello de botella, procesos y primera plantilla de agentes.",
+    }),
+    stamp({
+      id: "prd_agent_build",
+      name: "Agent Build Pod",
+      productCode: "AG-BUILD",
+      family: "Agentic Ops",
+      revenueType: "oneOff",
+      isActive: true,
+      listPrice: 28000,
+      currencyIsoCode: "EUR",
+      ownerId: "usr_sales",
+      description: "Construccion de agentes operativos y automatizaciones alrededor de un workflow.",
+    }),
+    stamp({
+      id: "prd_workspace",
+      name: "Agentia Workspace",
+      productCode: "WORKSPACE",
+      family: "Workspace",
+      revenueType: "mrr",
+      isActive: true,
+      listPrice: 1800,
+      currencyIsoCode: "EUR",
+      ownerId: "usr_admin",
+      description: "Capa de control para supervisar agentes, jobs, handoffs y evidencias.",
+    }),
+    stamp({
+      id: "prd_success",
+      name: "Managed Agent Operations",
+      productCode: "MNG-OPS",
+      family: "Support",
+      revenueType: "mrr",
+      isActive: true,
+      listPrice: 6500,
+      currencyIsoCode: "EUR",
+      ownerId: "usr_success",
+      description: "Soporte mensual para operar, medir y mejorar la fuerza laboral digital.",
+    }),
+  ];
+
+  const accounts: Account[] = [
+    stamp({
+      id: "acc_kinship",
+      name: "Kinship Labs",
+      type: "Customer",
+      industry: "Professional Services",
+      rating: "Hot",
+      phone: "+34 910 000 120",
+      website: "https://kinship.example",
+      billingCity: "Madrid",
+      billingCountry: "Spain",
+      ownerId: "usr_admin",
+      description: "Cuenta piloto para workspace operativo y procesos comerciales.",
+    }),
+    stamp({
+      id: "acc_northstar",
+      name: "Northstar Health",
+      type: "Prospect",
+      industry: "Healthcare",
+      rating: "Warm",
+      phone: "+34 930 000 240",
+      website: "https://northstar.example",
+      billingCity: "Barcelona",
+      billingCountry: "Spain",
+      ownerId: "usr_sales",
+      description: "Prospect interesado en automatizacion de intake y operaciones clinicas.",
+    }),
+  ];
+
+  const contacts: Contact[] = [
+    stamp({
+      id: "con_ana",
+      firstName: "Ana",
+      lastName: "Campos",
+      accountId: "acc_kinship",
+      title: "COO",
+      email: "ana@kinship.example",
+      phone: "+34 600 100 200",
+      leadSource: "Referral",
+      ownerId: "usr_admin",
+    }),
+    stamp({
+      id: "con_pablo",
+      firstName: "Pablo",
+      lastName: "Serrano",
+      accountId: "acc_northstar",
+      title: "Director of Operations",
+      email: "pablo@northstar.example",
+      phone: "+34 600 300 400",
+      leadSource: "LinkedIn",
+      ownerId: "usr_sales",
+    }),
+  ];
+
+  const leads: Lead[] = [
+    stamp({
+      id: "lea_horizon",
+      firstName: "Marta",
+      lastName: "Vidal",
+      company: "Horizon Retail",
+      status: "Open - Not Contacted",
+      leadSource: "Web",
+      rating: "Hot",
+      email: "marta@horizon.example",
+      phone: "+34 600 900 100",
+      website: "https://horizon.example",
+      isConverted: false,
+      ownerId: "usr_sales",
+      description: "Quiere reducir trabajo manual en catalogo y soporte.",
+    }),
+    stamp({
+      id: "lea_boreal",
+      firstName: "Irene",
+      lastName: "Lopez",
+      company: "Boreal Finance",
+      status: "Working - Contacted",
+      leadSource: "Event",
+      rating: "Warm",
+      email: "irene@boreal.example",
+      phone: "+34 600 770 180",
+      website: "https://boreal.example",
+      isConverted: false,
+      ownerId: "usr_sales",
+      description: "Interes en onboarding y compliance operations.",
+    }),
+  ];
+
+  const opportunities: Opportunity[] = [
+    stamp({
+      id: "opp_kinship_workspace",
+      name: "Kinship - Agentia Workspace rollout",
+      accountId: "acc_kinship",
+      contactId: "con_ana",
+      stageName: "Proposal/Price Quote",
+      closeDate: "2026-07-31",
+      oneOffAmount: 40000,
+      mrrAmount: 8000,
+      amount: 48000,
+      amountMode: "syncPrimaryProposal",
+      syncedProposalId: "quo_kinship_phase1",
+      probability: 60,
+      type: "New Business",
+      leadSource: "Referral",
+      currencyIsoCode: "EUR",
+      ownerId: "usr_admin",
+      description: "Fase 1: workspace, agentes de operaciones y reporting.",
+    }),
+    stamp({
+      id: "opp_northstar_intake",
+      name: "Northstar - Intake automation",
+      accountId: "acc_northstar",
+      contactId: "con_pablo",
+      stageName: "Needs Analysis",
+      closeDate: "2026-08-15",
+      oneOffAmount: 40000,
+      mrrAmount: 0,
+      amount: 40000,
+      amountMode: "manual",
+      probability: 25,
+      type: "New Business",
+      leadSource: "LinkedIn",
+      currencyIsoCode: "EUR",
+      ownerId: "usr_sales",
+      description: "Discovery de intake, triage y seguimiento administrativo.",
+    }),
+  ];
+
+  const opportunityLineItems: OpportunityLineItem[] = [
+    stamp({
+      id: "oli_kinship_sprint",
+      opportunityId: "opp_kinship_workspace",
+      productId: "prd_workforce_design",
+      revenueType: "oneOff",
+      quantity: 1,
+      unitPrice: 12000,
+      discountPercent: 0,
+      totalPrice: 12000,
+      ownerId: "usr_admin",
+    }),
+    stamp({
+      id: "oli_kinship_build",
+      opportunityId: "opp_kinship_workspace",
+      productId: "prd_agent_build",
+      revenueType: "oneOff",
+      quantity: 1,
+      unitPrice: 28000,
+      discountPercent: 0,
+      totalPrice: 28000,
+      ownerId: "usr_admin",
+    }),
+  ];
+
+  const proposals: Proposal[] = [
+    stamp({
+      id: "quo_kinship_phase1",
+      name: "Kinship Phase 1 Proposal",
+      proposalNumber: "Q-00001",
+      opportunityId: "opp_kinship_workspace",
+      accountId: "acc_kinship",
+      contactId: "con_ana",
+      status: "Presented",
+      expirationDate: "2026-07-15",
+      totalPrice: 48000,
+      currencyIsoCode: "EUR",
+      isSyncing: true,
+      ownerId: "usr_admin",
+      description: "Propuesta principal sincronizada con la oportunidad.",
+    }),
+  ];
+
+  const proposalLineItems: ProposalLineItem[] = [
+    stamp({
+      id: "qli_kinship_sprint",
+      proposalId: "quo_kinship_phase1",
+      productId: "prd_workforce_design",
+      revenueType: "oneOff",
+      quantity: 1,
+      unitPrice: 12000,
+      discountPercent: 0,
+      totalPrice: 12000,
+      ownerId: "usr_admin",
+    }),
+    stamp({
+      id: "qli_kinship_build",
+      proposalId: "quo_kinship_phase1",
+      productId: "prd_agent_build",
+      revenueType: "oneOff",
+      quantity: 1,
+      unitPrice: 28000,
+      discountPercent: 0,
+      totalPrice: 28000,
+      ownerId: "usr_admin",
+    }),
+    stamp({
+      id: "qli_kinship_ops",
+      proposalId: "quo_kinship_phase1",
+      productId: "prd_success",
+      revenueType: "mrr",
+      quantity: 2,
+      unitPrice: 4000,
+      discountPercent: 0,
+      totalPrice: 8000,
+      ownerId: "usr_admin",
+    }),
+  ];
+
+  const invoices: Invoice[] = [
+    stamp({
+      id: "inv_kinship_deposit",
+      invoiceNumber: "INV-00001",
+      accountId: "acc_kinship",
+      opportunityId: "opp_kinship_workspace",
+      proposalId: "quo_kinship_phase1",
+      status: "Draft",
+      settlementStatus: "Not Settled",
+      invoiceDate: "2026-06-24",
+      dueDate: "2026-07-08",
+      totalAmount: 12000,
+      currencyIsoCode: "EUR",
+      ownerId: "usr_admin",
+      description: "Deposito inicial pendiente de envio.",
+    }),
+  ];
+
+  const invoiceLines: InvoiceLine[] = [
+    stamp({
+      id: "inl_kinship_deposit",
+      invoiceId: "inv_kinship_deposit",
+      productId: "prd_workforce_design",
+      description: "Digital Workforce Design Sprint - deposito",
+      quantity: 1,
+      unitPrice: 12000,
+      totalAmount: 12000,
+      ownerId: "usr_admin",
+    }),
+  ];
+
+  const cases: CaseRecord[] = [
+    stamp({
+      id: "cas_1001",
+      caseNumber: "00001001",
+      subject: "Ajustar permisos del workspace",
+      accountId: "acc_kinship",
+      contactId: "con_ana",
+      status: "Working",
+      priority: "Medium",
+      origin: "Email",
+      type: "Implementation",
+      isEscalated: false,
+      ownerId: "usr_success",
+      description: "El equipo de operaciones necesita revisar acceso a reportes semanales.",
+    }),
+  ];
+
+  return {
+    version: 1,
+    users,
+    accounts,
+    contacts,
+    leads,
+    opportunities,
+    opportunityLineItems,
+    products,
+    proposals,
+    proposalLineItems,
+    invoices,
+    invoiceLines,
+    cases,
+    pathConfigs: defaultPathConfigs,
+  };
+}

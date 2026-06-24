@@ -1,0 +1,525 @@
+{
+  "version": 1,
+  "users": [
+    {
+      "id": "usr_admin",
+      "name": "Nuria Cobo",
+      "email": "nuria@agentialabs.ai",
+      "role": "Admin",
+      "isAdmin": true,
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "passwordSalt": "gsnbxXgFbZ7keff0CDSSgg",
+      "passwordHash": "19S02JuuwilMADYHTWOYQEMhigIhGP2s3oxkpgSekjs",
+      "passwordUpdatedAt": "2026-06-24T07:49:17.649Z"
+    },
+    {
+      "id": "usr_sales",
+      "name": "Mateo Ruiz",
+      "email": "mateo@agentialabs.ai",
+      "role": "Ventas",
+      "isAdmin": false,
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "passwordSalt": "Wp4veBUWEgahEAcfFuFVdQ",
+      "passwordHash": "m-ZzGj0zmUtaq8UvHLU51Z42tSJhNYVkVpmFgQwfvP4",
+      "passwordUpdatedAt": "2026-06-24T07:49:17.658Z"
+    },
+    {
+      "id": "usr_success",
+      "name": "Lucia Martin",
+      "email": "lucia@agentialabs.ai",
+      "role": "Customer Success",
+      "isAdmin": false,
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "passwordSalt": "bflUETWPAXpryQsQJPDzVg",
+      "passwordHash": "kHKsVNOuDDYskZU9U_8vRmm83j4Xws5bQyDnwagjGwQ",
+      "passwordUpdatedAt": "2026-06-24T07:49:17.667Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "acc_mqrs3961_tfaten",
+      "name": "Horizon Retail",
+      "type": "Prospect",
+      "industry": "Other",
+      "rating": "Hot",
+      "website": "https://horizon.example",
+      "phone": "+34 600 900 100",
+      "ownerId": "usr_sales",
+      "createdAt": "2026-06-24T07:55:18.697Z",
+      "updatedAt": "2026-06-24T07:55:18.697Z"
+    },
+    {
+      "id": "acc_kinship",
+      "name": "Kinship Labs",
+      "type": "Customer",
+      "industry": "Professional Services",
+      "rating": "Hot",
+      "phone": "+34 910 000 120",
+      "website": "https://kinship.example",
+      "billingCity": "Madrid",
+      "billingCountry": "Spain",
+      "ownerId": "usr_admin",
+      "description": "Cuenta piloto para workspace operativo y procesos comerciales.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    },
+    {
+      "id": "acc_northstar",
+      "name": "Northstar Health",
+      "type": "Prospect",
+      "industry": "Healthcare",
+      "rating": "Warm",
+      "phone": "+34 930 000 240",
+      "website": "https://northstar.example",
+      "billingCity": "Barcelona",
+      "billingCountry": "Spain",
+      "ownerId": "usr_sales",
+      "description": "Prospect interesado en automatizacion de intake y operaciones clinicas.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "con_mqrs3961_5wbggi",
+      "firstName": "Marta",
+      "lastName": "Vidal",
+      "accountId": "acc_mqrs3961_tfaten",
+      "email": "marta@horizon.example",
+      "phone": "+34 600 900 100",
+      "leadSource": "Web",
+      "ownerId": "usr_sales",
+      "createdAt": "2026-06-24T07:55:18.697Z",
+      "updatedAt": "2026-06-24T07:55:18.697Z"
+    },
+    {
+      "id": "con_ana",
+      "firstName": "Ana",
+      "lastName": "Campos",
+      "accountId": "acc_kinship",
+      "title": "COO",
+      "email": "ana@kinship.example",
+      "phone": "+34 600 100 200",
+      "leadSource": "Referral",
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    },
+    {
+      "id": "con_pablo",
+      "firstName": "Pablo",
+      "lastName": "Serrano",
+      "accountId": "acc_northstar",
+      "title": "Director of Operations",
+      "email": "pablo@northstar.example",
+      "phone": "+34 600 300 400",
+      "leadSource": "LinkedIn",
+      "ownerId": "usr_sales",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    }
+  ],
+  "leads": [
+    {
+      "id": "lea_horizon",
+      "firstName": "Marta",
+      "lastName": "Vidal",
+      "company": "Horizon Retail",
+      "status": "Closed - Converted",
+      "leadSource": "Web",
+      "rating": "Hot",
+      "email": "marta@horizon.example",
+      "phone": "+34 600 900 100",
+      "website": "https://horizon.example",
+      "isConverted": true,
+      "ownerId": "usr_sales",
+      "description": "Quiere reducir trabajo manual en catalogo y soporte.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T07:55:18.697Z",
+      "convertedDate": "2026-06-24T07:55:18.697Z",
+      "convertedAccountId": "acc_mqrs3961_tfaten",
+      "convertedContactId": "con_mqrs3961_5wbggi",
+      "convertedOpportunityId": "opp_mqrs3961_kabltb"
+    },
+    {
+      "id": "lea_boreal",
+      "firstName": "Irene",
+      "lastName": "Lopez",
+      "company": "Boreal Finance",
+      "status": "Working - Contacted",
+      "leadSource": "Event",
+      "rating": "Warm",
+      "email": "irene@boreal.example",
+      "phone": "+34 600 770 180",
+      "website": "https://boreal.example",
+      "isConverted": false,
+      "ownerId": "usr_sales",
+      "description": "Interes en onboarding y compliance operations.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    }
+  ],
+  "opportunities": [
+    {
+      "id": "opp_mqrs3961_kabltb",
+      "name": "Horizon Retail - New Business",
+      "accountId": "acc_mqrs3961_tfaten",
+      "contactId": "con_mqrs3961_5wbggi",
+      "stageName": "Prospecting",
+      "closeDate": "2026-07-24",
+      "oneOffAmount": 0,
+      "mrrAmount": 0,
+      "amount": 0,
+      "amountMode": "manual",
+      "probability": 10,
+      "type": "New Business",
+      "leadSource": "Web",
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_sales",
+      "createdAt": "2026-06-24T07:55:18.697Z",
+      "updatedAt": "2026-06-24T07:55:18.697Z"
+    },
+    {
+      "id": "opp_kinship_workspace",
+      "name": "Kinship - Agentia Workspace rollout",
+      "accountId": "acc_kinship",
+      "contactId": "con_ana",
+      "stageName": "Proposal/Price Quote",
+      "closeDate": "2026-07-31",
+      "amount": 148000,
+      "amountMode": "syncPrimaryProposal",
+      "syncedProposalId": "quo_kinship_phase1",
+      "probability": 60,
+      "type": "New Business",
+      "leadSource": "Referral",
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_admin",
+      "description": "Fase 1: workspace, agentes de operaciones y reporting.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "oneOffAmount": 52000,
+      "mrrAmount": 8000
+    },
+    {
+      "id": "opp_northstar_intake",
+      "name": "Northstar - Intake automation",
+      "accountId": "acc_northstar",
+      "contactId": "con_pablo",
+      "stageName": "Needs Analysis",
+      "closeDate": "2026-08-15",
+      "amount": 40000,
+      "amountMode": "manual",
+      "probability": 25,
+      "type": "New Business",
+      "leadSource": "LinkedIn",
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_sales",
+      "description": "Discovery de intake, triage y seguimiento administrativo.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "oneOffAmount": 40000,
+      "mrrAmount": 0
+    }
+  ],
+  "opportunityLineItems": [
+    {
+      "id": "oli_kinship_sprint",
+      "opportunityId": "opp_kinship_workspace",
+      "productId": "prd_workforce_design",
+      "quantity": 1,
+      "unitPrice": 12000,
+      "discountPercent": 0,
+      "totalPrice": 12000,
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "oneOff"
+    },
+    {
+      "id": "oli_kinship_build",
+      "opportunityId": "opp_kinship_workspace",
+      "productId": "prd_agent_build",
+      "quantity": 1,
+      "unitPrice": 28000,
+      "discountPercent": 0,
+      "totalPrice": 28000,
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "oneOff"
+    }
+  ],
+  "products": [
+    {
+      "id": "prd_workforce_design",
+      "name": "Digital Workforce Design Sprint",
+      "productCode": "DW-SPRINT",
+      "family": "Consulting",
+      "isActive": true,
+      "listPrice": 12000,
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_admin",
+      "description": "Sprint inicial para mapear cuello de botella, procesos y primera plantilla de agentes.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "oneOff"
+    },
+    {
+      "id": "prd_agent_build",
+      "name": "Agent Build Pod",
+      "productCode": "AG-BUILD",
+      "family": "Agentic Ops",
+      "isActive": true,
+      "listPrice": 28000,
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_sales",
+      "description": "Construccion de agentes operativos y automatizaciones alrededor de un workflow.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "oneOff"
+    },
+    {
+      "id": "prd_workspace",
+      "name": "Agentia Workspace",
+      "productCode": "WORKSPACE",
+      "family": "Workspace",
+      "isActive": true,
+      "listPrice": 1800,
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_admin",
+      "description": "Capa de control para supervisar agentes, jobs, handoffs y evidencias.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "mrr"
+    },
+    {
+      "id": "prd_success",
+      "name": "Managed Agent Operations",
+      "productCode": "MNG-OPS",
+      "family": "Support",
+      "isActive": true,
+      "listPrice": 6500,
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_success",
+      "description": "Soporte mensual para operar, medir y mejorar la fuerza laboral digital.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "mrr"
+    }
+  ],
+  "proposals": [
+    {
+      "id": "quo_kinship_phase1",
+      "name": "Kinship Phase 1 Proposal",
+      "proposalNumber": "Q-00001",
+      "opportunityId": "opp_kinship_workspace",
+      "accountId": "acc_kinship",
+      "contactId": "con_ana",
+      "status": "Presented",
+      "expirationDate": "2026-07-15",
+      "totalPrice": 60000,
+      "currencyIsoCode": "EUR",
+      "isSyncing": true,
+      "ownerId": "usr_admin",
+      "description": "Propuesta principal sincronizada con la oportunidad.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    }
+  ],
+  "proposalLineItems": [
+    {
+      "proposalId": "quo_kinship_phase1",
+      "productId": "prd_workforce_design",
+      "revenueType": "oneOff",
+      "quantity": 1,
+      "unitPrice": 12000,
+      "discountPercent": 0,
+      "id": "qli_mqrs17hp_fsls1u",
+      "createdAt": "2026-06-24T07:53:43.213Z",
+      "updatedAt": "2026-06-24T07:53:43.213Z",
+      "ownerId": "usr_admin",
+      "totalPrice": 12000
+    },
+    {
+      "id": "qli_kinship_sprint",
+      "proposalId": "quo_kinship_phase1",
+      "productId": "prd_workforce_design",
+      "quantity": 1,
+      "unitPrice": 12000,
+      "discountPercent": 0,
+      "totalPrice": 12000,
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "oneOff"
+    },
+    {
+      "id": "qli_kinship_build",
+      "proposalId": "quo_kinship_phase1",
+      "productId": "prd_agent_build",
+      "quantity": 1,
+      "unitPrice": 28000,
+      "discountPercent": 0,
+      "totalPrice": 28000,
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "oneOff"
+    },
+    {
+      "id": "qli_kinship_ops",
+      "proposalId": "quo_kinship_phase1",
+      "productId": "prd_success",
+      "quantity": 2,
+      "unitPrice": 4000,
+      "discountPercent": 0,
+      "totalPrice": 8000,
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z",
+      "revenueType": "mrr"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "inv_kinship_deposit",
+      "invoiceNumber": "INV-00001",
+      "accountId": "acc_kinship",
+      "opportunityId": "opp_kinship_workspace",
+      "proposalId": "quo_kinship_phase1",
+      "status": "Draft",
+      "settlementStatus": "Not Settled",
+      "invoiceDate": "2026-06-24",
+      "dueDate": "2026-07-08",
+      "totalAmount": 12000,
+      "currencyIsoCode": "EUR",
+      "ownerId": "usr_admin",
+      "description": "Deposito inicial pendiente de envio.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    }
+  ],
+  "invoiceLines": [
+    {
+      "id": "inl_kinship_deposit",
+      "invoiceId": "inv_kinship_deposit",
+      "productId": "prd_workforce_design",
+      "description": "Digital Workforce Design Sprint - deposito",
+      "quantity": 1,
+      "unitPrice": 12000,
+      "totalAmount": 12000,
+      "ownerId": "usr_admin",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T09:00:00.000Z"
+    }
+  ],
+  "cases": [
+    {
+      "id": "cas_1001",
+      "caseNumber": "00001001",
+      "subject": "Ajustar permisos del workspace",
+      "accountId": "acc_kinship",
+      "contactId": "con_ana",
+      "status": "Closed",
+      "priority": "Medium",
+      "origin": "Email",
+      "type": "Implementation",
+      "isEscalated": false,
+      "ownerId": "usr_success",
+      "description": "El equipo de operaciones necesita revisar acceso a reportes semanales.",
+      "createdAt": "2026-06-24T09:00:00.000Z",
+      "updatedAt": "2026-06-24T07:46:37.043Z",
+      "closedDate": "2026-06-24T07:46:37.045Z"
+    }
+  ],
+  "pathConfigs": {
+    "leads": [
+      {
+        "value": "Open - Not Contacted",
+        "label": "Open - Not Contacted"
+      },
+      {
+        "value": "Working - Contacted",
+        "label": "Working - Contacted"
+      },
+      {
+        "value": "Closed - Converted",
+        "label": "Closed - Converted",
+        "isConverted": true,
+        "isClosed": true
+      },
+      {
+        "value": "Closed - Not Converted",
+        "label": "Closed - Not Converted",
+        "isClosed": true
+      }
+    ],
+    "opportunities": [
+      {
+        "value": "Prospecting",
+        "label": "Prospecting",
+        "probability": 10
+      },
+      {
+        "value": "Qualification",
+        "label": "Qualification",
+        "probability": 20
+      },
+      {
+        "value": "Needs Analysis",
+        "label": "Needs Analysis",
+        "probability": 25
+      },
+      {
+        "value": "Value Proposition",
+        "label": "Value Proposition",
+        "probability": 40
+      },
+      {
+        "value": "Proposal/Price Quote",
+        "label": "Proposal/Price Quote",
+        "probability": 60
+      },
+      {
+        "value": "Negotiation/Review",
+        "label": "Negotiation/Review",
+        "probability": 80
+      },
+      {
+        "value": "Closed Won",
+        "label": "Closed Won",
+        "probability": 100,
+        "isClosed": true,
+        "isWon": true
+      },
+      {
+        "value": "Closed Lost",
+        "label": "Closed Lost",
+        "probability": 0,
+        "isClosed": true
+      }
+    ],
+    "cases": [
+      {
+        "value": "New",
+        "label": "New"
+      },
+      {
+        "value": "Working",
+        "label": "Working"
+      },
+      {
+        "value": "Escalated",
+        "label": "Escalated"
+      },
+      {
+        "value": "Closed",
+        "label": "Closed",
+        "isClosed": true
+      }
+    ]
+  }
+}
