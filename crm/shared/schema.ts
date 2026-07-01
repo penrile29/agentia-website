@@ -8,6 +8,7 @@ export const objectKeys = [
   "proposalLineItems",
   "invoices",
   "invoiceLines",
+  "tasks",
   "cases",
   "products",
   "users",
@@ -205,6 +206,13 @@ export interface CaseRecord extends BaseRecord {
   description?: string;
 }
 
+export interface Task extends BaseRecord {
+  subject: string;
+  status: string;
+  dueDate?: string;
+  description?: string;
+}
+
 export interface PathStep {
   value: string;
   label: string;
@@ -227,6 +235,7 @@ export interface CrmData {
   proposalLineItems: ProposalLineItem[];
   invoices: Invoice[];
   invoiceLines: InvoiceLine[];
+  tasks: Task[];
   cases: CaseRecord[];
   pathConfigs: Record<PathObjectKey, PathStep[]>;
 }
@@ -243,6 +252,7 @@ export type CrmRecord =
   | ProposalLineItem
   | Invoice
   | InvoiceLine
+  | Task
   | CaseRecord;
 
 export type CollectionRecord = {
@@ -257,6 +267,7 @@ export type CollectionRecord = {
   proposalLineItems: ProposalLineItem;
   invoices: Invoice;
   invoiceLines: InvoiceLine;
+  tasks: Task;
   cases: CaseRecord;
 };
 
@@ -335,6 +346,12 @@ export const objectLabels: Record<ObjectKey, ObjectLabel> = {
     apiName: "InvoiceLine",
     description: "Importe a pagar por producto, servicio o fee.",
   },
+  tasks: {
+    singular: "Tarea",
+    plural: "Tareas",
+    apiName: "Task",
+    description: "Actividad o accion pendiente asignada a un owner, con estado y fecha de vencimiento.",
+  },
   cases: {
     singular: "Caso",
     plural: "Casos",
@@ -368,6 +385,7 @@ export const picklists = {
   casePriorities: ["Low", "Medium", "High", "Critical"],
   caseOrigins: ["Email", "Phone", "Web", "LinkedIn", "Portal"],
   caseTypes: ["Question", "Feature Request", "Problem", "Implementation", "Billing"],
+  taskStatuses: ["Not Started", "In Progress", "Waiting", "Completed", "Deferred"],
   productFamilies: ["Agentic Ops", "Consulting", "Workspace", "Support", "Training"],
   revenueTypes: ["oneOff", "mrr"],
 };
@@ -496,6 +514,15 @@ export const fieldConfigs: Record<ObjectKey, FieldConfig[]> = {
     { key: "unitPrice", label: "Unit Price", type: "currency", required: true, table: true, importable: true },
     { key: "totalAmount", label: "Total Amount", type: "currency", readOnly: true, table: true },
     ...sharedFields,
+  ],
+  tasks: [
+    { key: "subject", label: "Subject", type: "text", required: true, table: true, importable: true },
+    { key: "ownerId", label: "Owner", type: "reference", relation: "users", table: true, importable: true },
+    { key: "status", label: "Status", type: "picklist", picklist: "taskStatuses", required: true, table: true, importable: true },
+    { key: "dueDate", label: "Due Date", type: "date", table: true, importable: true },
+    { key: "description", label: "Description", type: "textarea", table: false, importable: true },
+    { key: "createdAt", label: "Created Date", type: "datetime", readOnly: true, table: false },
+    { key: "updatedAt", label: "Last Modified Date", type: "datetime", readOnly: true, table: false },
   ],
   cases: [
     { key: "caseNumber", label: "Case Number", type: "text", readOnly: true, table: true, importable: true },

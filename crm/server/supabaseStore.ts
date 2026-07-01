@@ -37,6 +37,7 @@ const tableByObject: Record<ObjectKey, string> = {
   proposalLineItems: "crm_proposal_line_items",
   invoices: "crm_invoices",
   invoiceLines: "crm_invoice_lines",
+  tasks: "crm_tasks",
   cases: "crm_cases",
   products: "crm_products",
 };
@@ -92,12 +93,13 @@ const columnsByObject: Record<ObjectKey, string[]> = {
   proposalLineItems: ["id", "proposalId", "productId", "revenueType", "quantity", "unitPrice", "discountPercent", "totalPrice", "serviceDate", "ownerId", "createdAt", "updatedAt"],
   invoices: ["id", "invoiceNumber", "accountId", "opportunityId", "proposalId", "status", "settlementStatus", "invoiceDate", "dueDate", "totalAmount", "currencyIsoCode", "description", "ownerId", "createdAt", "updatedAt"],
   invoiceLines: ["id", "invoiceId", "productId", "description", "quantity", "unitPrice", "totalAmount", "ownerId", "createdAt", "updatedAt"],
+  tasks: ["id", "subject", "status", "dueDate", "description", "ownerId", "createdAt", "updatedAt"],
   cases: ["id", "caseNumber", "subject", "accountId", "contactId", "status", "priority", "origin", "type", "isEscalated", "closedDate", "description", "ownerId", "createdAt", "updatedAt"],
   products: ["id", "name", "productCode", "family", "revenueType", "isActive", "listPrice", "currencyIsoCode", "description", "ownerId", "createdAt", "updatedAt"],
 };
 
-const upsertOrder: ObjectKey[] = ["users", "accounts", "contacts", "products", "opportunities", "leads", "opportunityLineItems", "proposals", "proposalLineItems", "invoices", "invoiceLines", "cases"];
-const deleteOrder: ObjectKey[] = ["invoiceLines", "proposalLineItems", "opportunityLineItems", "cases", "invoices", "proposals", "leads", "opportunities", "contacts", "products", "accounts", "users"];
+const upsertOrder: ObjectKey[] = ["users", "accounts", "contacts", "products", "opportunities", "leads", "opportunityLineItems", "proposals", "proposalLineItems", "invoices", "invoiceLines", "tasks", "cases"];
+const deleteOrder: ObjectKey[] = ["invoiceLines", "proposalLineItems", "opportunityLineItems", "tasks", "cases", "invoices", "proposals", "leads", "opportunities", "contacts", "products", "accounts", "users"];
 
 let cachedClient: SupabaseClient | undefined;
 
@@ -110,7 +112,7 @@ export function getSupabaseProjectUrl(): string | undefined {
 }
 
 export async function readData(): Promise<CrmData> {
-  const [users, accounts, contacts, leads, opportunities, opportunityLineItems, proposals, proposalLineItems, invoices, invoiceLines, cases, products, pathRows] = await Promise.all([
+  const [users, accounts, contacts, leads, opportunities, opportunityLineItems, proposals, proposalLineItems, invoices, invoiceLines, tasks, cases, products, pathRows] = await Promise.all([
     selectObject("users"),
     selectObject("accounts"),
     selectObject("contacts"),
@@ -121,6 +123,7 @@ export async function readData(): Promise<CrmData> {
     selectObject("proposalLineItems"),
     selectObject("invoices"),
     selectObject("invoiceLines"),
+    selectObject("tasks"),
     selectObject("cases"),
     selectObject("products"),
     selectPathRows(),
@@ -139,6 +142,7 @@ export async function readData(): Promise<CrmData> {
     proposalLineItems: proposalLineItems as CrmData["proposalLineItems"],
     invoices: invoices as CrmData["invoices"],
     invoiceLines: invoiceLines as CrmData["invoiceLines"],
+    tasks: tasks as CrmData["tasks"],
     cases: cases as CrmData["cases"],
     pathConfigs: pathConfigsFromRows(pathRows),
   });

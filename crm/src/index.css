@@ -1248,17 +1248,63 @@ textarea {
   padding: 10px;
 }
 
+.user-management {
+  display: grid;
+}
+
+.user-admin-form {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) minmax(180px, 1.1fr) minmax(120px, 0.8fr) minmax(150px, 0.9fr) 82px auto;
+  gap: 10px;
+  align-items: end;
+  padding: 16px;
+  border-bottom: 1px solid #ecebea;
+}
+
+.user-admin-form label {
+  display: grid;
+  gap: 5px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.user-admin-checkbox {
+  align-self: end;
+}
+
+.user-list-toolbar {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #f0eeee;
+}
+
+.user-list-toolbar span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.user-list-toolbar .form-error {
+  color: var(--red);
+}
+
 .user-role-list {
   display: grid;
-  padding: 6px 16px 16px;
+  padding: 0 16px 16px;
 }
 
 .user-role-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 220px 90px;
+  grid-template-columns: minmax(0, 1fr) 190px 90px minmax(250px, 0.9fr);
   gap: 10px;
   align-items: center;
-  min-height: 58px;
+  min-height: 64px;
   border-bottom: 1px solid #f0eeee;
 }
 
@@ -1270,6 +1316,12 @@ textarea {
 .user-role-row span {
   color: var(--text-muted);
   font-size: 12px;
+}
+
+.password-reset {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) auto;
+  gap: 8px;
 }
 
 .toast {
@@ -1498,6 +1550,7 @@ textarea {
 
   .inline-form,
   .inline-form.three,
+  .user-admin-form,
   .funnel-row,
   .revenue-row,
   .source-row,
@@ -1505,6 +1558,7 @@ textarea {
   .case-status-list,
   .case-status-row,
   .user-role-row,
+  .password-reset,
   .pipeline-bars button {
     grid-template-columns: 1fr;
   }

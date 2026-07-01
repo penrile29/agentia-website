@@ -32,6 +32,7 @@ export const idPrefixes: Record<ObjectKey, string> = {
   proposalLineItems: "qli",
   invoices: "inv",
   invoiceLines: "inl",
+  tasks: "tsk",
   cases: "cas",
   products: "prd",
   users: "usr",
@@ -51,6 +52,7 @@ export function readData(): CrmData {
   ensureDataFile();
   const raw = fs.readFileSync(dataFile, "utf8");
   const parsed = JSON.parse(raw) as CrmData;
+  parsed.tasks = parsed.tasks ?? [];
   parsed.pathConfigs = {
     ...defaultPathConfigs,
     ...(parsed.pathConfigs ?? {}),
@@ -415,6 +417,10 @@ export function normalizeRecord(data: CrmData, object: ObjectKey, input: Record<
     record.quantity = toNumber(record.quantity, 1);
     record.unitPrice = toNumber(record.unitPrice, 0);
     record.totalAmount = lineTotal(record.quantity as number, record.unitPrice as number, 0);
+  }
+  if (object === "tasks") {
+    record.subject = stringOr(record.subject, "Nueva tarea");
+    record.status = stringOr(record.status, "Not Started");
   }
   if (object === "cases") {
     record.caseNumber = stringOr(record.caseNumber, nextCaseNumber(data.cases));

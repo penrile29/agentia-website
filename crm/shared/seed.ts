@@ -11,6 +11,7 @@ import {
   type Product,
   type Proposal,
   type ProposalLineItem,
+  type Task,
   type User,
   defaultPathConfigs,
 } from "./schema.ts";
@@ -333,6 +334,25 @@ export function createSeedData(): CrmData {
     }),
   ];
 
+  const tasks: Task[] = [
+    stamp({
+      id: "tsk_followup_horizon",
+      subject: "Follow up con Horizon Retail",
+      status: "Not Started",
+      dueDate: "2026-07-03",
+      ownerId: "usr_sales",
+      description: "Enviar propuesta de discovery y confirmar prioridades de automatizacion.",
+    }),
+    stamp({
+      id: "tsk_prepare_kinship_kickoff",
+      subject: "Preparar kickoff de Kinship",
+      status: "In Progress",
+      dueDate: "2026-07-08",
+      ownerId: "usr_success",
+      description: "Cerrar agenda, owners internos y materiales para el arranque de fase 1.",
+    }),
+  ];
+
   return {
     version: 1,
     users,
@@ -346,6 +366,7 @@ export function createSeedData(): CrmData {
     proposalLineItems,
     invoices,
     invoiceLines,
+    tasks,
     cases,
     pathConfigs: defaultPathConfigs,
   };

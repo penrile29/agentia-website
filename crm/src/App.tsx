@@ -59,7 +59,7 @@ type ModalState =
   | { type: "convertLead"; lead: CrmData["leads"][number] }
   | null;
 
-const navObjects: ObjectKey[] = ["leads", "accounts", "contacts", "opportunities", "proposals", "invoices", "cases", "products"];
+const navObjects: ObjectKey[] = ["leads", "accounts", "contacts", "opportunities", "tasks", "proposals", "invoices", "cases", "products"];
 const authStorageKey = "agentia-crm-session";
 
 const objectIcons: Record<ObjectKey, React.ComponentType<{ size?: number }>> = {
@@ -72,6 +72,7 @@ const objectIcons: Record<ObjectKey, React.ComponentType<{ size?: number }>> = {
   proposalLineItems: ListChecks,
   invoices: Receipt,
   invoiceLines: ListChecks,
+  tasks: ListChecks,
   cases: LifeBuoy,
   products: Package,
   users: Users,
@@ -1643,30 +1644,154 @@ function PathConfigEditor({ data, object, reload }: { data: CrmData; object: Pat
 }
 
 function UserRoleEditor({ data, reload }: { data: CrmData; reload: () => Promise<void> }) {
+  const roles = getPicklistValues(data, "roles");
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    role: roles[1] ?? roles[0] ?? "Ventas",
+    isAdmin: false,
+    temporaryPassword: "",
+  });
+  const [resetPasswords, setResetPasswords] = useState<Record<string, string>>({});
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  function setNewUserRole(role: string) {
+    setNewUser((current) => ({
+      ...current,
+      role,
+      isAdmin: role === "Admin" ? true : current.isAdmin,
+    }));
+  }
+
+  async function createUser(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSaving(true);
+    setMessage("");
+    setError("");
+    try {
+      await apiRequest("/api/users", {
+        method: "POST",
+        body: JSON.stringify(newUser),
+      });
+      setNewUser({
+        name: "",
+        email: "",
+        role: roles[1] ?? roles[0] ?? "Ventas",
+        isAdmin: false,
+        temporaryPassword: "",
+      });
+      setMessage("Usuario creado correctamente.");
+      await reload();
+    } catch (createError) {
+      setError(createError instanceof Error ? createError.message : "No se pudo crear el usuario.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function updateUser(userId: string, payload: RecordMap) {
+    setMessage("");
+    setError("");
     await apiRequest(`/api/users/${userId}`, { method: "PUT", body: JSON.stringify(payload) });
     await reload();
   }
+
+  async function resetPassword(userId: string) {
+    const temporaryPassword = resetPasswords[userId]?.trim();
+    if (!temporaryPassword) {
+      setError("Introduce una nueva contraseña temporal.");
+      return;
+    }
+    setSaving(true);
+    setMessage("");
+    setError("");
+    try {
+      await apiRequest(`/api/users/${userId}`, {
+        method: "PUT",
+        body: JSON.stringify({ temporaryPassword }),
+      });
+      setResetPasswords((current) => ({ ...current, [userId]: "" }));
+      setMessage("Contraseña actualizada correctamente.");
+      await reload();
+    } catch (resetError) {
+      setError(resetError instanceof Error ? resetError.message : "No se pudo resetear la contraseña.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
-    <div className="user-role-list">
-      {data.users.map((userRecord) => (
-        <div className="user-role-row" key={userRecord.id}>
-          <div>
-            <strong>{userRecord.name}</strong>
-            <span>{userRecord.email}</span>
-          </div>
-          <select value={userRecord.role} onChange={(event) => void updateUser(userRecord.id, { role: event.target.value, isAdmin: event.target.value === "Admin" })}>
-            {getPicklistValues(data, "roles").map((role) => (
+    <div className="user-management">
+      <form className="user-admin-form" onSubmit={(event) => void createUser(event)}>
+        <label>
+          Nombre
+          <input value={newUser.name} required onChange={(event) => setNewUser((current) => ({ ...current, name: event.target.value }))} />
+        </label>
+        <label>
+          Email
+          <input type="email" value={newUser.email} required onChange={(event) => setNewUser((current) => ({ ...current, email: event.target.value }))} />
+        </label>
+        <label>
+          Rol
+          <select value={newUser.role} onChange={(event) => setNewUserRole(event.target.value)}>
+            {roles.map((role) => (
               <option value={role} key={role}>
                 {role}
               </option>
             ))}
           </select>
-          <label className="checkbox-inline">
-            <input checked={userRecord.isAdmin} type="checkbox" onChange={(event) => void updateUser(userRecord.id, { isAdmin: event.target.checked })} /> Admin
-          </label>
-        </div>
-      ))}
+        </label>
+        <label>
+          Password temporal
+          <input type="password" value={newUser.temporaryPassword} required onChange={(event) => setNewUser((current) => ({ ...current, temporaryPassword: event.target.value }))} />
+        </label>
+        <label className="checkbox-inline user-admin-checkbox">
+          <input checked={newUser.isAdmin} type="checkbox" onChange={(event) => setNewUser((current) => ({ ...current, isAdmin: event.target.checked }))} /> Admin
+        </label>
+        <button className="slds-button primary compact" type="submit" disabled={saving}>
+          <Plus size={14} /> Crear usuario
+        </button>
+      </form>
+
+      <div className="user-list-toolbar">
+        <strong>{data.users.length} usuarios</strong>
+        <span className={error ? "form-error" : ""}>{error || message}</span>
+      </div>
+
+      <div className="user-role-list">
+        {data.users.map((userRecord) => (
+          <div className="user-role-row" key={userRecord.id}>
+            <div>
+              <strong>{userRecord.name}</strong>
+              <span>{userRecord.email}</span>
+            </div>
+            <select value={userRecord.role} onChange={(event) => void updateUser(userRecord.id, { role: event.target.value, isAdmin: event.target.value === "Admin" })}>
+              {roles.map((role) => (
+                <option value={role} key={role}>
+                  {role}
+                </option>
+              ))}
+            </select>
+            <label className="checkbox-inline">
+              <input checked={userRecord.isAdmin} type="checkbox" onChange={(event) => void updateUser(userRecord.id, { isAdmin: event.target.checked })} /> Admin
+            </label>
+            <div className="password-reset">
+              <input
+                type="password"
+                aria-label={`Nueva contraseña para ${userRecord.name}`}
+                placeholder="Nueva password"
+                value={resetPasswords[userRecord.id] ?? ""}
+                onChange={(event) => setResetPasswords((current) => ({ ...current, [userRecord.id]: event.target.value }))}
+              />
+              <button className="slds-button compact" type="button" disabled={saving} onClick={() => void resetPassword(userRecord.id)}>
+                <RefreshCw size={14} /> Reset
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -1759,6 +1884,7 @@ function inferObject(record: CrmRecord): ObjectKey {
   if (record.id.startsWith("lea_")) return "leads";
   if (record.id.startsWith("opp_")) return "opportunities";
   if (record.id.startsWith("cas_")) return "cases";
+  if (record.id.startsWith("tsk_")) return "tasks";
   if (record.id.startsWith("acc_")) return "accounts";
   if (record.id.startsWith("con_")) return "contacts";
   if (record.id.startsWith("quo_")) return "proposals";
@@ -1784,6 +1910,7 @@ function initialValues(data: CrmData, object: ObjectKey, record?: CrmRecord): Re
   }
   if (object === "products" || object === "proposals" || object === "invoices") defaults.currencyIsoCode = "EUR";
   if (object === "invoices") defaults.invoiceDate = new Date().toISOString().slice(0, 10);
+  if (object === "tasks") defaults.dueDate = new Date().toISOString().slice(0, 10);
   return defaults;
 }
 
