@@ -20,15 +20,34 @@ import {
   updateRecord,
   userFromToken,
 } from "./dataStore.ts";
+import {
+  handleOAuthAuthorizeGet,
+  handleOAuthAuthorizePost,
+  handleOAuthRegister,
+  handleOAuthToken,
+  mcpAuthenticationChallenge,
+  oauthAuthorizationServerMetadata,
+  oauthProtectedResourceMetadata,
+  oauthUserFromAccessToken,
+} from "./oauth.ts";
 
 export function createCrmApp() {
   const app = express();
 
   app.use(cors());
   app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ extended: false }));
 
   app.get("/api/health", (_request: Request, response: Response) => {
     response.json({ ok: true, storage: getStoreInfo() });
+  });
+
+  app.get(["/.well-known/oauth-protected-resource", "/api/.well-known/oauth-protected-resource"], (request: Request, response: Response) => {
+    response.json(oauthProtectedResourceMetadata(request));
+  });
+
+  app.get(["/.well-known/oauth-authorization-server", "/.well-known/openid-configuration", "/api/.well-known/oauth-authorization-server", "/api/.well-known/openid-configuration"], (request: Request, response: Response) => {
+    response.json(oauthAuthorizationServerMetadata(request));
   });
 
   const handleDemoRequest = async (request: Request, response: Response) => {
@@ -71,9 +90,26 @@ export function createCrmApp() {
     response.json({ token: result.token, user: sanitizeUser(result.user) });
   });
 
+  app.post("/api/oauth/register", async (request: Request, response: Response) => {
+    await handleOAuthRegister(request, response);
+  });
+
+  app.get("/api/oauth/authorize", async (request: Request, response: Response) => {
+    await handleOAuthAuthorizeGet(request, response);
+  });
+
+  app.post("/api/oauth/authorize", async (request: Request, response: Response) => {
+    await handleOAuthAuthorizePost(request, response);
+  });
+
+  app.post("/api/oauth/token", async (request: Request, response: Response) => {
+    await handleOAuthToken(request, response);
+  });
+
   app.all("/api/mcp", async (request: Request, response: Response) => {
-    const authError = getMcpAuthError(request);
+    const authError = await getMcpAuthError(request);
     if (authError) {
+      response.setHeader("WWW-Authenticate", mcpAuthenticationChallenge(request, authError.error));
       response.status(authError.status).json({ error: authError.message });
       return;
     }
@@ -88,7 +124,7 @@ export function createCrmApp() {
   });
 
   app.use(async (request: Request, response: Response, next: express.NextFunction) => {
-    if (request.path === "/api/health" || request.path === "/api/auth/login") {
+    if (request.path === "/api/health" || request.path === "/api/auth/login" || request.path.startsWith("/api/oauth/") || request.path.startsWith("/api/.well-known/")) {
       next();
       return;
     }
@@ -206,25 +242,23 @@ function sanitizeRecords(object: ObjectKey, records: CrmRecord[]): CrmRecord[] {
   return records.map((record) => sanitizeRecord(object, record));
 }
 
-function getMcpAuthError(request: Request): { status: number; message: string } | undefined {
+async function getMcpAuthError(request: Request): Promise<{ status: number; message: string; error: string } | undefined> {
   const expectedToken = process.env.CRM_MCP_TOKEN;
-  if (!expectedToken) {
-    if (process.env.NODE_ENV === "production") {
-      return { status: 503, message: "CRM_MCP_TOKEN no esta configurado." };
-    }
-    return undefined;
-  }
   const actualToken = request.header("authorization")?.replace(/^Bearer\s+/i, "") ?? request.header("x-agentia-mcp-token") ?? "";
-  if (!safeTokenEqual(actualToken, expectedToken)) {
-    return { status: 401, message: "Token MCP no valido." };
+  if (!actualToken) {
+    return { status: 401, message: "OAuth requerido para conectar con el MCP del CRM.", error: "invalid_token" };
   }
-  return undefined;
+  if (expectedToken && safeTokenEqual(actualToken, expectedToken)) return undefined;
+  if (await oauthUserFromAccessToken(actualToken)) return undefined;
+  return { status: 401, message: "Token MCP no valido o expirado.", error: "invalid_token" };
 }
 
 function safeTokenEqual(actualToken: string, expectedToken: string): boolean {
+  if (!actualToken || !expectedToken) return false;
   const actual = Buffer.from(actualToken);
   const expected = Buffer.from(expectedToken);
-  return actual.length === expected.length && timingSafeEqual(actual, expected);
+  if (actual.length !== expected.length) return false;
+  return timingSafeEqual(actual, expected);
 }
 
 function parseDemoRequest(body: Record<string, unknown>) {

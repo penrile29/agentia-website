@@ -78,4 +78,12 @@ POST https://<deployment>/api/mcp
 Authorization: Bearer <CRM_MCP_TOKEN>
 ```
 
-El endpoint remoto usa Streamable HTTP y expone CRUD, importacion, dashboard y conversion de lead.
+Claude:
+
+```text
+https://<deployment>/api/mcp
+```
+
+El MCP remoto usa Streamable HTTP y OAuth 2.1 con PKCE. Claude descubre la autenticacion en `/.well-known/oauth-protected-resource`, registra o identifica su cliente, abre `/api/oauth/authorize` y el usuario entra con su email y contraseña del CRM. El token emitido queda vinculado al usuario del CRM que autorizo la conexion. `CRM_MCP_TOKEN` sigue funcionando como token estatico para automatizaciones internas.
+
+Las herramientas expuestas cubren CRUD, importacion, dashboard y conversion de lead.

@@ -4,6 +4,10 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/.well-known/(.*)",
+      "destination": "/api/.well-known/$1"
+    },
+    {
       "source": "/((?!api/.*).*)",
       "destination": "/index.html"
     }
