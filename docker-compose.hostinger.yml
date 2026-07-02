@@ -1,11 +1,28 @@
 services:
   website:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: agentia-website:hostinger
+    image: nginx:1.27-alpine
     container_name: agentia-website
     restart: unless-stopped
+    command: >
+      /bin/sh -lc '
+      set -eu;
+      BASE="https://raw.githubusercontent.com/penrile29/agentia-website/main";
+      cd /usr/share/nginx/html;
+      rm -rf ./*;
+      mkdir -p assets/logos;
+      wget -q -O /etc/nginx/conf.d/default.conf "$$BASE/nginx.conf";
+      wget -q -O index.html "$$BASE/index.html";
+      wget -q -O industries.html "$$BASE/industries.html";
+      wget -q -O styles.css "$$BASE/styles.css";
+      wget -q -O assets/agentia-mark-h.svg "$$BASE/assets/agentia-mark-h.svg";
+      wget -q -O assets/agentia-mark-h-light.svg "$$BASE/assets/agentia-mark-h-light.svg";
+      wget -q -O assets/logos/anthropic.svg "$$BASE/assets/logos/anthropic.svg";
+      wget -q -O assets/logos/google.svg "$$BASE/assets/logos/google.svg";
+      wget -q -O assets/logos/meta.svg "$$BASE/assets/logos/meta.svg";
+      wget -q -O assets/logos/openai-mark.svg "$$BASE/assets/logos/openai-mark.svg";
+      printf "ok\n" > health;
+      exec nginx -g "daemon off;";
+      '
     expose:
       - "80"
     healthcheck:
