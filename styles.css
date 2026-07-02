@@ -260,6 +260,7 @@ a {
 h1,
 .section-title,
 .cta-box h2,
+.demo-copy h2,
 .founder-panel h2 {
   text-wrap: balance;
 }
@@ -267,6 +268,7 @@ h1,
 h1,
 .section-title,
 .cta-box h2,
+.demo-copy h2,
 .founder-panel h2 {
   font-family: "Newsreader", Georgia, serif;
   font-weight: 650;
@@ -1683,6 +1685,141 @@ h1 {
   background: transparent;
 }
 
+.demo-section {
+  text-align: left;
+  scroll-margin-top: 72px;
+}
+
+.demo-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: 54px;
+  align-items: center;
+}
+
+.demo-copy {
+  max-width: 480px;
+}
+
+.demo-copy .section-kicker {
+  margin-bottom: 26px;
+  color: #d8b795;
+}
+
+.demo-copy h2 {
+  color: var(--paper);
+  font-size: 70px;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.demo-copy p {
+  margin-top: 26px;
+  color: rgba(251, 250, 246, 0.66);
+  font-size: 19px;
+  line-height: 1.62;
+}
+
+.demo-note {
+  margin-top: 32px;
+  padding-top: 22px;
+  border-top: 1px solid var(--dark-line);
+  color: rgba(251, 250, 246, 0.46);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.demo-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: 30px;
+  border: 1px solid var(--dark-line);
+  background: rgba(251, 250, 246, 0.06);
+}
+
+.demo-form label {
+  display: grid;
+  gap: 8px;
+  color: rgba(251, 250, 246, 0.58);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.demo-form-full {
+  grid-column: 1 / -1;
+}
+
+.demo-form input,
+.demo-form select,
+.demo-form textarea {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(251, 250, 246, 0.18);
+  color: var(--paper);
+  background: rgba(251, 250, 246, 0.09);
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  padding: 0 15px;
+}
+
+.demo-form textarea {
+  min-height: 112px;
+  padding-top: 14px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.demo-form input::placeholder,
+.demo-form textarea::placeholder {
+  color: rgba(251, 250, 246, 0.34);
+}
+
+.demo-form select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(251, 250, 246, 0.78) 50%),
+    linear-gradient(135deg, rgba(251, 250, 246, 0.78) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 23px,
+    calc(100% - 14px) 23px;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.demo-form button {
+  justify-self: start;
+}
+
+.demo-form button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.demo-form-status {
+  align-self: center;
+  color: rgba(251, 250, 246, 0.46);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.demo-form-status[data-state="success"] {
+  color: #d8b795;
+}
+
+.demo-form-status[data-state="error"] {
+  color: #f0a18f;
+}
+
+.demo-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 .footer {
   padding: 34px 0;
   color: rgba(251, 250, 246, 0.56);
@@ -2033,8 +2170,18 @@ h1 {
 
   .section-title,
   .founder-panel h2,
-  .cta-box h2 {
+  .cta-box h2,
+  .demo-copy h2 {
     font-size: 48px;
+  }
+
+  .demo-layout {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .demo-copy {
+    max-width: 720px;
   }
 
   .hero-copy-wrap {
@@ -2276,8 +2423,33 @@ h1 {
   }
 
   .section-title,
-  .cta-box h2 {
+  .cta-box h2,
+  .demo-copy h2 {
     font-size: 38px;
+  }
+
+  .demo-layout {
+    gap: 28px;
+  }
+
+  .demo-copy p {
+    margin-top: 20px;
+    font-size: 17px;
+  }
+
+  .demo-note {
+    display: none;
+  }
+
+  .demo-form {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .demo-form button,
+  .demo-form-status {
+    width: 100%;
   }
 
   .founder-panel h2,

@@ -31,6 +31,37 @@ export function createCrmApp() {
     response.json({ ok: true, storage: getStoreInfo() });
   });
 
+  app.post("/api/public/demo-request", async (request: Request, response: Response) => {
+    const demoRequest = parseDemoRequest(request.body ?? {});
+    if (demoRequest.honeypot) {
+      response.status(202).json({ ok: true });
+      return;
+    }
+
+    const lead = await createRecord("leads", {
+      firstName: demoRequest.firstName,
+      lastName: demoRequest.lastName,
+      company: demoRequest.company,
+      email: demoRequest.email,
+      phone: demoRequest.phone,
+      status: "Open - Not Contacted",
+      leadSource: "Web",
+      rating: "Warm",
+      isConverted: false,
+      description: [
+        "Demo request from agentialabs.ai",
+        `Industry: ${demoRequest.industry}`,
+        demoRequest.operation ? `First operation to explore: ${demoRequest.operation}` : undefined,
+        demoRequest.pageUrl ? `Page: ${demoRequest.pageUrl}` : undefined,
+        demoRequest.language ? `Language: ${demoRequest.language}` : undefined,
+      ]
+        .filter(Boolean)
+        .join("\n"),
+    });
+
+    response.status(201).json({ ok: true, leadId: lead.id });
+  });
+
   app.post("/api/auth/login", async (request: Request, response: Response) => {
     const { email, password } = request.body ?? {};
     const result = await authenticateUser(String(email ?? ""), String(password ?? ""));
@@ -191,4 +222,49 @@ function safeTokenEqual(actualToken: string, expectedToken: string): boolean {
   const actual = Buffer.from(actualToken);
   const expected = Buffer.from(expectedToken);
   return actual.length === expected.length && timingSafeEqual(actual, expected);
+}
+
+function parseDemoRequest(body: Record<string, unknown>) {
+  const honeypot = cleanText(body.websiteUrl, 200);
+  const firstName = cleanText(body.firstName, 80);
+  const lastName = cleanText(body.lastName, 120);
+  const company = cleanText(body.company, 160);
+  const email = cleanText(body.email, 180).toLowerCase();
+  const phone = cleanText(body.phone, 60);
+  const industry = cleanText(body.industry, 120);
+  const operation = cleanText(body.operation, 1200);
+  const pageUrl = cleanText(body.pageUrl, 500);
+  const language = cleanText(body.language, 12);
+
+  if (honeypot) return { honeypot: true };
+  if (!firstName) throw new Error("Nombre requerido.");
+  if (!lastName) throw new Error("Apellidos requeridos.");
+  if (!company) throw new Error("Empresa requerida.");
+  if (!isValidEmail(email)) throw new Error("Email no valido.");
+  if (!phone) throw new Error("Telefono requerido.");
+  if (!industry) throw new Error("Industria requerida.");
+
+  return {
+    honeypot: false,
+    firstName,
+    lastName,
+    company,
+    email,
+    phone,
+    industry,
+    operation,
+    pageUrl,
+    language,
+  };
+}
+
+function cleanText(value: unknown, maxLength: number): string {
+  return String(value ?? "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, maxLength);
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }

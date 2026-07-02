@@ -46,7 +46,7 @@
               <button type="button" data-lang-option="es" aria-pressed="false">ES</button>
             </div>
 
-            <a href="mailto:hello@agentialabs.ai?subject=Workforce%20Design%20Sprint" class="nav-cta">
+            <a href="#demo-form" class="nav-cta">
               Start with one job
             </a>
           </div>
@@ -551,14 +551,79 @@
         </div>
       </section>
 
-      <section class="cta-section">
+      <section class="cta-section demo-section" id="demo-form">
         <div class="container">
-          <div class="cta-box">
-            <h2>What if your workforce were limitless? Are you ready?</h2>
+          <div class="demo-layout">
+            <div class="demo-copy">
+              <div class="section-kicker" data-es="Reserva una demo">Request a demo</div>
+              <h2 data-es="Encuentra la primera operaci&oacute;n que tus agentes deber&iacute;an ejecutar.">Find the first operation your agents should run.</h2>
+              <p data-es="Cu&eacute;ntanos el contexto m&iacute;nimo y revisaremos contigo qu&eacute; trabajo operativo puede convertirse primero en capacidad gestionada por agentes.">
+                Tell us the minimum context and we will review which operational job can become agent-managed capacity first.
+              </p>
+              <div class="demo-note" data-es="Sin calendario abierto: primero cualificamos el caso, despu&eacute;s agendamos una conversaci&oacute;n &uacute;til.">
+                No open calendar: we qualify the case first, then schedule a useful conversation.
+              </div>
+            </div>
 
-            <a class="button button-primary" href="mailto:hello@agentialabs.ai?subject=Book%20a%20Workforce%20Design%20Sprint">
-              Book a Workforce Design Sprint
-            </a>
+            <form class="demo-form" data-demo-form data-endpoint="https://crm-pi-nine-82.vercel.app/api/public/demo-request">
+              <input type="text" name="websiteUrl" tabindex="-1" autocomplete="off" aria-hidden="true" class="demo-honeypot" />
+
+              <label>
+                <span data-es="Nombre">First name</span>
+                <input name="firstName" type="text" autocomplete="given-name" placeholder="Paula" required />
+              </label>
+
+              <label>
+                <span data-es="Apellidos">Last name</span>
+                <input name="lastName" type="text" autocomplete="family-name" placeholder="Rodr&iacute;guez" required />
+              </label>
+
+              <label>
+                <span data-es="Empresa">Company</span>
+                <input name="company" type="text" autocomplete="organization" placeholder="Company name" data-es-placeholder="Nombre de la empresa" required />
+              </label>
+
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" autocomplete="email" placeholder="paula@company.com" data-es-placeholder="paula@empresa.com" required />
+              </label>
+
+              <label>
+                <span data-es="Tel&eacute;fono">Phone</span>
+                <input name="phone" type="tel" autocomplete="tel" placeholder="+34 600 000 000" required />
+              </label>
+
+              <label>
+                <span data-es="Industria">Industry</span>
+                <select name="industry" required>
+                  <option value="" data-es="Selecciona una">Select one</option>
+                  <option>Retail &amp; eCommerce</option>
+                  <option data-es="Servicios profesionales">Professional Services</option>
+                  <option data-es="Finanzas y contabilidad">Finance &amp; Accounting</option>
+                  <option data-es="Inmobiliario">Real Estate</option>
+                  <option data-es="Industria / Manufacturing">Manufacturing</option>
+                  <option data-es="Log&iacute;stica y supply chain">Logistics &amp; Supply Chain</option>
+                  <option data-es="Hospitality / Travel">Hospitality &amp; Travel</option>
+                  <option data-es="Educaci&oacute;n">Education</option>
+                  <option data-es="Tecnolog&iacute;a / SaaS">Technology &amp; SaaS</option>
+                  <option data-es="Salud / cl&iacute;nicas">Healthcare &amp; Clinics</option>
+                  <option data-es="Otro">Other</option>
+                </select>
+              </label>
+
+              <label class="demo-form-full">
+                <span data-es="Operaci&oacute;n a liberar primero">First operation to free up</span>
+                <textarea name="operation" rows="4" placeholder="Weekly reporting, invoices, shared inbox, documents, approvals..." data-es-placeholder="Reporting semanal, facturas, inbox compartido, documentos, aprobaciones..."></textarea>
+              </label>
+
+              <button class="button button-primary" type="submit">
+                <span data-es="Enviar solicitud">Send request</span>
+              </button>
+
+              <p class="demo-form-status" data-demo-status role="status" aria-live="polite" data-es="Usaremos estos datos solo para responder a tu solicitud y preparar la demo.">
+                We will only use this data to answer your request and prepare the demo.
+              </p>
+            </form>
           </div>
         </div>
       </section>
@@ -767,6 +832,10 @@
         node.textContent = node.dataset.es;
       });
 
+      document.querySelectorAll("[data-es-placeholder]").forEach((node) => {
+        node.setAttribute("placeholder", node.dataset.esPlaceholder);
+      });
+
       const attributes = [
         [".nav", "aria-label", "Navegaci\u00f3n principal"],
         [".brand", "aria-label", "Inicio de Agentia Labs"],
@@ -787,15 +856,80 @@
         if (node) node.setAttribute(attribute, value);
       });
 
-      const mailSubjects = [
-        [".nav-cta", "Empezar por un trabajo"],
-        [".cta-box .button", "Reservar un sprint de dise\u00f1o de mano de obra"]
+      const demoLinks = [
+        ".nav-cta",
+        ".cta-box .button"
       ];
 
-      mailSubjects.forEach(([selector, subject]) => {
+      demoLinks.forEach((selector) => {
         const node = document.querySelector(selector);
         if (!node) return;
-        node.setAttribute("href", `mailto:hello@agentialabs.ai?subject=${encodeURIComponent(subject)}`);
+        node.setAttribute("href", "#demo-form");
+      });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const form = document.querySelector("[data-demo-form]");
+      if (!form) return;
+
+      const status = form.querySelector("[data-demo-status]");
+      const submit = form.querySelector('button[type="submit"]');
+      const endpoint = () => window.AGENTIA_CRM_DEMO_ENDPOINT || form.dataset.endpoint;
+      const message = {
+        en: {
+          idle: "We will only use this data to answer your request and prepare the demo.",
+          sending: "Sending request...",
+          success: "Request sent. We will review it and come back to you shortly.",
+          error: "We could not send the request. Please try again or email hello@agentialabs.ai."
+        },
+        es: {
+          idle: "Usaremos estos datos solo para responder a tu solicitud y preparar la demo.",
+          sending: "Enviando solicitud...",
+          success: "Solicitud enviada. La revisaremos y te responderemos en breve.",
+          error: "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@agentialabs.ai."
+        }
+      };
+
+      const currentLanguage = () => (document.documentElement.lang || "en").startsWith("es") ? "es" : "en";
+      const setStatus = (key) => {
+        if (!status) return;
+        status.textContent = message[currentLanguage()][key];
+        status.dataset.state = key;
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!endpoint()) {
+          setStatus("error");
+          return;
+        }
+
+        const payload = Object.fromEntries(new FormData(form).entries());
+        payload.pageUrl = window.location.href;
+        payload.language = currentLanguage();
+
+        setStatus("sending");
+        if (submit) submit.disabled = true;
+
+        try {
+          const response = await fetch(endpoint(), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await response.json().catch(() => ({}));
+          if (!response.ok || data.ok === false) {
+            throw new Error(data.error || "Request failed");
+          }
+          form.reset();
+          setStatus("success");
+        } catch {
+          setStatus("error");
+        } finally {
+          if (submit) submit.disabled = false;
+        }
       });
     })();
   </script>
