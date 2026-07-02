@@ -99,6 +99,7 @@ const columnsByObject: Record<ObjectKey, string[]> = {
 };
 
 const upsertOrder: ObjectKey[] = ["users", "accounts", "contacts", "products", "opportunities", "leads", "opportunityLineItems", "proposals", "proposalLineItems", "invoices", "invoiceLines", "tasks", "cases"];
+const preOpportunityUpsertOrder: ObjectKey[] = upsertOrder.filter((object) => object !== "opportunities");
 const deleteOrder: ObjectKey[] = ["invoiceLines", "proposalLineItems", "opportunityLineItems", "tasks", "cases", "invoices", "proposals", "leads", "opportunities", "contacts", "products", "accounts", "users"];
 
 let cachedClient: SupabaseClient | undefined;
@@ -193,6 +194,7 @@ export async function getRecord(object: ObjectKey, id: string): Promise<CrmRecor
 
 export async function createRecord(object: ObjectKey, input: Record<string, unknown>): Promise<CrmRecord> {
   const data = await readData();
+  const previous = cloneData(data);
   const collection = getCollection(data, object);
   const now = new Date().toISOString();
   const record = normalizeRecord(data, object, {
@@ -202,12 +204,13 @@ export async function createRecord(object: ObjectKey, input: Record<string, unkn
     updatedAt: now,
   });
   collection.unshift(record);
-  await replaceData(data);
+  await persistCrudChanges(previous, data);
   return record as unknown as CrmRecord;
 }
 
 export async function updateRecord(object: ObjectKey, id: string, input: Record<string, unknown>): Promise<CrmRecord> {
   const data = await readData();
+  const previous = cloneData(data);
   const collection = getCollection(data, object);
   const index = collection.findIndex((item) => item.id === id);
   if (index === -1) throw new Error(`No existe ${object}/${id}`);
@@ -220,18 +223,19 @@ export async function updateRecord(object: ObjectKey, id: string, input: Record<
     updatedAt: new Date().toISOString(),
   });
   collection[index] = record;
-  await replaceData(data);
+  await persistCrudChanges(previous, data);
   return record as unknown as CrmRecord;
 }
 
 export async function deleteRecord(object: ObjectKey, id: string): Promise<{ id: string; deleted: boolean }> {
   const data = await readData();
+  const previous = cloneData(data);
   const collection = getCollection(data, object);
   const index = collection.findIndex((item) => item.id === id);
   if (index === -1) throw new Error(`No existe ${object}/${id}`);
   collection.splice(index, 1);
   cascadeDelete(data, object, id);
-  await replaceData(data);
+  await persistCrudChanges(previous, data);
   return { id, deleted: true };
 }
 
@@ -402,6 +406,40 @@ async function deleteMissing(object: ObjectKey, ids: Set<string>): Promise<void>
   if (deleteError) throw new Error(deleteError.message);
 }
 
+async function persistCrudChanges(previous: CrmData, data: CrmData): Promise<void> {
+  const next = ensureUserPasswords(recalculateAll(data));
+  const changedByObject = new Map<ObjectKey, Record<string, unknown>[]>();
+  const deletedIdsByObject = new Map<ObjectKey, string[]>();
+
+  for (const object of upsertOrder) {
+    const previousRecords = getCollection(previous, object);
+    const nextRecords = getCollection(next, object);
+    const previousById = new Map(previousRecords.map((record) => [record.id, record]));
+    const nextIds = new Set(nextRecords.map((record) => record.id));
+    const changedRecords = nextRecords.filter((record) => {
+      const previousRecord = previousById.get(record.id);
+      return !previousRecord || !recordsEqual(object, previousRecord, record);
+    });
+    const deletedIds = previousRecords.map((record) => record.id).filter((id) => !nextIds.has(id));
+    if (changedRecords.length > 0) changedByObject.set(object, changedRecords);
+    if (deletedIds.length > 0) deletedIdsByObject.set(object, deletedIds);
+  }
+
+  for (const object of preOpportunityUpsertOrder) {
+    await upsertObject(object, changedByObject.get(object) ?? []);
+  }
+  for (const object of deleteOrder) {
+    await deleteObjectIds(object, deletedIdsByObject.get(object) ?? []);
+  }
+  await upsertObject("opportunities", changedByObject.get("opportunities") ?? []);
+}
+
+async function deleteObjectIds(object: ObjectKey, ids: string[]): Promise<void> {
+  if (ids.length === 0) return;
+  const { error } = await getSupabase().from(tableByObject[object]).delete().in("id", ids);
+  if (error) throw new Error(error.message);
+}
+
 async function replacePathConfigs(pathConfigs: CrmData["pathConfigs"]): Promise<void> {
   const { error: deleteError } = await getSupabase().from("crm_path_steps").delete().in("object_key", ["leads", "opportunities", "cases"]);
   if (deleteError) throw new Error(deleteError.message);
@@ -424,6 +462,20 @@ async function replacePathConfigs(pathConfigs: CrmData["pathConfigs"]): Promise<
 
 function toDbRow(object: ObjectKey, record: Record<string, unknown>): DbRow {
   return Object.fromEntries(columnsByObject[object].map((field) => [camelToSnake(field), record[field] ?? null]));
+}
+
+function recordsEqual(object: ObjectKey, previous: Record<string, unknown>, next: Record<string, unknown>): boolean {
+  return columnsByObject[object].every((field) => valuesEqual(previous[field], next[field]));
+}
+
+function valuesEqual(previous: unknown, next: unknown): boolean {
+  const left = previous ?? null;
+  const right = next ?? null;
+  return left === right;
+}
+
+function cloneData(data: CrmData): CrmData {
+  return structuredClone(data);
 }
 
 function fromDbRow(row: DbRow): Record<string, unknown> {

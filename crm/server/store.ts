@@ -319,12 +319,13 @@ export function recalculateAll(data: CrmData): CrmData {
   }
 
   for (const opportunity of data.opportunities) {
+    const opportunityLines = data.opportunityLineItems.filter((line) => line.opportunityId === opportunity.id);
     const step = data.pathConfigs.opportunities.find((item) => item.value === opportunity.stageName);
     if (step?.probability !== undefined) opportunity.probability = step.probability;
     opportunity.oneOffAmount = toNumber(opportunity.oneOffAmount, toNumber(opportunity.amount, 0));
     opportunity.mrrAmount = toNumber(opportunity.mrrAmount, 0);
     if (opportunity.amountMode === "syncProducts") {
-      const split = splitLineRevenue(data.opportunityLineItems.filter((line) => line.opportunityId === opportunity.id));
+      const split = splitLineRevenue(opportunityLines);
       opportunity.oneOffAmount = split.oneOffAmount;
       opportunity.mrrAmount = split.mrrAmount;
     }

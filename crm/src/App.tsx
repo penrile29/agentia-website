@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
 import Papa from "papaparse";
 import readXlsxFile from "read-excel-file/browser";
 import {
@@ -53,6 +53,8 @@ type DashboardPeriod = "all" | "thisQuarter" | "next90" | "thisYear";
 type DashboardOpportunityScope = "open" | "all" | "won";
 type RecordMap = Record<string, unknown>;
 type AuthSession = { token: string; user: CrmData["users"][number] };
+type SetCrmData = Dispatch<SetStateAction<CrmData | null>>;
+type InlineSaveStatus = { state: "saving" | "saved" | "error"; message?: string };
 type ModalState =
   | { type: "record"; object: ObjectKey; record?: CrmRecord }
   | { type: "import"; object: ObjectKey }
@@ -77,6 +79,9 @@ const objectIcons: Record<ObjectKey, React.ComponentType<{ size?: number }>> = {
   products: Package,
   users: Users,
 };
+
+const inlineReadOnlyFields = new Set(["id", "createdAt", "updatedAt"]);
+const inlineEditableTypes = new Set<FieldConfig["type"]>(["text", "email", "phone", "url", "date", "datetime", "number", "currency", "percent", "picklist", "boolean", "reference"]);
 
 async function apiRequest<T>(url: string, init?: RequestInit): Promise<T> {
   const token = getStoredSession()?.token;
@@ -243,6 +248,8 @@ function App() {
           <ObjectListPage
             data={data}
             object={activePage.object}
+            reload={loadData}
+            setData={setData}
             openModal={setModal}
             openRecord={(object, id) => setActivePage({ type: "record", object, id })}
           />
@@ -252,6 +259,7 @@ function App() {
             object={activePage.object}
             recordId={activePage.id}
             reload={loadData}
+            setData={setData}
             openModal={setModal}
             openList={(object) => setActivePage({ type: "list", object })}
             openRecord={(object, id) => setActivePage({ type: "record", object, id })}
@@ -664,11 +672,15 @@ function MetricCard({ icon: Icon, label, value, helper }: { icon: React.Componen
 function ObjectListPage({
   data,
   object,
+  reload,
+  setData,
   openModal,
   openRecord,
 }: {
   data: CrmData;
   object: ObjectKey;
+  reload: () => Promise<void>;
+  setData: SetCrmData;
   openModal: (modal: ModalState) => void;
   openRecord: (object: ObjectKey, id: string) => void;
 }) {
@@ -676,6 +688,11 @@ function ObjectListPage({
   const [query, setQuery] = useState("");
   const Icon = objectIcons[object];
   const fields = fieldConfigs[object];
+  const tableFields = fields.filter((field) => field.table !== false).slice(0, 6);
+  const { statuses, saveInlineValue } = useInlineRecordEditing({
+    setData,
+    afterSave: (savedObject) => (savedObject === "opportunityLineItems" ? reload() : undefined),
+  });
 
   useEffect(() => {
     setQuery("");
@@ -724,9 +741,10 @@ function ObjectListPage({
           <table>
             <thead>
               <tr>
-                {fields.filter((field) => field.table !== false).slice(0, 6).map((field) => (
+                {tableFields.map((field) => (
                   <th key={field.key}>{field.label}</th>
                 ))}
+                <th aria-label="Abrir registro" />
               </tr>
             </thead>
             <tbody>
@@ -740,9 +758,30 @@ function ObjectListPage({
                     if (event.key === "Enter") openRecord(object, record.id);
                   }}
                 >
-                  {fields.filter((field) => field.table !== false).slice(0, 6).map((field) => (
-                    <td key={field.key}>{formatField(data, field, record)}</td>
+                  {tableFields.map((field) => (
+                    <InlineEditableCell
+                      data={data}
+                      field={field}
+                      key={field.key}
+                      object={object}
+                      record={record}
+                      status={statuses[inlineCellKey(object, record.id, field.key)]}
+                      onSave={saveInlineValue}
+                    />
                   ))}
+                  <td className="row-actions-cell">
+                    <button
+                      className="icon-button subtle"
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        openRecord(object, record.id);
+                      }}
+                      title="Abrir registro"
+                    >
+                      <PanelRight size={14} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -764,6 +803,7 @@ function RecordPage({
   object,
   recordId,
   reload,
+  setData,
   openModal,
   openList,
   openRecord,
@@ -772,6 +812,7 @@ function RecordPage({
   object: ObjectKey;
   recordId: string;
   reload: () => Promise<void>;
+  setData: SetCrmData;
   openModal: (modal: ModalState) => void;
   openList: (object: ObjectKey) => void;
   openRecord: (object: ObjectKey, id: string) => void;
@@ -834,10 +875,10 @@ function RecordPage({
 
             <RecordFields data={data} object={object} record={record} />
             {object === "opportunities" ? (
-              <OpportunityRelated data={data} opportunity={record as CrmData["opportunities"][number]} reload={reload} openRecord={openRecord} />
+              <OpportunityRelated data={data} opportunity={record as CrmData["opportunities"][number]} reload={reload} setData={setData} openRecord={openRecord} />
             ) : null}
-            {object === "proposals" ? <ProposalRelated data={data} proposal={record as CrmData["proposals"][number]} reload={reload} /> : null}
-            {object === "invoices" ? <InvoiceRelated data={data} invoice={record as CrmData["invoices"][number]} reload={reload} /> : null}
+            {object === "proposals" ? <ProposalRelated data={data} proposal={record as CrmData["proposals"][number]} reload={reload} setData={setData} /> : null}
+            {object === "invoices" ? <InvoiceRelated data={data} invoice={record as CrmData["invoices"][number]} reload={reload} setData={setData} /> : null}
             {object === "accounts" ? <AccountRelated data={data} account={record as CrmData["accounts"][number]} openRecord={openRecord} /> : null}
             {object === "contacts" ? <ContactRelated data={data} contact={record as CrmData["contacts"][number]} openRecord={openRecord} /> : null}
           </>
@@ -1051,11 +1092,13 @@ function OpportunityRelated({
   data,
   opportunity,
   reload,
+  setData,
   openRecord,
 }: {
   data: CrmData;
   opportunity: CrmData["opportunities"][number];
   reload: () => Promise<void>;
+  setData: SetCrmData;
   openRecord: (object: ObjectKey, id: string) => void;
 }) {
   const proposals = data.proposals.filter((proposal) => proposal.opportunityId === opportunity.id);
@@ -1063,19 +1106,19 @@ function OpportunityRelated({
   return (
     <>
       <AmountSyncControl data={data} opportunity={opportunity} reload={reload} />
-      <LineItemManager data={data} parentId={opportunity.id} lineObject="opportunityLineItems" parentField="opportunityId" reload={reload} />
+      <LineItemManager data={data} parentId={opportunity.id} lineObject="opportunityLineItems" parentField="opportunityId" reload={reload} setData={setData} />
       <RelatedList title="Propuestas" records={proposals} object="proposals" data={data} openRecord={openRecord} />
       <RelatedList title="Facturas" records={invoices} object="invoices" data={data} openRecord={openRecord} />
     </>
   );
 }
 
-function ProposalRelated({ data, proposal, reload }: { data: CrmData; proposal: CrmData["proposals"][number]; reload: () => Promise<void> }) {
-  return <LineItemManager data={data} parentId={proposal.id} lineObject="proposalLineItems" parentField="proposalId" reload={reload} />;
+function ProposalRelated({ data, proposal, reload, setData }: { data: CrmData; proposal: CrmData["proposals"][number]; reload: () => Promise<void>; setData: SetCrmData }) {
+  return <LineItemManager data={data} parentId={proposal.id} lineObject="proposalLineItems" parentField="proposalId" reload={reload} setData={setData} />;
 }
 
-function InvoiceRelated({ data, invoice, reload }: { data: CrmData; invoice: CrmData["invoices"][number]; reload: () => Promise<void> }) {
-  return <LineItemManager data={data} parentId={invoice.id} lineObject="invoiceLines" parentField="invoiceId" reload={reload} />;
+function InvoiceRelated({ data, invoice, reload, setData }: { data: CrmData; invoice: CrmData["invoices"][number]; reload: () => Promise<void>; setData: SetCrmData }) {
+  return <LineItemManager data={data} parentId={invoice.id} lineObject="invoiceLines" parentField="invoiceId" reload={reload} setData={setData} />;
 }
 
 function AccountRelated({ data, account, openRecord }: { data: CrmData; account: CrmData["accounts"][number]; openRecord: (object: ObjectKey, id: string) => void }) {
@@ -1178,14 +1221,18 @@ function LineItemManager({
   lineObject,
   parentField,
   reload,
+  setData,
 }: {
   data: CrmData;
   parentId: string;
   lineObject: "opportunityLineItems" | "proposalLineItems" | "invoiceLines";
   parentField: "opportunityId" | "proposalId" | "invoiceId";
   reload: () => Promise<void>;
+  setData: SetCrmData;
 }) {
   const lines = (data[lineObject] as CrmRecord[]).filter((line) => (line as unknown as RecordMap)[parentField] === parentId);
+  const lineFields = fieldConfigs[lineObject].filter((field) => field.table !== false && field.key !== parentField).slice(0, 7);
+  const { statuses, saveInlineValue } = useInlineRecordEditing({ setData, afterSave: () => reload() });
   const [draft, setDraft] = useState({
     productId: data.products[0]?.id ?? "",
     revenueType: data.products[0]?.revenueType ?? "oneOff",
@@ -1222,8 +1269,11 @@ function LineItemManager({
             quantity: Number(draft.quantity),
             unitPrice: Number(draft.unitPrice),
             discountPercent: 0,
-          };
+    };
     await apiRequest(`/api/${lineObject}`, { method: "POST", body: JSON.stringify(payload) });
+    if (lineObject === "opportunityLineItems") {
+      await apiRequest(`/api/opportunities/${parentId}`, { method: "PUT", body: JSON.stringify({ amountMode: "syncProducts" }) });
+    }
     setDraft({
       productId: data.products[0]?.id ?? "",
       revenueType: data.products[0]?.revenueType ?? "oneOff",
@@ -1247,17 +1297,43 @@ function LineItemManager({
           <h3>{objectLabels[lineObject].plural}</h3>
         </div>
       </div>
-      <div className="line-list">
-        {lines.map((line) => (
-          <div className="line-row" key={line.id}>
-            <span>{formatField(data, fieldConfigs[lineObject].find((field) => field.key === "productId")!, line)}</span>
-            {lineObject !== "invoiceLines" ? <em>{formatRevenueType((line as unknown as RecordMap).revenueType)}</em> : null}
-            <strong>{formatField(data, fieldConfigs[lineObject].find((field) => field.key === (lineObject === "invoiceLines" ? "totalAmount" : "totalPrice"))!, line)}</strong>
-            <button className="icon-button subtle" type="button" onClick={() => void removeLine(line.id)} title="Borrar linea">
-              <Trash2 size={14} />
-            </button>
-          </div>
-        ))}
+      <div className="line-table-wrap">
+        {lines.length ? (
+          <table className="line-table">
+            <thead>
+              <tr>
+                {lineFields.map((field) => (
+                  <th key={field.key}>{field.label}</th>
+                ))}
+                <th aria-label="Acciones" />
+              </tr>
+            </thead>
+            <tbody>
+              {lines.map((line) => (
+                <tr key={line.id}>
+                  {lineFields.map((field) => (
+                    <InlineEditableCell
+                      data={data}
+                      field={field}
+                      key={field.key}
+                      object={lineObject}
+                      record={line}
+                      status={statuses[inlineCellKey(lineObject, line.id, field.key)]}
+                      onSave={saveInlineValue}
+                    />
+                  ))}
+                  <td className="line-actions-cell">
+                    <button className="icon-button subtle" type="button" onClick={() => void removeLine(line.id)} title="Borrar linea">
+                      <Trash2 size={14} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="related-empty">No hay lineas.</p>
+        )}
       </div>
       <div className="inline-form">
         <label>
@@ -1442,6 +1518,234 @@ function FieldInput({ data, field, value, onChange }: { data: CrmData; field: Fi
       ) : null}
     </label>
   );
+}
+
+function InlineEditableCell({
+  data,
+  object,
+  record,
+  field,
+  status,
+  onSave,
+}: {
+  data: CrmData;
+  object: ObjectKey;
+  record: CrmRecord;
+  field: FieldConfig;
+  status?: InlineSaveStatus;
+  onSave: (object: ObjectKey, record: CrmRecord, field: FieldConfig, value: unknown) => void;
+}) {
+  const rawValue = (record as unknown as RecordMap)[field.key];
+  const editable = isInlineEditableField(field);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(() => inlineDraftValue(field, rawValue));
+
+  useEffect(() => {
+    if (!editing) setDraft(inlineDraftValue(field, rawValue));
+  }, [editing, field, rawValue]);
+
+  function openEditor() {
+    if (!editable || status?.state === "saving") return;
+    setDraft(inlineDraftValue(field, rawValue));
+    setEditing(true);
+  }
+
+  function cancel() {
+    setDraft(inlineDraftValue(field, rawValue));
+    setEditing(false);
+  }
+
+  function commit(nextRawValue: string | boolean = draft) {
+    const nextValue = coerceInlineValue(field, nextRawValue);
+    if (inlineValuesEqual(field, rawValue, nextValue)) {
+      cancel();
+      return;
+    }
+    onSave(object, record, field, nextValue);
+    setEditing(false);
+  }
+
+  return (
+    <td className={editable ? `inline-edit-cell ${status ? `inline-edit-${status.state}` : ""}` : ""} onClick={editable ? (event) => event.stopPropagation() : undefined} onKeyDown={editable ? (event) => event.stopPropagation() : undefined}>
+      {editable && editing ? (
+        <InlineCellControl data={data} field={field} draft={draft} setDraft={setDraft} commit={commit} cancel={cancel} />
+      ) : editable ? (
+        <button className="inline-edit-trigger" type="button" onClick={openEditor} disabled={status?.state === "saving"} title={`Editar ${field.label}`}>
+          <span>{formatField(data, field, record)}</span>
+          <Pencil size={12} />
+        </button>
+      ) : (
+        formatField(data, field, record)
+      )}
+      {status ? (
+        <span className={`inline-edit-status ${status.state}`} title={status.message}>
+          {status.state === "saving" ? "Guardando" : status.state === "saved" ? "Guardado" : "Error"}
+        </span>
+      ) : null}
+    </td>
+  );
+}
+
+function InlineCellControl({
+  data,
+  field,
+  draft,
+  setDraft,
+  commit,
+  cancel,
+}: {
+  data: CrmData;
+  field: FieldConfig;
+  draft: string;
+  setDraft: (value: string) => void;
+  commit: (value?: string | boolean) => void;
+  cancel: () => void;
+}) {
+  const commonEvents = {
+    onClick: (event: React.MouseEvent) => event.stopPropagation(),
+    onKeyDown: (event: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>) => {
+      event.stopPropagation();
+      if (event.key === "Enter") commit();
+      if (event.key === "Escape") cancel();
+    },
+  };
+
+  if (field.type === "picklist") {
+    return (
+      <select
+        autoFocus
+        className="inline-edit-control"
+        required={field.required}
+        value={draft}
+        onBlur={cancel}
+        onChange={(event) => {
+          setDraft(event.target.value);
+          commit(event.target.value);
+        }}
+        onClick={commonEvents.onClick}
+        onKeyDown={commonEvents.onKeyDown}
+      >
+        <option value="">Seleccionar</option>
+        {getPicklistValues(data, field.picklist).map((option) => (
+          <option value={option} key={option}>
+            {picklistOptionLabel(field, option)}
+          </option>
+        ))}
+      </select>
+    );
+  }
+
+  if (field.type === "reference") {
+    return (
+      <select
+        autoFocus
+        className="inline-edit-control"
+        required={field.required}
+        value={draft}
+        onBlur={cancel}
+        onChange={(event) => {
+          setDraft(event.target.value);
+          commit(event.target.value);
+        }}
+        onClick={commonEvents.onClick}
+        onKeyDown={commonEvents.onKeyDown}
+      >
+        <option value="">Sin relacion</option>
+        {field.relation
+          ? ((data[field.relation] as CrmRecord[]) ?? []).map((relatedRecord) => (
+              <option value={relatedRecord.id} key={relatedRecord.id}>
+                {recordDisplayName(data, field.relation!, relatedRecord.id)}
+              </option>
+            ))
+          : null}
+      </select>
+    );
+  }
+
+  if (field.type === "boolean") {
+    return (
+      <label className="inline-boolean-control" onClick={(event) => event.stopPropagation()}>
+        <input
+          autoFocus
+          type="checkbox"
+          checked={draft === "true"}
+          onBlur={cancel}
+          onChange={(event) => {
+            setDraft(event.target.checked ? "true" : "false");
+            commit(event.target.checked);
+          }}
+          onKeyDown={(event) => {
+            event.stopPropagation();
+            if (event.key === "Escape") cancel();
+          }}
+        />
+        <span>{draft === "true" ? "Si" : "No"}</span>
+      </label>
+    );
+  }
+
+  return (
+    <input
+      autoFocus
+      className="inline-edit-control"
+      max={field.type === "percent" ? 100 : undefined}
+      min={field.type === "number" || field.type === "currency" || field.type === "percent" ? 0 : undefined}
+      required={field.required}
+      step={field.type === "currency" ? "0.01" : field.type === "number" || field.type === "percent" ? "1" : undefined}
+      type={inputType(field.type)}
+      value={draft}
+      onBlur={() => commit()}
+      onChange={(event) => setDraft(event.target.value)}
+      onClick={commonEvents.onClick}
+      onKeyDown={commonEvents.onKeyDown}
+    />
+  );
+}
+
+function useInlineRecordEditing({
+  setData,
+  afterSave,
+}: {
+  setData: SetCrmData;
+  afterSave?: (object: ObjectKey, updatedRecord: CrmRecord) => Promise<void> | void;
+}) {
+  const [statuses, setStatuses] = useState<Record<string, InlineSaveStatus>>({});
+
+  async function saveInlineValue(object: ObjectKey, record: CrmRecord, field: FieldConfig, value: unknown) {
+    const key = inlineCellKey(object, record.id, field.key);
+    const validationError = validateInlineValue(field, value);
+    if (validationError) {
+      setStatuses((current) => ({ ...current, [key]: { state: "error", message: validationError } }));
+      return;
+    }
+
+    const previousValue = (record as unknown as RecordMap)[field.key];
+    setStatuses((current) => ({ ...current, [key]: { state: "saving" } }));
+    setData((current) => (current ? patchRecordInData(current, object, record.id, { [field.key]: value }) : current));
+
+    try {
+      const updatedRecord = await apiRequest<CrmRecord>(`/api/${object}/${record.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ [field.key]: value }),
+      });
+      setData((current) => (current ? replaceRecordInData(current, object, updatedRecord) : current));
+      setStatuses((current) => ({ ...current, [key]: { state: "saved" } }));
+      window.setTimeout(() => {
+        setStatuses((current) => {
+          if (current[key]?.state !== "saved") return current;
+          const { [key]: _removed, ...rest } = current;
+          return rest;
+        });
+      }, 1400);
+      if (afterSave) void Promise.resolve(afterSave(object, updatedRecord)).catch(() => undefined);
+    } catch (saveError) {
+      const message = saveError instanceof Error ? saveError.message : "No se pudo guardar.";
+      setData((current) => (current ? patchRecordInData(current, object, record.id, { [field.key]: previousValue }) : current));
+      setStatuses((current) => ({ ...current, [key]: { state: "error", message } }));
+    }
+  }
+
+  return { statuses, saveInlineValue };
 }
 
 function ImportModal({ object, close, reload }: { object: ObjectKey; close: () => void; reload: () => Promise<void> }) {
@@ -1794,6 +2098,60 @@ function UserRoleEditor({ data, reload }: { data: CrmData; reload: () => Promise
       </div>
     </div>
   );
+}
+
+function inlineCellKey(object: ObjectKey, recordId: string, fieldKey: string): string {
+  return `${object}:${recordId}:${fieldKey}`;
+}
+
+function isInlineEditableField(field: FieldConfig): boolean {
+  return !field.readOnly && !inlineReadOnlyFields.has(field.key) && inlineEditableTypes.has(field.type);
+}
+
+function inlineDraftValue(field: FieldConfig, value: unknown): string {
+  if (field.type === "boolean") return value ? "true" : "false";
+  if (value === undefined || value === null) return "";
+  const textValue = String(value);
+  if (field.type === "date") return textValue.slice(0, 10);
+  if (field.type === "datetime") return textValue.includes("T") ? textValue.slice(0, 16) : textValue;
+  return textValue;
+}
+
+function coerceInlineValue(field: FieldConfig, value: string | boolean): unknown {
+  if (field.type === "boolean") return value === true || value === "true";
+  if (field.type === "number" || field.type === "currency" || field.type === "percent") {
+    const parsed = Number(String(value).replace(",", "."));
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+  return String(value ?? "");
+}
+
+function inlineValuesEqual(field: FieldConfig, currentValue: unknown, nextValue: unknown): boolean {
+  if (field.type === "boolean") return Boolean(currentValue) === Boolean(nextValue);
+  if (field.type === "number" || field.type === "currency" || field.type === "percent") return Number(currentValue ?? 0) === Number(nextValue ?? 0);
+  return String(currentValue ?? "") === String(nextValue ?? "");
+}
+
+function validateInlineValue(field: FieldConfig, value: unknown): string | null {
+  if (field.required && (value === undefined || value === null || String(value).trim() === "")) return `${field.label} es obligatorio.`;
+  if ((field.type === "number" || field.type === "currency" || field.type === "percent") && !Number.isFinite(Number(value))) return `${field.label} debe ser numerico.`;
+  return null;
+}
+
+function picklistOptionLabel(field: FieldConfig, option: string): string {
+  if (field.key === "amountMode") return amountModes.find((mode) => mode.value === option)?.label ?? option;
+  if (field.key === "revenueType") return formatRevenueType(option);
+  return option;
+}
+
+function patchRecordInData(data: CrmData, object: ObjectKey, recordId: string, patch: RecordMap): CrmData {
+  const collection = ((data[object] as CrmRecord[]) ?? []).map((record) => (record.id === recordId ? ({ ...(record as unknown as RecordMap), ...patch } as unknown as CrmRecord) : record));
+  return { ...data, [object]: collection } as CrmData;
+}
+
+function replaceRecordInData(data: CrmData, object: ObjectKey, updatedRecord: CrmRecord): CrmData {
+  const collection = ((data[object] as CrmRecord[]) ?? []).map((record) => (record.id === updatedRecord.id ? updatedRecord : record));
+  return { ...data, [object]: collection } as CrmData;
 }
 
 function formatField(data: CrmData, field: FieldConfig, record: CrmRecord): React.ReactNode {

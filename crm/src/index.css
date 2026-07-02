@@ -745,6 +745,111 @@ tbody tr.clickable-row:focus {
   outline-offset: -2px;
 }
 
+.inline-edit-cell {
+  position: relative;
+  padding: 4px 6px;
+}
+
+.inline-edit-cell.inline-edit-saving {
+  background: #f7fbff;
+}
+
+.inline-edit-cell.inline-edit-error {
+  background: #fff4f5;
+}
+
+.inline-edit-trigger {
+  width: 100%;
+  min-height: 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 14px;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 5px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+}
+
+.inline-edit-trigger:hover,
+.inline-edit-trigger:focus {
+  border-color: #d8dde6;
+  background: #fff;
+  outline: 0;
+}
+
+.inline-edit-trigger span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inline-edit-trigger svg {
+  color: #747474;
+  opacity: 0;
+}
+
+.inline-edit-trigger:hover svg,
+.inline-edit-trigger:focus svg {
+  opacity: 1;
+}
+
+.inline-edit-control {
+  min-width: 110px;
+  min-height: 30px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.inline-boolean-control {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #181818;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.inline-boolean-control input {
+  width: auto;
+  min-height: auto;
+}
+
+.inline-edit-status {
+  position: absolute;
+  right: 7px;
+  bottom: 1px;
+  max-width: calc(100% - 14px);
+  overflow: hidden;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  pointer-events: none;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.inline-edit-status.saving {
+  color: var(--blue-dark);
+}
+
+.inline-edit-status.error {
+  color: var(--red);
+}
+
+.row-actions-cell {
+  width: 44px;
+  min-width: 44px;
+  padding: 6px;
+  text-align: right;
+}
+
 .record-panel {
   overflow: visible;
 }
@@ -944,6 +1049,38 @@ tbody tr.clickable-row:focus {
 }
 
 .related-list p {
+  margin: 0;
+  padding: 12px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.line-table-wrap {
+  overflow: auto;
+}
+
+.line-table th,
+.line-table td {
+  min-width: 112px;
+}
+
+.line-table th:first-child,
+.line-table td:first-child {
+  min-width: 180px;
+}
+
+.line-table th:last-child,
+.line-table td:last-child {
+  width: 44px;
+  min-width: 44px;
+}
+
+.line-actions-cell {
+  padding: 6px;
+  text-align: right;
+}
+
+.related-empty {
   margin: 0;
   padding: 12px;
   color: var(--text-muted);

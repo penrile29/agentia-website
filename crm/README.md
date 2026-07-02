@@ -86,4 +86,10 @@ https://<deployment>/api/mcp
 
 El MCP remoto usa Streamable HTTP y OAuth 2.1 con PKCE. Claude descubre la autenticacion en `/.well-known/oauth-protected-resource`, registra o identifica su cliente, abre `/api/oauth/authorize` y el usuario entra con su email y contraseña del CRM. El token emitido queda vinculado al usuario del CRM que autorizo la conexion. `CRM_MCP_TOKEN` sigue funcionando como token estatico para automatizaciones internas.
 
-Las herramientas expuestas cubren CRUD, importacion, dashboard y conversion de lead.
+Las herramientas expuestas mantienen el CRUD generico, importacion, dashboard y conversion de lead. Tambien hay acciones CRM de alto nivel para asistentes:
+
+- `crm_list_tasks`: lista tareas con `ownerName` y filtros por estado, owner, fechas y texto.
+- `crm_list_opportunities`: lista oportunidades abiertas por defecto, con cuenta, contacto, owner, etapa y productos relacionados.
+- `crm_list_accounts`: lista cuentas con owner, contactos y resumen de oportunidades/pipeline.
+- `crm_move_opportunity_stage`: mueve una oportunidad a una etapa valida de `pathConfigs.opportunities`; la probabilidad se recalcula en el store.
+- `crm_add_opportunity_product`: crea un `opportunityLineItems` usando `listPrice`/`revenueType` del producto si no se pasan overrides, y por defecto cambia la oportunidad a `amountMode=syncProducts`.
