@@ -124,7 +124,7 @@ export function createRecord(object: ObjectKey, input: Record<string, unknown>):
   collection.unshift(record);
   const next = recalculateAll(data);
   writeData(next);
-  return record as unknown as CrmRecord;
+  return getCollection(next, object).find((item) => item.id === record.id) as unknown as CrmRecord;
 }
 
 export function updateRecord(object: ObjectKey, id: string, input: Record<string, unknown>): CrmRecord {
@@ -143,7 +143,7 @@ export function updateRecord(object: ObjectKey, id: string, input: Record<string
   collection[index] = record;
   const next = recalculateAll(data);
   writeData(next);
-  return record as unknown as CrmRecord;
+  return getCollection(next, object).find((item) => item.id === id) as unknown as CrmRecord;
 }
 
 export function deleteRecord(object: ObjectKey, id: string): { id: string; deleted: boolean } {

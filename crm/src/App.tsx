@@ -267,7 +267,7 @@ function App() {
         )}
       </main>
 
-      {modal?.type === "record" ? <RecordModal data={data} object={modal.object} record={modal.record} close={() => setModal(null)} reload={loadData} /> : null}
+      {modal?.type === "record" ? <RecordModal data={data} object={modal.object} record={modal.record} close={() => setModal(null)} setData={setData} /> : null}
       {modal?.type === "import" ? <ImportModal object={modal.object} close={() => setModal(null)} reload={loadData} /> : null}
       {modal?.type === "convertLead" ? <ConvertLeadModal lead={modal.lead} close={() => setModal(null)} reload={loadData} /> : null}
     </div>
@@ -684,7 +684,7 @@ function ObjectListPage({
   openModal: (modal: ModalState) => void;
   openRecord: (object: ObjectKey, id: string) => void;
 }) {
-  const records = (data[object] as CrmRecord[]) ?? [];
+  const records = useMemo(() => (data[object] as CrmRecord[]) ?? [], [data, object]);
   const [query, setQuery] = useState("");
   const Icon = objectIcons[object];
   const fields = fieldConfigs[object];
@@ -860,7 +860,7 @@ function RecordPage({
               <PanelRight size={18} />
             </div>
 
-            {isPathObject(object) ? <Path data={data} object={object} record={record} reload={reload} /> : null}
+            {isPathObject(object) ? <Path data={data} object={object} record={record} setData={setData} /> : null}
 
             <div className="record-actions">
               <button className="slds-button" type="button" onClick={() => openModal({ type: "record", object, record })}>
@@ -876,10 +876,10 @@ function RecordPage({
 
             <RecordFields data={data} object={object} record={record} />
             {object === "opportunities" ? (
-              <OpportunityRelated data={data} opportunity={record as CrmData["opportunities"][number]} reload={reload} setData={setData} openRecord={openRecord} />
+              <OpportunityRelated data={data} opportunity={record as CrmData["opportunities"][number]} setData={setData} openRecord={openRecord} />
             ) : null}
-            {object === "proposals" ? <ProposalRelated data={data} proposal={record as CrmData["proposals"][number]} reload={reload} setData={setData} /> : null}
-            {object === "invoices" ? <InvoiceRelated data={data} invoice={record as CrmData["invoices"][number]} reload={reload} setData={setData} /> : null}
+            {object === "proposals" ? <ProposalRelated data={data} proposal={record as CrmData["proposals"][number]} setData={setData} /> : null}
+            {object === "invoices" ? <InvoiceRelated data={data} invoice={record as CrmData["invoices"][number]} setData={setData} /> : null}
             {object === "accounts" ? <AccountRelated data={data} account={record as CrmData["accounts"][number]} openRecord={openRecord} /> : null}
             {object === "contacts" ? <ContactRelated data={data} contact={record as CrmData["contacts"][number]} openRecord={openRecord} /> : null}
           </>
@@ -894,7 +894,7 @@ function RecordPage({
   );
 }
 
-function Path({ data, object, record, reload }: { data: CrmData; object: PathObjectKey; record: CrmRecord; reload: () => Promise<void> }) {
+function Path({ data, object, record, setData }: { data: CrmData; object: PathObjectKey; record: CrmRecord; setData: SetCrmData }) {
   const steps = data.pathConfigs[object];
   const field = pathFieldByObject[object];
   const current = String((record as unknown as RecordMap)[field] ?? "");
@@ -903,11 +903,11 @@ function Path({ data, object, record, reload }: { data: CrmData; object: PathObj
 
   async function setStep(step: PathStep) {
     setSaving(true);
-    await apiRequest(`/api/${object}/${record.id}`, {
+    const updatedRecord = await apiRequest<CrmRecord>(`/api/${object}/${record.id}`, {
       method: "PUT",
       body: JSON.stringify({ [field]: step.value }),
     });
-    await reload();
+    setData((current) => (current ? replaceRecordInData(current, object, updatedRecord) : current));
     setSaving(false);
   }
 
@@ -1092,13 +1092,11 @@ function RecordFields({ data, object, record }: { data: CrmData; object: ObjectK
 function OpportunityRelated({
   data,
   opportunity,
-  reload,
   setData,
   openRecord,
 }: {
   data: CrmData;
   opportunity: CrmData["opportunities"][number];
-  reload: () => Promise<void>;
   setData: SetCrmData;
   openRecord: (object: ObjectKey, id: string) => void;
 }) {
@@ -1106,20 +1104,20 @@ function OpportunityRelated({
   const invoices = data.invoices.filter((invoice) => invoice.opportunityId === opportunity.id);
   return (
     <>
-      <AmountSyncControl data={data} opportunity={opportunity} reload={reload} />
-      <LineItemManager data={data} parentId={opportunity.id} lineObject="opportunityLineItems" parentField="opportunityId" reload={reload} setData={setData} />
+      <AmountSyncControl data={data} opportunity={opportunity} setData={setData} />
+      <LineItemManager data={data} parentId={opportunity.id} lineObject="opportunityLineItems" parentField="opportunityId" setData={setData} />
       <RelatedList title="Propuestas" records={proposals} object="proposals" data={data} openRecord={openRecord} />
       <RelatedList title="Facturas" records={invoices} object="invoices" data={data} openRecord={openRecord} />
     </>
   );
 }
 
-function ProposalRelated({ data, proposal, reload, setData }: { data: CrmData; proposal: CrmData["proposals"][number]; reload: () => Promise<void>; setData: SetCrmData }) {
-  return <LineItemManager data={data} parentId={proposal.id} lineObject="proposalLineItems" parentField="proposalId" reload={reload} setData={setData} />;
+function ProposalRelated({ data, proposal, setData }: { data: CrmData; proposal: CrmData["proposals"][number]; setData: SetCrmData }) {
+  return <LineItemManager data={data} parentId={proposal.id} lineObject="proposalLineItems" parentField="proposalId" setData={setData} />;
 }
 
-function InvoiceRelated({ data, invoice, reload, setData }: { data: CrmData; invoice: CrmData["invoices"][number]; reload: () => Promise<void>; setData: SetCrmData }) {
-  return <LineItemManager data={data} parentId={invoice.id} lineObject="invoiceLines" parentField="invoiceId" reload={reload} setData={setData} />;
+function InvoiceRelated({ data, invoice, setData }: { data: CrmData; invoice: CrmData["invoices"][number]; setData: SetCrmData }) {
+  return <LineItemManager data={data} parentId={invoice.id} lineObject="invoiceLines" parentField="invoiceId" setData={setData} />;
 }
 
 function AccountRelated({ data, account, openRecord }: { data: CrmData; account: CrmData["accounts"][number]; openRecord: (object: ObjectKey, id: string) => void }) {
@@ -1141,7 +1139,7 @@ function ContactRelated({ data, contact, openRecord }: { data: CrmData; contact:
   );
 }
 
-function AmountSyncControl({ data, opportunity, reload }: { data: CrmData; opportunity: CrmData["opportunities"][number]; reload: () => Promise<void> }) {
+function AmountSyncControl({ data, opportunity, setData }: { data: CrmData; opportunity: CrmData["opportunities"][number]; setData: SetCrmData }) {
   const proposals = data.proposals.filter((proposal) => proposal.opportunityId === opportunity.id);
   const firstProposalId = proposals[0]?.id ?? "";
   const [amountMode, setAmountMode] = useState(opportunity.amountMode);
@@ -1157,7 +1155,7 @@ function AmountSyncControl({ data, opportunity, reload }: { data: CrmData; oppor
   }, [opportunity.id, opportunity.amountMode, opportunity.syncedProposalId, opportunity.oneOffAmount, opportunity.mrrAmount, firstProposalId]);
 
   async function save() {
-    await apiRequest(`/api/opportunities/${opportunity.id}`, {
+    const updatedOpportunity = await apiRequest<CrmRecord>(`/api/opportunities/${opportunity.id}`, {
       method: "PUT",
       body: JSON.stringify({
         amountMode,
@@ -1166,7 +1164,7 @@ function AmountSyncControl({ data, opportunity, reload }: { data: CrmData; oppor
         mrrAmount: Number(mrrAmount),
       }),
     });
-    await reload();
+    setData((current) => (current ? replaceRecordInData(current, "opportunities", updatedOpportunity) : current));
   }
 
   return (
@@ -1221,19 +1219,23 @@ function LineItemManager({
   parentId,
   lineObject,
   parentField,
-  reload,
   setData,
 }: {
   data: CrmData;
   parentId: string;
   lineObject: "opportunityLineItems" | "proposalLineItems" | "invoiceLines";
   parentField: "opportunityId" | "proposalId" | "invoiceId";
-  reload: () => Promise<void>;
   setData: SetCrmData;
 }) {
   const lines = (data[lineObject] as CrmRecord[]).filter((line) => (line as unknown as RecordMap)[parentField] === parentId);
   const lineFields = fieldConfigs[lineObject].filter((field) => field.table !== false && field.key !== parentField).slice(0, 7);
-  const { statuses, saveInlineValue } = useInlineRecordEditing({ setData, afterSave: () => reload() });
+  const { statuses, saveInlineValue } = useInlineRecordEditing({
+    setData,
+    afterSave: (_savedObject, updatedRecord) => {
+      const updatedParentId = String((updatedRecord as unknown as RecordMap)[parentField] ?? parentId);
+      setData((current) => (current ? recalculateLineParent(current, lineObject, updatedParentId) : current));
+    },
+  });
   const [draft, setDraft] = useState({
     productId: data.products[0]?.id ?? "",
     revenueType: data.products[0]?.revenueType ?? "oneOff",
@@ -1271,9 +1273,12 @@ function LineItemManager({
             unitPrice: Number(draft.unitPrice),
             discountPercent: 0,
     };
-    await apiRequest(`/api/${lineObject}`, { method: "POST", body: JSON.stringify(payload) });
-    if (lineObject === "opportunityLineItems") {
-      await apiRequest(`/api/opportunities/${parentId}`, { method: "PUT", body: JSON.stringify({ amountMode: "syncProducts" }) });
+    const createdLine = await apiRequest<CrmRecord>(`/api/${lineObject}`, { method: "POST", body: JSON.stringify(payload) });
+    setData((current) => (current ? recalculateLineParent(addRecordToData(current, lineObject, createdLine), lineObject, parentId) : current));
+    const opportunity = lineObject === "opportunityLineItems" ? data.opportunities.find((record) => record.id === parentId) : undefined;
+    if (lineObject === "opportunityLineItems" && opportunity?.amountMode !== "syncProducts") {
+      const updatedOpportunity = await apiRequest<CrmRecord>(`/api/opportunities/${parentId}`, { method: "PUT", body: JSON.stringify({ amountMode: "syncProducts" }) });
+      setData((current) => (current ? replaceRecordInData(current, "opportunities", updatedOpportunity) : current));
     }
     setDraft({
       productId: data.products[0]?.id ?? "",
@@ -1282,12 +1287,13 @@ function LineItemManager({
       unitPrice: String(data.products[0]?.listPrice ?? 0),
       description: "",
     });
-    await reload();
   }
 
   async function removeLine(id: string) {
+    const lineToRemove = lines.find((line) => line.id === id);
     await apiRequest(`/api/${lineObject}/${id}`, { method: "DELETE" });
-    await reload();
+    const affectedParentId = String(((lineToRemove as unknown as RecordMap | undefined)?.[parentField] ?? parentId));
+    setData((current) => (current ? recalculateLineParent(removeRecordFromData(current, lineObject, id), lineObject, affectedParentId) : current));
   }
 
   return (
@@ -1418,13 +1424,13 @@ function RecordModal({
   object,
   record,
   close,
-  reload,
+  setData,
 }: {
   data: CrmData;
   object: ObjectKey;
   record?: CrmRecord;
   close: () => void;
-  reload: () => Promise<void>;
+  setData: SetCrmData;
 }) {
   const [values, setValues] = useState<RecordMap>(() => initialValues(data, object, record));
   const [saving, setSaving] = useState(false);
@@ -1434,8 +1440,11 @@ function RecordModal({
     setSaving(true);
     const method = record ? "PUT" : "POST";
     const url = record ? `/api/${object}/${record.id}` : `/api/${object}`;
-    await apiRequest(url, { method, body: JSON.stringify(values) });
-    await reload();
+    const savedRecord = await apiRequest<CrmRecord>(url, { method, body: JSON.stringify(values) });
+    setData((current) => {
+      if (!current) return current;
+      return record ? replaceRecordInData(current, object, savedRecord) : addRecordToData(current, object, savedRecord);
+    });
     setSaving(false);
     close();
   }
@@ -2192,6 +2201,66 @@ function patchRecordInData(data: CrmData, object: ObjectKey, recordId: string, p
 function replaceRecordInData(data: CrmData, object: ObjectKey, updatedRecord: CrmRecord): CrmData {
   const collection = ((data[object] as CrmRecord[]) ?? []).map((record) => (record.id === updatedRecord.id ? updatedRecord : record));
   return { ...data, [object]: collection } as CrmData;
+}
+
+function addRecordToData(data: CrmData, object: ObjectKey, createdRecord: CrmRecord): CrmData {
+  const collection = ((data[object] as CrmRecord[]) ?? []).filter((record) => record.id !== createdRecord.id);
+  return { ...data, [object]: [createdRecord, ...collection] } as CrmData;
+}
+
+function removeRecordFromData(data: CrmData, object: ObjectKey, recordId: string): CrmData {
+  const collection = ((data[object] as CrmRecord[]) ?? []).filter((record) => record.id !== recordId);
+  return { ...data, [object]: collection } as CrmData;
+}
+
+function recalculateLineParent(data: CrmData, lineObject: "opportunityLineItems" | "proposalLineItems" | "invoiceLines", parentId: string): CrmData {
+  if (lineObject === "opportunityLineItems") {
+    const opportunity = data.opportunities.find((record) => record.id === parentId);
+    if (!opportunity || opportunity.amountMode !== "syncProducts") return data;
+    const lines = data.opportunityLineItems.filter((line) => line.opportunityId === parentId);
+    const oneOffAmount = sumCurrency(lines.filter((line) => line.revenueType !== "mrr").map((line) => line.totalPrice));
+    const mrrAmount = sumCurrency(lines.filter((line) => line.revenueType === "mrr").map((line) => line.totalPrice));
+    return replaceRecordInData(data, "opportunities", {
+      ...opportunity,
+      oneOffAmount,
+      mrrAmount,
+      amount: clientAnnualizedAmount(oneOffAmount, mrrAmount),
+    } as CrmRecord);
+  }
+
+  if (lineObject === "proposalLineItems") {
+    const proposal = data.proposals.find((record) => record.id === parentId);
+    if (!proposal) return data;
+    const lines = data.proposalLineItems.filter((line) => line.proposalId === parentId);
+    const totalPrice = sumCurrency(lines.map((line) => line.totalPrice));
+    const withProposal = replaceRecordInData(data, "proposals", { ...proposal, totalPrice } as CrmRecord);
+    const oneOffAmount = sumCurrency(lines.filter((line) => line.revenueType !== "mrr").map((line) => line.totalPrice));
+    const mrrAmount = sumCurrency(lines.filter((line) => line.revenueType === "mrr").map((line) => line.totalPrice));
+    const opportunities = withProposal.opportunities.map((opportunity) => {
+      const usesProposal =
+        opportunity.amountMode === "syncPrimaryProposal" &&
+        (opportunity.syncedProposalId === parentId || (!opportunity.syncedProposalId && opportunity.id === proposal.opportunityId));
+      return usesProposal
+        ? {
+            ...opportunity,
+            syncedProposalId: parentId,
+            oneOffAmount,
+            mrrAmount,
+            amount: clientAnnualizedAmount(oneOffAmount, mrrAmount),
+          }
+        : opportunity;
+    });
+    return { ...withProposal, opportunities };
+  }
+
+  const invoice = data.invoices.find((record) => record.id === parentId);
+  if (!invoice) return data;
+  const totalAmount = sumCurrency(data.invoiceLines.filter((line) => line.invoiceId === parentId).map((line) => line.totalAmount));
+  return replaceRecordInData(data, "invoices", { ...invoice, totalAmount } as CrmRecord);
+}
+
+function clientAnnualizedAmount(oneOffAmount: number, mrrAmount: number): number {
+  return Math.round((oneOffAmount + mrrAmount * 12) * 100) / 100;
 }
 
 function formatField(data: CrmData, field: FieldConfig, record: CrmRecord): React.ReactNode {

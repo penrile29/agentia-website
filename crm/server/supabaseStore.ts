@@ -167,8 +167,8 @@ export async function resetData(): Promise<CrmData> {
 }
 
 export async function authenticateUser(email: string, password: string): Promise<{ token: string; user: CrmData["users"][number] }> {
-  const data = await readData();
-  const user = data.users.find((item) => item.email.toLowerCase() === email.trim().toLowerCase());
+  const users = (await selectObject("users")) as unknown as CrmData["users"];
+  const user = users.find((item) => item.email.toLowerCase() === email.trim().toLowerCase());
   if (!user || !verifyPassword(password, user.passwordSalt, user.passwordHash)) {
     throw new Error("Email o contraseña incorrectos.");
   }
@@ -177,7 +177,7 @@ export async function authenticateUser(email: string, password: string): Promise
 
 export async function userFromToken(token: string): Promise<CrmData["users"][number]> {
   const payload = verifyAuthToken(token);
-  const user = (await readData()).users.find((item) => item.id === payload.userId);
+  const user = await selectUserById(payload.userId);
   if (!user) throw new Error("Sesion no valida.");
   return user;
 }
@@ -204,8 +204,8 @@ export async function createRecord(object: ObjectKey, input: Record<string, unkn
     updatedAt: now,
   });
   collection.unshift(record);
-  await persistCrudChanges(previous, data);
-  return record as unknown as CrmRecord;
+  const next = await persistCrudChanges(previous, data);
+  return getCollection(next, object).find((item) => item.id === record.id) as unknown as CrmRecord;
 }
 
 export async function updateRecord(object: ObjectKey, id: string, input: Record<string, unknown>): Promise<CrmRecord> {
@@ -223,8 +223,8 @@ export async function updateRecord(object: ObjectKey, id: string, input: Record<
     updatedAt: new Date().toISOString(),
   });
   collection[index] = record;
-  await persistCrudChanges(previous, data);
-  return record as unknown as CrmRecord;
+  const next = await persistCrudChanges(previous, data);
+  return getCollection(next, object).find((item) => item.id === id) as unknown as CrmRecord;
 }
 
 export async function deleteRecord(object: ObjectKey, id: string): Promise<{ id: string; deleted: boolean }> {
@@ -380,6 +380,13 @@ async function selectObject(object: ObjectKey): Promise<CrmRecord[]> {
   return (data ?? []).map((row) => fromDbRow(row as DbRow)) as unknown as CrmRecord[];
 }
 
+async function selectUserById(id: string): Promise<CrmData["users"][number] | undefined> {
+  const { data, error } = await getSupabase().from(tableByObject.users).select("*").eq("id", id).limit(1);
+  if (error) throw new Error(error.message);
+  const row = data?.[0];
+  return row ? (fromDbRow(row as DbRow) as unknown as CrmData["users"][number]) : undefined;
+}
+
 async function selectPathRows(): Promise<DbRow[]> {
   const { data, error } = await getSupabase().from("crm_path_steps").select("*").order("object_key", { ascending: true }).order("position", { ascending: true });
   if (error) throw new Error(error.message);
@@ -407,7 +414,7 @@ async function deleteMissing(object: ObjectKey, ids: Set<string>): Promise<void>
   if (deleteError) throw new Error(deleteError.message);
 }
 
-async function persistCrudChanges(previous: CrmData, data: CrmData): Promise<void> {
+async function persistCrudChanges(previous: CrmData, data: CrmData): Promise<CrmData> {
   const next = ensureUserPasswords(recalculateAll(data));
   const changedByObject = new Map<ObjectKey, Record<string, unknown>[]>();
   const deletedIdsByObject = new Map<ObjectKey, string[]>();
@@ -433,6 +440,7 @@ async function persistCrudChanges(previous: CrmData, data: CrmData): Promise<voi
     await deleteObjectIds(object, deletedIdsByObject.get(object) ?? []);
   }
   await upsertObject("opportunities", changedByObject.get("opportunities") ?? []);
+  return next;
 }
 
 async function deleteObjectIds(object: ObjectKey, ids: string[]): Promise<void> {
