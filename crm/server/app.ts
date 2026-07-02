@@ -31,7 +31,7 @@ export function createCrmApp() {
     response.json({ ok: true, storage: getStoreInfo() });
   });
 
-  app.post("/api/public/demo-request", async (request: Request, response: Response) => {
+  const handleDemoRequest = async (request: Request, response: Response) => {
     const demoRequest = parseDemoRequest(request.body ?? {});
     if (demoRequest.honeypot) {
       response.status(202).json({ ok: true });
@@ -60,7 +60,10 @@ export function createCrmApp() {
     });
 
     response.status(201).json({ ok: true, leadId: lead.id });
-  });
+  };
+
+  app.post("/api/public", handleDemoRequest);
+  app.post("/api/public/demo-request", handleDemoRequest);
 
   app.post("/api/auth/login", async (request: Request, response: Response) => {
     const { email, password } = request.body ?? {};
