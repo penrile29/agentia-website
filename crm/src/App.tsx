@@ -688,7 +688,8 @@ function ObjectListPage({
   const [query, setQuery] = useState("");
   const Icon = objectIcons[object];
   const fields = fieldConfigs[object];
-  const tableFields = fields.filter((field) => field.table !== false).slice(0, 6);
+  const tableFieldLimit = object === "opportunities" ? 8 : 6;
+  const tableFields = fields.filter((field) => field.table === true).slice(0, tableFieldLimit);
   const { statuses, saveInlineValue } = useInlineRecordEditing({
     setData,
     afterSave: (savedObject) => (savedObject === "opportunityLineItems" ? reload() : undefined),

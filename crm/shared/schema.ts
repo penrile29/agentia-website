@@ -446,7 +446,7 @@ export const fieldConfigs: Record<ObjectKey, FieldConfig[]> = {
     { key: "closeDate", label: "Close Date", type: "date", required: true, table: true, importable: true },
     { key: "oneOffAmount", label: "One-off Amount", type: "currency", table: true, importable: true },
     { key: "mrrAmount", label: "MRR", type: "currency", table: true, importable: true },
-    { key: "amount", label: "Annualized Amount", type: "currency", readOnly: true, table: false },
+    { key: "amount", label: "Annualized Amount", type: "currency", readOnly: true, table: true },
     { key: "amountMode", label: "Amount Source", type: "picklist", picklist: "amountModes", importable: true },
     { key: "syncedProposalId", label: "Synced Proposal", type: "reference", relation: "proposals", importable: true },
     { key: "probability", label: "Probability", type: "percent", table: true, importable: true },
