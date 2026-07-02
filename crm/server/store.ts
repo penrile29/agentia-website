@@ -19,7 +19,7 @@ export type LooseRecord = Record<string, unknown> & { id: string; createdAt?: st
 type MutableData = CrmData & Record<string, unknown>;
 
 export const defaultPassword = "Agentia2026!";
-const dataFile = process.env.CRM_DATA_FILE ?? path.join(process.cwd(), "data", "agentia-crm.json");
+const dataFile = process.env.CRM_DATA_FILE ?? defaultDataFilePath();
 const authSecret = process.env.CRM_AUTH_SECRET ?? "agentia-crm-local-development-secret";
 const tokenTtlMs = 1000 * 60 * 60 * 12;
 export const idPrefixes: Record<ObjectKey, string> = {
@@ -40,6 +40,12 @@ export const idPrefixes: Record<ObjectKey, string> = {
 
 export function getDataFilePath(): string {
   return dataFile;
+}
+
+function defaultDataFilePath(): string {
+  const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT);
+  const baseDir = isServerless ? path.join(process.env.TMPDIR ?? "/tmp", "agentia-crm") : path.join(process.cwd(), "data");
+  return path.join(baseDir, "agentia-crm.json");
 }
 
 export function ensureDataFile(): void {
