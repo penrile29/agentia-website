@@ -243,7 +243,7 @@ function App() {
         {activePage.type === "home" ? (
           <Dashboard data={data} setActivePage={setActivePage} openImport={(object) => setModal({ type: "import", object })} />
         ) : activePage.type === "setup" ? (
-          <Setup data={data} reload={loadData} reset={handleReset} />
+          <Setup currentUserId={session.user.id} data={data} reload={loadData} reset={handleReset} />
         ) : activePage.type === "list" ? (
           <ObjectListPage
             data={data}
@@ -1868,7 +1868,7 @@ function ImportModal({ object, close, reload }: { object: ObjectKey; close: () =
   );
 }
 
-function Setup({ data, reload, reset }: { data: CrmData; reload: () => Promise<void>; reset: () => Promise<void> }) {
+function Setup({ currentUserId, data, reload, reset }: { currentUserId: string; data: CrmData; reload: () => Promise<void>; reset: () => Promise<void> }) {
   return (
     <section className="setup-page">
       <div className="page-heading full-width">
@@ -1905,7 +1905,7 @@ function Setup({ data, reload, reset }: { data: CrmData; reload: () => Promise<v
             <h2>Roles simples</h2>
           </div>
         </div>
-        <UserRoleEditor data={data} reload={reload} />
+        <UserRoleEditor currentUserId={currentUserId} data={data} reload={reload} />
       </section>
     </section>
   );
@@ -1947,7 +1947,7 @@ function PathConfigEditor({ data, object, reload }: { data: CrmData; object: Pat
   );
 }
 
-function UserRoleEditor({ data, reload }: { data: CrmData; reload: () => Promise<void> }) {
+function UserRoleEditor({ currentUserId, data, reload }: { currentUserId: string; data: CrmData; reload: () => Promise<void> }) {
   const roles = getPicklistValues(data, "roles");
   const [newUser, setNewUser] = useState({
     name: "",
@@ -2026,6 +2026,35 @@ function UserRoleEditor({ data, reload }: { data: CrmData; reload: () => Promise
     }
   }
 
+  async function deleteUser(userRecord: CrmData["users"][number]) {
+    if (userRecord.id === currentUserId) {
+      setError("No puedes eliminar tu propio usuario desde la sesion actual.");
+      return;
+    }
+    if (data.users.length <= 1) {
+      setError("No puedes eliminar el ultimo usuario del CRM.");
+      return;
+    }
+    if (!window.confirm(`Eliminar usuario ${userRecord.name}? Los registros asignados quedaran sin owner.`)) return;
+    setSaving(true);
+    setMessage("");
+    setError("");
+    try {
+      await apiRequest(`/api/users/${userRecord.id}`, { method: "DELETE" });
+      setResetPasswords((current) => {
+        const next = { ...current };
+        delete next[userRecord.id];
+        return next;
+      });
+      setMessage("Usuario eliminado correctamente.");
+      await reload();
+    } catch (deleteError) {
+      setError(deleteError instanceof Error ? deleteError.message : "No se pudo eliminar el usuario.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="user-management">
       <form className="user-admin-form" onSubmit={(event) => void createUser(event)}>
@@ -2070,6 +2099,7 @@ function UserRoleEditor({ data, reload }: { data: CrmData; reload: () => Promise
             <div>
               <strong>{userRecord.name}</strong>
               <span>{userRecord.email}</span>
+              {userRecord.id === currentUserId ? <small>Sesion actual</small> : null}
             </div>
             <select value={userRecord.role} onChange={(event) => void updateUser(userRecord.id, { role: event.target.value, isAdmin: event.target.value === "Admin" })}>
               {roles.map((role) => (
@@ -2093,6 +2123,15 @@ function UserRoleEditor({ data, reload }: { data: CrmData; reload: () => Promise
                 <RefreshCw size={14} /> Reset
               </button>
             </div>
+            <button
+              className="icon-button danger"
+              type="button"
+              disabled={saving || userRecord.id === currentUserId || data.users.length <= 1}
+              onClick={() => void deleteUser(userRecord)}
+              title={userRecord.id === currentUserId ? "No puedes eliminar tu propio usuario" : "Eliminar usuario"}
+            >
+              <Trash2 size={14} />
+            </button>
           </div>
         ))}
       </div>

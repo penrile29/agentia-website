@@ -233,6 +233,7 @@ export async function deleteRecord(object: ObjectKey, id: string): Promise<{ id:
   const collection = getCollection(data, object);
   const index = collection.findIndex((item) => item.id === id);
   if (index === -1) throw new Error(`No existe ${object}/${id}`);
+  if (object === "users" && collection.length <= 1) throw new Error("No puedes eliminar el ultimo usuario del CRM.");
   collection.splice(index, 1);
   cascadeDelete(data, object, id);
   await persistCrudChanges(previous, data);

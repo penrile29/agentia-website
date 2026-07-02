@@ -151,6 +151,7 @@ export function deleteRecord(object: ObjectKey, id: string): { id: string; delet
   const collection = getCollection(data, object);
   const index = collection.findIndex((item) => item.id === id);
   if (index === -1) throw new Error(`No existe ${object}/${id}`);
+  if (object === "users" && collection.length <= 1) throw new Error("No puedes eliminar el ultimo usuario del CRM.");
   collection.splice(index, 1);
   cascadeDelete(data, object, id);
   const next = recalculateAll(data);
@@ -499,6 +500,13 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
     for (const contact of data.contacts) if (contact.accountId === id) contact.accountId = undefined;
     for (const opportunity of data.opportunities) if (opportunity.accountId === id) opportunity.accountId = undefined;
     for (const caseRecord of data.cases) if (caseRecord.accountId === id) caseRecord.accountId = undefined;
+  }
+  if (object === "users") {
+    for (const objectKey of objectKeys) {
+      for (const record of getCollection(data, objectKey)) {
+        if (record.ownerId === id) record.ownerId = undefined;
+      }
+    }
   }
 }
 

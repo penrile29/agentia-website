@@ -206,7 +206,13 @@ export function createCrmApp() {
 
   app.delete("/api/:object/:id", async (request: Request, response: Response) => {
     const object = assertObjectKey(routeParam(request.params.object));
-    response.json(await deleteRecord(object, routeParam(request.params.id)));
+    const id = routeParam(request.params.id);
+    const currentUser = response.locals.currentUser as CrmData["users"][number] | undefined;
+    if (object === "users" && currentUser?.id === id) {
+      response.status(400).json({ error: "No puedes eliminar tu propio usuario desde la sesion actual." });
+      return;
+    }
+    response.json(await deleteRecord(object, id));
   });
 
   app.use((error: unknown, _request: Request, response: Response, _next: express.NextFunction) => {
