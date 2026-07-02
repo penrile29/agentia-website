@@ -1,0 +1,31 @@
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: agentia-website:hostinger
+    container_name: agentia-website
+    restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.agentia-website.rule=Host(`${DOMAIN:-agentialabs.ai}`) || Host(`www.${DOMAIN:-agentialabs.ai}`)"
+      - "traefik.http.routers.agentia-website.entrypoints=websecure"
+      - "traefik.http.routers.agentia-website.tls=true"
+      - "traefik.http.routers.agentia-website.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.agentia-website.priority=20"
+      - "traefik.http.services.agentia-website.loadbalancer.server.port=80"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true

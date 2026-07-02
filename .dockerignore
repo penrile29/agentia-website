@@ -1,0 +1,9 @@
+.git
+.DS_Store
+.codex-docx-review
+crm
+node_modules
+output
+outputs
+tmp
+*.log
