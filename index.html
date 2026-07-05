@@ -1,903 +1,1107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Agentia Labs - AI Operations Boutique & Workspace</title>
+  <title>Agentia Labs — Operaciones de IA gestionadas</title>
   <meta
     name="description"
-    content="Agentia Labs is a high-end professional services boutique for operational AI: consulting, implementation and a SaaS control layer for headless agents doing real business jobs."
+    content="Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting."
   />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,700;9..40,800&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap"
-    rel="stylesheet"
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://agentialabs.ai/" />
+  <link rel="alternate" hreflang="es" href="https://agentialabs.ai/?lang=es" />
+  <link rel="alternate" hreflang="en" href="https://agentialabs.ai/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://agentialabs.ai/" />
+  <meta property="og:title" content="Agentia Labs — Operaciones de IA gestionadas" />
+  <meta
+    property="og:description"
+    content="Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting."
   />
-  <link rel="icon" type="image/svg+xml" href="assets/agentia-mark-h.svg" />
-  <link rel="stylesheet" href="styles.css?v=language-mobile" />
-</head>
-
-<body>
-  <div class="page" id="top">
-
-    <header class="site-header">
-      <div class="container">
-        <nav class="nav" aria-label="Main navigation">
-          <a href="#top" class="brand" aria-label="Agentia Labs home">
-            <span class="brand-mark" aria-hidden="true"></span>
-            <span>Agentia Labs</span>
-          </a>
-
-          <div class="nav-links">
-            <a href="#digital-workforce">Workforce</a>
-            <a href="#work">Design</a>
-            <a href="#agents">Create</a>
-            <a href="#workspace">Maintain</a>
-            <a href="#use-cases">Jobs</a>
-            <a href="industries.html">Industries</a>
-          </div>
-
-          <div class="nav-actions">
-            <div class="language-switcher" aria-label="Language selector">
-              <button type="button" data-lang-option="en" aria-pressed="true">EN</button>
-              <button type="button" data-lang-option="es" aria-pressed="false">ES</button>
-            </div>
-
-            <a href="#demo-form" class="nav-cta">
-              Start with one job
-            </a>
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    <main>
-
-      <section class="hero">
-        <div class="hero-network" aria-hidden="true">
-          <svg viewBox="0 0 920 620" role="presentation" focusable="false">
-            <defs>
-              <g id="network-agent-ops">
-                <circle class="traveler-halo" cx="0" cy="0" r="17"></circle>
-                <rect class="traveler-body" x="-11" y="-8" width="22" height="17" rx="4"></rect>
-                <circle class="traveler-eye" cx="-4" cy="0" r="1.7"></circle>
-                <circle class="traveler-eye" cx="4" cy="0" r="1.7"></circle>
-              </g>
-
-              <g id="network-agent-growth">
-                <circle class="traveler-halo" cx="0" cy="0" r="17"></circle>
-                <path class="traveler-body" d="M0 -11 L11 -4 L8 9 H-8 L-11 -4 Z"></path>
-                <circle class="traveler-eye" cx="-4" cy="0" r="1.6"></circle>
-                <circle class="traveler-eye" cx="4" cy="0" r="1.6"></circle>
-              </g>
-
-              <g id="network-agent-service">
-                <circle class="traveler-halo" cx="0" cy="0" r="17"></circle>
-                <circle class="traveler-body" cx="0" cy="0" r="10"></circle>
-                <circle class="traveler-eye" cx="-4" cy="0" r="1.6"></circle>
-                <circle class="traveler-eye" cx="4" cy="0" r="1.6"></circle>
-              </g>
-            </defs>
-
-            <path id="network-path-1" d="M-20 250 C150 80 280 180 410 96 S650 30 940 118" />
-            <path id="network-path-2" d="M-30 420 C180 330 230 520 420 390 S630 210 940 340" />
-            <path id="network-path-3" d="M80 130 C240 270 340 120 500 250 S680 440 910 270" />
-            <path id="network-path-4" d="M120 540 C270 450 410 560 560 460 S720 300 960 500" />
-            <path id="network-path-5" d="M250 40 C300 230 410 310 520 520" />
-            <path id="network-path-6" d="M720 40 C650 190 770 330 720 600" />
-
-            <g class="network-traveler network-traveler-large network-tone-slate">
-              <animateMotion dur="58s" begin="-17s" repeatCount="indefinite">
-                <mpath href="#network-path-1"></mpath>
-              </animateMotion>
-              <use href="#network-agent-ops" transform="scale(2.45)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-large network-tone-clay">
-              <animateMotion dur="64s" begin="-41s" repeatCount="indefinite">
-                <mpath href="#network-path-4"></mpath>
-              </animateMotion>
-              <use href="#network-agent-service" transform="scale(2.15)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-medium network-tone-sage">
-              <animateMotion dur="35s" begin="-12s" repeatCount="indefinite">
-                <mpath href="#network-path-2"></mpath>
-              </animateMotion>
-              <use href="#network-agent-growth" transform="scale(1.48)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-medium network-tone-slate">
-              <animateMotion dur="39s" begin="-30s" repeatCount="indefinite">
-                <mpath href="#network-path-3"></mpath>
-              </animateMotion>
-              <use href="#network-agent-service" transform="scale(1.32)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-medium network-tone-clay">
-              <animateMotion dur="43s" begin="-8s" repeatCount="indefinite">
-                <mpath href="#network-path-5"></mpath>
-              </animateMotion>
-              <use href="#network-agent-ops" transform="scale(1.38)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-medium network-tone-sage">
-              <animateMotion dur="37s" begin="-22s" repeatCount="indefinite">
-                <mpath href="#network-path-6"></mpath>
-              </animateMotion>
-              <use href="#network-agent-growth" transform="scale(1.18)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-small network-tone-slate">
-              <animateMotion dur="19s" begin="-4s" repeatCount="indefinite">
-                <mpath href="#network-path-1"></mpath>
-              </animateMotion>
-              <use href="#network-agent-service" transform="scale(0.58)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-small network-tone-sage">
-              <animateMotion dur="22s" begin="-13s" repeatCount="indefinite">
-                <mpath href="#network-path-2"></mpath>
-              </animateMotion>
-              <use href="#network-agent-ops" transform="scale(0.52)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-small network-tone-clay">
-              <animateMotion dur="24s" begin="-19s" repeatCount="indefinite">
-                <mpath href="#network-path-3"></mpath>
-              </animateMotion>
-              <use href="#network-agent-growth" transform="scale(0.6)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-small network-tone-slate">
-              <animateMotion dur="20s" begin="-9s" repeatCount="indefinite">
-                <mpath href="#network-path-4"></mpath>
-              </animateMotion>
-              <use href="#network-agent-ops" transform="scale(0.5)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-small network-tone-sage">
-              <animateMotion dur="26s" begin="-21s" repeatCount="indefinite">
-                <mpath href="#network-path-5"></mpath>
-              </animateMotion>
-              <use href="#network-agent-service" transform="scale(0.56)"></use>
-            </g>
-
-            <g class="network-traveler network-traveler-small network-tone-clay">
-              <animateMotion dur="23s" begin="-7s" repeatCount="indefinite">
-                <mpath href="#network-path-6"></mpath>
-              </animateMotion>
-              <use href="#network-agent-growth" transform="scale(0.48)"></use>
-            </g>
-          </svg>
-        </div>
-
-        <div class="container">
-          <div class="hero-stack">
-            <div class="hero-copy-wrap">
-              <div class="eyebrow">
-                <span class="eyebrow-dot" aria-hidden="true"></span>
-                Agentic transformation boutique
-              </div>
-
-              <h1>Your Digital Workforce, Managed</h1>
-
-              <p class="hero-copy">
-                <strong>Agentia Labs helps founder-led companies turn operational work into managed AI capacity.</strong>
-              </p>
-
-              <div class="hero-actions">
-                <a class="button button-primary" href="#digital-workforce">
-                  How we do it
-                </a>
-                <button class="button button-secondary button-disabled" type="button" aria-disabled="true">
-                  Customer Stories
-                </button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section class="kinetic-strip" aria-label="Agentia operating loop">
-        <div class="kinetic-track">
-          <span class="kinetic-item" data-es="Dise&ntilde;ar">Design</span>
-          <span class="kinetic-item" data-es="Crear">Create</span>
-          <span class="kinetic-item" data-es="Operar">Maintain</span>
-        </div>
-      </section>
-
-      <section class="section workforce-section" id="digital-workforce">
-        <div class="container">
-          <div class="section-kicker">Digital workforce</div>
-          <h2 class="section-title">We design, create and maintain your digital workforce.</h2>
-
-          <div class="workforce-grid" aria-label="Agentia digital workforce operating model">
-            <article class="workforce-pillar">
-              <div class="workforce-pillar-top">
-                <span class="workforce-number">01</span>
-                <span class="workforce-stage">Design</span>
-              </div>
-              <div class="workforce-visual workforce-visual-map" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="workforce-copy">
-                <h3>Digital workforce map</h3>
-                <p>As-is / to-be, Jobs to be done, KPI targets and prioritised use cases.</p>
-              </div>
-            </article>
-
-            <article class="workforce-pillar">
-              <div class="workforce-pillar-top">
-                <span class="workforce-number">02</span>
-                <span class="workforce-stage">Create</span>
-              </div>
-              <div class="workforce-visual workforce-visual-agents" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="workforce-copy">
-                <h3>Deployed agents</h3>
-                <p>Headless and conversational agents shipped into real workflows.</p>
-              </div>
-            </article>
-
-            <article class="workforce-pillar">
-              <div class="workforce-pillar-top">
-                <span class="workforce-number">03</span>
-                <span class="workforce-stage">Maintain</span>
-              </div>
-              <div class="workforce-visual workforce-visual-observe" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div class="workforce-copy">
-                <h3>Observability suite</h3>
-                <p>Job KPIs, exceptions, quality checks and operating cadence.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="work">
-        <div class="container">
-          <div class="split">
-            <div class="work-heading">
-              <div class="section-kicker">Design / Jobs to be done method</div>
-              <h2 class="section-title">Design the workforce around jobs, not tools.</h2>
-            </div>
-
-            <div>
-              <div class="principle-grid">
-                <article class="card">
-                  <div class="card-number">01</div>
-                  <h3>Map the actual work</h3>
-                  <p>As-is flows, handoffs, exceptions and hidden demand.</p>
-                </article>
-
-                <article class="card">
-                  <div class="card-number">02</div>
-                  <h3>Design the target model</h3>
-                  <p>To-be roles for people, agents, approvals and controls.</p>
-                </article>
-
-                <article class="card">
-                  <div class="card-number">03</div>
-                  <h3>Prioritise the right jobs</h3>
-                  <p>Use cases ranked by value, friction and feasibility.</p>
-                </article>
-
-                <article class="card">
-                  <div class="card-number">04</div>
-                  <h3>Lock the operating cadence</h3>
-                  <p>KPIs, ownership and controls before agents go live.</p>
-                </article>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section agent-types-section" id="agents">
-        <div class="container">
-          <div class="section-kicker">Create / Agent build</div>
-          <h2 class="section-title">Create the agents that execute the work.</h2>
-
-          <div class="agent-type-grid">
-            <article class="agent-type">
-              <div class="agent-type-label">Conversational</div>
-              <h3>When the job needs a dialogue.</h3>
-              <p>
-                Support, qualification, knowledge access and guided service flows.
-              </p>
-              <div class="agent-type-meta">
-                <span>Primary surface</span>
-                <strong>Chat, voice, portal or embedded assistant</strong>
-              </div>
-            </article>
-
-            <article class="agent-type agent-type-dark">
-              <div class="agent-type-label">Headless</div>
-              <h3>When the job needs execution.</h3>
-              <p>
-                Documents, enrichment, integrations, follow-up, routing and back-office workflows.
-              </p>
-              <div class="agent-type-meta">
-                <span>Primary surface</span>
-                <strong>Workflow triggers, MCP tools and exception queues</strong>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="workspace">
-        <div class="container">
-          <div class="split">
-            <div>
-              <div class="section-kicker">Maintain / Observability suite</div>
-              <h2 class="section-title">The observability suite lets you measure the job and control the agent.</h2>
-            </div>
-
-            <div class="workspace-preview" aria-label="Agentia Workspace SaaS observability suite preview">
-              <div class="workspace-app">
-                <div class="workspace-topbar">
-                  <div>
-                    <span>Agentia Workspace</span>
-                    <strong>Operations control layer</strong>
-                  </div>
-                  <div class="workspace-topbar-actions">
-                    <span>7 running agents</span>
-                    <button type="button">Review queue</button>
-                  </div>
-                </div>
-
-                <div class="workspace-tabs" aria-label="Workspace views">
-                  <span class="workspace-tab-active">Observability</span>
-                  <span>Agents</span>
-                  <span>Exceptions</span>
-                  <span>Cadence</span>
-                </div>
-
-                <div class="workspace-metrics">
-                  <div>
-                    <span>Jobs completed</span>
-                    <strong data-count-to="5887" data-count-format="comma">5,887</strong>
-                    <small>This month</small>
-                  </div>
-                  <div>
-                    <span>Exception queue</span>
-                    <strong data-count-to="42">42</strong>
-                    <small>Awaiting judgement</small>
-                  </div>
-                  <div>
-                    <span>Hours released</span>
-                    <strong data-count-to="318" data-count-suffix="h">318h</strong>
-                    <small>Across operations</small>
-                  </div>
-                  <div>
-                    <span>Quality pass</span>
-                    <strong data-count-to="98.4" data-count-decimals="1" data-count-suffix="%">98.4%</strong>
-                    <small>Checked outputs</small>
-                  </div>
-                </div>
-
-                <div class="workspace-table">
-                  <div class="workspace-table-head">
-                    <span>Headless agent</span>
-                    <span>Job KPI</span>
-                    <span>Output</span>
-                    <span>Status</span>
-                  </div>
-
-                  <div class="workspace-agent-row">
-                    <div>
-                      <strong>Finance Ops Agent</strong>
-                      <small>Invoice intake, validation and routing</small>
-                    </div>
-                    <div><strong>1,284</strong><small>invoices processed</small></div>
-                    <div><strong>98.6%</strong><small>matched to PO</small></div>
-                    <div><span class="running-dot"></span>Running</div>
-                  </div>
-
-                  <div class="workspace-agent-row">
-                    <div>
-                      <strong>Growth Agent</strong>
-                      <small>Lead research and sales-ready handoff</small>
-                    </div>
-                    <div><strong>412</strong><small>leads researched</small></div>
-                    <div><strong>73</strong><small>ready for sales</small></div>
-                    <div><span class="running-dot"></span>Running</div>
-                  </div>
-
-                  <div class="workspace-agent-row">
-                    <div>
-                      <strong>CX Agent</strong>
-                      <small>Customer inquiries triaged or resolved</small>
-                    </div>
-                    <div><strong>3,241</strong><small>inquiries handled</small></div>
-                    <div><strong>91%</strong><small>resolved first pass</small></div>
-                    <div><span class="running-dot"></span>Running</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="use-cases">
-        <div class="container">
-          <div class="section-kicker">Where to start</div>
-          <h2 class="section-title">Jobs become KPIs, use cases and agents.</h2>
-
-          <div class="job-design-chain" aria-label="Agentia job design sequence">
-            <article>
-              <span>01</span>
-              <h3>Jobs</h3>
-              <p>Lead-to-cash, procure-to-pay, customer support, social operations.</p>
-            </article>
-
-            <article>
-              <span>02</span>
-              <h3>KPIs to achieve</h3>
-              <p>Cycle time, quality pass, conversion, backlog, cost-to-serve.</p>
-            </article>
-
-            <article>
-              <span>03</span>
-              <h3>Use cases</h3>
-              <p>Research, triage, enrichment, approvals, routing, follow-up.</p>
-            </article>
-
-            <article>
-              <span>04</span>
-              <h3>Agents</h3>
-              <p>Headless and conversational capacity operating inside the flow.</p>
-            </article>
-          </div>
-
-          <div class="macro-process" aria-label="Lead-to-cash agentified macro-process">
-            <div class="macro-process-header">
-              <span>Example macro-process</span>
-              <strong>Lead-to-cash agentified</strong>
-            </div>
-
-            <div class="process-track">
-              <div class="process-step">
-                <span>Job</span>
-                <strong>Capture demand</strong>
-                <small>Growth Agent</small>
-              </div>
-
-              <div class="process-step">
-                <span>KPI</span>
-                <strong>Sales-ready leads</strong>
-                <small>Qualification Agent</small>
-              </div>
-
-              <div class="process-step">
-                <span>Use case</span>
-                <strong>Quote and approve</strong>
-                <small>Pricing Agent</small>
-              </div>
-
-              <div class="process-step">
-                <span>Use case</span>
-                <strong>Close and handoff</strong>
-                <small>RevOps Agent</small>
-              </div>
-
-              <div class="process-step">
-                <span>Agent</span>
-                <strong>Invoice and collect</strong>
-                <small>Finance Ops Agent</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="stack-section" id="stack" aria-label="Technology stack">
-        <div class="container">
-          <div class="stack-intro">
-            <span>Model ecosystem</span>
-          </div>
-
-          <div class="stack-logos">
-            <div class="stack-logo">
-              <img src="assets/logos/anthropic.svg" alt="Anthropic logo" />
-              <span>Anthropic</span>
-            </div>
-
-            <div class="stack-logo">
-              <img src="assets/logos/openai-mark.svg" alt="OpenAI logo" />
-              <span>OpenAI</span>
-            </div>
-
-            <div class="stack-logo">
-              <img src="assets/logos/google.svg" alt="Google logo" />
-              <span>Google</span>
-            </div>
-
-            <div class="stack-logo">
-              <img src="assets/logos/meta.svg" alt="Meta logo" />
-              <span>Meta</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section founder-section">
-        <div class="container">
-          <div class="founder-panel">
-            <div class="section-kicker">Agentic company</div>
-            <h2>Becoming an agentic company is not just automating a process.</h2>
-            <p>It is understanding the technological shift, deploying real, high-impact cases and transforming the way you work.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="cta-section demo-section" id="demo-form">
-        <div class="container">
-          <div class="demo-layout">
-            <div class="demo-copy">
-              <div class="section-kicker" data-es="Reserva una demo">Request a demo</div>
-              <h2 data-es="Encuentra la primera operaci&oacute;n que tus agentes deber&iacute;an ejecutar.">Find the first operation your agents should run.</h2>
-              <p data-es="Cu&eacute;ntanos el contexto m&iacute;nimo y revisaremos contigo qu&eacute; trabajo operativo puede convertirse primero en capacidad gestionada por agentes.">
-                Tell us the minimum context and we will review which operational job can become agent-managed capacity first.
-              </p>
-              <div class="demo-note" data-es="Sin calendario abierto: primero cualificamos el caso, despu&eacute;s agendamos una conversaci&oacute;n &uacute;til.">
-                No open calendar: we qualify the case first, then schedule a useful conversation.
-              </div>
-            </div>
-
-            <form class="demo-form" data-demo-form data-endpoint="https://crm-pi-nine-82.vercel.app/api/public">
-              <input type="text" name="websiteUrl" tabindex="-1" autocomplete="off" aria-hidden="true" class="demo-honeypot" />
-
-              <label>
-                <span data-es="Nombre">First name</span>
-                <input name="firstName" type="text" autocomplete="given-name" placeholder="Paula" required />
-              </label>
-
-              <label>
-                <span data-es="Apellidos">Last name</span>
-                <input name="lastName" type="text" autocomplete="family-name" placeholder="Rodr&iacute;guez" required />
-              </label>
-
-              <label>
-                <span data-es="Empresa">Company</span>
-                <input name="company" type="text" autocomplete="organization" placeholder="Company name" data-es-placeholder="Nombre de la empresa" required />
-              </label>
-
-              <label>
-                <span>Email</span>
-                <input name="email" type="email" autocomplete="email" placeholder="paula@company.com" data-es-placeholder="paula@empresa.com" required />
-              </label>
-
-              <label>
-                <span data-es="Tel&eacute;fono">Phone</span>
-                <input name="phone" type="tel" autocomplete="tel" placeholder="+34 600 000 000" required />
-              </label>
-
-              <label>
-                <span data-es="Industria">Industry</span>
-                <select name="industry" required>
-                  <option value="" data-es="Selecciona una">Select one</option>
-                  <option>Retail &amp; eCommerce</option>
-                  <option data-es="Servicios profesionales">Professional Services</option>
-                  <option data-es="Finanzas y contabilidad">Finance &amp; Accounting</option>
-                  <option data-es="Inmobiliario">Real Estate</option>
-                  <option data-es="Industria / Manufacturing">Manufacturing</option>
-                  <option data-es="Log&iacute;stica y supply chain">Logistics &amp; Supply Chain</option>
-                  <option data-es="Hospitality / Travel">Hospitality &amp; Travel</option>
-                  <option data-es="Educaci&oacute;n">Education</option>
-                  <option data-es="Tecnolog&iacute;a / SaaS">Technology &amp; SaaS</option>
-                  <option data-es="Salud / cl&iacute;nicas">Healthcare &amp; Clinics</option>
-                  <option data-es="Otro">Other</option>
-                </select>
-              </label>
-
-              <label class="demo-form-full">
-                <span data-es="Operaci&oacute;n a liberar primero">First operation to free up</span>
-                <textarea name="operation" rows="4" placeholder="Weekly reporting, invoices, shared inbox, documents, approvals..." data-es-placeholder="Reporting semanal, facturas, inbox compartido, documentos, aprobaciones..."></textarea>
-              </label>
-
-              <button class="button button-primary" type="submit">
-                <span data-es="Enviar solicitud">Send request</span>
-              </button>
-
-              <p class="demo-form-status" data-demo-status role="status" aria-live="polite" data-es="Usaremos estos datos solo para responder a tu solicitud y preparar la demo.">
-                We will only use this data to answer your request and prepare the demo.
-              </p>
-            </form>
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <div>&copy; 2026 Agentia Labs. AI Operations Boutique &amp; Workspace.</div>
-
-          <div class="footer-links">
-            <a href="industries.html">Industries</a>
-            <a href="mailto:hello@agentialabs.ai">Contact</a>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </div>
-
-  <script>
-    (() => {
-      const safeStorage = {
-        get(key) {
-          try {
-            return window.localStorage.getItem(key);
-          } catch {
-            return null;
-          }
-        },
-        set(key, value) {
-          try {
-            window.localStorage.setItem(key, value);
-          } catch {}
-        }
-      };
-
-      const normalizeLanguage = (value) => {
-        const languageValue = (value || "").toLowerCase();
-        return languageValue.startsWith("es") ? "es" : "en";
-      };
-
-      const params = new URLSearchParams(window.location.search);
-      const forcedLanguage = params.get("lang");
-      const storedLanguage = safeStorage.get("agentia-language");
-      const browserLanguages = navigator.languages && navigator.languages.length
-        ? navigator.languages
-        : [navigator.language || "en"];
-      const language = normalizeLanguage(forcedLanguage || storedLanguage || browserLanguages[0] || "en");
-
-      if (forcedLanguage) safeStorage.set("agentia-language", language);
-      document.documentElement.lang = language;
-
-      document.querySelectorAll("[data-lang-option]").forEach((button) => {
-        const option = normalizeLanguage(button.dataset.langOption);
-        const isActive = option === language;
-        button.setAttribute("aria-pressed", String(isActive));
-
-        button.addEventListener("click", () => {
-          safeStorage.set("agentia-language", option);
-          const url = new URL(window.location.href);
-          url.searchParams.set("lang", option);
-          window.location.href = url.toString();
-        });
-      });
-
-      if (language !== "es") return;
-
-      document.title = "Agentia Labs - Boutique de operaciones IA y workspace";
-
-      const metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute(
-          "content",
-          "Agentia Labs es una boutique de servicios profesionales high-end para operaciones con IA: consultor\u00eda, implementaci\u00f3n y una capa SaaS de control para agentes que ejecutan trabajo real."
-        );
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://agentialabs.ai/" />
+  <meta property="og:site_name" content="Agentia Labs" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:image" content="https://agentialabs.ai/assets/og-image.png" />
+  <meta property="og:image:secure_url" content="https://agentialabs.ai/assets/og-image.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Agentia Labs Managed AI Operations workspace preview" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agentia Labs — Operaciones de IA gestionadas" />
+  <meta
+    name="twitter:description"
+    content="Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting."
+  />
+  <meta name="twitter:image" content="https://agentialabs.ai/assets/og-image.png" />
+  <script type="application/ld+json" id="organization-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": "https://agentialabs.ai/#organization",
+      "name": "Agentia Labs",
+      "url": "https://agentialabs.ai/",
+      "logo": "https://agentialabs.ai/assets/agentia-mark-h.svg",
+      "description": "Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting.",
+      "inLanguage": "es",
+      "email": "hello@agentialabs.ai",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Spain",
+        "identifier": "ES"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ES"
       }
-
-      const text = {
-        ".brand span:last-child": "Agentia Labs",
-        ".nav-links a:nth-child(1)": "Mano de obra",
-        ".nav-links a:nth-child(2)": "Dise\u00f1ar",
-        ".nav-links a:nth-child(3)": "Crear",
-        ".nav-links a:nth-child(4)": "Operar",
-        ".nav-links a:nth-child(5)": "Trabajos",
-        ".nav-links a:nth-child(6)": "Industrias",
-        ".nav-cta": "Empezar por un trabajo",
-        ".eyebrow": '<span class="eyebrow-dot" aria-hidden="true"></span>Boutique de transformaci\u00f3n agentic',
-        ".hero h1": "Tu mano de obra digital, gestionada.",
-        ".hero-copy strong": "Agentia Labs ayuda a compa\u00f1\u00edas founder-led a convertir trabajo operativo en capacidad IA gestionada.",
-        ".hero-actions .button-primary": "How we do it",
-        ".hero-actions .button-secondary": "Customer Stories",
-        "#digital-workforce .section-kicker": "Mano de obra digital",
-        "#digital-workforce .section-title": "Dise\u00f1amos, creamos y mantenemos tu mano de obra digital.",
-        ".workforce-pillar:nth-child(1) .workforce-stage": "Dise\u00f1ar",
-        ".workforce-pillar:nth-child(1) h3": "Mapa de mano de obra digital",
-        ".workforce-pillar:nth-child(1) p": "As-is / to-be, trabajos por hacer, objetivos KPI y casos de uso priorizados.",
-        ".workforce-pillar:nth-child(2) .workforce-stage": "Crear",
-        ".workforce-pillar:nth-child(2) h3": "Agentes desplegados",
-        ".workforce-pillar:nth-child(2) p": "Agentes headless y conversacionales llevados a workflows reales.",
-        ".workforce-pillar:nth-child(3) .workforce-stage": "Operar",
-        ".workforce-pillar:nth-child(3) h3": "Suite de observabilidad",
-        ".workforce-pillar:nth-child(3) p": "KPIs del trabajo, excepciones, controles de calidad y cadencia operativa.",
-        "#work .section-kicker": "Dise\u00f1o / m\u00e9todo Trabajos por hacer",
-        "#work .section-title": "Dise\u00f1amos la mano de obra alrededor del trabajo, no de la herramienta.",
-        "#work .card:nth-child(1) h3": "Mapear el trabajo real",
-        "#work .card:nth-child(1) p": "Flujos as-is, handoffs, excepciones y demanda oculta.",
-        "#work .card:nth-child(2) h3": "Dise\u00f1ar el modelo objetivo",
-        "#work .card:nth-child(2) p": "Roles to-be para personas, agentes, aprobaciones y controles.",
-        "#work .card:nth-child(3) h3": "Priorizar los trabajos correctos",
-        "#work .card:nth-child(3) p": "Casos de uso ordenados por valor, fricci\u00f3n y viabilidad.",
-        "#work .card:nth-child(4) h3": "Fijar la cadencia operativa",
-        "#work .card:nth-child(4) p": "KPIs, ownership y controles antes de poner agentes en producci\u00f3n.",
-        "#agents .section-kicker": "Crear / agent build",
-        "#agents .section-title": "Creamos los agentes que ejecutan el trabajo.",
-        ".agent-type:nth-child(1) .agent-type-label": "Conversacionales",
-        ".agent-type:nth-child(1) h3": "Cuando el trabajo necesita di\u00e1logo.",
-        ".agent-type:nth-child(1) p": "Soporte, cualificaci\u00f3n, acceso a conocimiento y flujos de servicio guiados.",
-        ".agent-type:nth-child(1) .agent-type-meta span": "Superficie principal",
-        ".agent-type:nth-child(1) .agent-type-meta strong": "Chat, voz, portal o asistente embebido",
-        ".agent-type:nth-child(2) .agent-type-label": "Headless",
-        ".agent-type:nth-child(2) h3": "Cuando el trabajo necesita ejecuci\u00f3n.",
-        ".agent-type:nth-child(2) p": "Documentos, enriquecimiento, integraciones, follow-up, routing y back-office workflows.",
-        ".agent-type:nth-child(2) .agent-type-meta span": "Superficie principal",
-        ".agent-type:nth-child(2) .agent-type-meta strong": "Triggers de workflow, herramientas MCP y colas de excepciones",
-        "#workspace .section-kicker": "Operar / suite de observabilidad",
-        "#workspace .section-title": "La suite de observabilidad te permite medir el trabajo y controlar el agente.",
-        ".workspace-topbar > div:first-child strong": "Capa de control operativo",
-        ".workspace-topbar-actions span": "7 agentes activos",
-        ".workspace-topbar-actions button": "Revisar cola",
-        ".workspace-tabs span:nth-child(1)": "Observabilidad",
-        ".workspace-tabs span:nth-child(2)": "Agentes",
-        ".workspace-tabs span:nth-child(3)": "Excepciones",
-        ".workspace-tabs span:nth-child(4)": "Cadencia",
-        ".workspace-metrics div:nth-child(1) span": "Trabajos completados",
-        ".workspace-metrics div:nth-child(1) small": "Este mes",
-        ".workspace-metrics div:nth-child(2) span": "Cola de excepciones",
-        ".workspace-metrics div:nth-child(2) small": "Pendientes de criterio",
-        ".workspace-metrics div:nth-child(3) span": "Horas liberadas",
-        ".workspace-metrics div:nth-child(3) small": "En operaciones",
-        ".workspace-metrics div:nth-child(4) span": "Quality pass",
-        ".workspace-metrics div:nth-child(4) small": "Outputs revisados",
-        ".workspace-table-head span:nth-child(1)": "Agente headless",
-        ".workspace-table-head span:nth-child(2)": "KPI del trabajo",
-        ".workspace-table-head span:nth-child(3)": "Output",
-        ".workspace-table-head span:nth-child(4)": "Estado",
-        ".workspace-agent-row:nth-child(2) > div:first-child strong": "Finance Ops Agent",
-        ".workspace-agent-row:nth-child(2) > div:first-child small": "Entrada, validaci\u00f3n y routing de facturas",
-        ".workspace-agent-row:nth-child(2) > div:nth-child(2) small": "facturas procesadas",
-        ".workspace-agent-row:nth-child(2) > div:nth-child(3) small": "emparejadas con PO",
-        ".workspace-agent-row:nth-child(2) > div:nth-child(4)": '<span class="running-dot"></span>Activo',
-        ".workspace-agent-row:nth-child(3) > div:first-child strong": "Growth Agent",
-        ".workspace-agent-row:nth-child(3) > div:first-child small": "Research de leads y handoff comercial",
-        ".workspace-agent-row:nth-child(3) > div:nth-child(2) small": "leads investigados",
-        ".workspace-agent-row:nth-child(3) > div:nth-child(3) small": "listos para ventas",
-        ".workspace-agent-row:nth-child(3) > div:nth-child(4)": '<span class="running-dot"></span>Activo',
-        ".workspace-agent-row:nth-child(4) > div:first-child strong": "CX Agent",
-        ".workspace-agent-row:nth-child(4) > div:first-child small": "Consultas de cliente triadas o resueltas",
-        ".workspace-agent-row:nth-child(4) > div:nth-child(2) small": "consultas gestionadas",
-        ".workspace-agent-row:nth-child(4) > div:nth-child(3) small": "resueltas first pass",
-        ".workspace-agent-row:nth-child(4) > div:nth-child(4)": '<span class="running-dot"></span>Activo',
-        "#use-cases .section-kicker": "D\u00f3nde empezar",
-        "#use-cases .section-title": "Los trabajos se convierten en KPIs, casos de uso y agentes.",
-        ".job-design-chain article:nth-child(1) h3": "Trabajos",
-        ".job-design-chain article:nth-child(1) p": "Lead-to-cash, procure-to-pay, soporte al cliente, operaciones sociales.",
-        ".job-design-chain article:nth-child(2) h3": "KPIs a conseguir",
-        ".job-design-chain article:nth-child(2) p": "Tiempo de ciclo, quality pass, conversi\u00f3n, backlog, cost-to-serve.",
-        ".job-design-chain article:nth-child(3) h3": "Casos de uso",
-        ".job-design-chain article:nth-child(3) p": "Research, triage, enriquecimiento, aprobaciones, routing, follow-up.",
-        ".job-design-chain article:nth-child(4) h3": "Agentes",
-        ".job-design-chain article:nth-child(4) p": "Capacidad headless y conversacional operando dentro del flujo.",
-        ".macro-process-header span": "Ejemplo de macroproceso",
-        ".macro-process-header strong": "Lead-to-cash agentificado",
-        ".process-step:nth-child(1) span": "Trabajo",
-        ".process-step:nth-child(1) strong": "Capturar demanda",
-        ".process-step:nth-child(2) strong": "Leads listos para ventas",
-        ".process-step:nth-child(3) span": "Caso de uso",
-        ".process-step:nth-child(3) strong": "Cotizar y aprobar",
-        ".process-step:nth-child(4) span": "Caso de uso",
-        ".process-step:nth-child(4) strong": "Cerrar y handoff",
-        ".process-step:nth-child(5) span": "Agente",
-        ".process-step:nth-child(5) strong": "Facturar y cobrar",
-        ".stack-intro span": "Ecosistema de modelos",
-        ".founder-section .section-kicker": "Compa\u00f1\u00eda agentic",
-        ".founder-panel h2": "Convertirse en una compa\u00f1\u00eda agentic no es solo automatizar un proceso.",
-        ".founder-panel p": "Es entender el cambio tecnol\u00f3gico, desplegar casos reales de alto impacto y transformar la forma en la que trabajas.",
-        ".cta-box h2": "What if your workforce were limitless? Are you ready?",
-        ".cta-box .button": "Reservar un sprint de dise\u00f1o de mano de obra",
-        ".footer-inner > div:first-child": "\u00a9 2026 Agentia Labs. Boutique de operaciones IA y workspace.",
-        ".footer-links a:nth-child(1)": "Industrias",
-        ".footer-links a:nth-child(2)": "Contacto"
-      };
-
-      Object.entries(text).forEach(([selector, value]) => {
-        const node = document.querySelector(selector);
-        if (!node) return;
-        if (value.includes("<")) {
-          node.innerHTML = value;
-        } else {
-          node.textContent = value;
+    }
+  </script>
+  <script type="application/ld+json" id="website-schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://agentialabs.ai/#website",
+      "name": "Agentia Labs",
+      "url": "https://agentialabs.ai/",
+      "publisher": {
+        "@id": "https://agentialabs.ai/#organization"
+      },
+      "inLanguage": "es"
+    }
+  </script>
+  <script>
+    (function () {
+      const storageKey = "agentia-lang";
+      const supported = ["es", "en"];
+      const headCopy = {
+        es: {
+          title: "Agentia Labs — Operaciones de IA gestionadas",
+          description: "Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting.",
+          locale: "es_ES",
+          alternateLocale: "en_US"
+        },
+        en: {
+          title: "Agentia Labs — Managed AI Operations",
+          description: "Agentia Labs designs and manages AI agents that execute repetitive operational work across admin, finance, documents, inboxes and reporting.",
+          locale: "en_US",
+          alternateLocale: "es_ES"
         }
-      });
-
-      document.querySelectorAll("[data-es]").forEach((node) => {
-        node.textContent = node.dataset.es;
-      });
-
-      document.querySelectorAll("[data-es-placeholder]").forEach((node) => {
-        node.setAttribute("placeholder", node.dataset.esPlaceholder);
-      });
-
-      const attributes = [
-        [".nav", "aria-label", "Navegaci\u00f3n principal"],
-        [".brand", "aria-label", "Inicio de Agentia Labs"],
-        [".language-switcher", "aria-label", "Selector de idioma"],
-        [".kinetic-strip", "aria-label", "Bucle operativo de Agentia"],
-        [".workforce-grid", "aria-label", "Modelo operativo de mano de obra digital de Agentia"],
-        [".workspace-preview", "aria-label", "Vista previa de la suite SaaS de observabilidad de Agentia Workspace"],
-        [".workspace-tabs", "aria-label", "Vistas del workspace"],
-        [".job-design-chain", "aria-label", "Secuencia de dise\u00f1o de trabajos de Agentia"],
-        [".macro-process", "aria-label", "Macroproceso lead-to-cash agentificado"],
-        ["#stack", "aria-label", "Stack tecnol\u00f3gico"],
-        [".nav-links a:nth-child(6)", "href", "industries.html?lang=es"],
-        [".footer-links a:nth-child(1)", "href", "industries.html?lang=es"]
-      ];
-
-      attributes.forEach(([selector, attribute, value]) => {
+      };
+      const isSupported = (lang) => supported.includes(lang);
+      const setMeta = (selector, attribute, value) => {
         const node = document.querySelector(selector);
         if (node) node.setAttribute(attribute, value);
-      });
+      };
+      const syncStructuredData = (lang, copy) => {
+        const organization = document.getElementById("organization-schema");
+        const website = document.getElementById("website-schema");
+        if (organization) {
+          try {
+            const data = JSON.parse(organization.textContent);
+            data.description = copy.description;
+            data.inLanguage = lang;
+            organization.textContent = JSON.stringify(data);
+          } catch (error) {}
+        }
+        if (website) {
+          try {
+            const data = JSON.parse(website.textContent);
+            data.inLanguage = lang;
+            website.textContent = JSON.stringify(data);
+          } catch (error) {}
+        }
+      };
+      const syncSeo = (lang, copy) => {
+        document.title = copy.title;
+        setMeta('meta[name="description"]', "content", copy.description);
+        setMeta('meta[property="og:title"]', "content", copy.title);
+        setMeta('meta[property="og:description"]', "content", copy.description);
+        setMeta('meta[property="og:locale"]', "content", copy.locale);
+        setMeta('meta[property="og:locale:alternate"]', "content", copy.alternateLocale);
+        setMeta('meta[name="twitter:title"]', "content", copy.title);
+        setMeta('meta[name="twitter:description"]', "content", copy.description);
+        syncStructuredData(lang, copy);
+      };
+      const detectBrowserLang = () => {
+        const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+        const preferred = languages.find(Boolean);
+        if (!preferred) return "es";
+        return preferred.toLowerCase().startsWith("es") ? "es" : "en";
+      };
 
-      const demoLinks = [
-        ".nav-cta",
-        ".cta-box .button"
-      ];
+      let initialLang = "es";
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const requestedLang = params.get("lang");
+        const savedLang = localStorage.getItem(storageKey);
+        if (isSupported(requestedLang)) {
+          initialLang = requestedLang;
+        } else if (isSupported(savedLang)) {
+          initialLang = savedLang;
+        } else {
+          initialLang = detectBrowserLang();
+        }
+      } catch (error) {
+        initialLang = detectBrowserLang();
+      }
 
-      demoLinks.forEach((selector) => {
-        const node = document.querySelector(selector);
-        if (!node) return;
-        node.setAttribute("href", "#demo-form");
-      });
+      const copy = headCopy[initialLang] || headCopy.es;
+      document.documentElement.lang = initialLang;
+      document.documentElement.dataset.initialLang = initialLang;
+      document.documentElement.classList.add("i18n-pending");
+      window.agentiaSyncSeo = syncSeo;
+      window.setTimeout(() => {
+        document.documentElement.classList.remove("i18n-pending");
+      }, 1200);
+      syncSeo(initialLang, copy);
     })();
   </script>
+  <style>
+    html.i18n-pending body {
+      visibility: hidden;
+    }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://crm-pi-nine-82.vercel.app" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css?v=demo-form-polish-20260702" />
+</head>
+<body>
+  <header>
+    <nav aria-label="Navegación principal">
+      <a class="logo-wrap" href="#top" aria-label="Agentia Labs">
+        <svg class="logo-svg" id="logo-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g id="dot-group"></g>
+        </svg>
+        <span class="logo-name">Agentia Labs</span>
+      </a>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#lifecycle" data-i18n="nav.methodology">Metodología</a></li>
+          <li><a href="#agents" data-i18n="nav.agents">Agentes de IA</a></li>
+          <li><a href="#trust" data-i18n="nav.trust">Trust</a></li>
+          <li><a href="#industries" data-i18n="nav.industries">Industrias y casos de uso</a></li>
+          <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
+        </ul>
+        <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Cambiar a inglés">EN</button>
+        <a class="nav-cta" data-demo-link href="#demo-form">
+          <span data-i18n="nav.cta">Reserva una demo →</span>
+        </a>
+      </div>
+      <button class="ham" id="ham" type="button" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <div id="mobile-menu">
+    <a href="#lifecycle" class="mm-link" data-i18n="nav.methodology">Metodología</a>
+    <a href="#agents" class="mm-link" data-i18n="nav.agents">Agentes de IA</a>
+    <a href="#trust" class="mm-link" data-i18n="nav.trust">Trust</a>
+    <a href="#industries" class="mm-link" data-i18n="nav.industries">Industrias y casos de uso</a>
+    <a href="#pricing" class="mm-link" data-i18n="nav.pricing">Pricing</a>
+    <a class="m-cta" data-demo-link href="#demo-form">
+      <span data-i18n="nav.mobileCta">Reserva una demo</span>
+    </a>
+  </div>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-fluid" aria-hidden="true">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+        <div class="blob blob4"></div>
+      </div>
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span data-i18n="hero.eyebrow">Managed AI Operations</span>
+      </div>
+      <h1 id="hero-title">
+        <span class="hero-title-desktop" data-i18n="hero.title.desktop">Enfoca tu equipo en el negocio,<span class="title-line">deja que los agentes hagan el admin.</span></span>
+        <span class="hero-title-mobile" data-i18n="hero.title.mobile">Menos ops.<span class="title-line">Más negocio.</span></span>
+      </h1>
+      <p data-i18n="hero.copy">
+        Diseñamos, construimos y gestionamos agentes de IA que asumen trabajo operativo repetitivo.
+      </p>
+      <div class="hero-actions">
+        <a href="#demo-form" class="btn-primary" data-demo-link>
+          <span data-i18n="hero.primary">Reserva una demo</span>
+        </a>
+        <a href="#agents" class="btn-ghost">
+          <span data-i18n="hero.secondary">Ver cómo trabajan</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <section class="section problem-section" id="problem">
+      <div class="container problem-layout">
+        <div>
+          <p class="section-kicker" data-i18n="problem.kicker">Managed Operations</p>
+          <h2 class="section-title" data-i18n="problem.title">Aumenta capacidad operativa sin aumentar estructura.</h2>
+        </div>
+        <div class="problem-copy body-copy">
+          <p class="problem-lead" data-i18n="problem.copy.one">Tu equipo no está corto de talento. Está atrapado en operación.</p>
+          <p data-i18n="problem.copy.two">Administración, documentos, inboxes, aprobaciones, reporting y follow-ups consumen horas que deberían ir a producto, ventas y crecimiento. Convertimos ese trabajo repetitivo en jobs operativos ejecutados por agentes, con supervisión humana y resultados visibles.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIFECYCLE -->
+    <section class="lifecycle" id="lifecycle">
+      <div class="inner center">
+        <div class="rv">
+          <div class="s-pill" data-i18n="lifecycle.kicker">Metodología</div>
+          <h2 class="s-head" data-i18n="lifecycle.title">Convertimos trabajo operativo en jobs gestionados por agentes en solo 4 semanas.</h2>
+          <p class="s-sub center" data-i18n="lifecycle.subtitle">Identificamos los jobs operativos que frenan tu empresa, diseñamos el flujo objetivo, construimos los agentes y herramientas necesarios, y gestionamos el sistema en el tiempo. No automatizaciones sueltas. No experimentos. Operación gestionada, visible y medible.</p>
+        </div>
+        <div class="cycle rv">
+          <svg class="cycle-svg" id="cycle-svg" viewBox="0 0 620 600" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="cyc-center">
+            <svg id="cyc-logo" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"></svg>
+            <span data-i18n="lifecycle.center">Managed<br>Operations</span>
+          </div>
+          <div class="cyc-label" style="left:310px;top:40px">
+            <div class="n">1</div>
+            <div class="cyc-body"><h3 data-i18n="lifecycle.one.title">Descubrimos</h3><p data-i18n="lifecycle.one.copy">Mapeamos los jobs operativos que consumen tiempo en tu empresa.</p></div>
+          </div>
+          <div class="cyc-label" style="left:570px;top:205px">
+            <div class="n">2</div>
+            <div class="cyc-body"><h3 data-i18n="lifecycle.two.title">Diseñamos</h3><p data-i18n="lifecycle.two.copy">Definimos proceso, responsabilidades, checkpoints humanos, integraciones y métricas.</p></div>
+          </div>
+          <div class="cyc-label" style="left:457px;top:492px">
+            <div class="n">3</div>
+            <div class="cyc-body"><h3 data-i18n="lifecycle.three.title">Construimos</h3><p data-i18n="lifecycle.three.copy">Implementamos agentes, herramientas y workflows para ejecutar el job en producción.</p></div>
+          </div>
+          <div class="cyc-label" style="left:163px;top:492px">
+            <div class="n">4</div>
+            <div class="cyc-body"><h3 data-i18n="lifecycle.four.title">Gestionamos</h3><p data-i18n="lifecycle.four.copy">Monitorizamos rendimiento, incidentes, prompts, calidad y mejora continua.</p></div>
+          </div>
+          <div class="cyc-label" style="left:48px;top:205px">
+            <div class="n">5</div>
+            <div class="cyc-body"><h3 data-i18n="lifecycle.five.title">Medimos</h3><p data-i18n="lifecycle.five.copy">Agentia Workspace muestra trabajo ejecutado, resultados y capacidad creada.</p><span class="cyc-badge" data-i18n="lifecycle.five.badge">Visible</span></div>
+          </div>
+        </div>
+        <div class="cyc-loop rv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v5h-5"/></svg>
+          <span data-i18n="lifecycle.loop">operación y mejora continua</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="agents-section" id="agents">
+      <div class="inner">
+        <div class="center rv">
+          <div class="s-pill" data-i18n="agents.kicker">AI Agents</div>
+          <h2 class="s-head" data-i18n="agents.title">Agentes diseñados para ejecutar operación real.</h2>
+          <p class="s-sub center" data-i18n="agents.subtitle">Algunos conversan con equipos internos. Otros ejecutan trabajo en segundo plano dentro de tus sistemas. Todos tienen responsabilidades claras, límites, checkpoints humanos y métricas de resultado.</p>
+        </div>
+        <div class="tt-grid rv">
+          <div class="tt-card">
+            <div class="tt-icon conv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+            <h3 data-i18n="agents.conversational.label">Agentes conversacionales</h3>
+            <p class="tt-card-heading" data-i18n="agents.conversational.title">Conectamos tus asistentes al contexto real de tu empresa.</p>
+            <p data-i18n="agents.conversational.copy">Conectamos ChatGPT, Claude o tu asistente preferido a procesos, documentos y conocimiento interno para que el equipo avance con menos fricción.</p>
+            <div class="tt-shot-wrap">
+              <picture>
+                <source type="image/webp" srcset="assets/agent-chat-es.webp?v=chat-fix-20260619" data-image-en="assets/agent-chat.webp?v=chat-fix-20260619" data-image-es="assets/agent-chat-es.webp?v=chat-fix-20260619">
+                <img class="tt-shot" src="assets/agent-chat-es.png?v=chat-fix-20260619" data-image-en="assets/agent-chat.png?v=chat-fix-20260619" data-image-es="assets/agent-chat-es.png?v=chat-fix-20260619" data-i18n-alt="agents.conversational.alt" alt="Vista de un agente conversacional" width="1600" height="1520" loading="lazy" decoding="async">
+              </picture>
+            </div>
+          </div>
+          <div class="tt-card">
+            <div class="tt-icon head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <h3 data-i18n="agents.headless.label">Agentes en segundo plano</h3>
+            <p class="tt-card-heading" data-i18n="agents.headless.title">Agentes en segundo plano para el trabajo operativo repetitivo.</p>
+            <p data-i18n="agents.headless.copy">Ejecutan trabajo recurrente en administración, finanzas, documentos, inboxes, reporting y coordinación interna para liberar capacidad sin aumentar plantilla.</p>
+            <div class="tt-shot-wrap">
+              <picture>
+                <source type="image/webp" srcset="assets/agent-email-es.webp" data-image-en="assets/agent-email.webp" data-image-es="assets/agent-email-es.webp">
+                <img class="tt-shot" src="assets/agent-email-es.png" data-image-en="assets/agent-email.png" data-image-es="assets/agent-email-es.png" data-i18n-alt="agents.headless.alt" alt="Vista de un agente sin interfaz preparando una acción" width="1600" height="1520" loading="lazy" decoding="async">
+              </picture>
+            </div>
+          </div>
+        </div>
+        <div class="agent-roster rv">
+          <article><span>01</span><h3 data-i18n="agent.admin.title">Administrative Operations Agent</h3><p data-i18n="agent.admin.copy">Gestiona tareas administrativas recurrentes, entrada de datos, routing de documentos, updates de estado y follow-ups internos.</p></article>
+          <article><span>02</span><h3 data-i18n="agent.finance.title">Finance Operations Agent</h3><p data-i18n="agent.finance.copy">Procesa facturas, clasifica gastos, prepara conciliaciones y apoya flujos contables.</p></article>
+          <article><span>03</span><h3 data-i18n="agent.internal.title">Internal Operations Agent</h3><p data-i18n="agent.internal.copy">Clasifica solicitudes internas, redacta updates, enruta tareas y escala excepciones.</p></article>
+          <article><span>04</span><h3 data-i18n="agent.documents.title">Document Operations Agent</h3><p data-i18n="agent.documents.copy">Lee, extrae, clasifica y resume documentos, contratos, PDFs, formularios y archivos internos.</p></article>
+          <article><span>05</span><h3 data-i18n="agent.inbox.title">Inbox Operations Agent</h3><p data-i18n="agent.inbox.copy">Monitoriza inboxes compartidos, clasifica mensajes, redacta respuestas y enruta tareas.</p></article>
+          <article><span>06</span><h3 data-i18n="agent.orders.title">Order & Supplier Operations Agent</h3><p data-i18n="agent.orders.copy">Sigue pedidos, coordina proveedores, actualiza sistemas y alerta cuando algo se bloquea.</p></article>
+          <article><span>07</span><h3 data-i18n="agent.reporting.title">Reporting Agent</h3><p data-i18n="agent.reporting.copy">Recoge datos operativos, prepara informes semanales y señala anomalías.</p></article>
+          <article><span>08</span><h3 data-i18n="agent.knowledge.title">Internal Knowledge Agent</h3><p data-i18n="agent.knowledge.copy">Responde preguntas del equipo usando documentos, SOPs, políticas y conocimiento interno.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section trust-section" id="trust">
+      <div class="container">
+        <div class="trust-heading">
+          <p class="section-kicker" data-i18n="trust.kicker">Agentia Workspace</p>
+          <h2 class="section-title" data-i18n="trust.title">Tu operación, visible.</h2>
+          <p class="body-copy" data-i18n="trust.copy">
+            Los agentes solo generan confianza cuando su trabajo es visible. Agentia Workspace da a cada cliente una vista privada de su operación gestionada por agentes: agentes activos, jobs cubiertos, resultados procesados, horas liberadas, estado, incidencias, uso y oportunidades de expansión.
+          </p>
+        </div>
+
+        <div class="trust-layout">
+          <figure class="workspace-frame trust-frame">
+            <picture>
+              <source type="image/webp" srcset="assets/workspace.webp?v=agent-taxonomy-20260622">
+              <img src="assets/workspace.png?v=agent-taxonomy-20260622" alt="Panel de control de Agentia con agentes activos y métricas de operación" width="2720" height="1920" loading="lazy" decoding="async" />
+            </picture>
+          </figure>
+
+          <div class="trust-list">
+            <article>
+              <span>01</span>
+              <h3 data-i18n="trust.security.title">Sin cajas negras</h3>
+              <p data-i18n="trust.security.copy">Cada agente tiene responsabilidades, permisos y límites definidos antes de operar.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <h3 data-i18n="trust.control.title">Escalado claro</h3>
+              <p data-i18n="trust.control.copy">Los checkpoints humanos se diseñan para aprobaciones, excepciones y decisiones sensibles.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <h3 data-i18n="trust.roi.title">Outcomes medibles</h3>
+              <p data-i18n="trust.roi.copy">Seguimos jobs completados, horas liberadas, incidencias, uso mensual y expansión posible.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <h3 data-i18n="trust.data.title">Seguridad y datos</h3>
+              <p data-i18n="trust.data.copy">Data centers en la UE, cumplimiento GDPR, Zero Data Retention para modelos LLM y cifrado de datos.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section verticals-section" id="industries">
+      <div class="container split">
+        <div class="verticals-heading">
+          <p class="section-kicker" data-i18n="verticals.kicker">Use cases</p>
+          <h2 class="section-title" data-i18n="verticals.title">Empezamos donde el trabajo operativo es repetitivo, medible y doloroso.</h2>
+          <p class="body-copy" data-i18n="verticals.copy">No intentamos cubrirlo todo. Empezamos por casos concretos como back office administrativo, finanzas, documentos, inboxes y reporting.</p>
+        </div>
+        <div class="vertical-list" aria-label="Verticales iniciales">
+          <div><span>01</span><strong data-i18n="verticals.one">Finanzas y administración</strong><p data-i18n="verticals.one.copy">Facturas, gastos, conciliaciones, aprobaciones y seguimiento.</p></div>
+          <div><span>02</span><strong data-i18n="verticals.two">Inbox y operaciones internas</strong><p data-i18n="verticals.two.copy">Bandejas compartidas, routing, aprobaciones, updates de estado y coordinación interna.</p></div>
+          <div><span>03</span><strong data-i18n="verticals.three">Documentos y compliance</strong><p data-i18n="verticals.three.copy">Lectura, extracción, clasificación y revisión de archivos.</p></div>
+          <div><span>04</span><strong data-i18n="verticals.four">Pedidos y proveedores</strong><p data-i18n="verticals.four.copy">Estados, follow-ups, incidencias y comunicación operativa.</p></div>
+          <div><span>05</span><strong data-i18n="verticals.five">Sales operations</strong><p data-i18n="verticals.five.copy">CRM, preparación de datos, follow-ups y handoffs comerciales.</p></div>
+          <div><span>06</span><strong data-i18n="verticals.six">Reporting interno</strong><p data-i18n="verticals.six.copy">Informes semanales, anomalías, métricas y updates de dirección.</p></div>
+          <div><span>07</span><strong data-i18n="verticals.seven">Knowledge operations</strong><p data-i18n="verticals.seven.copy">Respuestas basadas en SOPs, políticas, documentación y procesos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pricing-section" id="pricing">
+      <div class="container">
+        <div class="pricing-heading">
+          <p class="section-kicker" data-i18n="pricing.kicker">Pricing</p>
+          <h2 class="section-title" data-i18n="pricing.title">Empieza por un job operativo. Prueba el resultado. Expande la operación.</h2>
+          <p class="body-copy" data-i18n="pricing.copy">El pricing se basa en dos pilares: una fase inicial de discovery e implementación y una operación mensual gestionada, todo adaptado a tu caso de uso.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="pricing-card">
+            <span>01</span>
+            <h3 data-i18n="pricing.consulting.title">Discovery & first agent</h3>
+            <p data-i18n="pricing.consulting.copy">Identificamos el primer job operativo de alto valor, diseñamos el workflow y lo llevamos a producción con supervisión y métricas.</p>
+          </article>
+          <article class="pricing-card">
+            <span>02</span>
+            <h3 data-i18n="pricing.consumption.title">Managed AI Agents</h3>
+            <p data-i18n="pricing.consumption.copy">Operación mensual para consumo, monitorización, mantenimiento, mejoras, incidencias, visibilidad en Agentia Workspace, despliegue de nuevos agentes y workshop trimestral de 3h.</p>
+          </article>
+        </div>
+
+        <p class="pricing-note" data-i18n="pricing.licenseNote">Las plataformas de agentes conversacionales, como ChatGPT o Claude, no están incluidas en el pricing de Agentia.</p>
+
+        <div class="pricing-cta">
+          <p data-i18n="pricing.cta.copy">¿Listo para liberar capacidad operativa? Reserva una demo e identificaremos un primer job donde tus agentes puedan crear capacidad medible en las próximas semanas.</p>
+          <a href="#demo-form" class="btn-primary" data-demo-link data-i18n="pricing.cta">Reserva una demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section" id="demo">
+      <div class="container">
+        <div class="demo-layout" id="demo-form">
+          <div class="demo-copy">
+            <p class="section-kicker" data-i18n="demo.kicker">Reserva una demo</p>
+            <h2 class="section-title" data-i18n="demo.title">Encuentra la primera operación que tus agentes deberían ejecutar.</h2>
+            <p class="body-copy" data-i18n="demo.copy">Cuéntanos el contexto mínimo y revisaremos contigo qué trabajo operativo puede convertirse primero en capacidad gestionada por agentes.</p>
+            <p class="demo-note" data-i18n="demo.note">Primero cualificamos el caso, después agendamos una conversación útil.</p>
+          </div>
+
+          <form class="demo-form" data-demo-form data-endpoint="https://crm-pi-nine-82.vercel.app/api/public">
+            <input type="text" name="websiteUrl" tabindex="-1" autocomplete="off" aria-hidden="true" class="demo-honeypot" />
+
+            <label>
+              <span data-i18n="demo.firstName">Nombre</span>
+              <input name="firstName" type="text" autocomplete="given-name" placeholder="Paula" required />
+            </label>
+
+            <label>
+              <span data-i18n="demo.lastName">Apellidos</span>
+              <input name="lastName" type="text" autocomplete="family-name" placeholder="Rodríguez" required />
+            </label>
+
+            <label>
+              <span data-i18n="demo.company">Empresa</span>
+              <input name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa" data-i18n-placeholder="demo.companyPlaceholder" required />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input name="email" type="email" autocomplete="email" placeholder="paula@empresa.com" data-i18n-placeholder="demo.emailPlaceholder" required />
+            </label>
+
+            <label>
+              <span data-i18n="demo.phone">Teléfono</span>
+              <input name="phone" type="tel" autocomplete="tel" placeholder="+34 600 000 000" required />
+            </label>
+
+            <label>
+              <span data-i18n="demo.industry">Industria</span>
+              <select name="industry" required>
+                <option value="" data-i18n="demo.industryPlaceholder">Selecciona una</option>
+                <option value="Retail &amp; eCommerce">Retail &amp; eCommerce</option>
+                <option value="Professional Services" data-i18n="demo.industryServices">Servicios profesionales</option>
+                <option value="Finance &amp; Accounting" data-i18n="demo.industryFinance">Finanzas y contabilidad</option>
+                <option value="Real Estate" data-i18n="demo.industryRealEstate">Inmobiliario</option>
+                <option value="Manufacturing" data-i18n="demo.industryManufacturing">Industria / Manufacturing</option>
+                <option value="Logistics &amp; Supply Chain" data-i18n="demo.industryLogistics">Logística y supply chain</option>
+                <option value="Hospitality &amp; Travel" data-i18n="demo.industryHospitality">Hospitality / Travel</option>
+                <option value="Education" data-i18n="demo.industryEducation">Educación</option>
+                <option value="Technology &amp; SaaS" data-i18n="demo.industryTech">Tecnología / SaaS</option>
+                <option value="Healthcare &amp; Clinics" data-i18n="demo.industryHealthcare">Salud / clínicas</option>
+                <option value="Other" data-i18n="demo.industryOther">Otro</option>
+              </select>
+            </label>
+
+            <label class="demo-form-full">
+              <span data-i18n="demo.operation">Operación a liberar primero</span>
+              <textarea name="operation" rows="4" placeholder="Reporting semanal, facturas, inbox compartido, documentos, aprobaciones..." data-i18n-placeholder="demo.operationPlaceholder"></textarea>
+            </label>
+
+            <button class="btn-primary" type="submit">
+              <span data-i18n="demo.submit">Enviar solicitud</span>
+            </button>
+
+            <p class="demo-form-status" data-demo-status role="status" aria-live="polite" data-i18n="demo.status.idle">
+              Usaremos estos datos solo para responder a tu solicitud y preparar la demo.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a class="footer-brand" href="#top">
+        <img src="assets/agentia-mark-h-light.svg" alt="" width="64" height="64" loading="lazy" decoding="async" />
+        <span>Agentia Labs</span>
+      </a>
+      <p data-i18n="footer.copy">© 2026 Agentia Labs. Diseñamos, implementamos y gestionamos agentes de IA para operaciones internas.</p>
+      <a href="mailto:hello@agentialabs.ai">hello@agentialabs.ai</a>
+    </div>
+  </footer>
 
   <script>
-    (() => {
+    const i18n = {
+      es: {
+        title: "Agentia Labs — Operaciones de IA gestionadas",
+        description: "Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting.",
+        subject: "Reservar una demo",
+        strings: {
+          "nav.methodology": "Metodología",
+          "nav.agents": "Agentes de IA",
+          "nav.trust": "Trust",
+          "nav.industries": "Industrias y casos de uso",
+          "nav.pricing": "Pricing",
+          "nav.cta": "Reserva una demo →",
+          "nav.mobileCta": "Reserva una demo",
+          "hero.eyebrow": "Managed AI Operations",
+          "hero.title.desktop": "Enfoca tu equipo en el negocio,<span class=\"title-line\">deja que los agentes hagan el admin.</span>",
+          "hero.title.mobile": "Menos ops.<span class=\"title-line\">Más negocio.</span>",
+          "hero.copy": "Diseñamos, construimos y gestionamos agentes de IA que asumen trabajo operativo repetitivo.",
+          "hero.primary": "Reserva una demo",
+          "hero.secondary": "Ver cómo trabajan",
+          "problem.kicker": "Managed Operations",
+          "problem.title": "Aumenta capacidad operativa sin aumentar estructura.",
+          "problem.copy.one": "Tu equipo no está corto de talento. Está atrapado en operación.",
+          "problem.copy.two": "Administración, documentos, inboxes, aprobaciones, reporting y follow-ups consumen horas que deberían ir a producto, ventas y crecimiento. Convertimos ese trabajo repetitivo en jobs operativos ejecutados por agentes, con supervisión humana y resultados visibles.",
+          "lifecycle.kicker": "Metodología",
+          "lifecycle.title": "Convertimos trabajo operativo en jobs gestionados por agentes en solo 4 semanas.",
+          "lifecycle.subtitle": "Identificamos los jobs operativos que frenan tu empresa, diseñamos el flujo objetivo, construimos los agentes y herramientas necesarios, y gestionamos el sistema en el tiempo. No automatizaciones sueltas. No experimentos. Operación gestionada, visible y medible.",
+          "lifecycle.center": "Managed<br>Operations",
+          "lifecycle.one.title": "Descubrimos",
+          "lifecycle.one.copy": "Mapeamos los jobs operativos que consumen tiempo en tu empresa.",
+          "lifecycle.two.title": "Diseñamos",
+          "lifecycle.two.copy": "Definimos proceso, responsabilidades, checkpoints humanos, integraciones y métricas.",
+          "lifecycle.three.title": "Construimos",
+          "lifecycle.three.copy": "Implementamos agentes, herramientas y workflows para ejecutar el job en producción.",
+          "lifecycle.four.title": "Gestionamos",
+          "lifecycle.four.copy": "Monitorizamos rendimiento, incidentes, prompts, calidad y mejora continua.",
+          "lifecycle.five.title": "Medimos",
+          "lifecycle.five.copy": "Agentia Workspace muestra trabajo ejecutado, resultados y capacidad creada.",
+          "lifecycle.five.badge": "Visible",
+          "lifecycle.loop": "operación y mejora continua",
+          "agents.kicker": "AI Agents",
+          "agents.title": "Agentes diseñados para ejecutar operación real.",
+          "agents.subtitle": "Algunos conversan con equipos internos. Otros ejecutan trabajo en segundo plano dentro de tus sistemas. Todos tienen responsabilidades claras, límites, checkpoints humanos y métricas de resultado.",
+          "agents.conversational.label": "Agentes conversacionales",
+          "agents.conversational.title": "Conectamos tus asistentes al contexto real de tu empresa.",
+          "agents.conversational.copy": "Conectamos ChatGPT, Claude o tu asistente preferido a procesos, documentos y conocimiento interno para que el equipo avance con menos fricción.",
+          "agents.conversational.alt": "Vista de un agente conversacional",
+          "agents.headless.label": "Agentes en segundo plano",
+          "agents.headless.title": "Agentes en segundo plano para el trabajo operativo repetitivo.",
+          "agents.headless.copy": "Ejecutan trabajo recurrente en administración, finanzas, documentos, inboxes, reporting y coordinación interna para liberar capacidad sin aumentar plantilla.",
+          "agents.headless.alt": "Vista de un agente sin interfaz preparando una acción",
+          "agent.admin.title": "Administrative Operations Agent",
+          "agent.admin.copy": "Gestiona tareas administrativas recurrentes, entrada de datos, routing de documentos, updates de estado y follow-ups internos.",
+          "agent.finance.title": "Finance Operations Agent",
+          "agent.finance.copy": "Procesa facturas, clasifica gastos, prepara conciliaciones y apoya flujos contables.",
+          "agent.internal.title": "Internal Operations Agent",
+          "agent.internal.copy": "Clasifica solicitudes internas, redacta updates, enruta tareas y escala excepciones.",
+          "agent.documents.title": "Document Operations Agent",
+          "agent.documents.copy": "Lee, extrae, clasifica y resume documentos, contratos, PDFs, formularios y archivos internos.",
+          "agent.inbox.title": "Inbox Operations Agent",
+          "agent.inbox.copy": "Monitoriza inboxes compartidos, clasifica mensajes, redacta respuestas y enruta tareas.",
+          "agent.orders.title": "Order & Supplier Operations Agent",
+          "agent.orders.copy": "Sigue pedidos, coordina proveedores, actualiza sistemas y alerta cuando algo se bloquea.",
+          "agent.reporting.title": "Reporting Agent",
+          "agent.reporting.copy": "Recoge datos operativos, prepara informes semanales y señala anomalías.",
+          "agent.knowledge.title": "Internal Knowledge Agent",
+          "agent.knowledge.copy": "Responde preguntas del equipo usando documentos, SOPs, políticas y conocimiento interno.",
+          "trust.kicker": "Agentia Workspace",
+          "trust.title": "Tu operación, visible.",
+          "trust.copy": "Los agentes solo generan confianza cuando su trabajo es visible. Agentia Workspace da a cada cliente una vista privada de su operación gestionada por agentes: agentes activos, jobs cubiertos, resultados procesados, horas liberadas, estado, incidencias, uso y oportunidades de expansión.",
+          "trust.security.title": "Sin cajas negras",
+          "trust.security.copy": "Cada agente tiene responsabilidades, permisos y límites definidos antes de operar.",
+          "trust.control.title": "Escalado claro",
+          "trust.control.copy": "Los checkpoints humanos se diseñan para aprobaciones, excepciones y decisiones sensibles.",
+          "trust.roi.title": "Outcomes medibles",
+          "trust.roi.copy": "Seguimos jobs completados, horas liberadas, incidencias, uso mensual y expansión posible.",
+          "trust.data.title": "Seguridad y datos",
+          "trust.data.copy": "Data centers en la UE, cumplimiento GDPR, Zero Data Retention para modelos LLM y cifrado de datos.",
+          "pricing.kicker": "Pricing",
+          "pricing.title": "Empieza por un job operativo. Prueba el resultado. Expande la operación.",
+          "pricing.copy": "El pricing se basa en dos pilares: una fase inicial de discovery e implementación y una operación mensual gestionada, todo adaptado a tu caso de uso.",
+          "pricing.consulting.title": "Discovery & first agent",
+          "pricing.consulting.copy": "Identificamos el primer job operativo de alto valor, diseñamos el workflow y lo llevamos a producción con supervisión y métricas.",
+          "pricing.consumption.title": "Managed AI Agents",
+          "pricing.consumption.copy": "Operación mensual para consumo, monitorización, mantenimiento, mejoras, incidencias, visibilidad en Agentia Workspace, despliegue de nuevos agentes y workshop trimestral de 3h.",
+          "pricing.licenseNote": "Las plataformas de agentes conversacionales, como ChatGPT o Claude, no están incluidas en el pricing de Agentia.",
+          "pricing.cta.copy": "¿Listo para liberar capacidad operativa? Reserva una demo e identificaremos un primer job donde tus agentes puedan crear capacidad medible en las próximas semanas.",
+          "pricing.cta": "Reserva una demo",
+          "demo.kicker": "Reserva una demo",
+          "demo.title": "Encuentra la primera operación que tus agentes deberían ejecutar.",
+          "demo.copy": "Cuéntanos el contexto mínimo y revisaremos contigo qué trabajo operativo puede convertirse primero en capacidad gestionada por agentes.",
+          "demo.note": "Primero cualificamos el caso, después agendamos una conversación útil.",
+          "demo.firstName": "Nombre",
+          "demo.lastName": "Apellidos",
+          "demo.company": "Empresa",
+          "demo.companyPlaceholder": "Nombre de la empresa",
+          "demo.emailPlaceholder": "paula@empresa.com",
+          "demo.phone": "Teléfono",
+          "demo.industry": "Industria",
+          "demo.industryPlaceholder": "Selecciona una",
+          "demo.industryServices": "Servicios profesionales",
+          "demo.industryFinance": "Finanzas y contabilidad",
+          "demo.industryRealEstate": "Inmobiliario",
+          "demo.industryManufacturing": "Industria / Manufacturing",
+          "demo.industryLogistics": "Logística y supply chain",
+          "demo.industryHospitality": "Hospitality / Travel",
+          "demo.industryEducation": "Educación",
+          "demo.industryTech": "Tecnología / SaaS",
+          "demo.industryHealthcare": "Salud / clínicas",
+          "demo.industryOther": "Otro",
+          "demo.operation": "Operación a liberar primero",
+          "demo.operationPlaceholder": "Reporting semanal, facturas, inbox compartido, documentos, aprobaciones...",
+          "demo.submit": "Enviar solicitud",
+          "demo.status.idle": "Usaremos estos datos solo para responder a tu solicitud y preparar la demo.",
+          "demo.status.sending": "Enviando solicitud...",
+          "demo.status.success": "Solicitud enviada. La revisaremos y te responderemos en breve.",
+          "demo.status.error": "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@agentialabs.ai.",
+          "verticals.kicker": "Use cases",
+          "verticals.title": "Empezamos donde el trabajo operativo es repetitivo, medible y doloroso.",
+          "verticals.copy": "No intentamos cubrirlo todo. Empezamos por casos concretos como back office administrativo, finanzas, documentos, inboxes y reporting.",
+          "verticals.one": "Finanzas y administración",
+          "verticals.one.copy": "Facturas, gastos, conciliaciones, aprobaciones y seguimiento.",
+          "verticals.two": "Inbox y operaciones internas",
+          "verticals.two.copy": "Bandejas compartidas, routing, aprobaciones, updates de estado y coordinación interna.",
+          "verticals.three": "Documentos y compliance",
+          "verticals.three.copy": "Lectura, extracción, clasificación y revisión de archivos.",
+          "verticals.four": "Pedidos y proveedores",
+          "verticals.four.copy": "Estados, follow-ups, incidencias y comunicación operativa.",
+          "verticals.five": "Sales operations",
+          "verticals.five.copy": "CRM, preparación de datos, follow-ups y handoffs comerciales.",
+          "verticals.six": "Reporting interno",
+          "verticals.six.copy": "Informes semanales, anomalías, métricas y updates de dirección.",
+          "verticals.seven": "Knowledge operations",
+          "verticals.seven.copy": "Respuestas basadas en SOPs, políticas, documentación y procesos.",
+          "footer.copy": "© 2026 Agentia Labs. Diseñamos, implementamos y gestionamos agentes de IA para operaciones internas."
+        }
+      },
+      en: {
+        title: "Agentia Labs — Managed AI Operations",
+        description: "Agentia Labs designs and manages AI agents that execute repetitive operational work across admin, finance, documents, inboxes and reporting.",
+        subject: "Book a demo",
+        strings: {
+          "nav.methodology": "Methodology",
+          "nav.agents": "AI Agents",
+          "nav.trust": "Trust",
+          "nav.industries": "Industries & Use Cases",
+          "nav.pricing": "Pricing",
+          "nav.cta": "Book a demo →",
+          "nav.mobileCta": "Book a demo",
+          "hero.eyebrow": "Managed AI Operations",
+          "hero.title.desktop": "Grow your business.<span class=\"title-line\">Let your agents run the operations.</span>",
+          "hero.title.mobile": "Grow the business.<span class=\"title-line\">Run the ops with agents.</span>",
+          "hero.copy": "We design, build and manage AI agents that take responsibility for repetitive operational work.",
+          "hero.primary": "Book a demo",
+          "hero.secondary": "See how they work",
+          "problem.kicker": "Managed Operations",
+          "problem.title": "Increase operational capacity without adding structure.",
+          "problem.copy.one": "Your team is not short on talent. It is trapped in operations.",
+          "problem.copy.two": "Admin work, documents, inboxes, approvals, reporting and follow-ups consume hours that should go into product, sales and growth. We turn that repetitive work into operational jobs executed by agents, with human supervision and visible outcomes.",
+          "lifecycle.kicker": "Methodology",
+          "lifecycle.title": "We turn operational work into agent-managed jobs in just 4 weeks.",
+          "lifecycle.subtitle": "We identify the operational jobs slowing your company down, design the target workflow, build the AI agents and tools required to execute it, and manage the system over time. Not standalone automations. Not experiments. Managed operations, visible and measurable.",
+          "lifecycle.center": "Managed<br>Operations",
+          "lifecycle.one.title": "Discover",
+          "lifecycle.one.copy": "We map the operational jobs consuming time across your company.",
+          "lifecycle.two.title": "Design",
+          "lifecycle.two.copy": "We define process, agent responsibilities, human checkpoints, integrations and metrics.",
+          "lifecycle.three.title": "Build",
+          "lifecycle.three.copy": "We implement agents, tools and workflows required to execute the job in production.",
+          "lifecycle.four.title": "Manage",
+          "lifecycle.four.copy": "We monitor performance, incidents, prompts, workflow quality and continuous improvement.",
+          "lifecycle.five.title": "Measure",
+          "lifecycle.five.copy": "Agentia Workspace shows executed work, outcomes and created capacity.",
+          "lifecycle.five.badge": "Visible",
+          "lifecycle.loop": "continuous operations and improvement",
+          "agents.kicker": "AI Agents",
+          "agents.title": "Agents built to execute real operations.",
+          "agents.subtitle": "Some agents converse with internal teams. Others execute work in the background inside your systems. All of them have clear responsibilities, limits, human checkpoints and outcome metrics.",
+          "agents.conversational.label": "Conversational Agents",
+          "agents.conversational.title": "We connect your assistants to your company's real context.",
+          "agents.conversational.copy": "We connect ChatGPT, Claude or your chosen assistant to processes, documents and internal knowledge so teams move faster with less friction.",
+          "agents.conversational.alt": "View of a conversational agent",
+          "agents.headless.label": "Background Agents",
+          "agents.headless.title": "Background agents for repetitive operational work.",
+          "agents.headless.copy": "They execute recurring work across admin, finance, documents, inboxes, reporting and internal coordination to unlock capacity without adding headcount.",
+          "agents.headless.alt": "View of a headless agent preparing an action",
+          "agent.admin.title": "Administrative Operations Agent",
+          "agent.admin.copy": "Handles recurring admin tasks, data entry, document routing, status updates and internal follow-ups.",
+          "agent.finance.title": "Finance Operations Agent",
+          "agent.finance.copy": "Processes invoices, classifies expenses, prepares reconciliations and supports accounting workflows.",
+          "agent.internal.title": "Internal Operations Agent",
+          "agent.internal.copy": "Triages internal requests, drafts status updates, routes tasks and escalates exceptions.",
+          "agent.documents.title": "Document Operations Agent",
+          "agent.documents.copy": "Reads, extracts, classifies and summarizes documents, contracts, PDFs, forms and internal files.",
+          "agent.inbox.title": "Inbox Operations Agent",
+          "agent.inbox.copy": "Monitors shared inboxes, classifies messages, drafts responses and routes tasks.",
+          "agent.orders.title": "Order & Supplier Operations Agent",
+          "agent.orders.copy": "Tracks orders, follows up with suppliers, updates systems and alerts the team when something is stuck.",
+          "agent.reporting.title": "Reporting Agent",
+          "agent.reporting.copy": "Collects operational data, prepares weekly reports and flags anomalies.",
+          "agent.knowledge.title": "Internal Knowledge Agent",
+          "agent.knowledge.copy": "Answers team questions based on company documents, SOPs, policies and internal knowledge.",
+          "trust.kicker": "Agentia Workspace",
+          "trust.title": "Your operation, visible.",
+          "trust.copy": "AI agents only create trust when their work is visible. Agentia Workspace gives each client a private view of their agent-managed operation: active agents, jobs covered, outcomes processed, hours liberated, status, incidents, usage and opportunities for expansion.",
+          "trust.security.title": "No black boxes",
+          "trust.security.copy": "Every agent has defined responsibilities, permission boundaries and limits before it operates.",
+          "trust.control.title": "Clear escalation",
+          "trust.control.copy": "Human checkpoints are designed around approvals, exceptions and sensitive decisions.",
+          "trust.roi.title": "Measurable outcomes",
+          "trust.roi.copy": "We track completed jobs, liberated hours, incidents, monthly usage and expansion opportunities.",
+          "trust.data.title": "Security & data",
+          "trust.data.copy": "EU data centers, GDPR compliance, Zero Data Retention for LLM models and data encryption.",
+          "pricing.kicker": "Pricing",
+          "pricing.title": "Start with one operational job. Prove the outcome. Expand the operation.",
+          "pricing.copy": "Pricing is based on two pillars: an initial discovery & implementation phase and the monthly managed operation, tailored to your use case.",
+          "pricing.consulting.title": "Discovery & first agent",
+          "pricing.consulting.copy": "Identify the first high-value operational job, design the workflow and put it into production with supervision and metrics.",
+          "pricing.consumption.title": "Managed AI Agents",
+          "pricing.consumption.copy": "Monthly operation for consumption, monitoring, maintenance, improvements, incidents, visibility through Agentia Workspace, new agent deployments and a 3h quarterly workshop.",
+          "pricing.licenseNote": "Conversational agent platforms, like ChatGPT or Claude, are not included in Agentia's pricing.",
+          "pricing.cta.copy": "Ready to unlock operational capacity? Book a demo and we will identify a first job where your agents can create measurable capacity in the next few weeks.",
+          "pricing.cta": "Book a demo",
+          "demo.kicker": "Request a demo",
+          "demo.title": "Find the first operation your agents should run.",
+          "demo.copy": "Tell us the minimum context and we will review which operational job can become agent-managed capacity first.",
+          "demo.note": "We qualify the case first, then schedule a useful conversation.",
+          "demo.firstName": "First name",
+          "demo.lastName": "Last name",
+          "demo.company": "Company",
+          "demo.companyPlaceholder": "Company name",
+          "demo.emailPlaceholder": "paula@company.com",
+          "demo.phone": "Phone",
+          "demo.industry": "Industry",
+          "demo.industryPlaceholder": "Select one",
+          "demo.industryServices": "Professional Services",
+          "demo.industryFinance": "Finance & Accounting",
+          "demo.industryRealEstate": "Real Estate",
+          "demo.industryManufacturing": "Manufacturing",
+          "demo.industryLogistics": "Logistics & Supply Chain",
+          "demo.industryHospitality": "Hospitality & Travel",
+          "demo.industryEducation": "Education",
+          "demo.industryTech": "Technology & SaaS",
+          "demo.industryHealthcare": "Healthcare & Clinics",
+          "demo.industryOther": "Other",
+          "demo.operation": "First operation to free up",
+          "demo.operationPlaceholder": "Weekly reporting, invoices, shared inbox, documents, approvals...",
+          "demo.submit": "Send request",
+          "demo.status.idle": "We will only use this data to answer your request and prepare the demo.",
+          "demo.status.sending": "Sending request...",
+          "demo.status.success": "Request sent. We will review it and come back to you shortly.",
+          "demo.status.error": "We could not send the request. Please try again or email hello@agentialabs.ai.",
+          "verticals.kicker": "Use cases",
+          "verticals.title": "We start where operational workload is repetitive, measurable and painful.",
+          "verticals.copy": "We do not try to cover everything. We start with concrete use cases like administrative back office, finance, documents, inboxes and reporting.",
+          "verticals.one": "Finance & admin",
+          "verticals.one.copy": "Invoices, expenses, reconciliations, approvals and follow-up.",
+          "verticals.two": "Inbox & internal operations",
+          "verticals.two.copy": "Shared inboxes, routing, approvals, status updates and internal coordination.",
+          "verticals.three": "Documents & compliance",
+          "verticals.three.copy": "Reading, extraction, classification and review of files.",
+          "verticals.four": "Orders & suppliers",
+          "verticals.four.copy": "Status checks, follow-ups, incidents and operational communication.",
+          "verticals.five": "Sales operations",
+          "verticals.five.copy": "CRM, data prep, follow-ups and commercial handoffs.",
+          "verticals.six": "Internal reporting",
+          "verticals.six.copy": "Weekly reports, anomalies, metrics and leadership updates.",
+          "verticals.seven": "Knowledge operations",
+          "verticals.seven.copy": "Answers based on SOPs, policies, documentation and processes.",
+          "footer.copy": "© 2026 Agentia Labs. We design, implement and manage AI agents for internal operations."
+        }
+      }
+    };
+
+    const storageKey = "agentia-lang";
+    const supportedLangs = ["es", "en"];
+    const isSupportedLang = (lang) => supportedLangs.includes(lang);
+
+    function getStoredLang() {
+      try {
+        const value = localStorage.getItem(storageKey);
+        return isSupportedLang(value) ? value : "";
+      } catch (error) {
+        return "";
+      }
+    }
+
+    function getRequestedLang() {
+      const params = new URLSearchParams(window.location.search);
+      const value = params.get("lang");
+      return isSupportedLang(value) ? value : "";
+    }
+
+    function getBrowserLang() {
+      const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+      const preferred = languages.find(Boolean);
+      if (!preferred) return "es";
+      return preferred.toLowerCase().startsWith("es") ? "es" : "en";
+    }
+
+    function resolveInitialLang() {
+      const headLang = document.documentElement.dataset.initialLang;
+      if (isSupportedLang(headLang)) return headLang;
+      return getRequestedLang() || getStoredLang() || getBrowserLang();
+    }
+
+    const initialLang = resolveInitialLang();
+
+    (function drawLogo() {
+      const SP = 30;
+      const OFF = 20;
+      const VIEW = 160;
+      const defs = [
+        [0, 0, 3.5, 0], [1, 0, 5, 0], [2, 0, 5.5, 0], [3, 0, 5, 0], [4, 0, 3.5, 0],
+        [0, 1, 5, 0], [1, 1, 8.5, 0], [2, 1, 11, 0], [3, 1, 8.5, 0], [4, 1, 5, 0],
+        [0, 2, 5, 0], [1, 2, 11, 0], [2, 2, 17, 0], [3, 2, 11, 0], [4, 2, 7, 1],
+        [0, 3, 5, 0], [1, 3, 8.5, 0], [2, 3, 11, 0], [3, 3, 8.5, 0], [4, 3, 7, 1],
+        [0, 4, 3.5, 0], [1, 4, 5, 0], [2, 4, 5.5, 0], [3, 4, 5, 0], [4, 4, 3.5, 0]
+      ];
+      const svgEl = document.getElementById("logo-svg");
+      const group = document.getElementById("dot-group");
+      if (!svgEl || !group) return;
+
+      const dotData = defs.map(([col, row, radius, isGold]) => {
+        const cx = OFF + col * SP;
+        const cy = OFF + row * SP;
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", cx);
+        circle.setAttribute("cy", cy);
+        circle.setAttribute("r", radius);
+        circle.setAttribute("fill", isGold ? "#C2724A" : "#1A1712");
+        group.appendChild(circle);
+        return { cx, cy, radius, isGold, currentRadius: radius };
+      });
+
+      let mouseX = -999;
+      let mouseY = -999;
+      let time = 0;
+      const circles = group.querySelectorAll("circle");
+
+      window.addEventListener("mousemove", (event) => {
+        const rect = svgEl.getBoundingClientRect();
+        mouseX = (event.clientX - rect.left) * (VIEW / rect.width);
+        mouseY = (event.clientY - rect.top) * (VIEW / rect.height);
+      });
+
+      function loop() {
+        time += 0.04;
+        dotData.forEach((dot, index) => {
+          const distance = Math.hypot(mouseX - dot.cx, mouseY - dot.cy);
+          let target = dot.radius;
+          if (distance < 55) target = dot.radius * (1 + 0.85 * (1 - distance / 55));
+          if (dot.isGold) target = dot.radius * (1 + 0.35 * Math.sin(time + index * 0.5));
+          dot.currentRadius += (target - dot.currentRadius) * 0.12;
+          circles[index].setAttribute("r", dot.currentRadius.toFixed(2));
+        });
+        requestAnimationFrame(loop);
+      }
+
+      loop();
+    })();
+
+    function setLanguage(lang, persist = true) {
+      const dictionary = i18n[lang] || i18n.es;
+      const toggle = document.getElementById("lang-toggle");
+      const seoCopy = {
+        title: dictionary.title,
+        description: dictionary.description,
+        locale: lang === "es" ? "es_ES" : "en_US",
+        alternateLocale: lang === "es" ? "en_US" : "es_ES"
+      };
+      document.documentElement.lang = lang;
+
+      if (window.agentiaSyncSeo) {
+        window.agentiaSyncSeo(lang, seoCopy);
+      } else {
+        document.title = dictionary.title;
+        const meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute("content", dictionary.description);
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute("content", dictionary.title);
+        const ogDescription = document.querySelector('meta[property="og:description"]');
+        if (ogDescription) ogDescription.setAttribute("content", dictionary.description);
+        const ogLocale = document.querySelector('meta[property="og:locale"]');
+        if (ogLocale) ogLocale.setAttribute("content", seoCopy.locale);
+        const ogLocaleAlternate = document.querySelector('meta[property="og:locale:alternate"]');
+        if (ogLocaleAlternate) ogLocaleAlternate.setAttribute("content", seoCopy.alternateLocale);
+        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twitterTitle) twitterTitle.setAttribute("content", dictionary.title);
+        const twitterDescription = document.querySelector('meta[name="twitter:description"]');
+        if (twitterDescription) twitterDescription.setAttribute("content", dictionary.description);
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((node) => {
+        const key = node.getAttribute("data-i18n");
+        const value = dictionary.strings[key];
+        if (value) node.innerHTML = value;
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach((node) => {
+        const key = node.getAttribute("data-i18n-alt");
+        const value = dictionary.strings[key];
+        if (value) node.setAttribute("alt", value);
+      });
+
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+        const key = node.getAttribute("data-i18n-placeholder");
+        const value = dictionary.strings[key];
+        if (value) node.setAttribute("placeholder", value);
+      });
+
+      document.querySelectorAll("[data-image-en][data-image-es]").forEach((node) => {
+        const nextSrc = node.getAttribute(lang === "es" ? "data-image-es" : "data-image-en");
+        const imageAttribute = node.tagName === "SOURCE" ? "srcset" : "src";
+        if (nextSrc && node.getAttribute(imageAttribute) !== nextSrc) node.setAttribute(imageAttribute, nextSrc);
+      });
+
+      document.querySelectorAll("[data-demo-link]").forEach((node) => {
+        node.setAttribute("href", "#demo-form");
+      });
+
+      if (toggle) {
+        toggle.textContent = lang === "es" ? "EN" : "ES";
+        toggle.setAttribute("aria-label", lang === "es" ? "Cambiar a inglés" : "Switch to Spanish");
+      }
+
+      if (persist) {
+        try {
+          localStorage.setItem(storageKey, lang);
+        } catch (error) {}
+      }
+      document.documentElement.classList.remove("i18n-pending");
+      document.dispatchEvent(new CustomEvent("agentia:languagechange"));
+    }
+
+    const langToggle = document.getElementById("lang-toggle");
+    if (langToggle) {
+      langToggle.addEventListener("click", () => {
+        const nextLang = document.documentElement.lang === "es" ? "en" : "es";
+        setLanguage(nextLang);
+      });
+    }
+
+    const ham = document.getElementById("ham");
+    const mobileMenu = document.getElementById("mobile-menu");
+    if (ham && mobileMenu) {
+      ham.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.toggle("open");
+        ham.setAttribute("aria-expanded", String(isOpen));
+        document.body.style.overflow = isOpen ? "hidden" : "";
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("open");
+          ham.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        });
+      });
+    }
+
+    const stepScrollMedia = window.matchMedia("(min-width: 900px) and (min-height: 720px)");
+    const reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const navSectionIds = ["lifecycle", "agents", "trust", "industries", "pricing"];
+
+    function syncBookScroll() {
+      requestAnimationFrame(() => {
+        const shouldSnap = stepScrollMedia.matches && !reducedMotionMedia.matches;
+        document.documentElement.classList.toggle("snap-pages", shouldSnap);
+      });
+    }
+
+    function syncActiveNav() {
+      const marker = (window.innerHeight || document.documentElement.clientHeight) * 0.42;
+      let activeId = "";
+      navSectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= marker && rect.bottom > marker) activeId = id;
+      });
+
+      document.querySelectorAll(".nav-links a[href^='#'], #mobile-menu a[href^='#']").forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const isActive = id === activeId;
+        link.classList.toggle("is-active", isActive);
+        if (isActive) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    }
+
+    let activeNavFrame = 0;
+    function requestActiveNavSync() {
+      if (activeNavFrame) return;
+      activeNavFrame = requestAnimationFrame(() => {
+        activeNavFrame = 0;
+        syncActiveNav();
+      });
+    }
+
+    [stepScrollMedia, reducedMotionMedia].forEach((media) => {
+      if (media.addEventListener) {
+        media.addEventListener("change", syncBookScroll);
+      } else {
+        media.addListener(syncBookScroll);
+      }
+    });
+
+    window.addEventListener("resize", syncBookScroll);
+    window.addEventListener("orientationchange", syncBookScroll);
+    window.addEventListener("load", syncBookScroll);
+    document.addEventListener("agentia:languagechange", syncBookScroll);
+    window.addEventListener("scroll", requestActiveNavSync, { passive: true });
+    window.addEventListener("resize", requestActiveNavSync);
+    window.addEventListener("orientationchange", requestActiveNavSync);
+    window.addEventListener("load", requestActiveNavSync);
+    document.addEventListener("agentia:languagechange", requestActiveNavSync);
+    document.querySelectorAll("img").forEach((image) => {
+      if (!image.complete) {
+        image.addEventListener("load", syncBookScroll);
+        image.addEventListener("load", requestActiveNavSync);
+      }
+    });
+
+    setLanguage(initialLang, false);
+    syncBookScroll();
+    syncActiveNav();
+
+    function scrollToDemoForm(behavior = "smooth") {
+      const target = document.getElementById("demo-form");
+      if (!target) return;
+      document.documentElement.classList.remove("snap-pages");
+      target.scrollIntoView({ behavior, block: "start" });
+      if (window.location.hash !== "#demo-form") {
+        history.pushState(null, "", "#demo-form");
+      }
+      window.setTimeout(syncBookScroll, behavior === "smooth" ? 900 : 80);
+    }
+
+    document.querySelectorAll("[data-demo-link]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (mobileMenu && ham) {
+          mobileMenu.classList.remove("open");
+          ham.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+        scrollToDemoForm(reducedMotionMedia.matches ? "auto" : "smooth");
+      });
+    });
+
+    if (window.location.hash === "#demo-form") {
+      requestAnimationFrame(() => scrollToDemoForm("auto"));
+    }
+
+    (function wireDemoForm() {
       const form = document.querySelector("[data-demo-form]");
       if (!form) return;
 
       const status = form.querySelector("[data-demo-status]");
       const submit = form.querySelector('button[type="submit"]');
       const endpoint = () => window.AGENTIA_CRM_DEMO_ENDPOINT || form.dataset.endpoint;
-      const message = {
-        en: {
-          idle: "We will only use this data to answer your request and prepare the demo.",
-          sending: "Sending request...",
-          success: "Request sent. We will review it and come back to you shortly.",
-          error: "We could not send the request. Please try again or email hello@agentialabs.ai."
-        },
-        es: {
-          idle: "Usaremos estos datos solo para responder a tu solicitud y preparar la demo.",
-          sending: "Enviando solicitud...",
-          success: "Solicitud enviada. La revisaremos y te responderemos en breve.",
-          error: "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@agentialabs.ai."
-        }
+      const currentLanguage = () => (document.documentElement.lang || "es").startsWith("es") ? "es" : "en";
+      const statusKey = (state) => `demo.status.${state}`;
+
+      const setStatus = (state) => {
+        if (!status) return;
+        const dictionary = i18n[currentLanguage()] || i18n.es;
+        status.textContent = dictionary.strings[statusKey(state)] || dictionary.strings[statusKey("idle")];
+        status.dataset.state = state;
       };
 
-      const currentLanguage = () => (document.documentElement.lang || "en").startsWith("es") ? "es" : "en";
-      const setStatus = (key) => {
-        if (!status) return;
-        status.textContent = message[currentLanguage()][key];
-        status.dataset.state = key;
-      };
+      document.addEventListener("agentia:languagechange", () => setStatus("idle"));
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -925,117 +1129,138 @@
           }
           form.reset();
           setStatus("success");
-        } catch {
+        } catch (error) {
           setStatus("error");
         } finally {
           if (submit) submit.disabled = false;
         }
       });
     })();
-  </script>
 
-  <script>
-    (() => {
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const revealTargets = [
-        ".kinetic-strip",
-        ".section",
-        ".stack-section",
-        ".cta-section",
-        ".workforce-pillar",
-        ".card",
-        ".agent-type",
-        ".workspace-preview",
-        ".job-design-chain article",
-        ".process-step",
-        ".stack-logo",
-        ".founder-panel"
-      ].join(",");
-
-      if (reducedMotion) {
-        document.documentElement.classList.add("motion-off");
-        document.querySelectorAll(revealTargets).forEach((node) => node.classList.add("is-visible"));
-        return;
-      }
-
-      document.documentElement.classList.add("motion-ready");
-
-      const revealNodes = Array.from(document.querySelectorAll(revealTargets));
-      const countNodes = Array.from(document.querySelectorAll("[data-count-to]"));
-      let ticking = false;
-
-      revealNodes.forEach((node, index) => {
-        node.style.setProperty("--reveal-index", index % 6);
+    (function startLifecycleCycle() {
+      const svg = document.getElementById("cycle-svg");
+      if (!svg) return;
+      const NS = "http://www.w3.org/2000/svg";
+      const CENTER_X = 310;
+      const CENTER_Y = 290;
+      const RADIUS = 165;
+      const ARC_LENGTH = 210;
+      const mk = (tag, attrs) => {
+        const element = document.createElementNS(NS, tag);
+        Object.keys(attrs).forEach((key) => element.setAttribute(key, attrs[key]));
+        return element;
+      };
+      svg.appendChild(mk("circle", { class: "ring-track", cx: CENTER_X, cy: CENTER_Y, r: RADIUS }));
+      const arc = mk("circle", { class: "ring-arc", cx: CENTER_X, cy: CENTER_Y, r: RADIUS });
+      svg.appendChild(arc);
+      const pos = [[310, 125], [466.9, 239], [407, 423.5], [213, 423.5], [153.1, 239]];
+      const nodes = pos.map((point) => {
+        const node = mk("circle", { class: "ring-node", cx: point[0], cy: point[1], r: 8 });
+        svg.appendChild(node);
+        return node;
       });
-
-      const formatCount = (value, node) => {
-        const decimals = Number(node.dataset.countDecimals || 0);
-        const suffix = node.dataset.countSuffix || "";
-        const formatted = value.toLocaleString("en-US", {
-          minimumFractionDigits: decimals,
-          maximumFractionDigits: decimals
+      const labels = Array.from(document.querySelectorAll(".cyc-label"));
+      const defs = [
+        [0, 0, 3.5, 0], [1, 0, 5, 0], [2, 0, 5.5, 0], [3, 0, 5, 0], [4, 0, 3.5, 0],
+        [0, 1, 5, 0], [1, 1, 8.5, 0], [2, 1, 11, 0], [3, 1, 8.5, 0], [4, 1, 5, 0],
+        [0, 2, 5, 0], [1, 2, 11, 0], [2, 2, 17, 0], [3, 2, 11, 0], [4, 2, 7, 1],
+        [0, 3, 5, 0], [1, 3, 8.5, 0], [2, 3, 11, 0], [3, 3, 8.5, 0], [4, 3, 7, 1],
+        [0, 4, 3.5, 0], [1, 4, 5, 0], [2, 4, 5.5, 0], [3, 4, 5, 0], [4, 4, 3.5, 0]
+      ];
+      const cl = document.getElementById("cyc-logo");
+      if (cl) {
+        defs.forEach((dot) => {
+          cl.appendChild(mk("circle", {
+            cx: 20 + dot[0] * 30,
+            cy: 20 + dot[1] * 30,
+            r: dot[2],
+            fill: dot[3] ? "#C2724A" : "#1A1712"
+          }));
         });
-        return `${formatted}${suffix}`;
+      }
+      const STEP_MS = 1700;          // time per node
+      const N = Math.min(labels.length, nodes.length);
+      if (!N) return;
+      const circumference = 2 * Math.PI * RADIUS;
+      const arcAngle = 360 * (ARC_LENGTH / circumference);
+      arc.style.strokeDasharray = `${ARC_LENGTH} ${circumference - ARC_LENGTH}`;
+      const nodeAngles = pos.map(([x, y]) => {
+        const angle = Math.atan2(y - CENTER_Y, x - CENTER_X) * 180 / Math.PI;
+        return (angle + 360) % 360;
+      });
+      const cycleMs = STEP_MS * N;
+      const normalizeAngle = (angle) => (angle % 360 + 360) % 360;
+      const angularDistance = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
+      let activeIndex = -1;
+
+      const setArcCenterAngle = (angle) => {
+        arc.style.transform = `rotate(${angle - arcAngle / 2}deg)`;
       };
 
-      const animateCount = (node) => {
-        const target = Number(node.dataset.countTo || 0);
-        const started = performance.now();
-        const duration = 1200;
+      const setLit = (index) => {
+        labels.forEach((l, i) => l.classList.toggle("on", i === index));
+        nodes.forEach((n, i) => n.classList.toggle("lit", i === index));
+      };
 
-        const tick = (now) => {
-          const progress = Math.min((now - started) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          node.textContent = formatCount(target * eased, node);
-          if (progress < 1) {
-            requestAnimationFrame(tick);
-          } else {
-            node.textContent = formatCount(target, node);
+      const closestNodeIndex = (angle) => {
+        let closestIndex = 0;
+        let closestDistance = Infinity;
+        nodeAngles.slice(0, N).forEach((nodeAngle, index) => {
+          const distance = angularDistance(angle, nodeAngle);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
           }
-        };
-
-        requestAnimationFrame(tick);
+        });
+        return closestIndex;
       };
 
-      const isInView = (node, offset = 0.88) => {
-        const rect = node.getBoundingClientRect();
-        return rect.top < window.innerHeight * offset && rect.bottom > 0;
-      };
+      const renderCycle = (elapsed) => {
+        const cycleProgress = ((elapsed % cycleMs) + cycleMs) % cycleMs / cycleMs;
+        const arcCenterAngle = normalizeAngle(nodeAngles[0] + cycleProgress * 360);
+        const nextIndex = closestNodeIndex(arcCenterAngle);
 
-      const checkMotion = () => {
-        revealNodes.forEach((node) => {
-          if (!node.classList.contains("is-visible") && isInView(node)) {
-            node.classList.add("is-visible");
-          }
-        });
-
-        countNodes.forEach((node) => {
-          if (node.dataset.countDone === "true" || !isInView(node, 0.82)) return;
-          node.dataset.countDone = "true";
-          animateCount(node);
-        });
-
-        const revealDone = revealNodes.every((node) => node.classList.contains("is-visible"));
-        const countDone = countNodes.every((node) => node.dataset.countDone === "true");
-        if (revealDone && countDone) {
-          window.removeEventListener("scroll", scheduleMotion);
-          window.removeEventListener("resize", scheduleMotion);
+        setArcCenterAngle(arcCenterAngle);
+        if (nextIndex !== activeIndex) {
+          activeIndex = nextIndex;
+          setLit(activeIndex);
         }
       };
 
-      const scheduleMotion = () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(() => {
-          ticking = false;
-          checkMotion();
-        });
-      };
+      renderCycle(0);
+      let started = false;
+      const lifecycle = document.querySelector(".lifecycle");
+      if (!lifecycle) return;
+      new IntersectionObserver((entries, observer) => {
+        if (entries[0].isIntersecting && !started) {
+          started = true;
+          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            observer.disconnect();
+            return;
+          }
+          const startTime = performance.now();
 
-      window.addEventListener("scroll", scheduleMotion, { passive: true });
-      window.addEventListener("resize", scheduleMotion);
-      requestAnimationFrame(checkMotion);
+          const tick = (now) => {
+            renderCycle(now - startTime);
+            requestAnimationFrame(tick);
+          };
+
+          requestAnimationFrame(tick);
+          observer.disconnect();
+        }
+      }, { threshold: 0.3 }).observe(lifecycle);
     })();
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("on");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+    document.querySelectorAll(".rv").forEach((element) => revealObserver.observe(element));
+
   </script>
 </body>
 </html>
