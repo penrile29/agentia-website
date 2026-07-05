@@ -6,7 +6,8 @@ services:
     command: >
       /bin/sh -lc '
       set -eu;
-      BASE="https://raw.githubusercontent.com/penrile29/agentia-website/main";
+      CONTENT_REF="$${CONTENT_REF:-435b307346a1cd0b49bf342cac1c2d76060142a2}";
+      BASE="https://raw.githubusercontent.com/penrile29/agentia-website/$$CONTENT_REF";
       cd /usr/share/nginx/html;
       rm -rf ./*;
       mkdir -p assets/logos;
