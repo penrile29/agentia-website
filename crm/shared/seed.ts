@@ -342,6 +342,7 @@ export function createSeedData(): CrmData {
       status: "Not Started",
       dueDate: "2026-07-03",
       ownerId: "usr_sales",
+      secondaryOwnerId: "usr_admin",
       description: "Enviar propuesta de discovery y confirmar prioridades de automatizacion.",
     }),
     stamp({
@@ -353,6 +354,7 @@ export function createSeedData(): CrmData {
       status: "In Progress",
       dueDate: "2026-07-08",
       ownerId: "usr_success",
+      secondaryOwnerId: "usr_admin",
       description: "Cerrar agenda, owners internos y materiales para el arranque de fase 1.",
     }),
   ];

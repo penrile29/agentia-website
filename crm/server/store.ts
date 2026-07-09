@@ -456,6 +456,10 @@ export function normalizeRecord(data: CrmData, object: ObjectKey, input: Record<
 }
 
 function normalizeRelations(data: CrmData, object: ObjectKey, record: LooseRecord): void {
+  for (const field of ["accountId", "parentAccountId", "contactId", "productId", "opportunityId", "proposalId", "invoiceId", "ownerId", "secondaryOwnerId"]) {
+    if (record[field] === "") record[field] = undefined;
+  }
+
   const accountFields = ["accountId", "parentAccountId"];
   for (const field of accountFields) {
     if (typeof record[field] === "string" && record[field] && !record[field].startsWith("acc_")) {
@@ -477,8 +481,12 @@ function normalizeRelations(data: CrmData, object: ObjectKey, record: LooseRecor
   if (typeof record.invoiceId === "string" && record.invoiceId && !record.invoiceId.startsWith("inv_")) {
     record.invoiceId = findInvoice(data, record.invoiceId)?.id ?? record.invoiceId;
   }
-  if (object !== "users" && typeof record.ownerId === "string" && record.ownerId && !record.ownerId.startsWith("usr_")) {
-    record.ownerId = findByName(data.users, record.ownerId)?.id ?? record.ownerId;
+  if (object !== "users") {
+    for (const field of ["ownerId", "secondaryOwnerId"]) {
+      if (typeof record[field] === "string" && record[field] && !String(record[field]).startsWith("usr_")) {
+        record[field] = findUser(data, record[field] as string)?.id ?? record[field];
+      }
+    }
   }
 }
 
@@ -511,6 +519,7 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
     for (const objectKey of objectKeys) {
       for (const record of getCollection(data, objectKey)) {
         if (record.ownerId === id) record.ownerId = undefined;
+        if (record.secondaryOwnerId === id) record.secondaryOwnerId = undefined;
       }
     }
   }
@@ -532,6 +541,11 @@ function syncTaskAccount(data: CrmData, record: LooseRecord): void {
 function findByName<T extends { id: string; name?: string; subject?: string }>(items: T[], value: string): T | undefined {
   const target = value.trim().toLowerCase();
   return items.find((item) => (item.name ?? item.subject ?? item.id).toLowerCase() === target);
+}
+
+function findUser(data: CrmData, value: string): CrmData["users"][number] | undefined {
+  const target = value.trim().toLowerCase();
+  return data.users.find((user) => user.id === value || user.name.toLowerCase() === target || user.email.toLowerCase() === target);
 }
 
 function findContact(data: CrmData, value: string): CrmData["contacts"][number] | undefined {

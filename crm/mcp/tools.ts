@@ -60,6 +60,13 @@ function resolveContactId(data: CrmData, value?: string): string | undefined {
   return contact.id;
 }
 
+function resolveTask(data: CrmData, value: string): CrmData["tasks"][number] {
+  const target = normalizeText(value);
+  const task = data.tasks.find((item) => item.id === value || normalizeText(item.subject) === target);
+  if (!task) throw new Error(`No existe tarea: ${value}`);
+  return task;
+}
+
 function resolveOpportunity(data: CrmData, value: string): CrmData["opportunities"][number] {
   const target = normalizeText(value);
   const opportunity = data.opportunities.find((item) => item.id === value || normalizeText(item.name) === target);
@@ -125,7 +132,43 @@ function enrichTask(data: CrmData, task: CrmData["tasks"][number]) {
     contactName: relatedName(data, "contacts", task.contactId),
     opportunityName: relatedName(data, "opportunities", task.opportunityId),
     ownerName: relatedName(data, "users", task.ownerId),
+    secondaryOwnerName: relatedName(data, "users", task.secondaryOwnerId),
   };
+}
+
+type TaskToolInput = {
+  subject?: string;
+  status?: string;
+  dueDate?: string;
+  description?: string;
+  ownerId?: string | null;
+  secondaryOwnerId?: string | null;
+  accountId?: string | null;
+  contactId?: string | null;
+  opportunityId?: string | null;
+};
+
+function taskPatchFromInput(data: CrmData, input: TaskToolInput): Record<string, unknown> {
+  const patch: Record<string, unknown> = {};
+  if (input.subject !== undefined) patch.subject = input.subject;
+  if (input.status !== undefined) patch.status = input.status;
+  if (input.dueDate !== undefined) patch.dueDate = input.dueDate || undefined;
+  if (input.description !== undefined) patch.description = input.description;
+  applyOptionalReference(patch, "ownerId", input.ownerId, (value) => resolveOwnerId(data, value));
+  applyOptionalReference(patch, "secondaryOwnerId", input.secondaryOwnerId, (value) => resolveOwnerId(data, value));
+  applyOptionalReference(patch, "accountId", input.accountId, (value) => resolveAccountId(data, value));
+  applyOptionalReference(patch, "contactId", input.contactId, (value) => resolveContactId(data, value));
+  applyOptionalReference(patch, "opportunityId", input.opportunityId, (value) => resolveOpportunity(data, value).id);
+  return patch;
+}
+
+function applyOptionalReference(patch: Record<string, unknown>, key: string, value: string | null | undefined, resolver: (value: string) => string | undefined): void {
+  if (value === undefined) return;
+  if (value === null || value.trim() === "") {
+    patch[key] = undefined;
+    return;
+  }
+  patch[key] = resolver(value);
 }
 
 function enrichAccount(data: CrmData, account: CrmData["accounts"][number]) {
@@ -228,6 +271,8 @@ export function createCrmMcpServer() {
         query: z.string().optional().describe("Texto a buscar en la tarea enriquecida."),
         status: z.string().optional().describe("Estado exacto, por ejemplo Not Started, In Progress o Completed."),
         ownerId: z.string().optional().describe("ID, nombre o email del owner."),
+        secondaryOwnerId: z.string().optional().describe("ID, nombre o email del segundo asignado."),
+        assignedUserId: z.string().optional().describe("ID, nombre o email de cualquier asignado; busca en owner y segundo asignado."),
         accountId: z.string().optional().describe("ID o nombre de la cuenta relacionada."),
         contactId: z.string().optional().describe("ID, nombre o email del contacto relacionado."),
         opportunityId: z.string().optional().describe("ID o nombre exacto de la oportunidad relacionada."),
@@ -236,9 +281,11 @@ export function createCrmMcpServer() {
         limit: z.number().int().positive().max(100).optional(),
       },
     },
-    async ({ query, status, ownerId, accountId, contactId, opportunityId, dueFrom, dueTo, limit }) => {
+    async ({ query, status, ownerId, secondaryOwnerId, assignedUserId, accountId, contactId, opportunityId, dueFrom, dueTo, limit }) => {
       const data = await readData();
       const resolvedOwnerId = resolveOwnerId(data, ownerId);
+      const resolvedSecondaryOwnerId = resolveOwnerId(data, secondaryOwnerId);
+      const resolvedAssignedUserId = resolveOwnerId(data, assignedUserId);
       const resolvedAccountId = resolveAccountId(data, accountId);
       const resolvedContactId = resolveContactId(data, contactId);
       const resolvedOpportunityId = opportunityId ? resolveOpportunity(data, opportunityId).id : undefined;
@@ -247,6 +294,8 @@ export function createCrmMcpServer() {
         .map((task) => enrichTask(data, task))
         .filter((task) => !targetStatus || normalizeText(task.status) === targetStatus)
         .filter((task) => !resolvedOwnerId || task.ownerId === resolvedOwnerId)
+        .filter((task) => !resolvedSecondaryOwnerId || task.secondaryOwnerId === resolvedSecondaryOwnerId)
+        .filter((task) => !resolvedAssignedUserId || task.ownerId === resolvedAssignedUserId || task.secondaryOwnerId === resolvedAssignedUserId)
         .filter((task) => !resolvedAccountId || task.accountId === resolvedAccountId)
         .filter((task) => !resolvedContactId || task.contactId === resolvedContactId)
         .filter((task) => !resolvedOpportunityId || task.opportunityId === resolvedOpportunityId)
@@ -256,6 +305,62 @@ export function createCrmMcpServer() {
         .sort((left, right) => (left.dueDate ?? "9999-12-31").localeCompare(right.dueDate ?? "9999-12-31"))
         .slice(0, limit ?? 50);
       return textJson(tasks);
+    },
+  );
+
+  server.registerTool(
+    "crm_create_task",
+    {
+      title: "Create CRM task",
+      description: "Crea una tarea y permite asignarla a owner, segundo asignado, cuenta, contacto y/u oportunidad usando ids, nombres o emails. Si hay oportunidad o contacto, el CRM autocompleta la cuenta.",
+      inputSchema: {
+        subject: z.string().describe("Asunto de la tarea."),
+        status: z.string().optional().describe("Estado, por ejemplo Not Started, In Progress, Waiting, Completed o Deferred."),
+        dueDate: z.string().optional().describe("Fecha de vencimiento YYYY-MM-DD."),
+        description: z.string().optional().describe("Descripcion de la tarea."),
+        ownerId: z.string().nullable().optional().describe("ID, nombre o email del owner principal."),
+        secondaryOwnerId: z.string().nullable().optional().describe("ID, nombre o email del segundo asignado."),
+        accountId: z.string().nullable().optional().describe("ID o nombre de la cuenta relacionada."),
+        contactId: z.string().nullable().optional().describe("ID, nombre o email del contacto relacionado."),
+        opportunityId: z.string().nullable().optional().describe("ID o nombre exacto de la oportunidad relacionada."),
+      },
+    },
+    async (input) => {
+      const data = await readData();
+      const created = await createRecord("tasks", taskPatchFromInput(data, input));
+      const next = await readData();
+      const task = next.tasks.find((item) => item.id === created.id);
+      if (!task) throw new Error(`No se pudo leer la tarea creada: ${created.id}`);
+      return textJson(enrichTask(next, task));
+    },
+  );
+
+  server.registerTool(
+    "crm_update_task",
+    {
+      title: "Update CRM task",
+      description: "Actualiza una tarea existente y sus relaciones/asignados usando ids, nombres o emails. Usa cadena vacia o null para limpiar una relacion opcional.",
+      inputSchema: {
+        taskId: z.string().describe("ID o asunto exacto de la tarea."),
+        subject: z.string().optional().describe("Nuevo asunto."),
+        status: z.string().optional().describe("Nuevo estado."),
+        dueDate: z.string().optional().describe("Fecha de vencimiento YYYY-MM-DD. Cadena vacia para limpiar."),
+        description: z.string().optional().describe("Descripcion."),
+        ownerId: z.string().nullable().optional().describe("ID, nombre o email del owner principal. Null/cadena vacia para limpiar."),
+        secondaryOwnerId: z.string().nullable().optional().describe("ID, nombre o email del segundo asignado. Null/cadena vacia para limpiar."),
+        accountId: z.string().nullable().optional().describe("ID o nombre de la cuenta. Null/cadena vacia para limpiar; oportunidad/contacto pueden autocompletarla."),
+        contactId: z.string().nullable().optional().describe("ID, nombre o email del contacto. Null/cadena vacia para limpiar."),
+        opportunityId: z.string().nullable().optional().describe("ID o nombre exacto de la oportunidad. Null/cadena vacia para limpiar."),
+      },
+    },
+    async ({ taskId, ...input }) => {
+      const data = await readData();
+      const task = resolveTask(data, taskId);
+      const updated = await updateRecord("tasks", task.id, taskPatchFromInput(data, input));
+      const next = await readData();
+      const nextTask = next.tasks.find((item) => item.id === updated.id);
+      if (!nextTask) throw new Error(`No se pudo leer la tarea actualizada: ${updated.id}`);
+      return textJson(enrichTask(next, nextTask));
     },
   );
 

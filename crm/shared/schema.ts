@@ -212,6 +212,7 @@ export interface Task extends BaseRecord {
   contactId?: string;
   opportunityId?: string;
   status: string;
+  secondaryOwnerId?: string;
   dueDate?: string;
   description?: string;
 }
@@ -524,6 +525,7 @@ export const fieldConfigs: Record<ObjectKey, FieldConfig[]> = {
     { key: "contactId", label: "Contact", type: "reference", relation: "contacts", table: true, importable: true },
     { key: "opportunityId", label: "Opportunity", type: "reference", relation: "opportunities", table: true, importable: true },
     { key: "ownerId", label: "Owner", type: "reference", relation: "users", table: true, importable: true },
+    { key: "secondaryOwnerId", label: "Second Assignee", type: "reference", relation: "users", table: true, importable: true },
     { key: "status", label: "Status", type: "picklist", picklist: "taskStatuses", required: true, table: true, importable: true },
     { key: "dueDate", label: "Due Date", type: "date", table: true, importable: true },
     { key: "description", label: "Description", type: "textarea", table: false, importable: true },
