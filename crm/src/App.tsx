@@ -688,7 +688,7 @@ function ObjectListPage({
   const [query, setQuery] = useState("");
   const Icon = objectIcons[object];
   const fields = fieldConfigs[object];
-  const tableFieldLimit = object === "opportunities" ? 8 : 6;
+  const tableFieldLimit = object === "opportunities" ? 8 : object === "tasks" ? 7 : 6;
   const tableFields = fields.filter((field) => field.table === true).slice(0, tableFieldLimit);
   const { statuses, saveInlineValue } = useInlineRecordEditing({
     setData,
@@ -1102,10 +1102,12 @@ function OpportunityRelated({
 }) {
   const proposals = data.proposals.filter((proposal) => proposal.opportunityId === opportunity.id);
   const invoices = data.invoices.filter((invoice) => invoice.opportunityId === opportunity.id);
+  const tasks = data.tasks.filter((task) => task.opportunityId === opportunity.id);
   return (
     <>
       <AmountSyncControl data={data} opportunity={opportunity} setData={setData} />
       <LineItemManager data={data} parentId={opportunity.id} lineObject="opportunityLineItems" parentField="opportunityId" setData={setData} />
+      <RelatedList title="Tareas" records={tasks} object="tasks" data={data} openRecord={openRecord} />
       <RelatedList title="Propuestas" records={proposals} object="proposals" data={data} openRecord={openRecord} />
       <RelatedList title="Facturas" records={invoices} object="invoices" data={data} openRecord={openRecord} />
     </>
@@ -1125,6 +1127,7 @@ function AccountRelated({ data, account, openRecord }: { data: CrmData; account:
     <>
       <RelatedList title="Contactos" records={data.contacts.filter((contact) => contact.accountId === account.id)} object="contacts" data={data} openRecord={openRecord} />
       <RelatedList title="Oportunidades" records={data.opportunities.filter((opportunity) => opportunity.accountId === account.id)} object="opportunities" data={data} openRecord={openRecord} />
+      <RelatedList title="Tareas" records={data.tasks.filter((task) => task.accountId === account.id)} object="tasks" data={data} openRecord={openRecord} />
       <RelatedList title="Casos" records={data.cases.filter((caseRecord) => caseRecord.accountId === account.id)} object="cases" data={data} openRecord={openRecord} />
     </>
   );
@@ -1134,6 +1137,7 @@ function ContactRelated({ data, contact, openRecord }: { data: CrmData; contact:
   return (
     <>
       <RelatedList title="Oportunidades" records={data.opportunities.filter((opportunity) => opportunity.contactId === contact.id)} object="opportunities" data={data} openRecord={openRecord} />
+      <RelatedList title="Tareas" records={data.tasks.filter((task) => task.contactId === contact.id)} object="tasks" data={data} openRecord={openRecord} />
       <RelatedList title="Casos" records={data.cases.filter((caseRecord) => caseRecord.contactId === contact.id)} object="cases" data={data} openRecord={openRecord} />
     </>
   );

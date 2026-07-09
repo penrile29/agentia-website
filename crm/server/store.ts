@@ -429,6 +429,7 @@ export function normalizeRecord(data: CrmData, object: ObjectKey, input: Record<
   if (object === "tasks") {
     record.subject = stringOr(record.subject, "Nueva tarea");
     record.status = stringOr(record.status, "Not Started");
+    syncTaskAccount(data, record);
   }
   if (object === "cases") {
     record.caseNumber = stringOr(record.caseNumber, nextCaseNumber(data.cases));
@@ -486,6 +487,7 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
     data.opportunityLineItems = data.opportunityLineItems.filter((line) => line.opportunityId !== id);
     data.proposals = data.proposals.filter((proposal) => proposal.opportunityId !== id);
     data.invoices = data.invoices.filter((invoice) => invoice.opportunityId !== id);
+    for (const task of data.tasks) if (task.opportunityId === id) task.opportunityId = undefined;
   }
   if (object === "proposals") {
     data.proposalLineItems = data.proposalLineItems.filter((line) => line.proposalId !== id);
@@ -500,6 +502,10 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
     for (const contact of data.contacts) if (contact.accountId === id) contact.accountId = undefined;
     for (const opportunity of data.opportunities) if (opportunity.accountId === id) opportunity.accountId = undefined;
     for (const caseRecord of data.cases) if (caseRecord.accountId === id) caseRecord.accountId = undefined;
+    for (const task of data.tasks) if (task.accountId === id) task.accountId = undefined;
+  }
+  if (object === "contacts") {
+    for (const task of data.tasks) if (task.contactId === id) task.contactId = undefined;
   }
   if (object === "users") {
     for (const objectKey of objectKeys) {
@@ -508,6 +514,19 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
       }
     }
   }
+}
+
+function syncTaskAccount(data: CrmData, record: LooseRecord): void {
+  if (record.accountId === "") record.accountId = undefined;
+  if (record.contactId === "") record.contactId = undefined;
+  if (record.opportunityId === "") record.opportunityId = undefined;
+  const opportunity = typeof record.opportunityId === "string" ? data.opportunities.find((item) => item.id === record.opportunityId) : undefined;
+  const contact = typeof record.contactId === "string" ? data.contacts.find((item) => item.id === record.contactId) : undefined;
+  if (opportunity?.accountId) {
+    record.accountId = opportunity.accountId;
+    return;
+  }
+  if (contact?.accountId) record.accountId = contact.accountId;
 }
 
 function findByName<T extends { id: string; name?: string; subject?: string }>(items: T[], value: string): T | undefined {

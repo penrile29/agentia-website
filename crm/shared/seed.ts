@@ -337,7 +337,8 @@ export function createSeedData(): CrmData {
   const tasks: Task[] = [
     stamp({
       id: "tsk_followup_horizon",
-      subject: "Follow up con Horizon Retail",
+      subject: "Follow up con Northstar Health",
+      accountId: "acc_northstar",
       status: "Not Started",
       dueDate: "2026-07-03",
       ownerId: "usr_sales",
@@ -346,6 +347,9 @@ export function createSeedData(): CrmData {
     stamp({
       id: "tsk_prepare_kinship_kickoff",
       subject: "Preparar kickoff de Kinship",
+      accountId: "acc_kinship",
+      contactId: "con_ana",
+      opportunityId: "opp_kinship_workspace",
       status: "In Progress",
       dueDate: "2026-07-08",
       ownerId: "usr_success",

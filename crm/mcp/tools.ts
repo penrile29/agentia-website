@@ -52,6 +52,14 @@ function resolveOwnerId(data: CrmData, value?: string): string | undefined {
   return owner.id;
 }
 
+function resolveContactId(data: CrmData, value?: string): string | undefined {
+  if (!value) return undefined;
+  const target = normalizeText(value);
+  const contact = data.contacts.find((item) => item.id === value || normalizeText(recordDisplayName(data, "contacts", item.id)) === target || normalizeText(item.email ?? "") === target);
+  if (!contact) throw new Error(`No existe contacto: ${value}`);
+  return contact.id;
+}
+
 function resolveOpportunity(data: CrmData, value: string): CrmData["opportunities"][number] {
   const target = normalizeText(value);
   const opportunity = data.opportunities.find((item) => item.id === value || normalizeText(item.name) === target);
@@ -113,6 +121,9 @@ function enrichOpportunity(data: CrmData, opportunity: CrmData["opportunities"][
 function enrichTask(data: CrmData, task: CrmData["tasks"][number]) {
   return {
     ...task,
+    accountName: relatedName(data, "accounts", task.accountId),
+    contactName: relatedName(data, "contacts", task.contactId),
+    opportunityName: relatedName(data, "opportunities", task.opportunityId),
     ownerName: relatedName(data, "users", task.ownerId),
   };
 }
@@ -217,19 +228,28 @@ export function createCrmMcpServer() {
         query: z.string().optional().describe("Texto a buscar en la tarea enriquecida."),
         status: z.string().optional().describe("Estado exacto, por ejemplo Not Started, In Progress o Completed."),
         ownerId: z.string().optional().describe("ID, nombre o email del owner."),
+        accountId: z.string().optional().describe("ID o nombre de la cuenta relacionada."),
+        contactId: z.string().optional().describe("ID, nombre o email del contacto relacionado."),
+        opportunityId: z.string().optional().describe("ID o nombre exacto de la oportunidad relacionada."),
         dueFrom: z.string().optional().describe("Fecha minima de vencimiento YYYY-MM-DD."),
         dueTo: z.string().optional().describe("Fecha maxima de vencimiento YYYY-MM-DD."),
         limit: z.number().int().positive().max(100).optional(),
       },
     },
-    async ({ query, status, ownerId, dueFrom, dueTo, limit }) => {
+    async ({ query, status, ownerId, accountId, contactId, opportunityId, dueFrom, dueTo, limit }) => {
       const data = await readData();
       const resolvedOwnerId = resolveOwnerId(data, ownerId);
+      const resolvedAccountId = resolveAccountId(data, accountId);
+      const resolvedContactId = resolveContactId(data, contactId);
+      const resolvedOpportunityId = opportunityId ? resolveOpportunity(data, opportunityId).id : undefined;
       const targetStatus = status ? normalizeText(status) : "";
       const tasks = data.tasks
         .map((task) => enrichTask(data, task))
         .filter((task) => !targetStatus || normalizeText(task.status) === targetStatus)
         .filter((task) => !resolvedOwnerId || task.ownerId === resolvedOwnerId)
+        .filter((task) => !resolvedAccountId || task.accountId === resolvedAccountId)
+        .filter((task) => !resolvedContactId || task.contactId === resolvedContactId)
+        .filter((task) => !resolvedOpportunityId || task.opportunityId === resolvedOpportunityId)
         .filter((task) => !dueFrom || (task.dueDate ?? "") >= dueFrom)
         .filter((task) => !dueTo || (task.dueDate ?? "") <= dueTo)
         .filter((task) => matchesQuery(task, query))

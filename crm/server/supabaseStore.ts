@@ -93,7 +93,7 @@ const columnsByObject: Record<ObjectKey, string[]> = {
   proposalLineItems: ["id", "proposalId", "productId", "revenueType", "quantity", "unitPrice", "discountPercent", "totalPrice", "serviceDate", "ownerId", "createdAt", "updatedAt"],
   invoices: ["id", "invoiceNumber", "accountId", "opportunityId", "proposalId", "status", "settlementStatus", "invoiceDate", "dueDate", "totalAmount", "currencyIsoCode", "description", "ownerId", "createdAt", "updatedAt"],
   invoiceLines: ["id", "invoiceId", "productId", "description", "quantity", "unitPrice", "totalAmount", "ownerId", "createdAt", "updatedAt"],
-  tasks: ["id", "subject", "status", "dueDate", "description", "ownerId", "createdAt", "updatedAt"],
+  tasks: ["id", "subject", "accountId", "contactId", "opportunityId", "status", "dueDate", "description", "ownerId", "createdAt", "updatedAt"],
   cases: ["id", "caseNumber", "subject", "accountId", "contactId", "status", "priority", "origin", "type", "isEscalated", "closedDate", "description", "ownerId", "createdAt", "updatedAt"],
   products: ["id", "name", "productCode", "family", "revenueType", "isActive", "listPrice", "currencyIsoCode", "description", "ownerId", "createdAt", "updatedAt"],
 };

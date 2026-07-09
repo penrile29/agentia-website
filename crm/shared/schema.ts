@@ -208,6 +208,9 @@ export interface CaseRecord extends BaseRecord {
 
 export interface Task extends BaseRecord {
   subject: string;
+  accountId?: string;
+  contactId?: string;
+  opportunityId?: string;
   status: string;
   dueDate?: string;
   description?: string;
@@ -517,6 +520,9 @@ export const fieldConfigs: Record<ObjectKey, FieldConfig[]> = {
   ],
   tasks: [
     { key: "subject", label: "Subject", type: "text", required: true, table: true, importable: true },
+    { key: "accountId", label: "Account", type: "reference", relation: "accounts", table: true, importable: true },
+    { key: "contactId", label: "Contact", type: "reference", relation: "contacts", table: true, importable: true },
+    { key: "opportunityId", label: "Opportunity", type: "reference", relation: "opportunities", table: true, importable: true },
     { key: "ownerId", label: "Owner", type: "reference", relation: "users", table: true, importable: true },
     { key: "status", label: "Status", type: "picklist", picklist: "taskStatuses", required: true, table: true, importable: true },
     { key: "dueDate", label: "Due Date", type: "date", table: true, importable: true },
