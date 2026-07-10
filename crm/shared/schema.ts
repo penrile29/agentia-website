@@ -8,7 +8,11 @@ export const objectKeys = [
   "proposalLineItems",
   "invoices",
   "invoiceLines",
+  "projects",
+  "projectMembers",
+  "projectMilestones",
   "tasks",
+  "taskDependencies",
   "cases",
   "products",
   "users",
@@ -206,14 +210,60 @@ export interface CaseRecord extends BaseRecord {
   description?: string;
 }
 
+export interface Project extends BaseRecord {
+  name: string;
+  accountId?: string;
+  opportunityId?: string;
+  primaryContactId?: string;
+  status: string;
+  health: string;
+  startDate?: string;
+  targetGoLiveDate?: string;
+  actualGoLiveDate?: string;
+  deploymentType: string;
+  description?: string;
+}
+
+export interface ProjectMember extends BaseRecord {
+  projectId: string;
+  userId: string;
+  role: string;
+  allocationPercent: number;
+  isActive: boolean;
+}
+
+export interface ProjectMilestone extends BaseRecord {
+  projectId: string;
+  name: string;
+  status: string;
+  startDate?: string;
+  dueDate?: string;
+  completedDate?: string;
+  sortOrder: number;
+  description?: string;
+}
+
 export interface Task extends BaseRecord {
   subject: string;
   accountId?: string;
   contactId?: string;
   opportunityId?: string;
+  projectId?: string;
+  milestoneId?: string;
   status: string;
+  priority: string;
   secondaryOwnerId?: string;
   dueDate?: string;
+  completedDate?: string;
+  blockedReason?: string;
+  description?: string;
+}
+
+export interface TaskDependency extends BaseRecord {
+  projectId?: string;
+  predecessorTaskId: string;
+  successorTaskId: string;
+  relationship: string;
   description?: string;
 }
 
@@ -239,7 +289,11 @@ export interface CrmData {
   proposalLineItems: ProposalLineItem[];
   invoices: Invoice[];
   invoiceLines: InvoiceLine[];
+  projects: Project[];
+  projectMembers: ProjectMember[];
+  projectMilestones: ProjectMilestone[];
   tasks: Task[];
+  taskDependencies: TaskDependency[];
   cases: CaseRecord[];
   pathConfigs: Record<PathObjectKey, PathStep[]>;
 }
@@ -256,7 +310,11 @@ export type CrmRecord =
   | ProposalLineItem
   | Invoice
   | InvoiceLine
+  | Project
+  | ProjectMember
+  | ProjectMilestone
   | Task
+  | TaskDependency
   | CaseRecord;
 
 export type CollectionRecord = {
@@ -271,7 +329,11 @@ export type CollectionRecord = {
   proposalLineItems: ProposalLineItem;
   invoices: Invoice;
   invoiceLines: InvoiceLine;
+  projects: Project;
+  projectMembers: ProjectMember;
+  projectMilestones: ProjectMilestone;
   tasks: Task;
+  taskDependencies: TaskDependency;
   cases: CaseRecord;
 };
 
@@ -350,11 +412,35 @@ export const objectLabels: Record<ObjectKey, ObjectLabel> = {
     apiName: "InvoiceLine",
     description: "Importe a pagar por producto, servicio o fee.",
   },
+  projects: {
+    singular: "Proyecto",
+    plural: "Proyectos",
+    apiName: "Project",
+    description: "Deployment de cliente asociado a cuenta, oportunidad, equipo, milestones y tareas.",
+  },
+  projectMembers: {
+    singular: "Miembro de proyecto",
+    plural: "Miembros de proyecto",
+    apiName: "ProjectMember",
+    description: "Persona interna asignada a un proyecto con rol y dedicacion.",
+  },
+  projectMilestones: {
+    singular: "Milestone",
+    plural: "Milestones",
+    apiName: "ProjectMilestone",
+    description: "Fase o hito de delivery dentro de un deployment de cliente.",
+  },
   tasks: {
     singular: "Tarea",
     plural: "Tareas",
     apiName: "Task",
     description: "Actividad o accion pendiente asignada a un owner, con estado y fecha de vencimiento.",
+  },
+  taskDependencies: {
+    singular: "Dependencia de tarea",
+    plural: "Dependencias de tareas",
+    apiName: "TaskDependency",
+    description: "Relacion de bloqueo o secuencia entre tareas de proyecto.",
   },
   cases: {
     singular: "Caso",
@@ -390,6 +476,13 @@ export const picklists = {
   caseOrigins: ["Email", "Phone", "Web", "LinkedIn", "Portal"],
   caseTypes: ["Question", "Feature Request", "Problem", "Implementation", "Billing"],
   taskStatuses: ["Not Started", "In Progress", "Waiting", "Completed", "Deferred"],
+  taskPriorities: ["Low", "Medium", "High", "Critical"],
+  projectStatuses: ["Not Started", "Planning", "In Progress", "Blocked", "At Risk", "Completed", "Cancelled"],
+  projectHealth: ["Green", "Yellow", "Red"],
+  deploymentTypes: ["Pilot", "Production", "Expansion", "Internal"],
+  projectMemberRoles: ["Project Lead", "Solution Engineer", "Developer", "CSM", "Sales", "QA", "Sponsor"],
+  milestoneStatuses: ["Not Started", "In Progress", "Blocked", "Completed", "Skipped"],
+  dependencyRelationships: ["Finish to Start", "Start to Start", "Blocks"],
   productFamilies: ["Agentic Ops", "Consulting", "Workspace", "Support", "Training"],
   revenueTypes: ["oneOff", "mrr"],
 };
@@ -519,18 +612,64 @@ export const fieldConfigs: Record<ObjectKey, FieldConfig[]> = {
     { key: "totalAmount", label: "Total Amount", type: "currency", readOnly: true, table: true },
     ...sharedFields,
   ],
+  projects: [
+    { key: "name", label: "Project Name", type: "text", required: true, table: true, importable: true },
+    { key: "accountId", label: "Account", type: "reference", relation: "accounts", table: true, importable: true },
+    { key: "opportunityId", label: "Source Opportunity", type: "reference", relation: "opportunities", table: true, importable: true },
+    { key: "primaryContactId", label: "Primary Contact", type: "reference", relation: "contacts", importable: true },
+    { key: "status", label: "Status", type: "picklist", picklist: "projectStatuses", required: true, table: true, importable: true },
+    { key: "health", label: "Health", type: "picklist", picklist: "projectHealth", required: true, table: true, importable: true },
+    { key: "deploymentType", label: "Deployment Type", type: "picklist", picklist: "deploymentTypes", table: true, importable: true },
+    { key: "startDate", label: "Start Date", type: "date", table: true, importable: true },
+    { key: "targetGoLiveDate", label: "Target Go-live", type: "date", table: true, importable: true },
+    { key: "actualGoLiveDate", label: "Actual Go-live", type: "date", importable: true },
+    { key: "description", label: "Description", type: "textarea", table: false, importable: true },
+    ...sharedFields,
+  ],
+  projectMembers: [
+    { key: "projectId", label: "Project", type: "reference", relation: "projects", required: true, table: true, importable: true },
+    { key: "userId", label: "User", type: "reference", relation: "users", required: true, table: true, importable: true },
+    { key: "role", label: "Project Role", type: "picklist", picklist: "projectMemberRoles", required: true, table: true, importable: true },
+    { key: "allocationPercent", label: "Allocation %", type: "percent", table: true, importable: true },
+    { key: "isActive", label: "Active", type: "boolean", table: true, importable: true },
+    ...sharedFields,
+  ],
+  projectMilestones: [
+    { key: "projectId", label: "Project", type: "reference", relation: "projects", required: true, table: true, importable: true },
+    { key: "name", label: "Milestone Name", type: "text", required: true, table: true, importable: true },
+    { key: "status", label: "Status", type: "picklist", picklist: "milestoneStatuses", required: true, table: true, importable: true },
+    { key: "startDate", label: "Start Date", type: "date", table: true, importable: true },
+    { key: "dueDate", label: "Due Date", type: "date", table: true, importable: true },
+    { key: "completedDate", label: "Completed Date", type: "date", table: true, importable: true },
+    { key: "sortOrder", label: "Order", type: "number", table: true, importable: true },
+    { key: "description", label: "Description", type: "textarea", table: false, importable: true },
+    ...sharedFields,
+  ],
   tasks: [
     { key: "subject", label: "Subject", type: "text", required: true, table: true, importable: true },
     { key: "accountId", label: "Account", type: "reference", relation: "accounts", table: true, importable: true },
     { key: "contactId", label: "Contact", type: "reference", relation: "contacts", table: true, importable: true },
     { key: "opportunityId", label: "Opportunity", type: "reference", relation: "opportunities", table: true, importable: true },
+    { key: "projectId", label: "Project", type: "reference", relation: "projects", table: true, importable: true },
+    { key: "milestoneId", label: "Milestone", type: "reference", relation: "projectMilestones", table: true, importable: true },
     { key: "ownerId", label: "Owner", type: "reference", relation: "users", table: true, importable: true },
     { key: "secondaryOwnerId", label: "Second Assignee", type: "reference", relation: "users", table: true, importable: true },
     { key: "status", label: "Status", type: "picklist", picklist: "taskStatuses", required: true, table: true, importable: true },
+    { key: "priority", label: "Priority", type: "picklist", picklist: "taskPriorities", table: true, importable: true },
     { key: "dueDate", label: "Due Date", type: "date", table: true, importable: true },
+    { key: "completedDate", label: "Completed Date", type: "date", importable: true },
+    { key: "blockedReason", label: "Blocked Reason", type: "textarea", table: false, importable: true },
     { key: "description", label: "Description", type: "textarea", table: false, importable: true },
     { key: "createdAt", label: "Created Date", type: "datetime", readOnly: true, table: false },
     { key: "updatedAt", label: "Last Modified Date", type: "datetime", readOnly: true, table: false },
+  ],
+  taskDependencies: [
+    { key: "projectId", label: "Project", type: "reference", relation: "projects", table: true, importable: true },
+    { key: "predecessorTaskId", label: "Predecessor Task", type: "reference", relation: "tasks", required: true, table: true, importable: true },
+    { key: "successorTaskId", label: "Successor Task", type: "reference", relation: "tasks", required: true, table: true, importable: true },
+    { key: "relationship", label: "Relationship", type: "picklist", picklist: "dependencyRelationships", required: true, table: true, importable: true },
+    { key: "description", label: "Description", type: "textarea", table: false, importable: true },
+    ...sharedFields,
   ],
   cases: [
     { key: "caseNumber", label: "Case Number", type: "text", readOnly: true, table: true, importable: true },
@@ -630,6 +769,12 @@ export function recordDisplayName(data: CrmData, object: ObjectKey, id?: string)
   if (typeof record.invoiceNumber === "string") return record.invoiceNumber;
   if (typeof record.proposalNumber === "string") return record.proposalNumber;
   if (typeof record.caseNumber === "string") return record.caseNumber;
+  if (typeof record.predecessorTaskId === "string" && typeof record.successorTaskId === "string") {
+    return `${recordDisplayName(data, "tasks", record.predecessorTaskId)} -> ${recordDisplayName(data, "tasks", record.successorTaskId)}`;
+  }
+  if (typeof record.projectId === "string" && typeof record.userId === "string") {
+    return `${recordDisplayName(data, "users", record.userId)} · ${recordDisplayName(data, "projects", record.projectId)}`;
+  }
   if (typeof record.email === "string" && typeof record.name !== "string") return record.email;
   const firstName = typeof record.firstName === "string" ? record.firstName : "";
   const lastName = typeof record.lastName === "string" ? record.lastName : "";

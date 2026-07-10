@@ -32,7 +32,11 @@ export const idPrefixes: Record<ObjectKey, string> = {
   proposalLineItems: "qli",
   invoices: "inv",
   invoiceLines: "inl",
+  projects: "prj",
+  projectMembers: "pmb",
+  projectMilestones: "mil",
   tasks: "tsk",
+  taskDependencies: "dep",
   cases: "cas",
   products: "prd",
   users: "usr",
@@ -58,7 +62,11 @@ export function readData(): CrmData {
   ensureDataFile();
   const raw = fs.readFileSync(dataFile, "utf8");
   const parsed = JSON.parse(raw) as CrmData;
+  parsed.projects = parsed.projects ?? [];
+  parsed.projectMembers = parsed.projectMembers ?? [];
+  parsed.projectMilestones = parsed.projectMilestones ?? [];
   parsed.tasks = parsed.tasks ?? [];
+  parsed.taskDependencies = parsed.taskDependencies ?? [];
   parsed.pathConfigs = {
     ...defaultPathConfigs,
     ...(parsed.pathConfigs ?? {}),
@@ -426,10 +434,39 @@ export function normalizeRecord(data: CrmData, object: ObjectKey, input: Record<
     record.unitPrice = toNumber(record.unitPrice, 0);
     record.totalAmount = lineTotal(record.quantity as number, record.unitPrice as number, 0);
   }
+  if (object === "projects") {
+    record.name = stringOr(record.name, "Nuevo proyecto");
+    record.status = stringOr(record.status, "Planning");
+    record.health = stringOr(record.health, "Green");
+    record.deploymentType = stringOr(record.deploymentType, "Production");
+    syncProjectAccount(data, record);
+  }
+  if (object === "projectMembers") {
+    record.projectId = stringOr(record.projectId, data.projects[0]?.id ?? "");
+    record.userId = stringOr(record.userId, data.users[0]?.id ?? "");
+    record.role = stringOr(record.role, "Project Lead");
+    record.allocationPercent = toNumber(record.allocationPercent, 100);
+    record.isActive = record.isActive === undefined ? true : toBoolean(record.isActive);
+  }
+  if (object === "projectMilestones") {
+    record.projectId = stringOr(record.projectId, data.projects[0]?.id ?? "");
+    record.name = stringOr(record.name, "Nuevo milestone");
+    record.status = stringOr(record.status, "Not Started");
+    record.sortOrder = toNumber(record.sortOrder, data.projectMilestones.filter((milestone) => milestone.projectId === record.projectId).length + 1);
+    if (record.status === "Completed" && !record.completedDate) record.completedDate = new Date().toISOString().slice(0, 10);
+    if (record.status !== "Completed") record.completedDate = undefined;
+  }
   if (object === "tasks") {
     record.subject = stringOr(record.subject, "Nueva tarea");
     record.status = stringOr(record.status, "Not Started");
+    record.priority = stringOr(record.priority, "Medium");
+    if (record.status === "Completed" && !record.completedDate) record.completedDate = new Date().toISOString().slice(0, 10);
+    if (record.status !== "Completed") record.completedDate = undefined;
     syncTaskAccount(data, record);
+  }
+  if (object === "taskDependencies") {
+    record.relationship = stringOr(record.relationship, "Finish to Start");
+    syncDependencyProject(data, record);
   }
   if (object === "cases") {
     record.caseNumber = stringOr(record.caseNumber, nextCaseNumber(data.cases));
@@ -456,7 +493,23 @@ export function normalizeRecord(data: CrmData, object: ObjectKey, input: Record<
 }
 
 function normalizeRelations(data: CrmData, object: ObjectKey, record: LooseRecord): void {
-  for (const field of ["accountId", "parentAccountId", "contactId", "productId", "opportunityId", "proposalId", "invoiceId", "ownerId", "secondaryOwnerId"]) {
+  for (const field of [
+    "accountId",
+    "parentAccountId",
+    "contactId",
+    "primaryContactId",
+    "productId",
+    "opportunityId",
+    "proposalId",
+    "invoiceId",
+    "projectId",
+    "milestoneId",
+    "predecessorTaskId",
+    "successorTaskId",
+    "ownerId",
+    "secondaryOwnerId",
+    "userId",
+  ]) {
     if (record[field] === "") record[field] = undefined;
   }
 
@@ -468,6 +521,9 @@ function normalizeRelations(data: CrmData, object: ObjectKey, record: LooseRecor
   }
   if (typeof record.contactId === "string" && record.contactId && !record.contactId.startsWith("con_")) {
     record.contactId = findContact(data, record.contactId)?.id ?? record.contactId;
+  }
+  if (typeof record.primaryContactId === "string" && record.primaryContactId && !record.primaryContactId.startsWith("con_")) {
+    record.primaryContactId = findContact(data, record.primaryContactId)?.id ?? record.primaryContactId;
   }
   if (typeof record.productId === "string" && record.productId && !record.productId.startsWith("prd_")) {
     record.productId = findByName(data.products, record.productId)?.id ?? record.productId;
@@ -481,8 +537,19 @@ function normalizeRelations(data: CrmData, object: ObjectKey, record: LooseRecor
   if (typeof record.invoiceId === "string" && record.invoiceId && !record.invoiceId.startsWith("inv_")) {
     record.invoiceId = findInvoice(data, record.invoiceId)?.id ?? record.invoiceId;
   }
+  if (typeof record.projectId === "string" && record.projectId && !record.projectId.startsWith("prj_")) {
+    record.projectId = findByName(data.projects, record.projectId)?.id ?? record.projectId;
+  }
+  if (typeof record.milestoneId === "string" && record.milestoneId && !record.milestoneId.startsWith("mil_")) {
+    record.milestoneId = findByName(data.projectMilestones, record.milestoneId)?.id ?? record.milestoneId;
+  }
+  for (const field of ["predecessorTaskId", "successorTaskId"]) {
+    if (typeof record[field] === "string" && record[field] && !String(record[field]).startsWith("tsk_")) {
+      record[field] = findByName(data.tasks, record[field] as string)?.id ?? record[field];
+    }
+  }
   if (object !== "users") {
-    for (const field of ["ownerId", "secondaryOwnerId"]) {
+    for (const field of ["ownerId", "secondaryOwnerId", "userId"]) {
       if (typeof record[field] === "string" && record[field] && !String(record[field]).startsWith("usr_")) {
         record[field] = findUser(data, record[field] as string)?.id ?? record[field];
       }
@@ -495,6 +562,7 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
     data.opportunityLineItems = data.opportunityLineItems.filter((line) => line.opportunityId !== id);
     data.proposals = data.proposals.filter((proposal) => proposal.opportunityId !== id);
     data.invoices = data.invoices.filter((invoice) => invoice.opportunityId !== id);
+    for (const project of data.projects) if (project.opportunityId === id) project.opportunityId = undefined;
     for (const task of data.tasks) if (task.opportunityId === id) task.opportunityId = undefined;
   }
   if (object === "proposals") {
@@ -509,13 +577,32 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
   if (object === "accounts") {
     for (const contact of data.contacts) if (contact.accountId === id) contact.accountId = undefined;
     for (const opportunity of data.opportunities) if (opportunity.accountId === id) opportunity.accountId = undefined;
+    for (const project of data.projects) if (project.accountId === id) project.accountId = undefined;
     for (const caseRecord of data.cases) if (caseRecord.accountId === id) caseRecord.accountId = undefined;
     for (const task of data.tasks) if (task.accountId === id) task.accountId = undefined;
   }
   if (object === "contacts") {
+    for (const project of data.projects) if (project.primaryContactId === id) project.primaryContactId = undefined;
     for (const task of data.tasks) if (task.contactId === id) task.contactId = undefined;
   }
+  if (object === "projects") {
+    const milestoneIds = new Set(data.projectMilestones.filter((milestone) => milestone.projectId === id).map((milestone) => milestone.id));
+    data.projectMembers = data.projectMembers.filter((member) => member.projectId !== id);
+    data.projectMilestones = data.projectMilestones.filter((milestone) => milestone.projectId !== id);
+    data.taskDependencies = data.taskDependencies.filter((dependency) => dependency.projectId !== id);
+    for (const task of data.tasks) {
+      if (task.projectId === id) task.projectId = undefined;
+      if (task.milestoneId && milestoneIds.has(task.milestoneId)) task.milestoneId = undefined;
+    }
+  }
+  if (object === "projectMilestones") {
+    for (const task of data.tasks) if (task.milestoneId === id) task.milestoneId = undefined;
+  }
+  if (object === "tasks") {
+    data.taskDependencies = data.taskDependencies.filter((dependency) => dependency.predecessorTaskId !== id && dependency.successorTaskId !== id);
+  }
   if (object === "users") {
+    data.projectMembers = data.projectMembers.filter((member) => member.userId !== id);
     for (const objectKey of objectKeys) {
       for (const record of getCollection(data, objectKey)) {
         if (record.ownerId === id) record.ownerId = undefined;
@@ -525,17 +612,42 @@ export function cascadeDelete(data: CrmData, object: ObjectKey, id: string): voi
   }
 }
 
+function syncProjectAccount(data: CrmData, record: LooseRecord): void {
+  const opportunity = typeof record.opportunityId === "string" ? data.opportunities.find((item) => item.id === record.opportunityId) : undefined;
+  const contact = typeof record.primaryContactId === "string" ? data.contacts.find((item) => item.id === record.primaryContactId) : undefined;
+  if (opportunity?.accountId) {
+    record.accountId = opportunity.accountId;
+    return;
+  }
+  if (!record.accountId && contact?.accountId) record.accountId = contact.accountId;
+}
+
 function syncTaskAccount(data: CrmData, record: LooseRecord): void {
   if (record.accountId === "") record.accountId = undefined;
   if (record.contactId === "") record.contactId = undefined;
   if (record.opportunityId === "") record.opportunityId = undefined;
+  if (record.projectId === "") record.projectId = undefined;
+  if (record.milestoneId === "") record.milestoneId = undefined;
+  const milestone = typeof record.milestoneId === "string" ? data.projectMilestones.find((item) => item.id === record.milestoneId) : undefined;
+  if (milestone?.projectId) record.projectId = milestone.projectId;
   const opportunity = typeof record.opportunityId === "string" ? data.opportunities.find((item) => item.id === record.opportunityId) : undefined;
+  const project = typeof record.projectId === "string" ? data.projects.find((item) => item.id === record.projectId) : undefined;
   const contact = typeof record.contactId === "string" ? data.contacts.find((item) => item.id === record.contactId) : undefined;
   if (opportunity?.accountId) {
     record.accountId = opportunity.accountId;
     return;
   }
+  if (project?.accountId) {
+    record.accountId = project.accountId;
+    return;
+  }
   if (contact?.accountId) record.accountId = contact.accountId;
+}
+
+function syncDependencyProject(data: CrmData, record: LooseRecord): void {
+  const predecessor = typeof record.predecessorTaskId === "string" ? data.tasks.find((item) => item.id === record.predecessorTaskId) : undefined;
+  const successor = typeof record.successorTaskId === "string" ? data.tasks.find((item) => item.id === record.successorTaskId) : undefined;
+  record.projectId = record.projectId ?? successor?.projectId ?? predecessor?.projectId;
 }
 
 function findByName<T extends { id: string; name?: string; subject?: string }>(items: T[], value: string): T | undefined {

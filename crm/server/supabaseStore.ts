@@ -37,7 +37,11 @@ const tableByObject: Record<ObjectKey, string> = {
   proposalLineItems: "crm_proposal_line_items",
   invoices: "crm_invoices",
   invoiceLines: "crm_invoice_lines",
+  projects: "crm_projects",
+  projectMembers: "crm_project_members",
+  projectMilestones: "crm_project_milestones",
   tasks: "crm_tasks",
+  taskDependencies: "crm_task_dependencies",
   cases: "crm_cases",
   products: "crm_products",
 };
@@ -93,14 +97,54 @@ const columnsByObject: Record<ObjectKey, string[]> = {
   proposalLineItems: ["id", "proposalId", "productId", "revenueType", "quantity", "unitPrice", "discountPercent", "totalPrice", "serviceDate", "ownerId", "createdAt", "updatedAt"],
   invoices: ["id", "invoiceNumber", "accountId", "opportunityId", "proposalId", "status", "settlementStatus", "invoiceDate", "dueDate", "totalAmount", "currencyIsoCode", "description", "ownerId", "createdAt", "updatedAt"],
   invoiceLines: ["id", "invoiceId", "productId", "description", "quantity", "unitPrice", "totalAmount", "ownerId", "createdAt", "updatedAt"],
-  tasks: ["id", "subject", "accountId", "contactId", "opportunityId", "status", "dueDate", "description", "ownerId", "secondaryOwnerId", "createdAt", "updatedAt"],
+  projects: ["id", "name", "accountId", "opportunityId", "primaryContactId", "status", "health", "startDate", "targetGoLiveDate", "actualGoLiveDate", "deploymentType", "description", "ownerId", "createdAt", "updatedAt"],
+  projectMembers: ["id", "projectId", "userId", "role", "allocationPercent", "isActive", "ownerId", "createdAt", "updatedAt"],
+  projectMilestones: ["id", "projectId", "name", "status", "startDate", "dueDate", "completedDate", "sortOrder", "description", "ownerId", "createdAt", "updatedAt"],
+  tasks: ["id", "subject", "accountId", "contactId", "opportunityId", "projectId", "milestoneId", "status", "priority", "dueDate", "completedDate", "blockedReason", "description", "ownerId", "secondaryOwnerId", "createdAt", "updatedAt"],
+  taskDependencies: ["id", "projectId", "predecessorTaskId", "successorTaskId", "relationship", "description", "ownerId", "createdAt", "updatedAt"],
   cases: ["id", "caseNumber", "subject", "accountId", "contactId", "status", "priority", "origin", "type", "isEscalated", "closedDate", "description", "ownerId", "createdAt", "updatedAt"],
   products: ["id", "name", "productCode", "family", "revenueType", "isActive", "listPrice", "currencyIsoCode", "description", "ownerId", "createdAt", "updatedAt"],
 };
 
-const upsertOrder: ObjectKey[] = ["users", "accounts", "contacts", "products", "opportunities", "leads", "opportunityLineItems", "proposals", "proposalLineItems", "invoices", "invoiceLines", "tasks", "cases"];
+const upsertOrder: ObjectKey[] = [
+  "users",
+  "accounts",
+  "contacts",
+  "products",
+  "opportunities",
+  "leads",
+  "opportunityLineItems",
+  "proposals",
+  "proposalLineItems",
+  "invoices",
+  "invoiceLines",
+  "projects",
+  "projectMembers",
+  "projectMilestones",
+  "tasks",
+  "taskDependencies",
+  "cases",
+];
 const preOpportunityUpsertOrder: ObjectKey[] = upsertOrder.filter((object) => object !== "opportunities");
-const deleteOrder: ObjectKey[] = ["invoiceLines", "proposalLineItems", "opportunityLineItems", "tasks", "cases", "invoices", "proposals", "leads", "opportunities", "contacts", "products", "accounts", "users"];
+const deleteOrder: ObjectKey[] = [
+  "taskDependencies",
+  "tasks",
+  "projectMembers",
+  "projectMilestones",
+  "projects",
+  "invoiceLines",
+  "proposalLineItems",
+  "opportunityLineItems",
+  "cases",
+  "invoices",
+  "proposals",
+  "leads",
+  "opportunities",
+  "contacts",
+  "products",
+  "accounts",
+  "users",
+];
 
 let cachedClient: SupabaseClient | undefined;
 
@@ -113,7 +157,26 @@ export function getSupabaseProjectUrl(): string | undefined {
 }
 
 export async function readData(): Promise<CrmData> {
-  const [users, accounts, contacts, leads, opportunities, opportunityLineItems, proposals, proposalLineItems, invoices, invoiceLines, tasks, cases, products, pathRows] = await Promise.all([
+  const [
+    users,
+    accounts,
+    contacts,
+    leads,
+    opportunities,
+    opportunityLineItems,
+    proposals,
+    proposalLineItems,
+    invoices,
+    invoiceLines,
+    projects,
+    projectMembers,
+    projectMilestones,
+    tasks,
+    taskDependencies,
+    cases,
+    products,
+    pathRows,
+  ] = await Promise.all([
     selectObject("users"),
     selectObject("accounts"),
     selectObject("contacts"),
@@ -124,7 +187,11 @@ export async function readData(): Promise<CrmData> {
     selectObject("proposalLineItems"),
     selectObject("invoices"),
     selectObject("invoiceLines"),
+    selectObject("projects"),
+    selectObject("projectMembers"),
+    selectObject("projectMilestones"),
     selectObject("tasks"),
+    selectObject("taskDependencies"),
     selectObject("cases"),
     selectObject("products"),
     selectPathRows(),
@@ -143,7 +210,11 @@ export async function readData(): Promise<CrmData> {
     proposalLineItems: proposalLineItems as CrmData["proposalLineItems"],
     invoices: invoices as CrmData["invoices"],
     invoiceLines: invoiceLines as CrmData["invoiceLines"],
+    projects: projects as CrmData["projects"],
+    projectMembers: projectMembers as CrmData["projectMembers"],
+    projectMilestones: projectMilestones as CrmData["projectMilestones"],
     tasks: tasks as CrmData["tasks"],
+    taskDependencies: taskDependencies as CrmData["taskDependencies"],
     cases: cases as CrmData["cases"],
     pathConfigs: pathConfigsFromRows(pathRows),
   });

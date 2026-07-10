@@ -9,9 +9,13 @@ import {
   type Opportunity,
   type OpportunityLineItem,
   type Product,
+  type Project,
+  type ProjectMember,
+  type ProjectMilestone,
   type Proposal,
   type ProposalLineItem,
   type Task,
+  type TaskDependency,
   type User,
   defaultPathConfigs,
 } from "./schema.ts";
@@ -334,12 +338,96 @@ export function createSeedData(): CrmData {
     }),
   ];
 
+  const projects: Project[] = [
+    stamp({
+      id: "prj_kinship_phase1",
+      name: "Kinship - Phase 1 Deployment",
+      accountId: "acc_kinship",
+      opportunityId: "opp_kinship_workspace",
+      primaryContactId: "con_ana",
+      status: "In Progress",
+      health: "Green",
+      startDate: "2026-07-01",
+      targetGoLiveDate: "2026-08-15",
+      deploymentType: "Production",
+      ownerId: "usr_success",
+      description: "Deployment inicial de workspace, agentes operativos y reporting ejecutivo.",
+    }),
+  ];
+
+  const projectMembers: ProjectMember[] = [
+    stamp({
+      id: "pmb_kinship_lucia",
+      projectId: "prj_kinship_phase1",
+      userId: "usr_success",
+      role: "Project Lead",
+      allocationPercent: 50,
+      isActive: true,
+      ownerId: "usr_success",
+    }),
+    stamp({
+      id: "pmb_kinship_nuria",
+      projectId: "prj_kinship_phase1",
+      userId: "usr_admin",
+      role: "Solution Engineer",
+      allocationPercent: 30,
+      isActive: true,
+      ownerId: "usr_success",
+    }),
+    stamp({
+      id: "pmb_kinship_mateo",
+      projectId: "prj_kinship_phase1",
+      userId: "usr_sales",
+      role: "Sales",
+      allocationPercent: 10,
+      isActive: true,
+      ownerId: "usr_success",
+    }),
+  ];
+
+  const projectMilestones: ProjectMilestone[] = [
+    stamp({
+      id: "mil_kinship_kickoff",
+      projectId: "prj_kinship_phase1",
+      name: "Kickoff y alineacion",
+      status: "In Progress",
+      startDate: "2026-07-01",
+      dueDate: "2026-07-08",
+      sortOrder: 1,
+      ownerId: "usr_success",
+      description: "Alinear scope, sponsors, canales y plan de trabajo.",
+    }),
+    stamp({
+      id: "mil_kinship_workspace_config",
+      projectId: "prj_kinship_phase1",
+      name: "Configuracion workspace",
+      status: "Not Started",
+      startDate: "2026-07-09",
+      dueDate: "2026-07-24",
+      sortOrder: 2,
+      ownerId: "usr_admin",
+      description: "Configurar workspace, permisos, entornos y primeros agentes.",
+    }),
+    stamp({
+      id: "mil_kinship_go_live",
+      projectId: "prj_kinship_phase1",
+      name: "Go-live y hypercare",
+      status: "Not Started",
+      startDate: "2026-08-01",
+      dueDate: "2026-08-15",
+      sortOrder: 3,
+      ownerId: "usr_success",
+      description: "Puesta en produccion, seguimiento y soporte inicial.",
+    }),
+  ];
+
   const tasks: Task[] = [
     stamp({
       id: "tsk_followup_horizon",
       subject: "Follow up con Northstar Health",
       accountId: "acc_northstar",
       status: "Not Started",
+      priority: "Medium",
       dueDate: "2026-07-03",
       ownerId: "usr_sales",
       secondaryOwnerId: "usr_admin",
@@ -351,11 +439,41 @@ export function createSeedData(): CrmData {
       accountId: "acc_kinship",
       contactId: "con_ana",
       opportunityId: "opp_kinship_workspace",
+      projectId: "prj_kinship_phase1",
+      milestoneId: "mil_kinship_kickoff",
       status: "In Progress",
+      priority: "High",
       dueDate: "2026-07-08",
       ownerId: "usr_success",
       secondaryOwnerId: "usr_admin",
       description: "Cerrar agenda, owners internos y materiales para el arranque de fase 1.",
+    }),
+    stamp({
+      id: "tsk_kinship_workspace_config",
+      subject: "Configurar workspace de Kinship",
+      accountId: "acc_kinship",
+      contactId: "con_ana",
+      opportunityId: "opp_kinship_workspace",
+      projectId: "prj_kinship_phase1",
+      milestoneId: "mil_kinship_workspace_config",
+      status: "Not Started",
+      priority: "High",
+      dueDate: "2026-07-18",
+      ownerId: "usr_admin",
+      secondaryOwnerId: "usr_success",
+      description: "Crear workspace, permisos iniciales y estructura de reporting de deployment.",
+    }),
+  ];
+
+  const taskDependencies: TaskDependency[] = [
+    stamp({
+      id: "dep_kinship_kickoff_config",
+      projectId: "prj_kinship_phase1",
+      predecessorTaskId: "tsk_prepare_kinship_kickoff",
+      successorTaskId: "tsk_kinship_workspace_config",
+      relationship: "Finish to Start",
+      ownerId: "usr_success",
+      description: "La configuracion arranca tras validar kickoff y owners internos.",
     }),
   ];
 
@@ -372,7 +490,11 @@ export function createSeedData(): CrmData {
     proposalLineItems,
     invoices,
     invoiceLines,
+    projects,
+    projectMembers,
+    projectMilestones,
     tasks,
+    taskDependencies,
     cases,
     pathConfigs: defaultPathConfigs,
   };

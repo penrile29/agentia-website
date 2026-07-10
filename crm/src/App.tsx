@@ -61,7 +61,7 @@ type ModalState =
   | { type: "convertLead"; lead: CrmData["leads"][number] }
   | null;
 
-const navObjects: ObjectKey[] = ["leads", "accounts", "contacts", "opportunities", "tasks", "proposals", "invoices", "cases", "products"];
+const navObjects: ObjectKey[] = ["leads", "accounts", "contacts", "opportunities", "projects", "tasks", "proposals", "invoices", "cases", "products"];
 const authStorageKey = "agentia-crm-session";
 
 const objectIcons: Record<ObjectKey, React.ComponentType<{ size?: number }>> = {
@@ -74,7 +74,11 @@ const objectIcons: Record<ObjectKey, React.ComponentType<{ size?: number }>> = {
   proposalLineItems: ListChecks,
   invoices: Receipt,
   invoiceLines: ListChecks,
+  projects: Target,
+  projectMembers: Users,
+  projectMilestones: CalendarDays,
   tasks: ListChecks,
+  taskDependencies: ArrowRightLeft,
   cases: LifeBuoy,
   products: Package,
   users: Users,
@@ -351,11 +355,14 @@ function Dashboard({
 
   const filteredLeads = data.leads.filter((lead) => ownerMatches(lead.ownerId) && periodMatches(lead.createdAt) && sourceMatches(lead.leadSource));
   const filteredOpportunities = data.opportunities.filter((opportunity) => ownerMatches(opportunity.ownerId) && periodMatches(opportunity.closeDate) && sourceMatches(opportunity.leadSource));
+  const filteredProjects = data.projects.filter((project) => ownerMatches(project.ownerId) && periodMatches(project.targetGoLiveDate ?? project.startDate ?? project.createdAt));
   const openOpportunities = filteredOpportunities.filter((opportunity) => !isClosedOpportunity(data, opportunity));
   const wonOpportunities = filteredOpportunities.filter((opportunity) => isWonOpportunity(data, opportunity));
   const scopedOpportunities = filteredOpportunities.filter((opportunity) => opportunityScopeMatches(data, opportunity, opportunityScope));
   const filteredCases = data.cases.filter((caseRecord) => ownerMatches(caseRecord.ownerId) && periodMatches(caseRecord.createdAt));
   const openCases = filteredCases.filter((caseRecord) => caseRecord.status !== "Closed");
+  const activeProjects = filteredProjects.filter((project) => !["Completed", "Cancelled"].includes(project.status));
+  const atRiskProjects = activeProjects.filter((project) => project.health !== "Green" || ["Blocked", "At Risk"].includes(project.status));
   const pipelineOneOff = sumCurrency(openOpportunities.map((opportunity) => opportunity.oneOffAmount));
   const pipelineMrr = sumCurrency(openOpportunities.map((opportunity) => opportunity.mrrAmount));
   const wonOneOff = sumCurrency(wonOpportunities.map((opportunity) => opportunity.oneOffAmount));
@@ -493,6 +500,8 @@ function Dashboard({
       <MetricCard icon={TrendingUp} label="Forecast ponderado" value={money(weightedForecast)} helper="Annualized por probabilidad" />
       <MetricCard icon={CheckCircle2} label="Closed Won one-offs" value={money(wonOneOff)} helper={`${wonOpportunities.length} ganadas`} />
       <MetricCard icon={CheckCircle2} label="Closed Won MRR" value={`${money(wonMrr)}/mes`} helper="MRR ganado filtrado" />
+      <MetricCard icon={Target} label="Deployments activos" value={String(activeProjects.length)} helper={`${filteredProjects.length} proyectos en filtro`} />
+      <MetricCard icon={LifeBuoy} label="Proyectos en riesgo" value={String(atRiskProjects.length)} helper="Health amarillo/rojo o bloqueado" />
       <MetricCard icon={LifeBuoy} label="Casos abiertos" value={String(openCases.length)} helper={`${highPriorityCases} alta prioridad`} />
 
       <section className="panel dashboard-panel funnel-panel">
@@ -637,7 +646,7 @@ function Dashboard({
           <Database size={18} />
         </div>
         <div className="activity-list">
-          {[...filteredLeads.slice(0, 2), ...filteredOpportunities.slice(0, 2), ...filteredCases.slice(0, 2)].map((record) => {
+          {[...filteredLeads.slice(0, 2), ...filteredOpportunities.slice(0, 2), ...filteredProjects.slice(0, 2), ...filteredCases.slice(0, 2)].map((record) => {
             const object = inferObject(record);
             return (
               <button key={record.id} className="activity-row" type="button" onClick={() => setActivePage({ type: "record", object, id: record.id })}>
@@ -649,7 +658,7 @@ function Dashboard({
               </button>
             );
           })}
-          {filteredLeads.length + filteredOpportunities.length + filteredCases.length ? null : <p className="empty-copy">No hay actividad para estos filtros.</p>}
+          {filteredLeads.length + filteredOpportunities.length + filteredProjects.length + filteredCases.length ? null : <p className="empty-copy">No hay actividad para estos filtros.</p>}
         </div>
       </section>
     </section>
@@ -688,7 +697,7 @@ function ObjectListPage({
   const [query, setQuery] = useState("");
   const Icon = objectIcons[object];
   const fields = fieldConfigs[object];
-  const tableFieldLimit = object === "opportunities" ? 8 : object === "tasks" ? 8 : 6;
+  const tableFieldLimit = object === "opportunities" ? 8 : object === "tasks" ? 11 : object === "projects" || object === "projectMilestones" ? 8 : 6;
   const tableFields = fields.filter((field) => field.table === true).slice(0, tableFieldLimit);
   const { statuses, saveInlineValue } = useInlineRecordEditing({
     setData,
@@ -882,6 +891,9 @@ function RecordPage({
             {object === "invoices" ? <InvoiceRelated data={data} invoice={record as CrmData["invoices"][number]} setData={setData} /> : null}
             {object === "accounts" ? <AccountRelated data={data} account={record as CrmData["accounts"][number]} openRecord={openRecord} /> : null}
             {object === "contacts" ? <ContactRelated data={data} contact={record as CrmData["contacts"][number]} openRecord={openRecord} /> : null}
+            {object === "projects" ? <ProjectRelated data={data} project={record as CrmData["projects"][number]} openRecord={openRecord} /> : null}
+            {object === "projectMilestones" ? <ProjectMilestoneRelated data={data} milestone={record as CrmData["projectMilestones"][number]} openRecord={openRecord} /> : null}
+            {object === "tasks" ? <TaskRelated data={data} task={record as CrmData["tasks"][number]} openRecord={openRecord} /> : null}
           </>
         ) : (
           <div className="empty-state">
@@ -1102,11 +1114,13 @@ function OpportunityRelated({
 }) {
   const proposals = data.proposals.filter((proposal) => proposal.opportunityId === opportunity.id);
   const invoices = data.invoices.filter((invoice) => invoice.opportunityId === opportunity.id);
+  const projects = data.projects.filter((project) => project.opportunityId === opportunity.id);
   const tasks = data.tasks.filter((task) => task.opportunityId === opportunity.id);
   return (
     <>
       <AmountSyncControl data={data} opportunity={opportunity} setData={setData} />
       <LineItemManager data={data} parentId={opportunity.id} lineObject="opportunityLineItems" parentField="opportunityId" setData={setData} />
+      <RelatedList title="Proyectos" records={projects} object="projects" data={data} openRecord={openRecord} />
       <RelatedList title="Tareas" records={tasks} object="tasks" data={data} openRecord={openRecord} />
       <RelatedList title="Propuestas" records={proposals} object="proposals" data={data} openRecord={openRecord} />
       <RelatedList title="Facturas" records={invoices} object="invoices" data={data} openRecord={openRecord} />
@@ -1127,6 +1141,7 @@ function AccountRelated({ data, account, openRecord }: { data: CrmData; account:
     <>
       <RelatedList title="Contactos" records={data.contacts.filter((contact) => contact.accountId === account.id)} object="contacts" data={data} openRecord={openRecord} />
       <RelatedList title="Oportunidades" records={data.opportunities.filter((opportunity) => opportunity.accountId === account.id)} object="opportunities" data={data} openRecord={openRecord} />
+      <RelatedList title="Proyectos" records={data.projects.filter((project) => project.accountId === account.id)} object="projects" data={data} openRecord={openRecord} />
       <RelatedList title="Tareas" records={data.tasks.filter((task) => task.accountId === account.id)} object="tasks" data={data} openRecord={openRecord} />
       <RelatedList title="Casos" records={data.cases.filter((caseRecord) => caseRecord.accountId === account.id)} object="cases" data={data} openRecord={openRecord} />
     </>
@@ -1137,9 +1152,99 @@ function ContactRelated({ data, contact, openRecord }: { data: CrmData; contact:
   return (
     <>
       <RelatedList title="Oportunidades" records={data.opportunities.filter((opportunity) => opportunity.contactId === contact.id)} object="opportunities" data={data} openRecord={openRecord} />
+      <RelatedList title="Proyectos" records={data.projects.filter((project) => project.primaryContactId === contact.id)} object="projects" data={data} openRecord={openRecord} />
       <RelatedList title="Tareas" records={data.tasks.filter((task) => task.contactId === contact.id)} object="tasks" data={data} openRecord={openRecord} />
       <RelatedList title="Casos" records={data.cases.filter((caseRecord) => caseRecord.contactId === contact.id)} object="cases" data={data} openRecord={openRecord} />
     </>
+  );
+}
+
+function ProjectRelated({ data, project, openRecord }: { data: CrmData; project: CrmData["projects"][number]; openRecord: (object: ObjectKey, id: string) => void }) {
+  const milestones = data.projectMilestones
+    .filter((milestone) => milestone.projectId === project.id)
+    .sort((left, right) => left.sortOrder - right.sortOrder || (left.dueDate ?? "").localeCompare(right.dueDate ?? ""));
+  const tasks = data.tasks.filter((task) => task.projectId === project.id);
+  const dependencies = data.taskDependencies.filter((dependency) => dependency.projectId === project.id || tasks.some((task) => task.id === dependency.predecessorTaskId || task.id === dependency.successorTaskId));
+  return (
+    <>
+      <ProjectSummary data={data} project={project} milestones={milestones} tasks={tasks} />
+      <RelatedList title="Equipo del proyecto" records={data.projectMembers.filter((member) => member.projectId === project.id)} object="projectMembers" data={data} openRecord={openRecord} />
+      <RelatedList title="Milestones" records={milestones} object="projectMilestones" data={data} openRecord={openRecord} />
+      <RelatedList title="Tareas del proyecto" records={tasks} object="tasks" data={data} openRecord={openRecord} />
+      <RelatedList title="Dependencias" records={dependencies} object="taskDependencies" data={data} openRecord={openRecord} />
+    </>
+  );
+}
+
+function ProjectMilestoneRelated({ data, milestone, openRecord }: { data: CrmData; milestone: CrmData["projectMilestones"][number]; openRecord: (object: ObjectKey, id: string) => void }) {
+  return <RelatedList title="Tareas del milestone" records={data.tasks.filter((task) => task.milestoneId === milestone.id)} object="tasks" data={data} openRecord={openRecord} />;
+}
+
+function TaskRelated({ data, task, openRecord }: { data: CrmData; task: CrmData["tasks"][number]; openRecord: (object: ObjectKey, id: string) => void }) {
+  const dependencies = data.taskDependencies.filter((dependency) => dependency.predecessorTaskId === task.id || dependency.successorTaskId === task.id);
+  return <RelatedList title="Dependencias de esta tarea" records={dependencies} object="taskDependencies" data={data} openRecord={openRecord} />;
+}
+
+function ProjectSummary({
+  data,
+  project,
+  milestones,
+  tasks,
+}: {
+  data: CrmData;
+  project: CrmData["projects"][number];
+  milestones: CrmData["projectMilestones"];
+  tasks: CrmData["tasks"];
+}) {
+  const completedTasks = tasks.filter((task) => task.status === "Completed").length;
+  const blockedTasks = tasks.filter((task) => task.status === "Waiting" || task.blockedReason).length;
+  const completedMilestones = milestones.filter((milestone) => milestone.status === "Completed").length;
+  const progress = tasks.length ? Math.round((completedTasks / tasks.length) * 100) : milestones.length ? Math.round((completedMilestones / milestones.length) * 100) : 0;
+  return (
+    <section className="related-box project-summary">
+      <div className="related-header">
+        <div>
+          <p className="eyebrow">Deployment</p>
+          <h3>{project.status} · {project.health}</h3>
+          <span className="subtle-text">
+            {recordDisplayName(data, "accounts", project.accountId)} · Go-live objetivo {project.targetGoLiveDate ? formatDate(project.targetGoLiveDate) : "-"}
+          </span>
+        </div>
+        <strong>{progress}%</strong>
+      </div>
+      <div className="revenue-bars">
+        <div className="revenue-row">
+          <div>
+            <span>Progreso</span>
+            <small>{completedTasks}/{tasks.length} tareas completadas</small>
+          </div>
+          <div className="bar-track">
+            <div style={{ width: `${progress}%` }} />
+          </div>
+          <strong>{progress}%</strong>
+        </div>
+        <div className="revenue-row">
+          <div>
+            <span>Milestones</span>
+            <small>{completedMilestones}/{milestones.length} completados</small>
+          </div>
+          <div className="bar-track">
+            <div style={{ width: `${milestones.length ? (completedMilestones / milestones.length) * 100 : 0}%` }} />
+          </div>
+          <strong>{milestones.length}</strong>
+        </div>
+        <div className="revenue-row">
+          <div>
+            <span>Bloqueos</span>
+            <small>Tareas con bloqueo o waiting</small>
+          </div>
+          <div className="bar-track">
+            <div style={{ width: `${tasks.length ? (blockedTasks / tasks.length) * 100 : 0}%` }} />
+          </div>
+          <strong>{blockedTasks}</strong>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -2275,10 +2380,14 @@ function formatField(data: CrmData, field: FieldConfig, record: CrmRecord): Reac
   if (field.type === "boolean") return <span className={value ? "pill success" : "pill"}>{value ? "Si" : "No"}</span>;
   if (field.type === "percent") return `${value}%`;
   if (field.type === "datetime") return new Date(String(value)).toLocaleDateString("es-ES");
-  if (field.type === "date") return new Date(`${String(value)}T00:00:00`).toLocaleDateString("es-ES");
+  if (field.type === "date") return formatDate(String(value));
   if (field.key === "amountMode") return amountModes.find((mode) => mode.value === value)?.label ?? String(value);
   if (field.key === "revenueType") return formatRevenueType(value);
   return String(value);
+}
+
+function formatDate(value: string): string {
+  return new Date(`${value.slice(0, 10)}T00:00:00`).toLocaleDateString("es-ES");
 }
 
 function formatRevenueType(value: unknown): string {
@@ -2356,6 +2465,10 @@ function inferObject(record: CrmRecord): ObjectKey {
   if (record.id.startsWith("opp_")) return "opportunities";
   if (record.id.startsWith("cas_")) return "cases";
   if (record.id.startsWith("tsk_")) return "tasks";
+  if (record.id.startsWith("dep_")) return "taskDependencies";
+  if (record.id.startsWith("mil_")) return "projectMilestones";
+  if (record.id.startsWith("pmb_")) return "projectMembers";
+  if (record.id.startsWith("prj_")) return "projects";
   if (record.id.startsWith("acc_")) return "accounts";
   if (record.id.startsWith("con_")) return "contacts";
   if (record.id.startsWith("quo_")) return "proposals";
@@ -2379,6 +2492,16 @@ function initialValues(data: CrmData, object: ObjectKey, record?: CrmRecord): Re
     defaults.closeDate = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
     defaults.amountMode = "manual";
   }
+  if (object === "projects") {
+    defaults.startDate = new Date().toISOString().slice(0, 10);
+    defaults.targetGoLiveDate = new Date(Date.now() + 45 * 86400000).toISOString().slice(0, 10);
+  }
+  if (object === "projectMembers") {
+    defaults.userId = firstUser;
+    defaults.allocationPercent = 100;
+    defaults.isActive = true;
+  }
+  if (object === "projectMilestones") defaults.sortOrder = 1;
   if (object === "products" || object === "proposals" || object === "invoices") defaults.currencyIsoCode = "EUR";
   if (object === "invoices") defaults.invoiceDate = new Date().toISOString().slice(0, 10);
   if (object === "tasks") defaults.dueDate = new Date().toISOString().slice(0, 10);
