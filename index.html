@@ -1,1266 +1,489 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agentia Labs — Operaciones de IA gestionadas</title>
-  <meta
-    name="description"
-    content="Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting."
-  />
+  <title>Agentia Labs — Agentic Operations</title>
+  <meta name="description" content="Agentia Workspace runs operational and administrative work for professional service firms while core expert judgement stays with their professionals." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://agentialabs.ai/" />
-  <link rel="alternate" hreflang="es" href="https://agentialabs.ai/?lang=es" />
   <link rel="alternate" hreflang="en" href="https://agentialabs.ai/?lang=en" />
+  <link rel="alternate" hreflang="es" href="https://agentialabs.ai/?lang=es" />
   <link rel="alternate" hreflang="x-default" href="https://agentialabs.ai/" />
-  <meta property="og:title" content="Agentia Labs — Operaciones de IA gestionadas" />
-  <meta
-    property="og:description"
-    content="Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting."
-  />
+
+  <meta property="og:title" content="Agentia Labs — Agentic Operations" />
+  <meta property="og:description" content="Agentia Workspace runs operational and administrative work while core expert judgement stays with your professionals." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://agentialabs.ai/" />
-  <meta property="og:site_name" content="Agentia Labs" />
-  <meta property="og:locale" content="es_ES" />
-  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:image" content="https://agentialabs.ai/assets/og-image.png" />
-  <meta property="og:image:secure_url" content="https://agentialabs.ai/assets/og-image.png" />
-  <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Agentia Labs Managed AI Operations workspace preview" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agentia Labs — Operaciones de IA gestionadas" />
-  <meta
-    name="twitter:description"
-    content="Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting."
-  />
+  <meta name="twitter:title" content="Agentia Labs — Agentic Operations" />
+  <meta name="twitter:description" content="Agentia Workspace runs operational and administrative work while core expert judgement stays with your professionals." />
   <meta name="twitter:image" content="https://agentialabs.ai/assets/og-image.png" />
-  <script type="application/ld+json" id="organization-schema">
+
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
-      "@id": "https://agentialabs.ai/#organization",
       "name": "Agentia Labs",
       "url": "https://agentialabs.ai/",
       "logo": "https://agentialabs.ai/assets/agentia-mark-h.svg",
-      "description": "Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting.",
-      "inLanguage": "es",
       "email": "hello@agentialabs.ai",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Spain",
-        "identifier": "ES"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "ES"
-      }
+      "description": "Agentia Labs builds and manages AI agents for the operational and administrative work surrounding professional expertise.",
+      "areaServed": "Europe"
     }
   </script>
-  <script type="application/ld+json" id="website-schema">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://agentialabs.ai/#website",
-      "name": "Agentia Labs",
-      "url": "https://agentialabs.ai/",
-      "publisher": {
-        "@id": "https://agentialabs.ai/#organization"
-      },
-      "inLanguage": "es"
-    }
-  </script>
+
   <script>
-    (function () {
-      const storageKey = "agentia-lang";
-      const supported = ["es", "en"];
-      const headCopy = {
-        es: {
-          title: "Agentia Labs — Operaciones de IA gestionadas",
-          description: "Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting.",
-          locale: "es_ES",
-          alternateLocale: "en_US"
-        },
-        en: {
-          title: "Agentia Labs — Managed AI Operations",
-          description: "Agentia Labs designs and manages AI agents that execute repetitive operational work across admin, finance, documents, inboxes and reporting.",
-          locale: "en_US",
-          alternateLocale: "es_ES"
-        }
-      };
-      const isSupported = (lang) => supported.includes(lang);
-      const setMeta = (selector, attribute, value) => {
-        const node = document.querySelector(selector);
-        if (node) node.setAttribute(attribute, value);
-      };
-      const syncStructuredData = (lang, copy) => {
-        const organization = document.getElementById("organization-schema");
-        const website = document.getElementById("website-schema");
-        if (organization) {
-          try {
-            const data = JSON.parse(organization.textContent);
-            data.description = copy.description;
-            data.inLanguage = lang;
-            organization.textContent = JSON.stringify(data);
-          } catch (error) {}
-        }
-        if (website) {
-          try {
-            const data = JSON.parse(website.textContent);
-            data.inLanguage = lang;
-            website.textContent = JSON.stringify(data);
-          } catch (error) {}
-        }
-      };
-      const syncSeo = (lang, copy) => {
-        document.title = copy.title;
-        setMeta('meta[name="description"]', "content", copy.description);
-        setMeta('meta[property="og:title"]', "content", copy.title);
-        setMeta('meta[property="og:description"]', "content", copy.description);
-        setMeta('meta[property="og:locale"]', "content", copy.locale);
-        setMeta('meta[property="og:locale:alternate"]', "content", copy.alternateLocale);
-        setMeta('meta[name="twitter:title"]', "content", copy.title);
-        setMeta('meta[name="twitter:description"]', "content", copy.description);
-        syncStructuredData(lang, copy);
-      };
-      const detectBrowserLang = () => {
-        const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
-        const preferred = languages.find(Boolean);
-        if (!preferred) return "es";
-        return preferred.toLowerCase().startsWith("es") ? "es" : "en";
-      };
-
-      let initialLang = "es";
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const requestedLang = params.get("lang");
-        const savedLang = localStorage.getItem(storageKey);
-        if (isSupported(requestedLang)) {
-          initialLang = requestedLang;
-        } else if (isSupported(savedLang)) {
-          initialLang = savedLang;
-        } else {
-          initialLang = detectBrowserLang();
-        }
-      } catch (error) {
-        initialLang = detectBrowserLang();
-      }
-
-      const copy = headCopy[initialLang] || headCopy.es;
-      document.documentElement.lang = initialLang;
-      document.documentElement.dataset.initialLang = initialLang;
-      document.documentElement.classList.add("i18n-pending");
-      window.agentiaSyncSeo = syncSeo;
-      window.setTimeout(() => {
-        document.documentElement.classList.remove("i18n-pending");
-      }, 1200);
-      syncSeo(initialLang, copy);
+    (() => {
+      const supported = ["en", "es"];
+      const requested = new URLSearchParams(window.location.search).get("lang");
+      let saved = "";
+      try { saved = localStorage.getItem("agentia-lang") || ""; } catch (error) {}
+      const browser = (navigator.languages?.[0] || navigator.language || "en").toLowerCase();
+      const language = supported.includes(requested)
+        ? requested
+        : supported.includes(saved)
+          ? saved
+          : browser.startsWith("es") ? "es" : "en";
+      document.documentElement.lang = language;
+      document.documentElement.dataset.initialLang = language;
     })();
   </script>
-  <style>
-    html.i18n-pending body {
-      visibility: hidden;
-    }
-  </style>
+
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://crm-pi-nine-82.vercel.app" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css?v=demo-form-polish-20260702" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0" rel="stylesheet" />
+  <link rel="stylesheet" href="agentic.css?v=20260714-21" />
+  <script src="site.js?v=20260714-22" defer></script>
 </head>
+
 <body>
-  <header>
-    <nav aria-label="Navegación principal">
-      <a class="logo-wrap" href="#top" aria-label="Agentia Labs">
-        <svg class="logo-svg" id="logo-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <g id="dot-group"></g>
-        </svg>
-        <span class="logo-name">Agentia Labs</span>
-      </a>
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="#lifecycle" data-i18n="nav.methodology">Metodología</a></li>
-          <li><a href="#agents" data-i18n="nav.agents">Agentes de IA</a></li>
-          <li><a href="#trust" data-i18n="nav.trust">Trust</a></li>
-          <li><a href="#industries" data-i18n="nav.industries">Industrias y casos de uso</a></li>
-          <li><a href="#pricing" data-i18n="nav.pricing">Pricing</a></li>
-        </ul>
-        <button class="lang-toggle" id="lang-toggle" type="button" aria-label="Cambiar a inglés">EN</button>
-        <a class="nav-cta" data-demo-link href="#demo-form">
-          <span data-i18n="nav.cta">Reserva una demo →</span>
-        </a>
-      </div>
-      <button class="ham" id="ham" type="button" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span>
-        <span></span>
-        <span></span>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="mobile-header">
+    <a class="mobile-brand" href="#top" aria-label="Agentia Labs home">
+      <img src="assets/agentia-mark-h.svg" alt="" width="42" height="42" />
+      <span>Agentia Labs</span>
+    </a>
+    <div class="mobile-actions">
+      <button class="language-button" type="button" data-language-toggle aria-label="Switch to Spanish">ES</button>
+      <button class="menu-button" type="button" data-menu-toggle aria-controls="mobile-menu" aria-expanded="false">
+        <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+        <span class="sr-only">Menu</span>
       </button>
-    </nav>
+    </div>
   </header>
 
-  <div id="mobile-menu">
-    <a href="#lifecycle" class="mm-link" data-i18n="nav.methodology">Metodología</a>
-    <a href="#agents" class="mm-link" data-i18n="nav.agents">Agentes de IA</a>
-    <a href="#trust" class="mm-link" data-i18n="nav.trust">Trust</a>
-    <a href="#industries" class="mm-link" data-i18n="nav.industries">Industrias y casos de uso</a>
-    <a href="#pricing" class="mm-link" data-i18n="nav.pricing">Pricing</a>
-    <a class="m-cta" data-demo-link href="#demo-form">
-      <span data-i18n="nav.mobileCta">Reserva una demo</span>
-    </a>
-  </div>
-
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-fluid" aria-hidden="true">
-        <div class="blob blob1"></div>
-        <div class="blob blob2"></div>
-        <div class="blob blob3"></div>
-        <div class="blob blob4"></div>
-      </div>
-      <div class="hero-pill">
-        <span class="hero-pill-dot"></span>
-        <span data-i18n="hero.eyebrow">Managed AI Operations</span>
-      </div>
-      <h1 id="hero-title">
-        <span class="hero-title-desktop" data-i18n="hero.title.desktop">Enfoca tu equipo en el negocio,<span class="title-line">deja que los agentes hagan el admin.</span></span>
-        <span class="hero-title-mobile" data-i18n="hero.title.mobile">Menos ops.<span class="title-line">Más negocio.</span></span>
-      </h1>
-      <p data-i18n="hero.copy">
-        Diseñamos, construimos y gestionamos agentes de IA que asumen trabajo operativo repetitivo.
-      </p>
-      <div class="hero-actions">
-        <a href="#demo-form" class="btn-primary" data-demo-link>
-          <span data-i18n="hero.primary">Reserva una demo</span>
-        </a>
-        <a href="#agents" class="btn-ghost">
-          <span data-i18n="hero.secondary">Ver cómo trabajan</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-    </section>
-
-    <section class="section problem-section" id="problem">
-      <div class="container problem-layout">
-        <div>
-          <p class="section-kicker" data-i18n="problem.kicker">Managed Operations</p>
-          <h2 class="section-title" data-i18n="problem.title">Aumenta capacidad operativa sin aumentar estructura.</h2>
-        </div>
-        <div class="problem-copy body-copy">
-          <p class="problem-lead" data-i18n="problem.copy.one">Tu equipo no está corto de talento. Está atrapado en operación.</p>
-          <p data-i18n="problem.copy.two">Administración, documentos, inboxes, aprobaciones, reporting y follow-ups consumen horas que deberían ir a producto, ventas y crecimiento. Convertimos ese trabajo repetitivo en jobs operativos ejecutados por agentes, con supervisión humana y resultados visibles.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- LIFECYCLE -->
-    <section class="lifecycle" id="lifecycle">
-      <div class="inner center">
-        <div class="rv">
-          <div class="s-pill" data-i18n="lifecycle.kicker">Metodología</div>
-          <h2 class="s-head" data-i18n="lifecycle.title">Convertimos trabajo operativo en jobs gestionados por agentes en solo 4 semanas.</h2>
-          <p class="s-sub center" data-i18n="lifecycle.subtitle">Identificamos los jobs operativos que frenan tu empresa, diseñamos el flujo objetivo, construimos los agentes y herramientas necesarios, y gestionamos el sistema en el tiempo. No automatizaciones sueltas. No experimentos. Operación gestionada, visible y medible.</p>
-        </div>
-        <div class="cycle rv">
-          <svg class="cycle-svg" id="cycle-svg" viewBox="0 0 620 600" xmlns="http://www.w3.org/2000/svg"></svg>
-          <div class="cyc-center">
-            <svg id="cyc-logo" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"></svg>
-            <span data-i18n="lifecycle.center">Managed<br>Operations</span>
-          </div>
-          <div class="cyc-label" style="left:310px;top:40px">
-            <div class="n">1</div>
-            <div class="cyc-body"><h3 data-i18n="lifecycle.one.title">Descubrimos</h3><p data-i18n="lifecycle.one.copy">Mapeamos los jobs operativos que consumen tiempo en tu empresa.</p></div>
-          </div>
-          <div class="cyc-label" style="left:570px;top:205px">
-            <div class="n">2</div>
-            <div class="cyc-body"><h3 data-i18n="lifecycle.two.title">Diseñamos</h3><p data-i18n="lifecycle.two.copy">Definimos proceso, responsabilidades, checkpoints humanos, integraciones y métricas.</p></div>
-          </div>
-          <div class="cyc-label" style="left:457px;top:492px">
-            <div class="n">3</div>
-            <div class="cyc-body"><h3 data-i18n="lifecycle.three.title">Construimos</h3><p data-i18n="lifecycle.three.copy">Implementamos agentes, herramientas y workflows para ejecutar el job en producción.</p></div>
-          </div>
-          <div class="cyc-label" style="left:163px;top:492px">
-            <div class="n">4</div>
-            <div class="cyc-body"><h3 data-i18n="lifecycle.four.title">Gestionamos</h3><p data-i18n="lifecycle.four.copy">Monitorizamos rendimiento, incidentes, prompts, calidad y mejora continua.</p></div>
-          </div>
-          <div class="cyc-label" style="left:48px;top:205px">
-            <div class="n">5</div>
-            <div class="cyc-body"><h3 data-i18n="lifecycle.five.title">Medimos</h3><p data-i18n="lifecycle.five.copy">Agentia Workspace muestra trabajo ejecutado, resultados y capacidad creada.</p><span class="cyc-badge" data-i18n="lifecycle.five.badge">Visible</span></div>
-          </div>
-        </div>
-        <div class="cyc-loop rv">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 3v5h-5"/></svg>
-          <span data-i18n="lifecycle.loop">operación y mejora continua</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="agents-section" id="agents">
-      <div class="inner">
-        <div class="center rv">
-          <div class="s-pill" data-i18n="agents.kicker">AI Agents</div>
-          <h2 class="s-head" data-i18n="agents.title">Agentes diseñados para ejecutar operación real.</h2>
-          <p class="s-sub center" data-i18n="agents.subtitle">Algunos conversan con equipos internos. Otros ejecutan trabajo en segundo plano dentro de tus sistemas. Todos tienen responsabilidades claras, límites, checkpoints humanos y métricas de resultado.</p>
-        </div>
-        <div class="tt-grid rv">
-          <div class="tt-card">
-            <div class="tt-icon conv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-            <h3 data-i18n="agents.conversational.label">Agentes conversacionales</h3>
-            <p class="tt-card-heading" data-i18n="agents.conversational.title">Conectamos tus asistentes al contexto real de tu empresa.</p>
-            <p data-i18n="agents.conversational.copy">Conectamos ChatGPT, Claude o tu asistente preferido a procesos, documentos y conocimiento interno para que el equipo avance con menos fricción.</p>
-            <div class="tt-shot-wrap">
-              <picture>
-                <source type="image/webp" srcset="assets/agent-chat-es.webp?v=chat-fix-20260619" data-image-en="assets/agent-chat.webp?v=chat-fix-20260619" data-image-es="assets/agent-chat-es.webp?v=chat-fix-20260619">
-                <img class="tt-shot" src="assets/agent-chat-es.png?v=chat-fix-20260619" data-image-en="assets/agent-chat.png?v=chat-fix-20260619" data-image-es="assets/agent-chat-es.png?v=chat-fix-20260619" data-i18n-alt="agents.conversational.alt" alt="Vista de un agente conversacional" width="1600" height="1520" loading="lazy" decoding="async">
-              </picture>
-            </div>
-          </div>
-          <div class="tt-card">
-            <div class="tt-icon head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-            <h3 data-i18n="agents.headless.label">Agentes en segundo plano</h3>
-            <p class="tt-card-heading" data-i18n="agents.headless.title">Agentes en segundo plano para el trabajo operativo repetitivo.</p>
-            <p data-i18n="agents.headless.copy">Ejecutan trabajo recurrente en administración, finanzas, documentos, inboxes, reporting y coordinación interna para liberar capacidad sin aumentar plantilla.</p>
-            <div class="tt-shot-wrap">
-              <picture>
-                <source type="image/webp" srcset="assets/agent-email-es.webp" data-image-en="assets/agent-email.webp" data-image-es="assets/agent-email-es.webp">
-                <img class="tt-shot" src="assets/agent-email-es.png" data-image-en="assets/agent-email.png" data-image-es="assets/agent-email-es.png" data-i18n-alt="agents.headless.alt" alt="Vista de un agente sin interfaz preparando una acción" width="1600" height="1520" loading="lazy" decoding="async">
-              </picture>
-            </div>
-          </div>
-        </div>
-        <div class="agent-roster rv">
-          <article><span>01</span><h3 data-i18n="agent.admin.title">Administrative Operations Agent</h3><p data-i18n="agent.admin.copy">Gestiona tareas administrativas recurrentes, entrada de datos, routing de documentos, updates de estado y follow-ups internos.</p></article>
-          <article><span>02</span><h3 data-i18n="agent.finance.title">Finance Operations Agent</h3><p data-i18n="agent.finance.copy">Procesa facturas, clasifica gastos, prepara conciliaciones y apoya flujos contables.</p></article>
-          <article><span>03</span><h3 data-i18n="agent.internal.title">Internal Operations Agent</h3><p data-i18n="agent.internal.copy">Clasifica solicitudes internas, redacta updates, enruta tareas y escala excepciones.</p></article>
-          <article><span>04</span><h3 data-i18n="agent.documents.title">Document Operations Agent</h3><p data-i18n="agent.documents.copy">Lee, extrae, clasifica y resume documentos, contratos, PDFs, formularios y archivos internos.</p></article>
-          <article><span>05</span><h3 data-i18n="agent.inbox.title">Inbox Operations Agent</h3><p data-i18n="agent.inbox.copy">Monitoriza inboxes compartidos, clasifica mensajes, redacta respuestas y enruta tareas.</p></article>
-          <article><span>06</span><h3 data-i18n="agent.orders.title">Order & Supplier Operations Agent</h3><p data-i18n="agent.orders.copy">Sigue pedidos, coordina proveedores, actualiza sistemas y alerta cuando algo se bloquea.</p></article>
-          <article><span>07</span><h3 data-i18n="agent.reporting.title">Reporting Agent</h3><p data-i18n="agent.reporting.copy">Recoge datos operativos, prepara informes semanales y señala anomalías.</p></article>
-          <article><span>08</span><h3 data-i18n="agent.knowledge.title">Internal Knowledge Agent</h3><p data-i18n="agent.knowledge.copy">Responde preguntas del equipo usando documentos, SOPs, políticas y conocimiento interno.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section trust-section" id="trust">
-      <div class="container">
-        <div class="trust-heading">
-          <p class="section-kicker" data-i18n="trust.kicker">Agentia Workspace</p>
-          <h2 class="section-title" data-i18n="trust.title">Tu operación, visible.</h2>
-          <p class="body-copy" data-i18n="trust.copy">
-            Los agentes solo generan confianza cuando su trabajo es visible. Agentia Workspace da a cada cliente una vista privada de su operación gestionada por agentes: agentes activos, jobs cubiertos, resultados procesados, horas liberadas, estado, incidencias, uso y oportunidades de expansión.
-          </p>
-        </div>
-
-        <div class="trust-layout">
-          <figure class="workspace-frame trust-frame">
-            <picture>
-              <source type="image/webp" srcset="assets/workspace.webp?v=agent-taxonomy-20260622">
-              <img src="assets/workspace.png?v=agent-taxonomy-20260622" alt="Panel de control de Agentia con agentes activos y métricas de operación" width="2720" height="1920" loading="lazy" decoding="async" />
-            </picture>
-          </figure>
-
-          <div class="trust-list">
-            <article>
-              <span>01</span>
-              <h3 data-i18n="trust.security.title">Sin cajas negras</h3>
-              <p data-i18n="trust.security.copy">Cada agente tiene responsabilidades, permisos y límites definidos antes de operar.</p>
-            </article>
-            <article>
-              <span>02</span>
-              <h3 data-i18n="trust.control.title">Escalado claro</h3>
-              <p data-i18n="trust.control.copy">Los checkpoints humanos se diseñan para aprobaciones, excepciones y decisiones sensibles.</p>
-            </article>
-            <article>
-              <span>03</span>
-              <h3 data-i18n="trust.roi.title">Outcomes medibles</h3>
-              <p data-i18n="trust.roi.copy">Seguimos jobs completados, horas liberadas, incidencias, uso mensual y expansión posible.</p>
-            </article>
-            <article>
-              <span>04</span>
-              <h3 data-i18n="trust.data.title">Seguridad y datos</h3>
-              <p data-i18n="trust.data.copy">Data centers en la UE, cumplimiento GDPR, Zero Data Retention para modelos LLM y cifrado de datos.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section verticals-section" id="industries">
-      <div class="container split">
-        <div class="verticals-heading">
-          <p class="section-kicker" data-i18n="verticals.kicker">Use cases</p>
-          <h2 class="section-title" data-i18n="verticals.title">Empezamos donde el trabajo operativo es repetitivo, medible y doloroso.</h2>
-          <p class="body-copy" data-i18n="verticals.copy">No intentamos cubrirlo todo. Empezamos por casos concretos como back office administrativo, finanzas, documentos, inboxes y reporting.</p>
-        </div>
-        <div class="vertical-list" aria-label="Verticales iniciales">
-          <div><span>01</span><strong data-i18n="verticals.one">Finanzas y administración</strong><p data-i18n="verticals.one.copy">Facturas, gastos, conciliaciones, aprobaciones y seguimiento.</p></div>
-          <div><span>02</span><strong data-i18n="verticals.two">Inbox y operaciones internas</strong><p data-i18n="verticals.two.copy">Bandejas compartidas, routing, aprobaciones, updates de estado y coordinación interna.</p></div>
-          <div><span>03</span><strong data-i18n="verticals.three">Documentos y compliance</strong><p data-i18n="verticals.three.copy">Lectura, extracción, clasificación y revisión de archivos.</p></div>
-          <div><span>04</span><strong data-i18n="verticals.four">Pedidos y proveedores</strong><p data-i18n="verticals.four.copy">Estados, follow-ups, incidencias y comunicación operativa.</p></div>
-          <div><span>05</span><strong data-i18n="verticals.five">Sales operations</strong><p data-i18n="verticals.five.copy">CRM, preparación de datos, follow-ups y handoffs comerciales.</p></div>
-          <div><span>06</span><strong data-i18n="verticals.six">Reporting interno</strong><p data-i18n="verticals.six.copy">Informes semanales, anomalías, métricas y updates de dirección.</p></div>
-          <div><span>07</span><strong data-i18n="verticals.seven">Knowledge operations</strong><p data-i18n="verticals.seven.copy">Respuestas basadas en SOPs, políticas, documentación y procesos.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section pricing-section" id="pricing">
-      <div class="container">
-        <div class="pricing-heading">
-          <p class="section-kicker" data-i18n="pricing.kicker">Pricing</p>
-          <h2 class="section-title" data-i18n="pricing.title">Empieza por un job operativo. Prueba el resultado. Expande la operación.</h2>
-          <p class="body-copy" data-i18n="pricing.copy">El pricing se basa en dos pilares: una fase inicial de discovery e implementación y una operación mensual gestionada, todo adaptado a tu caso de uso.</p>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="pricing-card">
-            <span>01</span>
-            <h3 data-i18n="pricing.consulting.title">Discovery & first agent</h3>
-            <p data-i18n="pricing.consulting.copy">Identificamos el primer job operativo de alto valor, diseñamos el workflow y lo llevamos a producción con supervisión y métricas.</p>
-          </article>
-          <article class="pricing-card">
-            <span>02</span>
-            <h3 data-i18n="pricing.consumption.title">Managed AI Agents</h3>
-            <p data-i18n="pricing.consumption.copy">Operación mensual para consumo, monitorización, mantenimiento, mejoras, incidencias, visibilidad en Agentia Workspace, despliegue de nuevos agentes y workshop trimestral de 3h.</p>
-          </article>
-        </div>
-
-        <p class="pricing-note" data-i18n="pricing.licenseNote">Las plataformas de agentes conversacionales, como ChatGPT o Claude, no están incluidas en el pricing de Agentia.</p>
-
-        <div class="pricing-cta">
-          <p data-i18n="pricing.cta.copy">¿Listo para liberar capacidad operativa? Reserva una demo e identificaremos un primer job donde tus agentes puedan crear capacidad medible en las próximas semanas.</p>
-          <a href="#demo-form" class="btn-primary" data-demo-link data-i18n="pricing.cta">Reserva una demo</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section demo-section" id="demo">
-      <div class="container">
-        <div class="demo-layout" id="demo-form">
-          <div class="demo-copy">
-            <p class="section-kicker" data-i18n="demo.kicker">Reserva una demo</p>
-            <h2 class="section-title" data-i18n="demo.title">Encuentra la primera operación que tus agentes deberían ejecutar.</h2>
-            <p class="body-copy" data-i18n="demo.copy">Cuéntanos el contexto mínimo y revisaremos contigo qué trabajo operativo puede convertirse primero en capacidad gestionada por agentes.</p>
-            <p class="demo-note" data-i18n="demo.note">Primero cualificamos el caso, después agendamos una conversación útil.</p>
-          </div>
-
-          <form class="demo-form" data-demo-form data-endpoint="https://crm-pi-nine-82.vercel.app/api/public">
-            <input type="text" name="websiteUrl" tabindex="-1" autocomplete="off" aria-hidden="true" class="demo-honeypot" />
-
-            <label>
-              <span data-i18n="demo.firstName">Nombre</span>
-              <input name="firstName" type="text" autocomplete="given-name" placeholder="Paula" required />
-            </label>
-
-            <label>
-              <span data-i18n="demo.lastName">Apellidos</span>
-              <input name="lastName" type="text" autocomplete="family-name" placeholder="Rodríguez" required />
-            </label>
-
-            <label>
-              <span data-i18n="demo.company">Empresa</span>
-              <input name="company" type="text" autocomplete="organization" placeholder="Nombre de la empresa" data-i18n-placeholder="demo.companyPlaceholder" required />
-            </label>
-
-            <label>
-              <span>Email</span>
-              <input name="email" type="email" autocomplete="email" placeholder="paula@empresa.com" data-i18n-placeholder="demo.emailPlaceholder" required />
-            </label>
-
-            <label>
-              <span data-i18n="demo.phone">Teléfono</span>
-              <input name="phone" type="tel" autocomplete="tel" placeholder="+34 600 000 000" required />
-            </label>
-
-            <label>
-              <span data-i18n="demo.industry">Industria</span>
-              <select name="industry" required>
-                <option value="" data-i18n="demo.industryPlaceholder">Selecciona una</option>
-                <option value="Retail &amp; eCommerce">Retail &amp; eCommerce</option>
-                <option value="Professional Services" data-i18n="demo.industryServices">Servicios profesionales</option>
-                <option value="Finance &amp; Accounting" data-i18n="demo.industryFinance">Finanzas y contabilidad</option>
-                <option value="Real Estate" data-i18n="demo.industryRealEstate">Inmobiliario</option>
-                <option value="Manufacturing" data-i18n="demo.industryManufacturing">Industria / Manufacturing</option>
-                <option value="Logistics &amp; Supply Chain" data-i18n="demo.industryLogistics">Logística y supply chain</option>
-                <option value="Hospitality &amp; Travel" data-i18n="demo.industryHospitality">Hospitality / Travel</option>
-                <option value="Education" data-i18n="demo.industryEducation">Educación</option>
-                <option value="Technology &amp; SaaS" data-i18n="demo.industryTech">Tecnología / SaaS</option>
-                <option value="Healthcare &amp; Clinics" data-i18n="demo.industryHealthcare">Salud / clínicas</option>
-                <option value="Other" data-i18n="demo.industryOther">Otro</option>
-              </select>
-            </label>
-
-            <label class="demo-form-full">
-              <span data-i18n="demo.operation">Operación a liberar primero</span>
-              <textarea name="operation" rows="4" placeholder="Reporting semanal, facturas, inbox compartido, documentos, aprobaciones..." data-i18n-placeholder="demo.operationPlaceholder"></textarea>
-            </label>
-
-            <button class="btn-primary" type="submit">
-              <span data-i18n="demo.submit">Enviar solicitud</span>
-            </button>
-
-            <p class="demo-form-status" data-demo-status role="status" aria-live="polite" data-i18n="demo.status.idle">
-              Usaremos estos datos solo para responder a tu solicitud y preparar la demo.
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <a class="footer-brand" href="#top">
-        <img src="assets/agentia-mark-h-light.svg" alt="" width="64" height="64" loading="lazy" decoding="async" />
+  <aside class="site-rail" id="desktop-rail" aria-label="Primary navigation">
+    <div class="rail-top">
+      <a class="rail-brand" href="#top" aria-label="Agentia Labs home">
+        <img src="assets/agentia-mark-h.svg" alt="" width="48" height="48" />
         <span>Agentia Labs</span>
       </a>
-      <p data-i18n="footer.copy">© 2026 Agentia Labs. Diseñamos, implementamos y gestionamos agentes de IA para operaciones internas.</p>
-      <a href="mailto:hello@agentialabs.ai">hello@agentialabs.ai</a>
+
+      <nav class="rail-nav">
+        <a class="is-active" href="#top" data-nav-link data-i18n="nav.operations">Agentic Operations</a>
+        <a href="#industries" data-nav-link data-i18n="nav.industries">Industry Blueprints</a>
+        <a href="#workspace" data-nav-link data-i18n="nav.workspace">The Workspace</a>
+        <a href="#method" data-nav-link data-i18n="nav.method">How we work</a>
+        <a href="#trust" data-nav-link data-i18n="nav.trust">Trust</a>
+      </nav>
+
+      <button class="language-button rail-language" type="button" data-language-toggle aria-label="Switch to Spanish">ES</button>
     </div>
-  </footer>
 
-  <script>
-    const i18n = {
-      es: {
-        title: "Agentia Labs — Operaciones de IA gestionadas",
-        description: "Agentia Labs diseña y gestiona agentes de IA que ejecutan trabajo operativo repetitivo en administración, finanzas, documentos, inboxes y reporting.",
-        subject: "Reservar una demo",
-        strings: {
-          "nav.methodology": "Metodología",
-          "nav.agents": "Agentes de IA",
-          "nav.trust": "Trust",
-          "nav.industries": "Industrias y casos de uso",
-          "nav.pricing": "Pricing",
-          "nav.cta": "Reserva una demo →",
-          "nav.mobileCta": "Reserva una demo",
-          "hero.eyebrow": "Managed AI Operations",
-          "hero.title.desktop": "Enfoca tu equipo en el negocio,<span class=\"title-line\">deja que los agentes hagan el admin.</span>",
-          "hero.title.mobile": "Menos ops.<span class=\"title-line\">Más negocio.</span>",
-          "hero.copy": "Diseñamos, construimos y gestionamos agentes de IA que asumen trabajo operativo repetitivo.",
-          "hero.primary": "Reserva una demo",
-          "hero.secondary": "Ver cómo trabajan",
-          "problem.kicker": "Managed Operations",
-          "problem.title": "Aumenta capacidad operativa sin aumentar estructura.",
-          "problem.copy.one": "Tu equipo no está corto de talento. Está atrapado en operación.",
-          "problem.copy.two": "Administración, documentos, inboxes, aprobaciones, reporting y follow-ups consumen horas que deberían ir a producto, ventas y crecimiento. Convertimos ese trabajo repetitivo en jobs operativos ejecutados por agentes, con supervisión humana y resultados visibles.",
-          "lifecycle.kicker": "Metodología",
-          "lifecycle.title": "Convertimos trabajo operativo en jobs gestionados por agentes en solo 4 semanas.",
-          "lifecycle.subtitle": "Identificamos los jobs operativos que frenan tu empresa, diseñamos el flujo objetivo, construimos los agentes y herramientas necesarios, y gestionamos el sistema en el tiempo. No automatizaciones sueltas. No experimentos. Operación gestionada, visible y medible.",
-          "lifecycle.center": "Managed<br>Operations",
-          "lifecycle.one.title": "Descubrimos",
-          "lifecycle.one.copy": "Mapeamos los jobs operativos que consumen tiempo en tu empresa.",
-          "lifecycle.two.title": "Diseñamos",
-          "lifecycle.two.copy": "Definimos proceso, responsabilidades, checkpoints humanos, integraciones y métricas.",
-          "lifecycle.three.title": "Construimos",
-          "lifecycle.three.copy": "Implementamos agentes, herramientas y workflows para ejecutar el job en producción.",
-          "lifecycle.four.title": "Gestionamos",
-          "lifecycle.four.copy": "Monitorizamos rendimiento, incidentes, prompts, calidad y mejora continua.",
-          "lifecycle.five.title": "Medimos",
-          "lifecycle.five.copy": "Agentia Workspace muestra trabajo ejecutado, resultados y capacidad creada.",
-          "lifecycle.five.badge": "Visible",
-          "lifecycle.loop": "operación y mejora continua",
-          "agents.kicker": "AI Agents",
-          "agents.title": "Agentes diseñados para ejecutar operación real.",
-          "agents.subtitle": "Algunos conversan con equipos internos. Otros ejecutan trabajo en segundo plano dentro de tus sistemas. Todos tienen responsabilidades claras, límites, checkpoints humanos y métricas de resultado.",
-          "agents.conversational.label": "Agentes conversacionales",
-          "agents.conversational.title": "Conectamos tus asistentes al contexto real de tu empresa.",
-          "agents.conversational.copy": "Conectamos ChatGPT, Claude o tu asistente preferido a procesos, documentos y conocimiento interno para que el equipo avance con menos fricción.",
-          "agents.conversational.alt": "Vista de un agente conversacional",
-          "agents.headless.label": "Agentes en segundo plano",
-          "agents.headless.title": "Agentes en segundo plano para el trabajo operativo repetitivo.",
-          "agents.headless.copy": "Ejecutan trabajo recurrente en administración, finanzas, documentos, inboxes, reporting y coordinación interna para liberar capacidad sin aumentar plantilla.",
-          "agents.headless.alt": "Vista de un agente sin interfaz preparando una acción",
-          "agent.admin.title": "Administrative Operations Agent",
-          "agent.admin.copy": "Gestiona tareas administrativas recurrentes, entrada de datos, routing de documentos, updates de estado y follow-ups internos.",
-          "agent.finance.title": "Finance Operations Agent",
-          "agent.finance.copy": "Procesa facturas, clasifica gastos, prepara conciliaciones y apoya flujos contables.",
-          "agent.internal.title": "Internal Operations Agent",
-          "agent.internal.copy": "Clasifica solicitudes internas, redacta updates, enruta tareas y escala excepciones.",
-          "agent.documents.title": "Document Operations Agent",
-          "agent.documents.copy": "Lee, extrae, clasifica y resume documentos, contratos, PDFs, formularios y archivos internos.",
-          "agent.inbox.title": "Inbox Operations Agent",
-          "agent.inbox.copy": "Monitoriza inboxes compartidos, clasifica mensajes, redacta respuestas y enruta tareas.",
-          "agent.orders.title": "Order & Supplier Operations Agent",
-          "agent.orders.copy": "Sigue pedidos, coordina proveedores, actualiza sistemas y alerta cuando algo se bloquea.",
-          "agent.reporting.title": "Reporting Agent",
-          "agent.reporting.copy": "Recoge datos operativos, prepara informes semanales y señala anomalías.",
-          "agent.knowledge.title": "Internal Knowledge Agent",
-          "agent.knowledge.copy": "Responde preguntas del equipo usando documentos, SOPs, políticas y conocimiento interno.",
-          "trust.kicker": "Agentia Workspace",
-          "trust.title": "Tu operación, visible.",
-          "trust.copy": "Los agentes solo generan confianza cuando su trabajo es visible. Agentia Workspace da a cada cliente una vista privada de su operación gestionada por agentes: agentes activos, jobs cubiertos, resultados procesados, horas liberadas, estado, incidencias, uso y oportunidades de expansión.",
-          "trust.security.title": "Sin cajas negras",
-          "trust.security.copy": "Cada agente tiene responsabilidades, permisos y límites definidos antes de operar.",
-          "trust.control.title": "Escalado claro",
-          "trust.control.copy": "Los checkpoints humanos se diseñan para aprobaciones, excepciones y decisiones sensibles.",
-          "trust.roi.title": "Outcomes medibles",
-          "trust.roi.copy": "Seguimos jobs completados, horas liberadas, incidencias, uso mensual y expansión posible.",
-          "trust.data.title": "Seguridad y datos",
-          "trust.data.copy": "Data centers en la UE, cumplimiento GDPR, Zero Data Retention para modelos LLM y cifrado de datos.",
-          "pricing.kicker": "Pricing",
-          "pricing.title": "Empieza por un job operativo. Prueba el resultado. Expande la operación.",
-          "pricing.copy": "El pricing se basa en dos pilares: una fase inicial de discovery e implementación y una operación mensual gestionada, todo adaptado a tu caso de uso.",
-          "pricing.consulting.title": "Discovery & first agent",
-          "pricing.consulting.copy": "Identificamos el primer job operativo de alto valor, diseñamos el workflow y lo llevamos a producción con supervisión y métricas.",
-          "pricing.consumption.title": "Managed AI Agents",
-          "pricing.consumption.copy": "Operación mensual para consumo, monitorización, mantenimiento, mejoras, incidencias, visibilidad en Agentia Workspace, despliegue de nuevos agentes y workshop trimestral de 3h.",
-          "pricing.licenseNote": "Las plataformas de agentes conversacionales, como ChatGPT o Claude, no están incluidas en el pricing de Agentia.",
-          "pricing.cta.copy": "¿Listo para liberar capacidad operativa? Reserva una demo e identificaremos un primer job donde tus agentes puedan crear capacidad medible en las próximas semanas.",
-          "pricing.cta": "Reserva una demo",
-          "demo.kicker": "Reserva una demo",
-          "demo.title": "Encuentra la primera operación que tus agentes deberían ejecutar.",
-          "demo.copy": "Cuéntanos el contexto mínimo y revisaremos contigo qué trabajo operativo puede convertirse primero en capacidad gestionada por agentes.",
-          "demo.note": "Primero cualificamos el caso, después agendamos una conversación útil.",
-          "demo.firstName": "Nombre",
-          "demo.lastName": "Apellidos",
-          "demo.company": "Empresa",
-          "demo.companyPlaceholder": "Nombre de la empresa",
-          "demo.emailPlaceholder": "paula@empresa.com",
-          "demo.phone": "Teléfono",
-          "demo.industry": "Industria",
-          "demo.industryPlaceholder": "Selecciona una",
-          "demo.industryServices": "Servicios profesionales",
-          "demo.industryFinance": "Finanzas y contabilidad",
-          "demo.industryRealEstate": "Inmobiliario",
-          "demo.industryManufacturing": "Industria / Manufacturing",
-          "demo.industryLogistics": "Logística y supply chain",
-          "demo.industryHospitality": "Hospitality / Travel",
-          "demo.industryEducation": "Educación",
-          "demo.industryTech": "Tecnología / SaaS",
-          "demo.industryHealthcare": "Salud / clínicas",
-          "demo.industryOther": "Otro",
-          "demo.operation": "Operación a liberar primero",
-          "demo.operationPlaceholder": "Reporting semanal, facturas, inbox compartido, documentos, aprobaciones...",
-          "demo.submit": "Enviar solicitud",
-          "demo.status.idle": "Usaremos estos datos solo para responder a tu solicitud y preparar la demo.",
-          "demo.status.sending": "Enviando solicitud...",
-          "demo.status.success": "Solicitud enviada. La revisaremos y te responderemos en breve.",
-          "demo.status.error": "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@agentialabs.ai.",
-          "verticals.kicker": "Use cases",
-          "verticals.title": "Empezamos donde el trabajo operativo es repetitivo, medible y doloroso.",
-          "verticals.copy": "No intentamos cubrirlo todo. Empezamos por casos concretos como back office administrativo, finanzas, documentos, inboxes y reporting.",
-          "verticals.one": "Finanzas y administración",
-          "verticals.one.copy": "Facturas, gastos, conciliaciones, aprobaciones y seguimiento.",
-          "verticals.two": "Inbox y operaciones internas",
-          "verticals.two.copy": "Bandejas compartidas, routing, aprobaciones, updates de estado y coordinación interna.",
-          "verticals.three": "Documentos y compliance",
-          "verticals.three.copy": "Lectura, extracción, clasificación y revisión de archivos.",
-          "verticals.four": "Pedidos y proveedores",
-          "verticals.four.copy": "Estados, follow-ups, incidencias y comunicación operativa.",
-          "verticals.five": "Sales operations",
-          "verticals.five.copy": "CRM, preparación de datos, follow-ups y handoffs comerciales.",
-          "verticals.six": "Reporting interno",
-          "verticals.six.copy": "Informes semanales, anomalías, métricas y updates de dirección.",
-          "verticals.seven": "Knowledge operations",
-          "verticals.seven.copy": "Respuestas basadas en SOPs, políticas, documentación y procesos.",
-          "footer.copy": "© 2026 Agentia Labs. Diseñamos, implementamos y gestionamos agentes de IA para operaciones internas."
-        }
-      },
-      en: {
-        title: "Agentia Labs — Managed AI Operations",
-        description: "Agentia Labs designs and manages AI agents that execute repetitive operational work across admin, finance, documents, inboxes and reporting.",
-        subject: "Book a demo",
-        strings: {
-          "nav.methodology": "Methodology",
-          "nav.agents": "AI Agents",
-          "nav.trust": "Trust",
-          "nav.industries": "Industries & Use Cases",
-          "nav.pricing": "Pricing",
-          "nav.cta": "Book a demo →",
-          "nav.mobileCta": "Book a demo",
-          "hero.eyebrow": "Managed AI Operations",
-          "hero.title.desktop": "Grow your business.<span class=\"title-line\">Let your agents run the operations.</span>",
-          "hero.title.mobile": "Grow the business.<span class=\"title-line\">Run the ops with agents.</span>",
-          "hero.copy": "We design, build and manage AI agents that take responsibility for repetitive operational work.",
-          "hero.primary": "Book a demo",
-          "hero.secondary": "See how they work",
-          "problem.kicker": "Managed Operations",
-          "problem.title": "Increase operational capacity without adding structure.",
-          "problem.copy.one": "Your team is not short on talent. It is trapped in operations.",
-          "problem.copy.two": "Admin work, documents, inboxes, approvals, reporting and follow-ups consume hours that should go into product, sales and growth. We turn that repetitive work into operational jobs executed by agents, with human supervision and visible outcomes.",
-          "lifecycle.kicker": "Methodology",
-          "lifecycle.title": "We turn operational work into agent-managed jobs in just 4 weeks.",
-          "lifecycle.subtitle": "We identify the operational jobs slowing your company down, design the target workflow, build the AI agents and tools required to execute it, and manage the system over time. Not standalone automations. Not experiments. Managed operations, visible and measurable.",
-          "lifecycle.center": "Managed<br>Operations",
-          "lifecycle.one.title": "Discover",
-          "lifecycle.one.copy": "We map the operational jobs consuming time across your company.",
-          "lifecycle.two.title": "Design",
-          "lifecycle.two.copy": "We define process, agent responsibilities, human checkpoints, integrations and metrics.",
-          "lifecycle.three.title": "Build",
-          "lifecycle.three.copy": "We implement agents, tools and workflows required to execute the job in production.",
-          "lifecycle.four.title": "Manage",
-          "lifecycle.four.copy": "We monitor performance, incidents, prompts, workflow quality and continuous improvement.",
-          "lifecycle.five.title": "Measure",
-          "lifecycle.five.copy": "Agentia Workspace shows executed work, outcomes and created capacity.",
-          "lifecycle.five.badge": "Visible",
-          "lifecycle.loop": "continuous operations and improvement",
-          "agents.kicker": "AI Agents",
-          "agents.title": "Agents built to execute real operations.",
-          "agents.subtitle": "Some agents converse with internal teams. Others execute work in the background inside your systems. All of them have clear responsibilities, limits, human checkpoints and outcome metrics.",
-          "agents.conversational.label": "Conversational Agents",
-          "agents.conversational.title": "We connect your assistants to your company's real context.",
-          "agents.conversational.copy": "We connect ChatGPT, Claude or your chosen assistant to processes, documents and internal knowledge so teams move faster with less friction.",
-          "agents.conversational.alt": "View of a conversational agent",
-          "agents.headless.label": "Background Agents",
-          "agents.headless.title": "Background agents for repetitive operational work.",
-          "agents.headless.copy": "They execute recurring work across admin, finance, documents, inboxes, reporting and internal coordination to unlock capacity without adding headcount.",
-          "agents.headless.alt": "View of a headless agent preparing an action",
-          "agent.admin.title": "Administrative Operations Agent",
-          "agent.admin.copy": "Handles recurring admin tasks, data entry, document routing, status updates and internal follow-ups.",
-          "agent.finance.title": "Finance Operations Agent",
-          "agent.finance.copy": "Processes invoices, classifies expenses, prepares reconciliations and supports accounting workflows.",
-          "agent.internal.title": "Internal Operations Agent",
-          "agent.internal.copy": "Triages internal requests, drafts status updates, routes tasks and escalates exceptions.",
-          "agent.documents.title": "Document Operations Agent",
-          "agent.documents.copy": "Reads, extracts, classifies and summarizes documents, contracts, PDFs, forms and internal files.",
-          "agent.inbox.title": "Inbox Operations Agent",
-          "agent.inbox.copy": "Monitors shared inboxes, classifies messages, drafts responses and routes tasks.",
-          "agent.orders.title": "Order & Supplier Operations Agent",
-          "agent.orders.copy": "Tracks orders, follows up with suppliers, updates systems and alerts the team when something is stuck.",
-          "agent.reporting.title": "Reporting Agent",
-          "agent.reporting.copy": "Collects operational data, prepares weekly reports and flags anomalies.",
-          "agent.knowledge.title": "Internal Knowledge Agent",
-          "agent.knowledge.copy": "Answers team questions based on company documents, SOPs, policies and internal knowledge.",
-          "trust.kicker": "Agentia Workspace",
-          "trust.title": "Your operation, visible.",
-          "trust.copy": "AI agents only create trust when their work is visible. Agentia Workspace gives each client a private view of their agent-managed operation: active agents, jobs covered, outcomes processed, hours liberated, status, incidents, usage and opportunities for expansion.",
-          "trust.security.title": "No black boxes",
-          "trust.security.copy": "Every agent has defined responsibilities, permission boundaries and limits before it operates.",
-          "trust.control.title": "Clear escalation",
-          "trust.control.copy": "Human checkpoints are designed around approvals, exceptions and sensitive decisions.",
-          "trust.roi.title": "Measurable outcomes",
-          "trust.roi.copy": "We track completed jobs, liberated hours, incidents, monthly usage and expansion opportunities.",
-          "trust.data.title": "Security & data",
-          "trust.data.copy": "EU data centers, GDPR compliance, Zero Data Retention for LLM models and data encryption.",
-          "pricing.kicker": "Pricing",
-          "pricing.title": "Start with one operational job. Prove the outcome. Expand the operation.",
-          "pricing.copy": "Pricing is based on two pillars: an initial discovery & implementation phase and the monthly managed operation, tailored to your use case.",
-          "pricing.consulting.title": "Discovery & first agent",
-          "pricing.consulting.copy": "Identify the first high-value operational job, design the workflow and put it into production with supervision and metrics.",
-          "pricing.consumption.title": "Managed AI Agents",
-          "pricing.consumption.copy": "Monthly operation for consumption, monitoring, maintenance, improvements, incidents, visibility through Agentia Workspace, new agent deployments and a 3h quarterly workshop.",
-          "pricing.licenseNote": "Conversational agent platforms, like ChatGPT or Claude, are not included in Agentia's pricing.",
-          "pricing.cta.copy": "Ready to unlock operational capacity? Book a demo and we will identify a first job where your agents can create measurable capacity in the next few weeks.",
-          "pricing.cta": "Book a demo",
-          "demo.kicker": "Request a demo",
-          "demo.title": "Find the first operation your agents should run.",
-          "demo.copy": "Tell us the minimum context and we will review which operational job can become agent-managed capacity first.",
-          "demo.note": "We qualify the case first, then schedule a useful conversation.",
-          "demo.firstName": "First name",
-          "demo.lastName": "Last name",
-          "demo.company": "Company",
-          "demo.companyPlaceholder": "Company name",
-          "demo.emailPlaceholder": "paula@company.com",
-          "demo.phone": "Phone",
-          "demo.industry": "Industry",
-          "demo.industryPlaceholder": "Select one",
-          "demo.industryServices": "Professional Services",
-          "demo.industryFinance": "Finance & Accounting",
-          "demo.industryRealEstate": "Real Estate",
-          "demo.industryManufacturing": "Manufacturing",
-          "demo.industryLogistics": "Logistics & Supply Chain",
-          "demo.industryHospitality": "Hospitality & Travel",
-          "demo.industryEducation": "Education",
-          "demo.industryTech": "Technology & SaaS",
-          "demo.industryHealthcare": "Healthcare & Clinics",
-          "demo.industryOther": "Other",
-          "demo.operation": "First operation to free up",
-          "demo.operationPlaceholder": "Weekly reporting, invoices, shared inbox, documents, approvals...",
-          "demo.submit": "Send request",
-          "demo.status.idle": "We will only use this data to answer your request and prepare the demo.",
-          "demo.status.sending": "Sending request...",
-          "demo.status.success": "Request sent. We will review it and come back to you shortly.",
-          "demo.status.error": "We could not send the request. Please try again or email hello@agentialabs.ai.",
-          "verticals.kicker": "Use cases",
-          "verticals.title": "We start where operational workload is repetitive, measurable and painful.",
-          "verticals.copy": "We do not try to cover everything. We start with concrete use cases like administrative back office, finance, documents, inboxes and reporting.",
-          "verticals.one": "Finance & admin",
-          "verticals.one.copy": "Invoices, expenses, reconciliations, approvals and follow-up.",
-          "verticals.two": "Inbox & internal operations",
-          "verticals.two.copy": "Shared inboxes, routing, approvals, status updates and internal coordination.",
-          "verticals.three": "Documents & compliance",
-          "verticals.three.copy": "Reading, extraction, classification and review of files.",
-          "verticals.four": "Orders & suppliers",
-          "verticals.four.copy": "Status checks, follow-ups, incidents and operational communication.",
-          "verticals.five": "Sales operations",
-          "verticals.five.copy": "CRM, data prep, follow-ups and commercial handoffs.",
-          "verticals.six": "Internal reporting",
-          "verticals.six.copy": "Weekly reports, anomalies, metrics and leadership updates.",
-          "verticals.seven": "Knowledge operations",
-          "verticals.seven.copy": "Answers based on SOPs, policies, documentation and processes.",
-          "footer.copy": "© 2026 Agentia Labs. We design, implement and manage AI agents for internal operations."
-        }
-      }
-    };
+    <div class="rail-index" aria-hidden="true">
+      <span>AGENTIC OPERATIONS / 01</span>
+      <i></i>
+    </div>
+  </aside>
 
-    const storageKey = "agentia-lang";
-    const supportedLangs = ["es", "en"];
-    const isSupportedLang = (lang) => supportedLangs.includes(lang);
+  <button class="rail-toggle" type="button" data-rail-toggle aria-controls="desktop-rail" aria-expanded="true">
+    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+    <span class="sr-only">Toggle navigation</span>
+  </button>
+  <button class="rail-scrim" type="button" data-rail-scrim aria-label="Close navigation" hidden></button>
+  <div class="scroll-meter" aria-hidden="true"><span></span></div>
 
-    function getStoredLang() {
-      try {
-        const value = localStorage.getItem(storageKey);
-        return isSupportedLang(value) ? value : "";
-      } catch (error) {
-        return "";
-      }
-    }
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Mobile navigation">
+      <a href="#top" data-mobile-link data-i18n="nav.operations">Agentic Operations</a>
+      <a href="#industries" data-mobile-link data-i18n="nav.industries">Industry Blueprints</a>
+      <a href="#workspace" data-mobile-link data-i18n="nav.workspace">The Workspace</a>
+      <a href="#method" data-mobile-link data-i18n="nav.method">How we work</a>
+      <a href="#trust" data-mobile-link data-i18n="nav.trust">Trust</a>
+      <a class="button button-dark" href="#demo-form" data-mobile-link data-i18n="nav.cta">Book a demo</a>
+    </nav>
+  </div>
 
-    function getRequestedLang() {
-      const params = new URLSearchParams(window.location.search);
-      const value = params.get("lang");
-      return isSupportedLang(value) ? value : "";
-    }
+  <main class="site-main" id="main-content">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span><span data-i18n="hero.eyebrow">Agentic operations</span></p>
+        <h1 id="hero-title" data-i18n="hero.title">Operations,<br />run by agents.</h1>
+        <p class="hero-intro" data-i18n="hero.copy">Cut through the AI noise. Put focused agents to work—without replacing professional judgement.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#demo-form" data-demo-link>
+            <span data-i18n="hero.primary">Book a demo</span>
+            <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+          </a>
+          <a class="text-link" href="#workspace">
+            <span data-i18n="hero.secondary">Explore Workspace</span>
+            <span class="material-symbols-outlined" aria-hidden="true">south</span>
+          </a>
+        </div>
+        <div class="hero-line" aria-hidden="true"><span></span></div>
+      </div>
 
-    function getBrowserLang() {
-      const languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
-      const preferred = languages.find(Boolean);
-      if (!preferred) return "es";
-      return preferred.toLowerCase().startsWith("es") ? "es" : "en";
-    }
+      <div class="hero-product" aria-label="Agentia Workspace control layer preview">
+        <div class="product-rail" aria-hidden="true">
+          <span class="material-symbols-outlined">arrow_circle_right</span>
+          <span class="material-symbols-outlined">grid_view</span>
+          <span class="material-symbols-outlined">play_arrow</span>
+          <span class="material-symbols-outlined">subject</span>
+          <span class="material-symbols-outlined">monitoring</span>
+          <span class="material-symbols-outlined">warning</span>
+          <span class="material-symbols-outlined">settings</span>
+        </div>
+        <div class="product-stage">
+          <div class="product-stage-top">
+            <div class="product-name">
+              <span class="material-symbols-outlined" aria-hidden="true">window</span>
+              <strong>Agentia Workspace</strong>
+            </div>
+            <div class="product-status">
+              <span>CONTROL LAYER</span>
+              <strong>7 RUNNING AGENTS</strong>
+            </div>
+          </div>
+          <section class="workspace-preview workspace-conversation" data-workspace-conversation aria-label="Agentia Workspace operational conversation">
+            <nav class="workspace-scenario-nav" aria-label="Workspace conversation examples" data-workspace-scenario-nav>
+              <button type="button" class="is-active" data-workspace-scenario="0" aria-current="true"><span>01</span></button>
+              <button type="button" data-workspace-scenario="1"><span>02</span></button>
+              <button type="button" data-workspace-scenario="2"><span>03</span></button>
+            </nav>
+            <div class="workspace-thread">
+              <div class="workspace-conversation-cluster workspace-conversation-cluster-request">
+                <article class="workspace-turn workspace-turn-user" data-workspace-step="1">
+                  <div class="workspace-turn-meta">
+                    <span data-i18n="workspace.demo.user">You</span>
+                    <time datetime="10:24">10:24 AM</time>
+                  </div>
+                  <p data-workspace-stream><span data-workspace-field="request">I want to prepare my weekly billable hours.</span></p>
+                </article>
+              </div>
 
-    function resolveInitialLang() {
-      const headLang = document.documentElement.dataset.initialLang;
-      if (isSupportedLang(headLang)) return headLang;
-      return getRequestedLang() || getStoredLang() || getBrowserLang();
-    }
+              <div class="workspace-conversation-cluster workspace-conversation-cluster-agent">
+                <article class="workspace-turn workspace-turn-agent workspace-turn-fetch" data-workspace-step="2">
+                  <div class="workspace-turn-meta">
+                    <span>Agentia</span>
+                    <time datetime="10:24">10:24 AM</time>
+                  </div>
+                  <p data-workspace-stream><span data-workspace-field="fetch">I’ll connect to the time and matter systems, then bring in the Time Capture Agent.</span></p>
+                </article>
 
-    const initialLang = resolveInitialLang();
+                <div class="workspace-runtime" data-workspace-step="3" data-workspace-runtime role="status" aria-live="polite" aria-atomic="false"></div>
+              </div>
 
-    (function drawLogo() {
-      const SP = 30;
-      const OFF = 20;
-      const VIEW = 160;
-      const defs = [
-        [0, 0, 3.5, 0], [1, 0, 5, 0], [2, 0, 5.5, 0], [3, 0, 5, 0], [4, 0, 3.5, 0],
-        [0, 1, 5, 0], [1, 1, 8.5, 0], [2, 1, 11, 0], [3, 1, 8.5, 0], [4, 1, 5, 0],
-        [0, 2, 5, 0], [1, 2, 11, 0], [2, 2, 17, 0], [3, 2, 11, 0], [4, 2, 7, 1],
-        [0, 3, 5, 0], [1, 3, 8.5, 0], [2, 3, 11, 0], [3, 3, 8.5, 0], [4, 3, 7, 1],
-        [0, 4, 3.5, 0], [1, 4, 5, 0], [2, 4, 5.5, 0], [3, 4, 5, 0], [4, 4, 3.5, 0]
-      ];
-      const svgEl = document.getElementById("logo-svg");
-      const group = document.getElementById("dot-group");
-      if (!svgEl || !group) return;
+              <div class="workspace-conversation-cluster workspace-conversation-cluster-result">
+                <article class="workspace-turn workspace-turn-agent workspace-turn-proposal" data-workspace-step="4">
+                  <div class="workspace-turn-meta">
+                    <span>Agentia</span>
+                    <time datetime="10:24">10:24 AM</time>
+                  </div>
+                  <p data-workspace-stream><span data-workspace-field="proposal">The agent has proposed 25 hours for this week. Would you like to review the details before I log them?</span></p>
+                </article>
 
-      const dotData = defs.map(([col, row, radius, isGold]) => {
-        const cx = OFF + col * SP;
-        const cy = OFF + row * SP;
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", cx);
-        circle.setAttribute("cy", cy);
-        circle.setAttribute("r", radius);
-        circle.setAttribute("fill", isGold ? "#C2724A" : "#1A1712");
-        group.appendChild(circle);
-        return { cx, cy, radius, isGold, currentRadius: radius };
-      });
+                <section class="workspace-work-card" data-workspace-step="5" aria-labelledby="workspace-result-title">
+                  <span class="material-symbols-outlined workspace-work-icon" data-workspace-field="icon" aria-hidden="true">schedule</span>
+                  <div class="workspace-work-summary">
+                    <strong id="workspace-result-title" data-workspace-field="cardTitle">Weekly billable hours</strong>
+                    <span data-workspace-field="cardMeta">25.0 hours · 11 entries · 4 matters</span>
+                  </div>
+                  <span class="material-symbols-outlined workspace-work-open" aria-hidden="true">open_in_new</span>
+                  <div class="workspace-work-state">
+                    <span aria-hidden="true"></span>
+                    <strong data-workspace-status data-workspace-field="cardReady">Ready to log</strong>
+                  </div>
+                  <div class="workspace-work-details" data-workspace-details hidden></div>
+                </section>
 
-      let mouseX = -999;
-      let mouseY = -999;
-      let time = 0;
-      const circles = group.querySelectorAll("circle");
+                <div class="workspace-result-actions" data-workspace-step="6">
+                  <button type="button" class="workspace-action workspace-action-primary" data-review-work aria-expanded="false">Review details</button>
+                  <button type="button" class="workspace-action" data-complete-work>Log 25 hours</button>
+                </div>
+              </div>
+            </div>
 
-      window.addEventListener("mousemove", (event) => {
-        const rect = svgEl.getBoundingClientRect();
-        mouseX = (event.clientX - rect.left) * (VIEW / rect.width);
-        mouseY = (event.clientY - rect.top) * (VIEW / rect.height);
-      });
+            <form class="workspace-composer" data-workspace-composer>
+              <label class="sr-only" for="workspace-prompt" data-i18n="workspace.demo.promptLabel">Ask Agentia to do work</label>
+              <input id="workspace-prompt" type="text" autocomplete="off" data-i18n-placeholder="workspace.demo.prompt" placeholder="Ask Agentia to do work…" />
+              <button type="submit" aria-label="Send to Agentia">
+                <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+              </button>
+              <p class="sr-only" data-workspace-composer-status aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
 
-      function loop() {
-        time += 0.04;
-        dotData.forEach((dot, index) => {
-          const distance = Math.hypot(mouseX - dot.cx, mouseY - dot.cy);
-          let target = dot.radius;
-          if (distance < 55) target = dot.radius * (1 + 0.85 * (1 - distance / 55));
-          if (dot.isGold) target = dot.radius * (1 + 0.35 * Math.sin(time + index * 0.5));
-          dot.currentRadius += (target - dot.currentRadius) * 0.12;
-          circles[index].setAttribute("r", dot.currentRadius.toFixed(2));
-        });
-        requestAnimationFrame(loop);
-      }
+    <section class="manifesto section-rule" aria-labelledby="manifesto-title">
+      <div>
+        <p class="eyebrow"><span></span><span data-i18n="manifesto.kicker">Our manifesto</span></p>
+        <h2 id="manifesto-title" data-i18n="manifesto.title">Your best people shouldn't be wasting time</h2>
+      </div>
+      <p data-i18n="manifesto.copy">Repetitive work belongs to agents. Give your teams back the time, judgement and relationships that move your business forward.</p>
+      <span class="manifesto-marker" aria-hidden="true"></span>
+    </section>
 
-      loop();
-    })();
+    <div class="manifesto-spotlight" aria-hidden="true">
+      <div class="manifesto-spotlight-index">OUR MANIFESTO / 01</div>
+      <div class="manifesto-spotlight-copy">
+        <p class="eyebrow eyebrow-light"><span></span><span data-i18n="manifesto.kicker">Our manifesto</span></p>
+        <p class="manifesto-spotlight-title" data-i18n="manifesto.title">Your best people shouldn't be wasting time</p>
+      </div>
+      <p class="manifesto-spotlight-support" data-i18n="manifesto.copy">Repetitive work belongs to agents. Give your teams back the time, judgement and relationships that move your business forward.</p>
+      <div class="manifesto-spotlight-progress"><span></span></div>
+    </div>
 
-    function setLanguage(lang, persist = true) {
-      const dictionary = i18n[lang] || i18n.es;
-      const toggle = document.getElementById("lang-toggle");
-      const seoCopy = {
-        title: dictionary.title,
-        description: dictionary.description,
-        locale: lang === "es" ? "es_ES" : "en_US",
-        alternateLocale: lang === "es" ? "en_US" : "es_ES"
-      };
-      document.documentElement.lang = lang;
+    <section class="workspace-section section-rule" id="workspace" aria-labelledby="workspace-title">
+      <div class="workspace-pin">
+      <header class="section-heading">
+        <p class="section-number">03 / PRODUCT</p>
+        <div>
+          <p class="eyebrow"><span></span><span>Agentia Workspace</span></p>
+          <h2 id="workspace-title" data-i18n="workspace.title">One platform,<br />two kinds of agents working together.</h2>
+          <p class="workspace-positioning" data-i18n="workspace.copy">General-purpose AI gives professionals a blank canvas. Agentia gives them focused agents, grounded in firm context and proven processes, to execute work faster and spend more time on judgement, clients and outcomes.</p>
+        </div>
+      </header>
 
-      if (window.agentiaSyncSeo) {
-        window.agentiaSyncSeo(lang, seoCopy);
-      } else {
-        document.title = dictionary.title;
-        const meta = document.querySelector('meta[name="description"]');
-        if (meta) meta.setAttribute("content", dictionary.description);
-        const ogTitle = document.querySelector('meta[property="og:title"]');
-        if (ogTitle) ogTitle.setAttribute("content", dictionary.title);
-        const ogDescription = document.querySelector('meta[property="og:description"]');
-        if (ogDescription) ogDescription.setAttribute("content", dictionary.description);
-        const ogLocale = document.querySelector('meta[property="og:locale"]');
-        if (ogLocale) ogLocale.setAttribute("content", seoCopy.locale);
-        const ogLocaleAlternate = document.querySelector('meta[property="og:locale:alternate"]');
-        if (ogLocaleAlternate) ogLocaleAlternate.setAttribute("content", seoCopy.alternateLocale);
-        const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-        if (twitterTitle) twitterTitle.setAttribute("content", dictionary.title);
-        const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-        if (twitterDescription) twitterDescription.setAttribute("content", dictionary.description);
-      }
+      <div class="agent-modes">
+        <article>
+          <div class="mode-heading">
+            <span class="material-symbols-outlined" aria-hidden="true">precision_manufacturing</span>
+            <p class="section-number">01</p>
+          </div>
+          <h3 data-i18n="workspace.headless.title">Headless execution</h3>
+          <p data-i18n="workspace.headless.copy">Agents run the operational work around your professionals—always on, structured and auditable.</p>
+          <ul>
+            <li data-i18n="workspace.headless.one">Autonomous, always-on execution</li>
+            <li data-i18n="workspace.headless.two">Human-in-the-loop for exceptions</li>
+            <li data-i18n="workspace.headless.three">Every step monitored and auditable</li>
+          </ul>
+        </article>
+        <article>
+          <div class="mode-heading">
+            <span class="material-symbols-outlined" aria-hidden="true">forum</span>
+            <p class="section-number">02</p>
+          </div>
+          <h3 data-i18n="workspace.focused.title">Conversational agents</h3>
+          <p data-i18n="workspace.focused.copy">Focused agents bring the right context, tools and process to each job—without the noise of a general-purpose chat.</p>
+          <ul>
+            <li data-i18n="workspace.focused.one">One focused agent for each job</li>
+            <li data-i18n="workspace.focused.two">Grounded in firm knowledge and live data</li>
+            <li data-i18n="workspace.focused.three">Human approval before action</li>
+          </ul>
+        </article>
+      </div>
 
-      document.querySelectorAll("[data-i18n]").forEach((node) => {
-        const key = node.getAttribute("data-i18n");
-        const value = dictionary.strings[key];
-        if (value) node.innerHTML = value;
-      });
+      </div>
+    </section>
 
-      document.querySelectorAll("[data-i18n-alt]").forEach((node) => {
-        const key = node.getAttribute("data-i18n-alt");
-        const value = dictionary.strings[key];
-        if (value) node.setAttribute("alt", value);
-      });
+    <section class="industries-section section-rule" id="industries" aria-labelledby="industries-title">
+      <header class="industries-intro">
+        <p class="section-number">02 / INDUSTRY BLUEPRINTS</p>
+        <div>
+          <p class="eyebrow"><span></span><span data-i18n="industries.kicker">Deep industry expertise, already operational</span></p>
+          <h2 id="industries-title" data-i18n="industries.title">Industry blueprints</h2>
+        </div>
+        <p data-i18n="industries.copy">We have mapped the workflows, controls and edge cases that run law firms and wealth management firms—then engineered them into ready-to-deploy agents.</p>
+      </header>
 
-      document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
-        const key = node.getAttribute("data-i18n-placeholder");
-        const value = dictionary.strings[key];
-        if (value) node.setAttribute("placeholder", value);
-      });
+      <div class="industry-grid">
+        <article class="industry-column">
+          <div class="industry-label"><span>01</span><i></i></div>
+          <h3 data-i18n="law.title">For law firms</h3>
+          <p class="industry-lead" data-i18n="law.copy">Five deployment-ready agent blueprints grounded in how a law firm actually operates.</p>
+          <ol class="industry-jobs">
+            <li><span>01</span><strong data-i18n="law.one.title">Partner Intelligence Agent</strong><p data-i18n="law.one.copy">Prepares client meetings and gives partners a live view of pipeline, matters and firm performance.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>02</span><strong data-i18n="law.two.title">Lawyer Operations Agent</strong><p data-i18n="law.two.copy">Orchestrates matters, tasks, documents and specialist agents from one conversation.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>03</span><strong data-i18n="law.three.title">Time Capture Agent</strong><p data-i18n="law.three.copy">Reconstructs work and proposes billable entries by matter for approval.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>04</span><strong data-i18n="law.four.title">Pipeline Monitor</strong><p data-i18n="law.four.copy">Flags stalled prospects and proposals, then prepares the next action.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>05</span><strong data-i18n="law.five.title">Client Intake &amp; Onboarding Agent</strong><p data-i18n="law.five.copy">Coordinates prospect screening, conflict checks, KYC/AML and CRM-to-matter onboarding.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+          </ol>
+          <a class="text-link" href="#demo-form"><span data-i18n="law.cta">Explore law firm operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        </article>
 
-      document.querySelectorAll("[data-image-en][data-image-es]").forEach((node) => {
-        const nextSrc = node.getAttribute(lang === "es" ? "data-image-es" : "data-image-en");
-        const imageAttribute = node.tagName === "SOURCE" ? "srcset" : "src";
-        if (nextSrc && node.getAttribute(imageAttribute) !== nextSrc) node.setAttribute(imageAttribute, nextSrc);
-      });
+        <article class="industry-column">
+          <div class="industry-label"><span>02</span><i></i></div>
+          <h3 data-i18n="wealth.title">For wealth management firms</h3>
+          <p class="industry-lead" data-i18n="wealth.copy">Five deployment-ready agent blueprints grounded in the operational client lifecycle.</p>
+          <ol class="industry-jobs">
+            <li><span>01</span><strong data-i18n="wealth.one.title">Client Onboarding Agent</strong><p data-i18n="wealth.one.copy">Builds application packs, pre-fills known data and flags missing evidence.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>02</span><strong data-i18n="wealth.two.title">Client Review Preparation Agent</strong><p data-i18n="wealth.two.copy">Prepares review packs from approved facts and surfaces gaps for adviser sign-off.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>03</span><strong data-i18n="wealth.three.title">Signing &amp; Records Agent</strong><p data-i18n="wealth.three.copy">Prepares signature packs, tracks completion and files signed evidence.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>04</span><strong data-i18n="wealth.four.title">Client Data Readiness Agent</strong><p data-i18n="wealth.four.copy">Finds missing fields and prepares evidence-backed client record updates.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+            <li><span>05</span><strong data-i18n="wealth.five.title">Finance &amp; Management Reporting Agent</strong><p data-i18n="wealth.five.copy">Reconciles recurring data and drafts adviser statements, KPIs and board commentary.</p><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></li>
+          </ol>
+          <a class="text-link" href="#demo-form"><span data-i18n="wealth.cta">Explore wealth operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+        </article>
+      </div>
+    </section>
 
-      document.querySelectorAll("[data-demo-link]").forEach((node) => {
-        node.setAttribute("href", "#demo-form");
-      });
+    <section class="method-section method-story section-rule" id="method" data-method-story aria-labelledby="method-title">
+      <div class="method-stage">
+        <div class="method-inner">
+          <header class="section-heading method-heading">
+            <p class="section-number">04 / HOW WE WORK</p>
+            <div>
+              <p class="eyebrow"><span></span><span data-i18n="method.kicker">From first workflow to managed operations</span></p>
+              <h2 id="method-title" data-i18n="method.title">One useful operation in four weeks.</h2>
+            </div>
+            <p data-i18n="method.copy">We start with one high-value operational job, prove it in production, then operate and expand the agentic system with your team.</p>
+          </header>
 
-      if (toggle) {
-        toggle.textContent = lang === "es" ? "EN" : "ES";
-        toggle.setAttribute("aria-label", lang === "es" ? "Cambiar a inglés" : "Switch to Spanish");
-      }
+          <div class="method-first-operation">
+            <div class="method-phase-label">
+              <span data-i18n="method.phase.title">Operating journey</span>
+              <span data-i18n="method.phase.time">Weeks 01–04 → ongoing</span>
+            </div>
+            <ol class="method-timeline" data-method-timeline>
+              <li data-method-step>
+                <span class="method-step-number">01</span>
+                <span class="method-step-week" data-i18n="method.one.week">Week 01</span>
+                <strong data-i18n="method.one.title">Discover</strong>
+                <p data-i18n="method.one.copy">Map the job, establish the baseline and define a measurable outcome.</p>
+              </li>
+              <li data-method-step>
+                <span class="method-step-number">02</span>
+                <span class="method-step-week" data-i18n="method.two.week">Week 02</span>
+                <strong data-i18n="method.two.title">Design</strong>
+                <p data-i18n="method.two.copy">Define the target flow, permissions, human decisions and exception paths.</p>
+              </li>
+              <li data-method-step>
+                <span class="method-step-number">03</span>
+                <span class="method-step-week" data-i18n="method.three.week">Weeks 03–04</span>
+                <strong data-i18n="method.three.title">Deploy</strong>
+                <p data-i18n="method.three.copy">Connect the systems, configure the agents and test on real work.</p>
+              </li>
+              <li data-method-step>
+                <span class="method-step-number">04</span>
+                <span class="method-step-week" data-i18n="method.four.week">Week 04</span>
+                <strong data-i18n="method.four.title">Prove</strong>
+                <p data-i18n="method.four.copy">Run in production, measure quality and capacity, and agree the next operation.</p>
+              </li>
+              <li id="pricing" data-method-step>
+                <span class="method-step-number">05</span>
+                <span class="method-step-week" data-i18n="method.five.week">Monthly</span>
+                <strong data-i18n="method.five.title">Operate</strong>
+                <p data-i18n="method.five.copy">Monitor quality, resolve exceptions, improve live agents and deploy the next operations.</p>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      if (persist) {
-        try {
-          localStorage.setItem(storageKey, lang);
-        } catch (error) {}
-      }
-      document.documentElement.classList.remove("i18n-pending");
-      document.dispatchEvent(new CustomEvent("agentia:languagechange"));
-    }
+    <section class="trust-section section-rule" id="trust" aria-labelledby="trust-title">
+      <header class="trust-copy">
+        <p class="section-number">05 / TRUST</p>
+        <div class="trust-intro">
+          <p class="eyebrow"><span></span><span data-i18n="trust.kicker">Built for sensitive operations</span></p>
+          <h2 id="trust-title" data-i18n="trust.title">Trust is<br />non-negotiable.</h2>
+          <p data-i18n="trust.copy">Agentia is built for the security, scale and privacy requirements of professional service firms—so agents can operate across sensitive workflows without compromising client confidentiality.</p>
+        </div>
+      </header>
+      <ol class="trust-list">
+        <li>
+          <article aria-labelledby="trust-security-title">
+            <span class="trust-pillar-index" aria-hidden="true">01</span>
+            <span class="material-symbols-outlined" aria-hidden="true">enhanced_encryption</span>
+            <div class="trust-pillar-body">
+              <p class="trust-pillar-label" data-i18n="trust.one.label">Security</p>
+              <h3 id="trust-security-title" data-i18n="trust.one.title">Encrypted at every layer.</h3>
+              <p class="trust-pillar-copy" data-i18n="trust.one.copy">Data is encrypted in transit and at rest, with controlled access and complete visibility over agent activity.</p>
+              <ul class="trust-proof-list">
+                <li data-i18n="trust.one.proof.one">Encryption in transit + at rest</li>
+                <li data-i18n="trust.one.proof.two">Controlled access</li>
+                <li data-i18n="trust.one.proof.three">Auditable activity</li>
+              </ul>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article aria-labelledby="trust-scale-title">
+            <span class="trust-pillar-index" aria-hidden="true">02</span>
+            <span class="material-symbols-outlined" aria-hidden="true">account_tree</span>
+            <div class="trust-pillar-body">
+              <p class="trust-pillar-label" data-i18n="trust.two.label">Scalability</p>
+              <h3 id="trust-scale-title" data-i18n="trust.two.title">Enterprise-grade by design.</h3>
+              <p class="trust-pillar-copy" data-i18n="trust.two.copy">From one workflow to agents operating across teams and systems, Agentia remains observable, governed and resilient as volume grows.</p>
+              <ul class="trust-proof-list">
+                <li data-i18n="trust.two.proof.one">Resilient infrastructure</li>
+                <li data-i18n="trust.two.proof.two">Central control</li>
+                <li data-i18n="trust.two.proof.three">Multi-workflow</li>
+              </ul>
+            </div>
+          </article>
+        </li>
+        <li>
+          <article aria-labelledby="trust-privacy-title">
+            <span class="trust-pillar-index" aria-hidden="true">03</span>
+            <span class="material-symbols-outlined" aria-hidden="true">privacy_tip</span>
+            <div class="trust-pillar-body">
+              <p class="trust-pillar-label" data-i18n="trust.three.label">Privacy</p>
+              <h3 id="trust-privacy-title" data-i18n="trust.three.title">Your data is not the product.</h3>
+              <p class="trust-pillar-copy" data-i18n="trust.three.copy">Model providers do not retain prompts, files or outputs and never use them for training. Your firm controls what operational records remain in Agentia Workspace.</p>
+              <ul class="trust-proof-list">
+                <li data-i18n="trust.three.proof.one">Zero data retention</li>
+                <li data-i18n="trust.three.proof.two">No training on customer data</li>
+                <li data-i18n="trust.three.proof.three">Firm-controlled retention</li>
+              </ul>
+            </div>
+          </article>
+        </li>
+      </ol>
+    </section>
 
-    const langToggle = document.getElementById("lang-toggle");
-    if (langToggle) {
-      langToggle.addEventListener("click", () => {
-        const nextLang = document.documentElement.lang === "es" ? "en" : "es";
-        setLanguage(nextLang);
-      });
-    }
+    <section class="demo-section" id="demo" aria-labelledby="demo-title">
+      <div class="demo-copy">
+        <p class="eyebrow eyebrow-light"><span></span><span data-i18n="demo.kicker">Book a demo</span></p>
+        <h2 id="demo-title" data-i18n="demo.title">Find the first operation your agents should run.</h2>
+        <p data-i18n="demo.copy">Tell us the minimum context. We will review where agentic operations can create useful, measurable capacity first.</p>
+        <a href="mailto:hello@agentialabs.ai">hello@agentialabs.ai</a>
+      </div>
 
-    const ham = document.getElementById("ham");
-    const mobileMenu = document.getElementById("mobile-menu");
-    if (ham && mobileMenu) {
-      ham.addEventListener("click", () => {
-        const isOpen = mobileMenu.classList.toggle("open");
-        ham.setAttribute("aria-expanded", String(isOpen));
-        document.body.style.overflow = isOpen ? "hidden" : "";
-      });
+      <form class="demo-form" id="demo-form" data-demo-form data-endpoint="https://crm-pi-nine-82.vercel.app/api/public">
+        <input class="honeypot" type="text" name="websiteUrl" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <label><span data-i18n="form.firstName">First name</span><input name="firstName" type="text" autocomplete="given-name" placeholder="Paula" required /></label>
+        <label><span data-i18n="form.lastName">Last name</span><input name="lastName" type="text" autocomplete="family-name" placeholder="Rodríguez" required /></label>
+        <label><span data-i18n="form.company">Company</span><input name="company" type="text" autocomplete="organization" placeholder="Company name" data-i18n-placeholder="form.companyPlaceholder" required /></label>
+        <label><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="paula@company.com" data-i18n-placeholder="form.emailPlaceholder" required /></label>
+        <label><span data-i18n="form.phone">Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="+34 600 000 000" required /></label>
+        <label>
+          <span data-i18n="form.industry">Firm type</span>
+          <select name="industry" required>
+            <option value="" data-i18n="form.industryPlaceholder">Select one</option>
+            <option value="Law firm" data-i18n="form.law">Law firm</option>
+            <option value="Wealth management" data-i18n="form.wealth">Wealth management</option>
+            <option value="Other professional services" data-i18n="form.other">Other professional services</option>
+          </select>
+        </label>
+        <label class="form-full"><span data-i18n="form.operation">Operation to free up first</span><textarea name="operation" rows="4" placeholder="Matter intake, onboarding, reporting, documents, approvals..." data-i18n-placeholder="form.operationPlaceholder"></textarea></label>
+        <button class="button button-orange" type="submit"><span data-i18n="form.submit">Send request</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
+        <p class="form-status form-full" data-demo-status data-state="idle" role="status" aria-live="polite" data-i18n="form.status.idle">We will only use this data to answer your request and prepare the demo.</p>
+      </form>
+    </section>
 
-      mobileMenu.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobileMenu.classList.remove("open");
-          ham.setAttribute("aria-expanded", "false");
-          document.body.style.overflow = "";
-        });
-      });
-    }
-
-    const stepScrollMedia = window.matchMedia("(min-width: 900px) and (min-height: 720px)");
-    const reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const navSectionIds = ["lifecycle", "agents", "trust", "industries", "pricing"];
-
-    function syncBookScroll() {
-      requestAnimationFrame(() => {
-        const shouldSnap = stepScrollMedia.matches && !reducedMotionMedia.matches;
-        document.documentElement.classList.toggle("snap-pages", shouldSnap);
-      });
-    }
-
-    function syncActiveNav() {
-      const marker = (window.innerHeight || document.documentElement.clientHeight) * 0.42;
-      let activeId = "";
-      navSectionIds.forEach((id) => {
-        const section = document.getElementById(id);
-        if (!section) return;
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= marker && rect.bottom > marker) activeId = id;
-      });
-
-      document.querySelectorAll(".nav-links a[href^='#'], #mobile-menu a[href^='#']").forEach((link) => {
-        const id = link.getAttribute("href").slice(1);
-        const isActive = id === activeId;
-        link.classList.toggle("is-active", isActive);
-        if (isActive) {
-          link.setAttribute("aria-current", "true");
-        } else {
-          link.removeAttribute("aria-current");
-        }
-      });
-    }
-
-    let activeNavFrame = 0;
-    function requestActiveNavSync() {
-      if (activeNavFrame) return;
-      activeNavFrame = requestAnimationFrame(() => {
-        activeNavFrame = 0;
-        syncActiveNav();
-      });
-    }
-
-    [stepScrollMedia, reducedMotionMedia].forEach((media) => {
-      if (media.addEventListener) {
-        media.addEventListener("change", syncBookScroll);
-      } else {
-        media.addListener(syncBookScroll);
-      }
-    });
-
-    window.addEventListener("resize", syncBookScroll);
-    window.addEventListener("orientationchange", syncBookScroll);
-    window.addEventListener("load", syncBookScroll);
-    document.addEventListener("agentia:languagechange", syncBookScroll);
-    window.addEventListener("scroll", requestActiveNavSync, { passive: true });
-    window.addEventListener("resize", requestActiveNavSync);
-    window.addEventListener("orientationchange", requestActiveNavSync);
-    window.addEventListener("load", requestActiveNavSync);
-    document.addEventListener("agentia:languagechange", requestActiveNavSync);
-    document.querySelectorAll("img").forEach((image) => {
-      if (!image.complete) {
-        image.addEventListener("load", syncBookScroll);
-        image.addEventListener("load", requestActiveNavSync);
-      }
-    });
-
-    setLanguage(initialLang, false);
-    syncBookScroll();
-    syncActiveNav();
-
-    function scrollToDemoForm(behavior = "smooth") {
-      const target = document.getElementById("demo-form");
-      if (!target) return;
-      document.documentElement.classList.remove("snap-pages");
-      target.scrollIntoView({ behavior, block: "start" });
-      if (window.location.hash !== "#demo-form") {
-        history.pushState(null, "", "#demo-form");
-      }
-      window.setTimeout(syncBookScroll, behavior === "smooth" ? 900 : 80);
-    }
-
-    document.querySelectorAll("[data-demo-link]").forEach((link) => {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (mobileMenu && ham) {
-          mobileMenu.classList.remove("open");
-          ham.setAttribute("aria-expanded", "false");
-          document.body.style.overflow = "";
-        }
-        scrollToDemoForm(reducedMotionMedia.matches ? "auto" : "smooth");
-      });
-    });
-
-    if (window.location.hash === "#demo-form") {
-      requestAnimationFrame(() => scrollToDemoForm("auto"));
-    }
-
-    (function wireDemoForm() {
-      const form = document.querySelector("[data-demo-form]");
-      if (!form) return;
-
-      const status = form.querySelector("[data-demo-status]");
-      const submit = form.querySelector('button[type="submit"]');
-      const endpoint = () => window.AGENTIA_CRM_DEMO_ENDPOINT || form.dataset.endpoint;
-      const currentLanguage = () => (document.documentElement.lang || "es").startsWith("es") ? "es" : "en";
-      const statusKey = (state) => `demo.status.${state}`;
-
-      const setStatus = (state) => {
-        if (!status) return;
-        const dictionary = i18n[currentLanguage()] || i18n.es;
-        status.textContent = dictionary.strings[statusKey(state)] || dictionary.strings[statusKey("idle")];
-        status.dataset.state = state;
-      };
-
-      document.addEventListener("agentia:languagechange", () => setStatus("idle"));
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        if (!endpoint()) {
-          setStatus("error");
-          return;
-        }
-
-        const payload = Object.fromEntries(new FormData(form).entries());
-        payload.pageUrl = window.location.href;
-        payload.language = currentLanguage();
-
-        setStatus("sending");
-        if (submit) submit.disabled = true;
-
-        try {
-          const response = await fetch(endpoint(), {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-          const data = await response.json().catch(() => ({}));
-          if (!response.ok || data.ok === false) {
-            throw new Error(data.error || "Request failed");
-          }
-          form.reset();
-          setStatus("success");
-        } catch (error) {
-          setStatus("error");
-        } finally {
-          if (submit) submit.disabled = false;
-        }
-      });
-    })();
-
-    (function startLifecycleCycle() {
-      const svg = document.getElementById("cycle-svg");
-      if (!svg) return;
-      const NS = "http://www.w3.org/2000/svg";
-      const CENTER_X = 310;
-      const CENTER_Y = 290;
-      const RADIUS = 165;
-      const ARC_LENGTH = 210;
-      const mk = (tag, attrs) => {
-        const element = document.createElementNS(NS, tag);
-        Object.keys(attrs).forEach((key) => element.setAttribute(key, attrs[key]));
-        return element;
-      };
-      svg.appendChild(mk("circle", { class: "ring-track", cx: CENTER_X, cy: CENTER_Y, r: RADIUS }));
-      const arc = mk("circle", { class: "ring-arc", cx: CENTER_X, cy: CENTER_Y, r: RADIUS });
-      svg.appendChild(arc);
-      const pos = [[310, 125], [466.9, 239], [407, 423.5], [213, 423.5], [153.1, 239]];
-      const nodes = pos.map((point) => {
-        const node = mk("circle", { class: "ring-node", cx: point[0], cy: point[1], r: 8 });
-        svg.appendChild(node);
-        return node;
-      });
-      const labels = Array.from(document.querySelectorAll(".cyc-label"));
-      const defs = [
-        [0, 0, 3.5, 0], [1, 0, 5, 0], [2, 0, 5.5, 0], [3, 0, 5, 0], [4, 0, 3.5, 0],
-        [0, 1, 5, 0], [1, 1, 8.5, 0], [2, 1, 11, 0], [3, 1, 8.5, 0], [4, 1, 5, 0],
-        [0, 2, 5, 0], [1, 2, 11, 0], [2, 2, 17, 0], [3, 2, 11, 0], [4, 2, 7, 1],
-        [0, 3, 5, 0], [1, 3, 8.5, 0], [2, 3, 11, 0], [3, 3, 8.5, 0], [4, 3, 7, 1],
-        [0, 4, 3.5, 0], [1, 4, 5, 0], [2, 4, 5.5, 0], [3, 4, 5, 0], [4, 4, 3.5, 0]
-      ];
-      const cl = document.getElementById("cyc-logo");
-      if (cl) {
-        defs.forEach((dot) => {
-          cl.appendChild(mk("circle", {
-            cx: 20 + dot[0] * 30,
-            cy: 20 + dot[1] * 30,
-            r: dot[2],
-            fill: dot[3] ? "#C2724A" : "#1A1712"
-          }));
-        });
-      }
-      const STEP_MS = 1700;          // time per node
-      const N = Math.min(labels.length, nodes.length);
-      if (!N) return;
-      const circumference = 2 * Math.PI * RADIUS;
-      const arcAngle = 360 * (ARC_LENGTH / circumference);
-      arc.style.strokeDasharray = `${ARC_LENGTH} ${circumference - ARC_LENGTH}`;
-      const nodeAngles = pos.map(([x, y]) => {
-        const angle = Math.atan2(y - CENTER_Y, x - CENTER_X) * 180 / Math.PI;
-        return (angle + 360) % 360;
-      });
-      const cycleMs = STEP_MS * N;
-      const normalizeAngle = (angle) => (angle % 360 + 360) % 360;
-      const angularDistance = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
-      let activeIndex = -1;
-
-      const setArcCenterAngle = (angle) => {
-        arc.style.transform = `rotate(${angle - arcAngle / 2}deg)`;
-      };
-
-      const setLit = (index) => {
-        labels.forEach((l, i) => l.classList.toggle("on", i === index));
-        nodes.forEach((n, i) => n.classList.toggle("lit", i === index));
-      };
-
-      const closestNodeIndex = (angle) => {
-        let closestIndex = 0;
-        let closestDistance = Infinity;
-        nodeAngles.slice(0, N).forEach((nodeAngle, index) => {
-          const distance = angularDistance(angle, nodeAngle);
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index;
-          }
-        });
-        return closestIndex;
-      };
-
-      const renderCycle = (elapsed) => {
-        const cycleProgress = ((elapsed % cycleMs) + cycleMs) % cycleMs / cycleMs;
-        const arcCenterAngle = normalizeAngle(nodeAngles[0] + cycleProgress * 360);
-        const nextIndex = closestNodeIndex(arcCenterAngle);
-
-        setArcCenterAngle(arcCenterAngle);
-        if (nextIndex !== activeIndex) {
-          activeIndex = nextIndex;
-          setLit(activeIndex);
-        }
-      };
-
-      renderCycle(0);
-      let started = false;
-      const lifecycle = document.querySelector(".lifecycle");
-      if (!lifecycle) return;
-      new IntersectionObserver((entries, observer) => {
-        if (entries[0].isIntersecting && !started) {
-          started = true;
-          if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            observer.disconnect();
-            return;
-          }
-          const startTime = performance.now();
-
-          const tick = (now) => {
-            renderCycle(now - startTime);
-            requestAnimationFrame(tick);
-          };
-
-          requestAnimationFrame(tick);
-          observer.disconnect();
-        }
-      }, { threshold: 0.3 }).observe(lifecycle);
-    })();
-
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("on");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
-    document.querySelectorAll(".rv").forEach((element) => revealObserver.observe(element));
-
-  </script>
+    <footer class="site-footer">
+      <a href="#top" class="footer-brand"><img src="assets/agentia-mark-h-light.svg" alt="" width="40" height="40" /><span>Agentia Labs</span></a>
+      <p data-i18n="footer.copy">© 2026 Agentia Labs. Agentic operations for professional service companies.</p>
+      <div><a href="mailto:hello@agentialabs.ai">Contact</a><button type="button" data-language-toggle>ES</button></div>
+    </footer>
+  </main>
 </body>
 </html>
