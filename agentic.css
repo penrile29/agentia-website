@@ -10,7 +10,7 @@
   --muted-light: #a9b1aa;
   --line: rgba(17, 21, 18, 0.22);
   --line-light: rgba(243, 240, 232, 0.2);
-  --orange: #f15a2a;
+  --orange: #bb694a;
   --green: #8dbd78;
   --rail-width: 202px;
   --display: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
@@ -4281,7 +4281,7 @@ body.rail-open .rail-toggle {
 
 .workspace-runtime-row.is-running .workspace-runtime-state i {
   background: var(--orange);
-  box-shadow: 0 0 0 4px rgba(255, 82, 41, 0.1);
+  box-shadow: 0 0 0 4px rgba(187, 105, 74, 0.1);
   animation: workspace-runtime-pulse 900ms ease-in-out infinite;
 }
 
