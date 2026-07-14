@@ -1069,7 +1069,7 @@ h1, h2, h3 {
 
 .industries-intro {
   display: grid;
-  grid-template-columns: 130px minmax(0, 1.45fr) minmax(280px, 0.75fr);
+  grid-template-columns: 130px minmax(0, 1fr);
   gap: 36px;
   align-items: start;
   padding: 72px clamp(42px, 5vw, 76px) 62px;
@@ -1084,14 +1084,6 @@ h1, h2, h3 {
 
 .industries-intro .eyebrow {
   margin-bottom: 20px;
-}
-
-.industries-intro > p:last-child {
-  max-width: 510px;
-  margin: 34px 0 0;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.55;
 }
 
 .industry-grid {
@@ -3448,7 +3440,7 @@ body.rail-open .rail-toggle {
 
   .industries-intro {
     height: 100%;
-    grid-template-columns: 110px minmax(0, 1.35fr) minmax(250px, 0.65fr);
+    grid-template-columns: 110px minmax(0, 1fr);
     gap: clamp(24px, 3vw, 48px);
     align-items: center;
     padding: 18px 0;
@@ -3466,11 +3458,6 @@ body.rail-open .rail-toggle {
 
   .industries-intro h2 {
     font-size: clamp(44px, 4.2vw, 64px);
-  }
-
-  .industries-intro > p:last-child {
-    margin: 0;
-    font-size: clamp(14px, 1vw, 16px);
   }
 
   .industry-grid {
@@ -3585,10 +3572,6 @@ body.rail-open .rail-toggle {
     grid-template-columns: 95px minmax(0, 1fr);
   }
 
-  .industries-intro > p:last-child {
-    grid-column: 2;
-    margin-top: 0;
-  }
 }
 
 @media (min-width: 781px) and (max-width: 1040px) {
@@ -3611,10 +3594,6 @@ body.rail-open .rail-toggle {
     grid-template-columns: 75px minmax(0, 1fr);
     gap: 24px;
     padding: 18px 0 32px;
-  }
-
-  .industries-intro > p:last-child {
-    max-width: 620px;
   }
 
   .industry-grid {
@@ -3728,10 +3707,6 @@ body.rail-open .rail-toggle {
     grid-template-columns: 1fr;
     gap: 24px;
     padding: 48px 22px;
-  }
-
-  .industries-intro > p:last-child {
-    grid-column: auto;
   }
 
   .industry-jobs li {
