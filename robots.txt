@@ -1,3 +1,31 @@
+# Search and user-requested retrieval
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Gemini Apps and Vertex AI grounding
+User-agent: Google-Extended
+Allow: /
+
+# Opt out of foundation-model training without affecting search visibility
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+# Keep the public site discoverable by other search engines
 User-agent: *
 Allow: /
 
