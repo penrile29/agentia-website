@@ -1140,7 +1140,7 @@ h1, h2, h3 {
 .industry-jobs li {
   min-height: 48px;
   display: grid;
-  grid-template-columns: 34px minmax(150px, 0.75fr) minmax(160px, 1fr) 24px;
+  grid-template-columns: 34px minmax(150px, 0.75fr) minmax(160px, 1fr);
   gap: 12px;
   align-items: center;
   border-bottom: 1px solid var(--line);
@@ -1161,11 +1161,6 @@ h1, h2, h3 {
   color: var(--muted);
   font-size: 11px;
   line-height: 1.35;
-}
-
-.industry-jobs .material-symbols-outlined {
-  color: var(--orange);
-  font-size: 18px;
 }
 
 .method-list {
@@ -1579,7 +1574,7 @@ h1, h2, h3 {
   }
 
   .industry-jobs li {
-    grid-template-columns: 28px minmax(140px, 1fr) 20px;
+    grid-template-columns: 28px minmax(140px, 1fr);
   }
 
   .industry-jobs li p {
@@ -1850,7 +1845,7 @@ h1, h2, h3 {
   }
 
   .industry-jobs li {
-    grid-template-columns: 28px minmax(0, 1fr) 20px;
+    grid-template-columns: 28px minmax(0, 1fr);
   }
 
   .method-list li {
@@ -3502,7 +3497,7 @@ body.rail-open .rail-toggle {
 
   .industry-jobs li {
     min-height: 0;
-    grid-template-columns: 34px minmax(0, 1fr) 24px;
+    grid-template-columns: 34px minmax(0, 1fr);
     grid-template-rows: auto auto;
     column-gap: 14px;
     row-gap: 4px;
@@ -3529,13 +3524,6 @@ body.rail-open .rail-toggle {
     display: block;
     font-size: clamp(13px, 0.72vw, 14px);
     line-height: 1.4;
-  }
-
-  .industry-jobs .material-symbols-outlined {
-    grid-column: 3;
-    grid-row: 1 / -1;
-    align-self: center;
-    justify-self: end;
   }
 
   .industry-column > .text-link {
@@ -3639,7 +3627,7 @@ body.rail-open .rail-toggle {
 
   .industry-jobs li {
     min-height: 0;
-    grid-template-columns: 28px minmax(0, 1fr) 20px;
+    grid-template-columns: 28px minmax(0, 1fr);
     grid-template-rows: auto auto;
     column-gap: 10px;
     row-gap: 3px;
@@ -3666,13 +3654,6 @@ body.rail-open .rail-toggle {
     display: block;
     font-size: 13px;
     line-height: 1.35;
-  }
-
-  .industry-jobs .material-symbols-outlined {
-    grid-column: 3;
-    grid-row: 1 / -1;
-    align-self: center;
-    justify-self: end;
   }
 
   .industry-column > .text-link {
@@ -3737,12 +3718,6 @@ body.rail-open .rail-toggle {
     line-height: 1.4;
   }
 
-  .industry-jobs .material-symbols-outlined {
-    grid-column: 3;
-    grid-row: 1 / -1;
-    align-self: center;
-    justify-self: end;
-  }
 }
 
 @media (max-width: 480px) {
