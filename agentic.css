@@ -965,6 +965,10 @@ h1, h2, h3 {
   line-height: 1.5;
 }
 
+.workspace-title-lock {
+  white-space: nowrap;
+}
+
 .agent-modes {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2896,7 +2900,7 @@ body.rail-open .rail-toggle {
 
   .workspace-section .section-heading h2 {
     color: var(--paper);
-    font-size: clamp(45px, 4.5vw, 70px);
+    font-size: clamp(44px, 4.1vw, 64px);
   }
 
   .workspace-section .section-heading > p:last-child {
@@ -3319,8 +3323,8 @@ body.rail-open .rail-toggle {
   }
 
   .workspace-section .section-heading h2 {
-    max-width: 940px;
-    font-size: clamp(44px, 4.6vw, 70px);
+    max-width: none;
+    font-size: clamp(42px, 3.9vw, 60px);
     line-height: 0.94;
   }
 
