@@ -1096,6 +1096,14 @@ h1, h2, h3 {
   padding: 30px clamp(36px, 4.2vw, 66px) 48px;
 }
 
+.industry-column:nth-child(1) {
+  background: #ebe5d9;
+}
+
+.industry-column:nth-child(2) {
+  background: #e4dccf;
+}
+
 .industry-column + .industry-column {
   border-left: 1px solid var(--line);
 }
@@ -2794,8 +2802,12 @@ body.rail-open .rail-toggle {
   transition: background-color 420ms ease, transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.industry-column:hover {
-  background: var(--paper-2);
+.industry-column:nth-child(1):hover {
+  background: #e4dccf;
+}
+
+.industry-column:nth-child(2):hover {
+  background: #ddd3c4;
 }
 
 .industry-column:hover .industry-label i {
