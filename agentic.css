@@ -2760,12 +2760,12 @@ body.rail-open .rail-toggle {
 }
 
 .manifesto-spotlight-title {
-  max-width: 1180px;
+  max-width: 1080px;
   margin: 0;
-  font-size: clamp(76px, 8.8vw, 164px);
+  font-size: clamp(64px, 7.2vw, 132px);
   font-weight: 400;
-  letter-spacing: -0.065em;
-  line-height: 0.88;
+  letter-spacing: -0.055em;
+  line-height: 0.94;
 }
 
 .manifesto-spotlight-support {
