@@ -29,4 +29,4 @@ Disallow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://agentialabs.ai/sitemap.xml
+Sitemap: https://oakbase.ai/sitemap.xml

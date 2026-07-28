@@ -1,7 +1,7 @@
 services:
   website:
     image: nginx:1.27-alpine
-    container_name: agentia-website
+    container_name: oakbase-website
     restart: unless-stopped
     environment:
       CONTENT_REF: "${CONTENT_REF:?CONTENT_REF is required}"
@@ -21,8 +21,8 @@ services:
       wget -q -O styles.css "$$BASE/styles.css";
       wget -q -O robots.txt "$$BASE/robots.txt";
       wget -q -O sitemap.xml "$$BASE/sitemap.xml";
-      wget -q -O assets/agentia-mark-h.svg "$$BASE/assets/agentia-mark-h.svg";
-      wget -q -O assets/agentia-mark-h-light.svg "$$BASE/assets/agentia-mark-h-light.svg";
+      wget -q -O assets/oakbase-mark-h.svg "$$BASE/assets/oakbase-mark-h.svg";
+      wget -q -O assets/oakbase-mark-h-light.svg "$$BASE/assets/oakbase-mark-h-light.svg";
       wget -q -O assets/favicon.svg "$$BASE/assets/favicon.svg";
       wget -q -O assets/og-image.png "$$BASE/assets/og-image.png";
       wget -q -O assets/workspace.png "$$BASE/assets/workspace.png";
@@ -53,12 +53,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik-public"
-      - "traefik.http.routers.agentia-website.rule=Host(`${DOMAIN:-agentialabs.ai}`) || Host(`www.${DOMAIN:-agentialabs.ai}`)"
-      - "traefik.http.routers.agentia-website.entrypoints=websecure"
-      - "traefik.http.routers.agentia-website.tls=true"
-      - "traefik.http.routers.agentia-website.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.agentia-website.priority=20"
-      - "traefik.http.services.agentia-website.loadbalancer.server.port=80"
+      - "traefik.http.routers.oakbase-website.rule=Host(`${DOMAIN:-oakbase.ai}`) || Host(`www.${DOMAIN:-oakbase.ai}`) || Host(`${LEGACY_DOMAIN:-agentialabs.ai}`) || Host(`www.${LEGACY_DOMAIN:-agentialabs.ai}`)"
+      - "traefik.http.routers.oakbase-website.entrypoints=websecure"
+      - "traefik.http.routers.oakbase-website.tls=true"
+      - "traefik.http.routers.oakbase-website.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.oakbase-website.priority=20"
+      - "traefik.http.services.oakbase-website.loadbalancer.server.port=80"
     networks:
       - traefik-public
 

@@ -1,7 +1,7 @@
 const translations = {
   en: {
-    title: "Agentia Labs — Agentic Operations",
-    description: "Agentia Workspace runs operational and administrative work for professional service firms while core expert judgement stays with their professionals.",
+    title: "Oakbase — Agentic Operations",
+    description: "Oakbase Workspace runs operational and administrative work for professional service firms while core expert judgement stays with their professionals.",
     strings: {
       "nav.operations": "Agentic Operations",
       "nav.industries": "Industry Blueprints",
@@ -18,7 +18,7 @@ const translations = {
       "manifesto.title": "Your best people shouldn't be wasting time",
       "manifesto.copy": "Repetitive work belongs to agents. Give your teams back the time, judgement and relationships that move your business forward.",
       "workspace.title": "One platform,<br />two kinds of agents <span class=\"workspace-title-lock\">working together.</span>",
-      "workspace.copy": "General-purpose AI gives professionals a blank canvas. Agentia gives them focused agents, grounded in firm context and proven processes, to execute work faster and spend more time on judgement, clients and outcomes.",
+      "workspace.copy": "General-purpose AI gives professionals a blank canvas. Oakbase gives them focused agents, grounded in firm context and proven processes, to execute work faster and spend more time on judgement, clients and outcomes.",
       "workspace.headless.title": "Headless execution",
       "workspace.headless.copy": "Agents run the operational work around your professionals—always on, structured and auditable.",
       "workspace.headless.one": "Autonomous, always-on execution",
@@ -62,8 +62,8 @@ const translations = {
       "workspace.demo.log": "Log 25 hours",
       "workspace.demo.logged": "25 hours logged",
       "workspace.demo.loggedStatus": "Logged to the time system",
-      "workspace.demo.promptLabel": "Ask Agentia to do work",
-      "workspace.demo.prompt": "Ask Agentia to do work…",
+      "workspace.demo.promptLabel": "Ask Oakbase to do work",
+      "workspace.demo.prompt": "Ask Oakbase to do work…",
       "workspace.pipeline.nav": "Pipeline monitor",
       "workspace.pipeline.request": "What needs my attention in the pipeline today?",
       "workspace.pipeline.fetch": "I’ll connect to the pipeline CRM, check the review targets and bring in the Pipeline Monitor Agent.",
@@ -176,7 +176,7 @@ const translations = {
       "method.five.copy": "Monitor quality, resolve exceptions, improve live agents and deploy the next operations.",
       "trust.kicker": "Built for sensitive operations",
       "trust.title": "Trust is<br />non-negotiable.",
-      "trust.copy": "Agentia is built for the security, scale and privacy requirements of professional service firms—so agents can operate across sensitive workflows without compromising client confidentiality.",
+      "trust.copy": "Oakbase is built for the security, scale and privacy requirements of professional service firms—so agents can operate across sensitive workflows without compromising client confidentiality.",
       "trust.one.label": "Security",
       "trust.one.title": "Encrypted at every layer.",
       "trust.one.copy": "Data is encrypted in transit and at rest, with controlled access and complete visibility over agent activity.",
@@ -185,13 +185,13 @@ const translations = {
       "trust.one.proof.three": "Auditable activity",
       "trust.two.label": "Scalability",
       "trust.two.title": "Enterprise-grade by design.",
-      "trust.two.copy": "From one workflow to agents operating across teams and systems, Agentia remains observable, governed and resilient as volume grows.",
+      "trust.two.copy": "From one workflow to agents operating across teams and systems, Oakbase remains observable, governed and resilient as volume grows.",
       "trust.two.proof.one": "Resilient infrastructure",
       "trust.two.proof.two": "Central control",
       "trust.two.proof.three": "Multi-workflow",
       "trust.three.label": "Privacy",
       "trust.three.title": "Your data is not the product.",
-      "trust.three.copy": "Model providers do not retain prompts, files or outputs and never use them for training. Your firm controls what operational records remain in Agentia Workspace.",
+      "trust.three.copy": "Model providers do not retain prompts, files or outputs and never use them for training. Your firm controls what operational records remain in Oakbase Workspace.",
       "trust.three.proof.one": "Zero data retention",
       "trust.three.proof.two": "No training on customer data",
       "trust.three.proof.three": "Firm-controlled retention",
@@ -215,13 +215,13 @@ const translations = {
       "form.status.idle": "We will only use this data to answer your request and prepare the demo.",
       "form.status.sending": "Sending request...",
       "form.status.success": "Request sent. We will review it and get back to you shortly.",
-      "form.status.error": "We could not send the request. Please try again or email hello@agentialabs.ai.",
-      "footer.copy": "© 2026 Agentia Labs. Agentic operations for professional service companies."
+      "form.status.error": "We could not send the request. Please try again or email hello@oakbase.ai.",
+      "footer.copy": "© 2026 Oakbase. Agentic operations for professional service companies."
     }
   },
   es: {
-    title: "Agentia Labs — Operaciones agénticas",
-    description: "Agentia Workspace ejecuta el trabajo operativo y administrativo de firmas de servicios profesionales mientras el criterio experto permanece en sus profesionales.",
+    title: "Oakbase — Operaciones agénticas",
+    description: "Oakbase Workspace ejecuta el trabajo operativo y administrativo de firmas de servicios profesionales mientras el criterio experto permanece en sus profesionales.",
     strings: {
       "nav.operations": "Operaciones agénticas",
       "nav.industries": "Blueprints por industria",
@@ -238,7 +238,7 @@ const translations = {
       "manifesto.title": "Tus mejores profesionales no deberían perder el tiempo",
       "manifesto.copy": "El trabajo repetitivo pertenece a los agentes. Devuelve a tus equipos el tiempo, el criterio y las relaciones que hacen avanzar el negocio.",
       "workspace.title": "Una plataforma,<br />dos tipos de agentes <span class=\"workspace-title-lock\">trabajando juntos.</span>",
-      "workspace.copy": "La IA generalista deja a los profesionales ante un lienzo en blanco. Agentia les ofrece agentes enfocados, basados en el contexto y los procesos de la firma, para ejecutar más rápido y dedicar más tiempo al criterio, los clientes y los resultados.",
+      "workspace.copy": "La IA generalista deja a los profesionales ante un lienzo en blanco. Oakbase les ofrece agentes enfocados, basados en el contexto y los procesos de la firma, para ejecutar más rápido y dedicar más tiempo al criterio, los clientes y los resultados.",
       "workspace.headless.title": "Ejecución headless",
       "workspace.headless.copy": "Los agentes ejecutan el trabajo operativo que rodea a tus profesionales: siempre activos, estructurados y auditables.",
       "workspace.headless.one": "Ejecución autónoma y siempre activa",
@@ -282,8 +282,8 @@ const translations = {
       "workspace.demo.log": "Registrar 25 horas",
       "workspace.demo.logged": "25 horas registradas",
       "workspace.demo.loggedStatus": "Registradas en el sistema de tiempos",
-      "workspace.demo.promptLabel": "Pide a Agentia que ejecute trabajo",
-      "workspace.demo.prompt": "Pide a Agentia que ejecute trabajo…",
+      "workspace.demo.promptLabel": "Pide a Oakbase que ejecute trabajo",
+      "workspace.demo.prompt": "Pide a Oakbase que ejecute trabajo…",
       "workspace.pipeline.nav": "Monitor de pipeline",
       "workspace.pipeline.request": "¿Qué tengo que atender hoy en el pipeline?",
       "workspace.pipeline.fetch": "Voy a conectar con el CRM, comprobar los objetivos de revisión y activar el Agente Monitor de Pipeline.",
@@ -396,7 +396,7 @@ const translations = {
       "method.five.copy": "Monitorizamos la calidad, resolvemos excepciones, mejoramos los agentes activos y desplegamos nuevas operaciones.",
       "trust.kicker": "Diseñado para operaciones sensibles",
       "trust.title": "La confianza no es<br />negociable.",
-      "trust.copy": "Agentia está diseñada para responder a los requisitos de seguridad, escalabilidad y privacidad de las firmas de servicios profesionales, para que los agentes puedan operar en procesos sensibles sin comprometer la confidencialidad de sus clientes.",
+      "trust.copy": "Oakbase está diseñada para responder a los requisitos de seguridad, escalabilidad y privacidad de las firmas de servicios profesionales, para que los agentes puedan operar en procesos sensibles sin comprometer la confidencialidad de sus clientes.",
       "trust.one.label": "Seguridad",
       "trust.one.title": "Cifrado en cada capa.",
       "trust.one.copy": "Los datos se cifran en tránsito y en reposo, con accesos controlados y visibilidad completa sobre la actividad de los agentes.",
@@ -405,13 +405,13 @@ const translations = {
       "trust.one.proof.three": "Actividad auditable",
       "trust.two.label": "Escalabilidad",
       "trust.two.title": "Enterprise-grade desde el diseño.",
-      "trust.two.copy": "Desde un proceso hasta agentes operando entre equipos y sistemas, Agentia mantiene observabilidad, gobernanza y resiliencia a medida que crece el volumen.",
+      "trust.two.copy": "Desde un proceso hasta agentes operando entre equipos y sistemas, Oakbase mantiene observabilidad, gobernanza y resiliencia a medida que crece el volumen.",
       "trust.two.proof.one": "Infraestructura resiliente",
       "trust.two.proof.two": "Control centralizado",
       "trust.two.proof.three": "Múltiples operaciones",
       "trust.three.label": "Privacidad",
       "trust.three.title": "Tus datos no son el producto.",
-      "trust.three.copy": "Los proveedores de modelos no conservan prompts, archivos ni resultados y nunca los utilizan para entrenamiento. Tu firma controla qué registros operativos permanecen en Agentia Workspace.",
+      "trust.three.copy": "Los proveedores de modelos no conservan prompts, archivos ni resultados y nunca los utilizan para entrenamiento. Tu firma controla qué registros operativos permanecen en Oakbase Workspace.",
       "trust.three.proof.one": "Zero data retention",
       "trust.three.proof.two": "Sin entrenamiento con tus datos",
       "trust.three.proof.three": "Retención controlada por la firma",
@@ -435,13 +435,13 @@ const translations = {
       "form.status.idle": "Usaremos estos datos solo para responder a tu solicitud y preparar la demo.",
       "form.status.sending": "Enviando solicitud...",
       "form.status.success": "Solicitud enviada. La revisaremos y te responderemos en breve.",
-      "form.status.error": "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@agentialabs.ai.",
-      "footer.copy": "© 2026 Agentia Labs. Operaciones agénticas para firmas de servicios profesionales."
+      "form.status.error": "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@oakbase.ai.",
+      "footer.copy": "© 2026 Oakbase. Operaciones agénticas para firmas de servicios profesionales."
     }
   }
 };
 
-const storageKey = "agentia-lang";
+const storageKey = "oakbase-lang";
 const supportedLanguages = ["en", "es"];
 let currentLanguage = supportedLanguages.includes(document.documentElement.dataset.initialLang)
   ? document.documentElement.dataset.initialLang
@@ -486,7 +486,7 @@ function setLanguage(language, persist = true) {
     try { localStorage.setItem(storageKey, currentLanguage); } catch (error) {}
   }
 
-  document.dispatchEvent(new CustomEvent("agentia:languagechange"));
+  document.dispatchEvent(new CustomEvent("oakbase:languagechange"));
 }
 
 document.querySelectorAll("[data-language-toggle]").forEach((button) => {
@@ -545,7 +545,7 @@ const demoForm = document.querySelector("[data-demo-form]");
 if (demoForm) {
   const status = demoForm.querySelector("[data-demo-status]");
   const submit = demoForm.querySelector('button[type="submit"]');
-  const endpoint = () => window.AGENTIA_CRM_DEMO_ENDPOINT || demoForm.dataset.endpoint;
+  const endpoint = () => window.OAKBASE_CRM_DEMO_ENDPOINT || demoForm.dataset.endpoint;
 
   const setFormStatus = (state) => {
     if (!status) return;
@@ -553,7 +553,7 @@ if (demoForm) {
     status.dataset.state = state;
   };
 
-  document.addEventListener("agentia:languagechange", () => setFormStatus("idle"));
+  document.addEventListener("oakbase:languagechange", () => setFormStatus("idle"));
 
   demoForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -1026,7 +1026,7 @@ workspaceComposer?.addEventListener("submit", (event) => {
   workspaceComposer.reset();
 });
 
-document.addEventListener("agentia:languagechange", syncWorkspaceConversationLanguage);
+document.addEventListener("oakbase:languagechange", syncWorkspaceConversationLanguage);
 
 renderWorkspaceScenario();
 

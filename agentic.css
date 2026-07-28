@@ -2003,7 +2003,7 @@ h1, h2, h3 {
   }
 }
 
-/* Agentia Workspace — conversational control surface in the hero product. */
+/* Oakbase Workspace — conversational control surface in the hero product. */
 .workspace-preview.workspace-conversation {
   position: relative;
   min-height: 0;
@@ -4113,7 +4113,7 @@ body.rail-open .rail-toggle {
   }
 }
 
-/* Agentia Workspace runtime: streamed dialogue with visible MCP, tool and agent calls. */
+/* Oakbase Workspace runtime: streamed dialogue with visible MCP, tool and agent calls. */
 .workspace-turn p[data-workspace-stream] {
   display: grid;
 }
