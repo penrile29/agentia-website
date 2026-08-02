@@ -790,6 +790,7 @@ h1, h2, h3 {
   height: 560px;
   min-width: 0;
   min-height: 0;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr);
   color: var(--paper);
@@ -2759,7 +2760,8 @@ body.rail-open .rail-toggle {
 .manifesto-spotlight-copy {
   transform: translate3d(0, var(--manifesto-title-y, 96px), 0) scale(var(--manifesto-title-scale, 0.92));
   transform-origin: left center;
-  will-change: transform;
+  opacity: var(--manifesto-title-opacity, 1);
+  will-change: transform, opacity;
 }
 
 .manifesto-spotlight-copy .eyebrow {
@@ -2776,12 +2778,20 @@ body.rail-open .rail-toggle {
 }
 
 .manifesto-spotlight-support {
-  max-width: 420px;
-  margin: 16vh 0 0;
+  position: absolute;
+  top: 50%;
+  right: var(--manifesto-support-right, 6vw);
+  left: var(--manifesto-support-left, 66vw);
+  max-width: none;
+  margin: 0;
   color: #b9c1bb;
-  font-size: clamp(15px, 1.15vw, 20px);
-  line-height: 1.55;
-  transform: translate3d(0, var(--manifesto-support-y, 48px), 0);
+  font-size: var(--manifesto-support-font-size, clamp(15px, 1.15vw, 20px));
+  font-weight: 400;
+  letter-spacing: var(--manifesto-support-letter-spacing, 0);
+  line-height: var(--manifesto-support-line-height, 1.55);
+  transform: translate3d(0, calc(-50% + var(--manifesto-support-y, 48px)), 0);
+  transform-origin: right center;
+  will-change: transform;
 }
 
 .manifesto-spotlight-progress {
@@ -4335,5 +4345,224 @@ body.rail-open .rail-toggle {
   .workspace-runtime:not(.is-complete) .workspace-runtime-heading small,
   .workspace-runtime-row.is-running .workspace-runtime-state i {
     animation: none;
+  }
+}
+
+/* Time Capture example — the operating cycle advances with page scroll. */
+.example-story {
+  --example-line-progress: 1;
+  position: relative;
+  padding: 0;
+  background: var(--paper);
+  scroll-margin-top: 0;
+}
+
+.example-stage {
+  background: var(--paper);
+}
+
+.example-inner {
+  padding: 82px clamp(42px, 5vw, 76px) 72px;
+}
+
+.example-heading {
+  margin-bottom: clamp(30px, 4vw, 52px);
+}
+
+.example-heading > .section-number {
+  white-space: nowrap;
+}
+
+.example-heading h2 {
+  max-width: 820px;
+}
+
+.example-heading > p:last-child {
+  align-self: center;
+  margin-top: 22px;
+}
+
+.example-operation {
+  width: 100%;
+}
+
+.method-timeline.example-timeline {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.method-timeline.example-timeline::after {
+  transform: scaleX(var(--example-line-progress));
+}
+
+.example-timeline strong {
+  font-size: clamp(22px, 1.9vw, 30px);
+}
+
+.example-timeline p {
+  max-width: 190px;
+}
+
+.example-timeline > li {
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+
+.example-integrations {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 20px;
+  margin-top: 16px;
+}
+
+.example-integrations img {
+  display: block;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.28;
+}
+
+.example-integrations img.is-example-stack {
+  filter: none;
+  opacity: 1;
+}
+
+.example-integrations img[alt="Oakbase"] {
+  width: 21px;
+  height: 21px;
+}
+
+@media (min-width: 1041px) and (prefers-reduced-motion: no-preference) {
+  .example-story {
+    height: 180svh;
+    min-height: 1250px;
+  }
+
+  .example-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .example-inner {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(24px, 3.4svh, 36px) clamp(42px, 5vw, 76px) clamp(18px, 2.6svh, 26px);
+  }
+
+  .example-heading {
+    grid-template-columns: 120px minmax(0, 1.45fr) minmax(250px, 0.72fr);
+    gap: clamp(26px, 3vw, 48px);
+    align-items: stretch;
+    margin-bottom: clamp(20px, 2.8svh, 30px);
+  }
+
+  .example-heading .eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .example-heading h2 {
+    max-width: 760px;
+    font-size: clamp(44px, 4.25vw, 62px);
+    line-height: 0.95;
+  }
+
+  .example-heading > p:last-child {
+    align-self: center;
+    max-width: 390px;
+    margin: 8px 0 0;
+    font-size: clamp(13px, 1vw, 15px);
+    line-height: 1.45;
+  }
+
+  .example-story .example-timeline li:first-child {
+    padding-left: 24px;
+  }
+}
+
+@media (min-width: 781px) and (max-width: 1040px) {
+  .example-inner {
+    padding: 70px 24px 54px;
+  }
+
+  .method-timeline.example-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .example-story .example-timeline li:last-child {
+    grid-column: auto;
+    padding-right: 0;
+    border-left: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 780px) {
+  .example-inner {
+    padding: 56px 22px 42px;
+  }
+
+  .example-heading {
+    margin-bottom: 42px;
+  }
+
+  .example-heading h2 {
+    max-width: 620px;
+    font-size: clamp(44px, 13vw, 58px);
+    line-height: 0.96;
+  }
+
+  .example-heading > p:last-child {
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .method-timeline.example-timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .example-story .example-timeline li + li {
+    border-left: 0;
+  }
+
+  .example-integrations {
+    grid-column: 2;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .example-integrations img {
+    width: 20px;
+    height: 20px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .example-heading h2 {
+    font-size: 46px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .example-story {
+    height: auto;
+    min-height: 0;
+  }
+
+  .example-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
   }
 }

@@ -56,8 +56,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300,0,0" rel="stylesheet" />
-  <link rel="stylesheet" href="agentic.css?v=20260714-27" />
-  <script src="site.js?v=20260714-25" defer></script>
+  <link rel="stylesheet" href="agentic.css?v=20260802-8" />
+  <script src="site.js?v=20260802-18" defer></script>
 </head>
 
 <body>
@@ -85,9 +85,10 @@
       </a>
 
       <nav class="rail-nav">
-        <a class="is-active" href="#top" data-nav-link data-i18n="nav.operations">Agentic Operations</a>
-        <a href="#industries" data-nav-link data-i18n="nav.industries">Industry Blueprints</a>
-        <a href="#workspace" data-nav-link data-i18n="nav.workspace">The Workspace</a>
+        <a class="is-active" href="#top" data-nav-link data-i18n="nav.operations">Managed Operations</a>
+        <a href="#industries" data-nav-link data-i18n="nav.industries">Industries</a>
+        <a href="#workspace" data-nav-link data-i18n="nav.workspace">The Platform</a>
+        <a href="#example" data-nav-link data-i18n="nav.example">Example</a>
         <a href="#method" data-nav-link data-i18n="nav.method">How we work</a>
         <a href="#trust" data-nav-link data-i18n="nav.trust">Trust</a>
       </nav>
@@ -110,9 +111,10 @@
 
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav aria-label="Mobile navigation">
-      <a href="#top" data-mobile-link data-i18n="nav.operations">Agentic Operations</a>
-      <a href="#industries" data-mobile-link data-i18n="nav.industries">Industry Blueprints</a>
-      <a href="#workspace" data-mobile-link data-i18n="nav.workspace">The Workspace</a>
+      <a href="#top" data-mobile-link data-i18n="nav.operations">Managed Operations</a>
+      <a href="#industries" data-mobile-link data-i18n="nav.industries">Industries</a>
+      <a href="#workspace" data-mobile-link data-i18n="nav.workspace">The Platform</a>
+      <a href="#example" data-mobile-link data-i18n="nav.example">Example</a>
       <a href="#method" data-mobile-link data-i18n="nav.method">How we work</a>
       <a href="#trust" data-mobile-link data-i18n="nav.trust">Trust</a>
       <a class="button button-dark" href="#demo-form" data-mobile-link data-i18n="nav.cta">Book a demo</a>
@@ -123,15 +125,15 @@
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
         <p class="eyebrow"><span></span><span data-i18n="hero.eyebrow">Agentic operations</span></p>
-        <h1 id="hero-title" data-i18n="hero.title">Operations,<br />run by agents.</h1>
-        <p class="hero-intro" data-i18n="hero.copy">Cut through the AI noise. Put focused agents to work—without replacing professional judgement.</p>
+        <h1 id="hero-title" data-i18n="hero.title">Let expert focus on what matters</h1>
+        <p class="hero-intro" data-i18n="hero.copy">Oakbase uses AI to design, deploy and run the operational work around professional judgement—for law and wealth management firms.</p>
         <div class="hero-actions">
           <a class="button button-dark" href="#demo-form" data-demo-link>
-            <span data-i18n="hero.primary">Book a demo</span>
+            <span data-i18n="hero.primary">Assess an Operation</span>
             <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
           </a>
-          <a class="text-link" href="#workspace">
-            <span data-i18n="hero.secondary">Explore Workspace</span>
+          <a class="text-link" href="#example">
+            <span data-i18n="hero.secondary">See an example</span>
             <span class="material-symbols-outlined" aria-hidden="true">south</span>
           </a>
         </div>
@@ -256,7 +258,7 @@
         <p class="section-number">03 / PRODUCT</p>
         <div>
           <p class="eyebrow"><span></span><span>Oakbase Workspace</span></p>
-          <h2 id="workspace-title" data-i18n="workspace.title">One platform,<br />two kinds of agents <span class="workspace-title-lock">working together.</span></h2>
+          <h2 id="workspace-title" data-i18n="workspace.title">One platform with two types of agents<br />to run your business operations</h2>
           <p class="workspace-positioning" data-i18n="workspace.copy">General-purpose AI gives professionals a blank canvas. Oakbase gives them focused agents, grounded in firm context and proven processes, to execute work faster and spend more time on judgement, clients and outcomes.</p>
         </div>
       </header>
@@ -267,7 +269,7 @@
             <span class="material-symbols-outlined" aria-hidden="true">precision_manufacturing</span>
             <p class="section-number">01</p>
           </div>
-          <h3 data-i18n="workspace.headless.title">Headless execution</h3>
+          <h3 data-i18n="workspace.headless.title">Background Agents</h3>
           <p data-i18n="workspace.headless.copy">Agents run the operational work around your professionals—always on, structured and auditable.</p>
           <ul>
             <li data-i18n="workspace.headless.one">Autonomous, always-on execution</li>
@@ -293,12 +295,94 @@
       </div>
     </section>
 
+    <section class="example-story section-rule" id="example" data-example-story aria-labelledby="example-title">
+      <div class="example-stage">
+        <div class="example-inner">
+          <header class="section-heading example-heading">
+            <p class="section-number">04 / EXAMPLE</p>
+            <div>
+              <p class="eyebrow"><span></span><span data-i18n="example.kicker">Time Capture operation</span></p>
+              <h2 id="example-title" data-i18n="example.title">Time capture in a mid-size law firm</h2>
+            </div>
+            <p data-i18n="example.copy">From work signals to approved time, using authorised matters, activity, permissions and approval rules.</p>
+          </header>
+
+          <div class="example-operation">
+            <ol class="method-timeline example-timeline" data-example-timeline>
+              <li data-example-step>
+                <span class="method-step-number">01</span>
+                <span class="method-step-week" data-i18n="example.one.label">Systems</span>
+                <strong data-i18n="example.one.title">Get Customers &amp; Matters</strong>
+                <p data-i18n="example.one.copy">Use that professional’s permissions to retrieve their active matters and authorised client context from the CRM and matter system.</p>
+                <div class="example-integrations">
+                  <img class="is-example-stack" src="assets/logos/clio.svg" alt="Clio" width="20" height="20" loading="lazy" decoding="async" />
+                  <img src="assets/logos/salesforce.svg" alt="Salesforce" width="20" height="20" loading="lazy" decoding="async" />
+                  <img src="assets/logos/hubspot.svg" alt="HubSpot" width="20" height="20" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li data-example-step>
+                <span class="method-step-number">02</span>
+                <span class="method-step-week" data-i18n="example.two.label">Evidence</span>
+                <strong data-i18n="example.two.title">Analyse documents</strong>
+                <p data-i18n="example.two.copy">Detect drafting, review and matter activity across approved documents.</p>
+                <div class="example-integrations">
+                  <img src="assets/logos/onedrive.svg" alt="OneDrive" width="20" height="20" loading="lazy" decoding="async" />
+                  <img class="is-example-stack" src="assets/logos/sharepoint.svg" alt="SharePoint" width="20" height="20" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li data-example-step>
+                <span class="method-step-number">03</span>
+                <span class="method-step-week" data-i18n="example.three.label">Activity</span>
+                <strong data-i18n="example.three.title">Analyse calendars</strong>
+                <p data-i18n="example.three.copy">Match meetings and events to matters and likely billable work.</p>
+                <div class="example-integrations">
+                  <img src="assets/logos/google.svg" alt="Google" width="20" height="20" loading="lazy" decoding="async" />
+                  <img class="is-example-stack" src="assets/logos/microsoft.svg" alt="Microsoft" width="20" height="20" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li data-example-step>
+                <span class="method-step-number">04</span>
+                <span class="method-step-week" data-i18n="example.four.label">Activity</span>
+                <strong data-i18n="example.four.title">Analyse email</strong>
+                <p data-i18n="example.four.copy">Identify matter-related work and follow-ups within approved access.</p>
+                <div class="example-integrations">
+                  <img src="assets/logos/google.svg" alt="Google" width="20" height="20" loading="lazy" decoding="async" />
+                  <img class="is-example-stack" src="assets/logos/microsoft.svg" alt="Microsoft" width="20" height="20" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li data-example-step>
+                <span class="method-step-number">05</span>
+                <span class="method-step-week" data-i18n="example.five.label">Proposal</span>
+                <strong data-i18n="example.five.title">Calculate billable time</strong>
+                <p data-i18n="example.five.copy">Reconcile activity, remove duplicates and calculate draft billable entries by matter.</p>
+                <div class="example-integrations">
+                  <img class="is-example-stack" src="assets/oakbase-mark-h.svg" alt="Oakbase" width="20" height="20" loading="lazy" decoding="async" />
+                </div>
+              </li>
+              <li data-example-step>
+                <span class="method-step-number">06</span>
+                <span class="method-step-week" data-i18n="example.six.label">Control</span>
+                <strong data-i18n="example.six.title">Human review</strong>
+                <p data-i18n="example.six.copy">Send proposed entries, evidence and exceptions to that professional for confirmation.</p>
+                <div class="example-integrations">
+                  <img class="is-example-stack" src="assets/oakbase-mark-h.svg" alt="Oakbase" width="20" height="20" loading="lazy" decoding="async" />
+                  <img class="is-example-stack" src="assets/logos/anthropic.svg" alt="Anthropic" width="20" height="20" loading="lazy" decoding="async" />
+                  <img src="assets/logos/openai-mark.svg" alt="OpenAI" width="20" height="20" loading="lazy" decoding="async" />
+                </div>
+              </li>
+            </ol>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <section class="industries-section section-rule" id="industries" aria-labelledby="industries-title">
       <header class="industries-intro">
-        <p class="section-number">02 / INDUSTRY BLUEPRINTS</p>
+        <p class="section-number">02 / MANAGED OPERATIONS</p>
         <div>
-          <p class="eyebrow"><span></span><span data-i18n="industries.kicker">We are building the industry expertise and engineering the agents</span></p>
-          <h2 id="industries-title" data-i18n="industries.title">Industry blueprints</h2>
+          <p class="eyebrow"><span></span><span data-i18n="industries.kicker">Defined operational work, run end to end</span></p>
+          <h2 id="industries-title" data-i18n="industries.title">Managed Operations</h2>
         </div>
       </header>
 
@@ -306,13 +390,13 @@
         <article class="industry-column">
           <div class="industry-label"><span>01</span><i></i></div>
           <h3 data-i18n="law.title">For law firms</h3>
-          <p class="industry-lead" data-i18n="law.copy">Five deployment-ready agent blueprints grounded in how a law firm actually operates.</p>
+          <p class="industry-lead" data-i18n="law.copy">Managed operations around matters, billing and client delivery.</p>
           <ol class="industry-jobs">
-            <li><span>01</span><strong data-i18n="law.one.title">Partner Intelligence Agent</strong><p data-i18n="law.one.copy">Prepares client meetings and gives partners a live view of pipeline, matters and firm performance.</p></li>
-            <li><span>02</span><strong data-i18n="law.two.title">Lawyer Operations Agent</strong><p data-i18n="law.two.copy">Orchestrates matters, tasks, documents and specialist agents from one conversation.</p></li>
-            <li><span>03</span><strong data-i18n="law.three.title">Time Capture Agent</strong><p data-i18n="law.three.copy">Reconstructs work and proposes billable entries by matter for approval.</p></li>
-            <li><span>04</span><strong data-i18n="law.four.title">Pipeline Monitor</strong><p data-i18n="law.four.copy">Flags stalled prospects and proposals, then prepares the next action.</p></li>
-            <li><span>05</span><strong data-i18n="law.five.title">Client Intake &amp; Onboarding Agent</strong><p data-i18n="law.five.copy">Coordinates prospect screening, conflict checks, KYC/AML and CRM-to-matter onboarding.</p></li>
+            <li><span>01</span><strong data-i18n="law.one.title">Partner Briefing</strong><p data-i18n="law.one.copy">Prepare client meetings and surface pipeline, matter and firm priorities for partner review.</p></li>
+            <li><span>02</span><strong data-i18n="law.two.title">Matter Coordination</strong><p data-i18n="law.two.copy">Coordinate matter tasks, documents, approvals and operational handoffs across the firm.</p></li>
+            <li><span>03</span><strong data-i18n="law.three.title">Time Capture</strong><p data-i18n="law.three.copy">Identify missing billable work, prepare entries for review and record approved time.</p></li>
+            <li><span>04</span><strong data-i18n="law.four.title">Pipeline Follow-through</strong><p data-i18n="law.four.copy">Identify stalled opportunities, prepare next actions and coordinate follow-ups.</p></li>
+            <li><span>05</span><strong data-i18n="law.five.title">Client Intake &amp; Onboarding</strong><p data-i18n="law.five.copy">Coordinate screening, conflict checks, KYC/AML and the handoff from CRM to matter systems.</p></li>
           </ol>
           <a class="text-link" href="#demo-form"><span data-i18n="law.cta">Explore law firm operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </article>
@@ -320,13 +404,13 @@
         <article class="industry-column">
           <div class="industry-label"><span>02</span><i></i></div>
           <h3 data-i18n="wealth.title">For wealth management firms</h3>
-          <p class="industry-lead" data-i18n="wealth.copy">Five deployment-ready agent blueprints grounded in the operational client lifecycle.</p>
+          <p class="industry-lead" data-i18n="wealth.copy">Managed operations around onboarding, reviews and client data.</p>
           <ol class="industry-jobs">
-            <li><span>01</span><strong data-i18n="wealth.one.title">Client Onboarding Agent</strong><p data-i18n="wealth.one.copy">Builds application packs, pre-fills known data and flags missing evidence.</p></li>
-            <li><span>02</span><strong data-i18n="wealth.two.title">Client Review Preparation Agent</strong><p data-i18n="wealth.two.copy">Prepares review packs from approved facts and surfaces gaps for adviser sign-off.</p></li>
-            <li><span>03</span><strong data-i18n="wealth.three.title">Signing &amp; Records Agent</strong><p data-i18n="wealth.three.copy">Prepares signature packs, tracks completion and files signed evidence.</p></li>
-            <li><span>04</span><strong data-i18n="wealth.four.title">Client Data Readiness Agent</strong><p data-i18n="wealth.four.copy">Finds missing fields and prepares evidence-backed client record updates.</p></li>
-            <li><span>05</span><strong data-i18n="wealth.five.title">Finance &amp; Management Reporting Agent</strong><p data-i18n="wealth.five.copy">Reconciles recurring data and drafts adviser statements, KPIs and board commentary.</p></li>
+            <li><span>01</span><strong data-i18n="wealth.one.title">Client Onboarding</strong><p data-i18n="wealth.one.copy">Prepare application packs, collect missing evidence and coordinate approvals through account opening.</p></li>
+            <li><span>02</span><strong data-i18n="wealth.two.title">Client Review Preparation</strong><p data-i18n="wealth.two.copy">Assemble review packs from approved facts and surface gaps for adviser sign-off.</p></li>
+            <li><span>03</span><strong data-i18n="wealth.three.title">Signing &amp; Records</strong><p data-i18n="wealth.three.copy">Prepare signature packs, track completion and file signed evidence in the right systems.</p></li>
+            <li><span>04</span><strong data-i18n="wealth.four.title">Client Data Readiness</strong><p data-i18n="wealth.four.copy">Identify missing fields, prepare evidence-backed updates and route exceptions for review.</p></li>
+            <li><span>05</span><strong data-i18n="wealth.five.title">Finance &amp; Management Reporting</strong><p data-i18n="wealth.five.copy">Reconcile recurring data and prepare statements, KPIs and management commentary for review.</p></li>
           </ol>
           <a class="text-link" href="#demo-form"><span data-i18n="wealth.cta">Explore wealth operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </article>
@@ -337,7 +421,7 @@
       <div class="method-stage">
         <div class="method-inner">
           <header class="section-heading method-heading">
-            <p class="section-number">04 / HOW WE WORK</p>
+            <p class="section-number">05 / HOW WE WORK</p>
             <div>
               <p class="eyebrow"><span></span><span data-i18n="method.kicker">From first workflow to managed operations</span></p>
               <h2 id="method-title" data-i18n="method.title">One useful operation in four weeks.</h2>
@@ -389,7 +473,7 @@
 
     <section class="trust-section section-rule" id="trust" aria-labelledby="trust-title">
       <header class="trust-copy">
-        <p class="section-number">05 / TRUST</p>
+        <p class="section-number">06 / TRUST</p>
         <div class="trust-intro">
           <p class="eyebrow"><span></span><span data-i18n="trust.kicker">Built for sensitive operations</span></p>
           <h2 id="trust-title" data-i18n="trust.title">Trust is<br />non-negotiable.</h2>
@@ -451,7 +535,7 @@
     <section class="demo-section" id="demo" aria-labelledby="demo-title">
       <div class="demo-copy">
         <p class="eyebrow eyebrow-light"><span></span><span data-i18n="demo.kicker">Book a demo</span></p>
-        <h2 id="demo-title" data-i18n="demo.title">Find the first operation your agents should run.</h2>
+        <h2 id="demo-title" data-i18n="demo.title">Which operation should your team stop running manually?</h2>
         <p data-i18n="demo.copy">Tell us the minimum context. We will review where agentic operations can create useful, measurable capacity first.</p>
         <a href="mailto:hello@oakbase.ai">hello@oakbase.ai</a>
       </div>

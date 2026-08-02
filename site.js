@@ -3,23 +3,24 @@ const translations = {
     title: "Oakbase — Agentic Operations",
     description: "Oakbase Workspace runs operational and administrative work for professional service firms while core expert judgement stays with their professionals.",
     strings: {
-      "nav.operations": "Agentic Operations",
-      "nav.industries": "Industry Blueprints",
-      "nav.workspace": "The Workspace",
+      "nav.operations": "Managed Operations",
+      "nav.industries": "Industries",
+      "nav.workspace": "The Platform",
+      "nav.example": "Example",
       "nav.method": "How we work",
       "nav.trust": "Trust",
       "nav.cta": "Book a demo",
       "hero.eyebrow": "Agentic operations",
-      "hero.title": "Operations,<br />run by agents.",
-      "hero.copy": "Cut through the AI noise. Put focused agents to work—without replacing professional judgement.",
-      "hero.primary": "Book a demo",
-      "hero.secondary": "Explore Workspace",
+      "hero.title": "Let expert focus on what matters",
+      "hero.copy": "Oakbase uses AI to design, deploy and run the operational work around professional judgement—for law and wealth management firms.",
+      "hero.primary": "Assess an Operation",
+      "hero.secondary": "See an example",
       "manifesto.kicker": "Our manifesto",
       "manifesto.title": "Your best people shouldn't be wasting time",
       "manifesto.copy": "Repetitive work belongs to agents. Give your teams back the time, judgement and relationships that move your business forward.",
-      "workspace.title": "One platform,<br />two kinds of agents <span class=\"workspace-title-lock\">working together.</span>",
+      "workspace.title": "One platform with two types of agents<br />to run your business operations",
       "workspace.copy": "General-purpose AI gives professionals a blank canvas. Oakbase gives them focused agents, grounded in firm context and proven processes, to execute work faster and spend more time on judgement, clients and outcomes.",
-      "workspace.headless.title": "Headless execution",
+      "workspace.headless.title": "Background Agents",
       "workspace.headless.copy": "Agents run the operational work around your professionals—always on, structured and auditable.",
       "workspace.headless.one": "Autonomous, always-on execution",
       "workspace.headless.two": "Human-in-the-loop for exceptions",
@@ -29,6 +30,27 @@ const translations = {
       "workspace.focused.one": "One focused agent for each job",
       "workspace.focused.two": "Grounded in firm knowledge and live data",
       "workspace.focused.three": "Human approval before action",
+      "example.kicker": "Time Capture operation",
+      "example.title": "Time capture in a mid-size law firm",
+      "example.copy": "From work signals to approved time, using authorised matters, activity, permissions and approval rules.",
+      "example.one.label": "Systems",
+      "example.one.title": "Get Customers & Matters",
+      "example.one.copy": "Use that professional’s permissions to retrieve their active matters and authorised client context from the CRM and matter system.",
+      "example.two.label": "Evidence",
+      "example.two.title": "Analyse documents",
+      "example.two.copy": "Detect drafting, review and matter activity across approved documents.",
+      "example.three.label": "Activity",
+      "example.three.title": "Analyse calendars",
+      "example.three.copy": "Match meetings and events to matters and likely billable work.",
+      "example.four.label": "Activity",
+      "example.four.title": "Analyse email",
+      "example.four.copy": "Identify matter-related work and follow-ups within approved access.",
+      "example.five.label": "Proposal",
+      "example.five.title": "Calculate billable time",
+      "example.five.copy": "Reconcile activity, remove duplicates and calculate draft billable entries by matter.",
+      "example.six.label": "Control",
+      "example.six.title": "Human review",
+      "example.six.copy": "Send proposed entries, evidence and exceptions to that professional for confirmation.",
       "workspace.runtime.label": "Live execution",
       "workspace.runtime.live": "LIVE",
       "workspace.runtime.ready": "READY",
@@ -126,33 +148,33 @@ const translations = {
       "outcomes.hours": "hours released",
       "outcomes.quality": "quality pass",
       "outcomes.exceptions": "exceptions awaiting judgement",
-      "industries.kicker": "We are building the industry expertise and engineering the agents",
-      "industries.title": "Industry blueprints",
+      "industries.kicker": "Defined operational work, run end to end",
+      "industries.title": "Managed Operations",
       "law.title": "For law firms",
-      "law.copy": "Five deployment-ready agent blueprints grounded in how a law firm actually operates.",
-      "law.one.title": "Partner Intelligence Agent",
-      "law.one.copy": "Prepares client meetings and gives partners a live view of pipeline, matters and firm performance.",
-      "law.two.title": "Lawyer Operations Agent",
-      "law.two.copy": "Orchestrates matters, tasks, documents and specialist agents from one conversation.",
-      "law.three.title": "Time Capture Agent",
-      "law.three.copy": "Reconstructs work and proposes billable entries by matter for approval.",
-      "law.four.title": "Pipeline Monitor",
-      "law.four.copy": "Flags stalled prospects and proposals, then prepares the next action.",
-      "law.five.title": "Client Intake & Onboarding Agent",
-      "law.five.copy": "Coordinates prospect screening, conflict checks, KYC/AML and CRM-to-matter onboarding.",
+      "law.copy": "Managed operations around matters, billing and client delivery.",
+      "law.one.title": "Partner Briefing",
+      "law.one.copy": "Prepare client meetings and surface pipeline, matter and firm priorities for partner review.",
+      "law.two.title": "Matter Coordination",
+      "law.two.copy": "Coordinate matter tasks, documents, approvals and operational handoffs across the firm.",
+      "law.three.title": "Time Capture",
+      "law.three.copy": "Identify missing billable work, prepare entries for review and record approved time.",
+      "law.four.title": "Pipeline Follow-through",
+      "law.four.copy": "Identify stalled opportunities, prepare next actions and coordinate follow-ups.",
+      "law.five.title": "Client Intake & Onboarding",
+      "law.five.copy": "Coordinate screening, conflict checks, KYC/AML and the handoff from CRM to matter systems.",
       "law.cta": "Explore law firm operations",
       "wealth.title": "For wealth management firms",
-      "wealth.copy": "Five deployment-ready agent blueprints grounded in the operational client lifecycle.",
-      "wealth.one.title": "Client Onboarding Agent",
-      "wealth.one.copy": "Builds application packs, pre-fills known data and flags missing evidence.",
-      "wealth.two.title": "Client Review Preparation Agent",
-      "wealth.two.copy": "Prepares review packs from approved facts and surfaces gaps for adviser sign-off.",
-      "wealth.three.title": "Signing & Records Agent",
-      "wealth.three.copy": "Prepares signature packs, tracks completion and files signed evidence.",
-      "wealth.four.title": "Client Data Readiness Agent",
-      "wealth.four.copy": "Finds missing fields and prepares evidence-backed client record updates.",
-      "wealth.five.title": "Finance & Management Reporting Agent",
-      "wealth.five.copy": "Reconciles recurring data and drafts adviser statements, KPIs and board commentary.",
+      "wealth.copy": "Managed operations around onboarding, reviews and client data.",
+      "wealth.one.title": "Client Onboarding",
+      "wealth.one.copy": "Prepare application packs, collect missing evidence and coordinate approvals through account opening.",
+      "wealth.two.title": "Client Review Preparation",
+      "wealth.two.copy": "Assemble review packs from approved facts and surface gaps for adviser sign-off.",
+      "wealth.three.title": "Signing & Records",
+      "wealth.three.copy": "Prepare signature packs, track completion and file signed evidence in the right systems.",
+      "wealth.four.title": "Client Data Readiness",
+      "wealth.four.copy": "Identify missing fields, prepare evidence-backed updates and route exceptions for review.",
+      "wealth.five.title": "Finance & Management Reporting",
+      "wealth.five.copy": "Reconcile recurring data and prepare statements, KPIs and management commentary for review.",
       "wealth.cta": "Explore wealth operations",
       "method.kicker": "From first workflow to managed operations",
       "method.title": "One useful operation in four weeks.",
@@ -196,7 +218,7 @@ const translations = {
       "trust.three.proof.two": "No training on customer data",
       "trust.three.proof.three": "Firm-controlled retention",
       "demo.kicker": "Book a demo",
-      "demo.title": "Find the first operation your agents should run.",
+      "demo.title": "Which operation should your team stop running manually?",
       "demo.copy": "Tell us the minimum context. We will review where agentic operations can create useful, measurable capacity first.",
       "form.firstName": "First name",
       "form.lastName": "Last name",
@@ -223,23 +245,24 @@ const translations = {
     title: "Oakbase — Operaciones agénticas",
     description: "Oakbase Workspace ejecuta el trabajo operativo y administrativo de firmas de servicios profesionales mientras el criterio experto permanece en sus profesionales.",
     strings: {
-      "nav.operations": "Operaciones agénticas",
-      "nav.industries": "Blueprints por industria",
-      "nav.workspace": "El Workspace",
+      "nav.operations": "Operaciones gestionadas",
+      "nav.industries": "Industrias",
+      "nav.workspace": "La plataforma",
+      "nav.example": "Ejemplo",
       "nav.method": "Cómo trabajamos",
       "nav.trust": "Confianza",
       "nav.cta": "Reserva una demo",
       "hero.eyebrow": "Operaciones agénticas",
-      "hero.title": "Operaciones,<br />ejecutadas por agentes.",
-      "hero.copy": "Reduce el ruido de la IA. Pon agentes enfocados a trabajar sin sustituir el criterio profesional.",
-      "hero.primary": "Reserva una demo",
-      "hero.secondary": "Explora Workspace",
+      "hero.title": "Que el experto se centre en lo que importa",
+      "hero.copy": "Oakbase utiliza IA para diseñar, desplegar y ejecutar el trabajo operativo alrededor del criterio profesional en despachos de abogados y firmas de gestión patrimonial.",
+      "hero.primary": "Evalúa una operación",
+      "hero.secondary": "Ver un ejemplo",
       "manifesto.kicker": "Nuestro manifiesto",
       "manifesto.title": "Tus mejores profesionales no deberían perder el tiempo",
       "manifesto.copy": "El trabajo repetitivo pertenece a los agentes. Devuelve a tus equipos el tiempo, el criterio y las relaciones que hacen avanzar el negocio.",
-      "workspace.title": "Una plataforma,<br />dos tipos de agentes <span class=\"workspace-title-lock\">trabajando juntos.</span>",
+      "workspace.title": "Una plataforma con dos tipos de agentes<br />para gestionar tus operaciones de negocio",
       "workspace.copy": "La IA generalista deja a los profesionales ante un lienzo en blanco. Oakbase les ofrece agentes enfocados, basados en el contexto y los procesos de la firma, para ejecutar más rápido y dedicar más tiempo al criterio, los clientes y los resultados.",
-      "workspace.headless.title": "Ejecución headless",
+      "workspace.headless.title": "Agentes en segundo plano",
       "workspace.headless.copy": "Los agentes ejecutan el trabajo operativo que rodea a tus profesionales: siempre activos, estructurados y auditables.",
       "workspace.headless.one": "Ejecución autónoma y siempre activa",
       "workspace.headless.two": "Supervisión humana ante excepciones",
@@ -249,6 +272,27 @@ const translations = {
       "workspace.focused.one": "Un agente enfocado para cada tarea",
       "workspace.focused.two": "Basados en conocimiento y datos de la firma",
       "workspace.focused.three": "Aprobación humana antes de actuar",
+      "example.kicker": "Operación de captura de tiempo",
+      "example.title": "Captura de tiempo en un despacho mediano",
+      "example.copy": "Del trabajo realizado al tiempo aprobado, usando asuntos, actividad, permisos y reglas de aprobación autorizados.",
+      "example.one.label": "Sistemas",
+      "example.one.title": "Obtener clientes y asuntos",
+      "example.one.copy": "Utiliza los permisos de ese profesional para consultar sus asuntos activos y el contexto autorizado en el CRM y el sistema de asuntos.",
+      "example.two.label": "Evidencia",
+      "example.two.title": "Analizar documentos",
+      "example.two.copy": "Detecta redacción, revisión y actividad por asunto en documentos autorizados.",
+      "example.three.label": "Actividad",
+      "example.three.title": "Analizar calendarios",
+      "example.three.copy": "Relaciona reuniones y eventos con asuntos y trabajo potencialmente facturable.",
+      "example.four.label": "Actividad",
+      "example.four.title": "Analizar correo",
+      "example.four.copy": "Identifica trabajo y seguimientos por asunto dentro del acceso autorizado.",
+      "example.five.label": "Propuesta",
+      "example.five.title": "Calcular tiempo facturable",
+      "example.five.copy": "Concilia actividad, elimina duplicados y calcula borradores de registros facturables por asunto.",
+      "example.six.label": "Control",
+      "example.six.title": "Revisión humana",
+      "example.six.copy": "Envía los registros, evidencias y excepciones propuestos a ese profesional para su confirmación.",
       "workspace.runtime.label": "Ejecución en directo",
       "workspace.runtime.live": "EN DIRECTO",
       "workspace.runtime.ready": "LISTO",
@@ -346,33 +390,33 @@ const translations = {
       "outcomes.hours": "horas liberadas",
       "outcomes.quality": "quality pass",
       "outcomes.exceptions": "excepciones pendientes de criterio",
-      "industries.kicker": "Estamos construyendo el conocimiento sectorial y desarrollando los agentes",
-      "industries.title": "Blueprints por industria",
-      "law.title": "Para despachos",
-      "law.copy": "Cinco blueprints de agentes listos para desplegar, basados en cómo opera realmente un despacho.",
-      "law.one.title": "Agente de inteligencia para socios",
-      "law.one.copy": "Prepara reuniones y ofrece a los socios una visión actualizada del pipeline, los asuntos y la firma.",
-      "law.two.title": "Agente de operaciones para abogados",
-      "law.two.copy": "Orquesta asuntos, tareas, documentos y agentes especializados desde una conversación.",
-      "law.three.title": "Agente de captura de tiempo",
-      "law.three.copy": "Reconstruye el trabajo y propone registros facturables por asunto para aprobación.",
-      "law.four.title": "Monitor de pipeline",
-      "law.four.copy": "Detecta prospectos y propuestas estancadas, y prepara la siguiente acción.",
-      "law.five.title": "Agente de intake y onboarding de clientes",
-      "law.five.copy": "Coordina la evaluación inicial, conflictos, KYC/AML y el alta en CRM y asuntos.",
+      "industries.kicker": "Trabajo operativo definido, gestionado de principio a fin",
+      "industries.title": "Operaciones gestionadas",
+      "law.title": "Para despachos de abogados",
+      "law.copy": "Operaciones gestionadas alrededor de asuntos, facturación y servicio al cliente.",
+      "law.one.title": "Preparación para socios",
+      "law.one.copy": "Prepara reuniones con clientes y presenta prioridades de pipeline, asuntos y firma para revisión del socio.",
+      "law.two.title": "Coordinación de asuntos",
+      "law.two.copy": "Coordina tareas, documentos, aprobaciones y traspasos operativos en cada asunto.",
+      "law.three.title": "Captura de tiempo",
+      "law.three.copy": "Identifica trabajo facturable omitido, prepara registros para revisión y contabiliza el tiempo aprobado.",
+      "law.four.title": "Seguimiento comercial",
+      "law.four.copy": "Identifica oportunidades estancadas, prepara siguientes acciones y coordina seguimientos.",
+      "law.five.title": "Admisión y onboarding de clientes",
+      "law.five.copy": "Coordina screening, conflictos, KYC/AML y el traspaso del CRM a los sistemas de asuntos.",
       "law.cta": "Explora operaciones legales",
-      "wealth.title": "Para firmas de wealth management",
-      "wealth.copy": "Cinco blueprints de agentes listos para desplegar, basados en el ciclo operativo del cliente.",
-      "wealth.one.title": "Agente de onboarding de clientes",
-      "wealth.one.copy": "Prepara expedientes, prerrellena datos conocidos y señala evidencias pendientes.",
-      "wealth.two.title": "Agente de preparación de revisiones",
-      "wealth.two.copy": "Prepara revisiones con datos aprobados y señala carencias para aprobación del asesor.",
-      "wealth.three.title": "Agente de firma y archivo",
-      "wealth.three.copy": "Prepara paquetes de firma, controla su finalización y archiva las evidencias.",
-      "wealth.four.title": "Agente de preparación de datos de clientes",
-      "wealth.four.copy": "Detecta campos incompletos y prepara actualizaciones respaldadas por evidencias.",
-      "wealth.five.title": "Agente de reporting financiero y de gestión",
-      "wealth.five.copy": "Concilia datos y prepara informes por asesor, KPIs y comentarios para el consejo.",
+      "wealth.title": "Para firmas de gestión patrimonial",
+      "wealth.copy": "Operaciones gestionadas alrededor de onboarding, revisiones y datos de clientes.",
+      "wealth.one.title": "Onboarding de clientes",
+      "wealth.one.copy": "Prepara expedientes, recopila evidencias pendientes y coordina aprobaciones hasta la apertura de la cuenta.",
+      "wealth.two.title": "Preparación de revisiones",
+      "wealth.two.copy": "Reúne la información aprobada, prepara la revisión y señala carencias para la aprobación del asesor.",
+      "wealth.three.title": "Firma y archivo",
+      "wealth.three.copy": "Prepara paquetes de firma, controla su finalización y archiva las evidencias en los sistemas correctos.",
+      "wealth.four.title": "Preparación de datos de clientes",
+      "wealth.four.copy": "Identifica campos incompletos, prepara actualizaciones respaldadas y deriva excepciones para revisión.",
+      "wealth.five.title": "Informes financieros y de gestión",
+      "wealth.five.copy": "Concilia datos recurrentes y prepara estados, KPIs y comentarios de gestión para revisión.",
       "wealth.cta": "Explora operaciones de wealth",
       "method.kicker": "Del primer flujo de trabajo a operaciones gestionadas",
       "method.title": "Una operación útil en cuatro semanas.",
@@ -416,7 +460,7 @@ const translations = {
       "trust.three.proof.two": "Sin entrenamiento con tus datos",
       "trust.three.proof.three": "Retención controlada por la firma",
       "demo.kicker": "Reserva una demo",
-      "demo.title": "Encuentra la primera operación que tus agentes deberían ejecutar.",
+      "demo.title": "¿Qué operación debería dejar de ejecutar manualmente tu equipo?",
       "demo.copy": "Cuéntanos el contexto mínimo. Revisaremos dónde las operaciones agénticas pueden crear primero capacidad útil y medible.",
       "form.firstName": "Nombre",
       "form.lastName": "Apellidos",
@@ -521,7 +565,7 @@ window.addEventListener("resize", () => {
   if (window.innerWidth > 1040) setMenu(false);
 });
 
-const observedSections = ["top", "industries", "workspace", "method", "trust"]
+const observedSections = ["top", "industries", "workspace", "example", "method", "trust"]
   .map((id) => document.getElementById(id))
   .filter(Boolean);
 
@@ -600,6 +644,10 @@ const scrollMeter = document.querySelector(".scroll-meter");
 const heroSection = document.getElementById("top");
 const manifestoSpotlight = document.querySelector(".manifesto-spotlight");
 const workspaceScene = document.getElementById("workspace");
+const exampleStory = document.querySelector("[data-example-story]");
+const exampleSteps = exampleStory
+  ? Array.from(exampleStory.querySelectorAll("[data-example-step]"))
+  : [];
 const methodStory = document.querySelector("[data-method-story]");
 const methodSteps = methodStory
   ? Array.from(methodStory.querySelectorAll("[data-method-step]"))
@@ -1141,14 +1189,34 @@ function updateManifestoMotion(y) {
   const exit = easeOutCubic(clamp((y - exitStart) / 360));
   const opacity = reveal * (1 - exit);
   const overall = clamp((y - start) / Math.max(exitStart + 360 - start, 1));
+  const handoffRaw = clamp((overall - 0.34) / 0.22);
+  const handoff = handoffRaw * handoffRaw * (3 - 2 * handoffRaw);
   const clip = (1 - reveal) * 100;
+  const titleScale = (0.92 + 0.08 * reveal - 0.035 * exit) * (1 - 0.3 * handoff);
+  const viewportWidth = window.innerWidth;
+  const spotlightGap = Math.min(72, Math.max(28, viewportWidth * 0.04));
+  const supportRight = Math.min(112, Math.max(48, viewportWidth * 0.06));
+  const supportStartLeft = viewportWidth * 0.66;
+  const supportEndLeft = 202 + spotlightGap;
+  const supportLeft = supportStartLeft + (supportEndLeft - supportStartLeft) * handoff;
+  const supportBaseSize = Math.min(20, Math.max(15, viewportWidth * 0.0115));
+  const supportTargetSize = Math.min(132, Math.max(64, viewportWidth * 0.072)) * 0.8;
+  const supportFontSize = supportBaseSize + (supportTargetSize - supportBaseSize) * handoff;
+  const supportLineHeight = 1.55 + (0.94 - 1.55) * handoff;
+  const supportY = 54 * (1 - reveal) - 42 * exit + 56 * (1 - handoff);
 
   manifestoSpotlight.style.setProperty("--manifesto-opacity", opacity.toFixed(3));
   manifestoSpotlight.style.setProperty("--manifesto-clip", `${clip.toFixed(2)}%`);
   manifestoSpotlight.style.setProperty("--manifesto-progress", overall.toFixed(3));
   manifestoSpotlight.style.setProperty("--manifesto-title-y", `${(110 * (1 - reveal) - 110 * exit).toFixed(2)}px`);
-  manifestoSpotlight.style.setProperty("--manifesto-title-scale", String((0.92 + 0.08 * reveal - 0.035 * exit).toFixed(4)));
-  manifestoSpotlight.style.setProperty("--manifesto-support-y", `${(54 * (1 - reveal) - 42 * exit).toFixed(2)}px`);
+  manifestoSpotlight.style.setProperty("--manifesto-title-scale", titleScale.toFixed(4));
+  manifestoSpotlight.style.setProperty("--manifesto-title-opacity", String((1 - handoff).toFixed(3)));
+  manifestoSpotlight.style.setProperty("--manifesto-support-right", `${supportRight.toFixed(2)}px`);
+  manifestoSpotlight.style.setProperty("--manifesto-support-left", `${supportLeft.toFixed(2)}px`);
+  manifestoSpotlight.style.setProperty("--manifesto-support-font-size", `${supportFontSize.toFixed(2)}px`);
+  manifestoSpotlight.style.setProperty("--manifesto-support-letter-spacing", `${(-0.055 * handoff).toFixed(4)}em`);
+  manifestoSpotlight.style.setProperty("--manifesto-support-line-height", supportLineHeight.toFixed(4));
+  manifestoSpotlight.style.setProperty("--manifesto-support-y", `${supportY.toFixed(2)}px`);
   document.body.classList.toggle("manifesto-active", opacity > 0.03);
 }
 
@@ -1211,6 +1279,39 @@ function updateMethodStory(y) {
   });
 }
 
+function updateExampleStory(y) {
+  if (!exampleStory) return;
+
+  if (!desktopMotionQuery.matches || reducedMotionQuery.matches) {
+    exampleStory.style.setProperty("--example-progress", "1");
+    exampleStory.style.setProperty("--example-line-progress", "1");
+    exampleSteps.forEach((step) => {
+      step.classList.add("is-reached");
+      step.classList.remove("is-active");
+      step.removeAttribute("aria-current");
+    });
+    return;
+  }
+
+  const travel = Math.max(exampleStory.offsetHeight - window.innerHeight, 1);
+  const progress = clamp((y - exampleStory.offsetTop) / travel);
+  const timelineProgress = clamp(progress / 0.94);
+  const lineProgress = timelineProgress;
+  const activeIndex = Math.min(exampleSteps.length - 1, Math.floor(timelineProgress * exampleSteps.length));
+
+  exampleStory.style.setProperty("--example-progress", progress.toFixed(4));
+  exampleStory.style.setProperty("--example-line-progress", lineProgress.toFixed(4));
+
+  exampleSteps.forEach((step, index) => {
+    const reached = timelineProgress >= index / exampleSteps.length;
+    const active = index === activeIndex;
+    step.classList.toggle("is-reached", reached);
+    step.classList.toggle("is-active", active);
+    if (active) step.setAttribute("aria-current", "step");
+    else step.removeAttribute("aria-current");
+  });
+}
+
 function syncLegacyPricingHash() {
   if (
     window.location.hash !== "#pricing" ||
@@ -1235,6 +1336,7 @@ function updateScrollNarrative() {
   updateHeroMotion(y);
   updateManifestoMotion(y);
   queueIndustryBlueprintSnap(y);
+  updateExampleStory(y);
   updateMethodStory(y);
 }
 
@@ -1254,6 +1356,7 @@ const revealGroups = [
   ".manifesto > *",
   ".industries-intro > *",
   ".industry-column > *",
+  ".example-heading > *",
   ".method-section .section-heading > *",
   ".trust-copy > *",
   ".trust-list article",

@@ -36,9 +36,15 @@ services:
       wget -q -O assets/agent-email-es.png "$$BASE/assets/agent-email-es.png";
       wget -q -O assets/agent-email-es.webp "$$BASE/assets/agent-email-es.webp";
       wget -q -O assets/logos/anthropic.svg "$$BASE/assets/logos/anthropic.svg";
+      wget -q -O assets/logos/clio.svg "$$BASE/assets/logos/clio.svg";
       wget -q -O assets/logos/google.svg "$$BASE/assets/logos/google.svg";
+      wget -q -O assets/logos/hubspot.svg "$$BASE/assets/logos/hubspot.svg";
       wget -q -O assets/logos/meta.svg "$$BASE/assets/logos/meta.svg";
+      wget -q -O assets/logos/microsoft.svg "$$BASE/assets/logos/microsoft.svg";
+      wget -q -O assets/logos/onedrive.svg "$$BASE/assets/logos/onedrive.svg";
       wget -q -O assets/logos/openai-mark.svg "$$BASE/assets/logos/openai-mark.svg";
+      wget -q -O assets/logos/salesforce.svg "$$BASE/assets/logos/salesforce.svg";
+      wget -q -O assets/logos/sharepoint.svg "$$BASE/assets/logos/sharepoint.svg";
       printf "ok\n" > health;
       exec nginx -g "daemon off;";
       '
