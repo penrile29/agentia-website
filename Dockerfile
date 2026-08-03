@@ -1,8 +1,13 @@
 FROM nginx:1.27-alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html industries.html styles.css agentic.css site.js robots.txt sitemap.xml /usr/share/nginx/html/
+COPY index.html industries.html 404.html styles.css agentic.css commercial.css site.js robots.txt sitemap.xml llms.txt llms-full.txt /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets
+
+# Indexable commercial routes. Each is a static page with its own canonical URL.
+COPY law-firms /usr/share/nginx/html/law-firms
+COPY wealth-management /usr/share/nginx/html/wealth-management
+COPY operations/time-capture /usr/share/nginx/html/operations/time-capture
 
 # Public legal routes only. Private drafts, evidence and contractual files are
 # intentionally excluded by this allowlist and by .dockerignore.

@@ -1,0 +1,21 @@
+# Oakbase
+
+> Oakbase provides managed AI operations for professional services firms. Oakbase designs, deploys and runs defined operational work around professional judgement, initially for law and wealth management firms.
+
+Professionals retain judgement, advice, strategy and client relationships. Oakbase runs controlled operational execution across approved business systems, with human approval where required and measurement of business outcomes.
+
+## Core pages
+
+- [Oakbase](https://oakbase.ai/): Managed AI operations for professional services.
+- [Law firms](https://oakbase.ai/law-firms/): Operations around matters, billing and client delivery.
+- [Wealth management](https://oakbase.ai/wealth-management/): Operations around onboarding, reviews and client data.
+- [Time Capture](https://oakbase.ai/operations/time-capture/): A concrete operation that prepares billable-time proposals for professional review.
+
+## Trust and governance
+
+- [Security](https://oakbase.ai/security/)
+- [Privacy](https://oakbase.ai/privacy/)
+- [Providers and subprocessors](https://oakbase.ai/subprocessors/)
+- [Vulnerability reporting](https://oakbase.ai/security/reporting/)
+
+Contact: hello@oakbase.ai

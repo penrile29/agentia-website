@@ -3,34 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oakbase — Agentic Operations</title>
-  <meta name="description" content="Oakbase Workspace runs operational and administrative work for professional service firms while core expert judgement stays with their professionals." />
+  <title>Oakbase — Managed AI Operations for Professional Services</title>
+  <meta name="description" content="Oakbase designs, deploys and runs measurable business operations for law and wealth management firms." />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://oakbase.ai/" />
-  <link rel="alternate" hreflang="en" href="https://oakbase.ai/?lang=en" />
-  <link rel="alternate" hreflang="es" href="https://oakbase.ai/?lang=es" />
-  <link rel="alternate" hreflang="x-default" href="https://oakbase.ai/" />
 
-  <meta property="og:title" content="Oakbase — Agentic Operations" />
-  <meta property="og:description" content="Oakbase Workspace runs operational and administrative work while core expert judgement stays with your professionals." />
+  <meta property="og:title" content="Oakbase — Managed AI Operations for Professional Services" />
+  <meta property="og:description" content="Oakbase designs, deploys and runs measurable business operations for law and wealth management firms." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://oakbase.ai/" />
+  <meta property="og:site_name" content="Oakbase" />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:image" content="https://oakbase.ai/assets/og-image.png" />
+  <meta property="og:image:alt" content="Oakbase — Managed AI Operations" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Oakbase — Agentic Operations" />
-  <meta name="twitter:description" content="Oakbase Workspace runs operational and administrative work while core expert judgement stays with your professionals." />
+  <meta name="twitter:title" content="Oakbase — Managed AI Operations for Professional Services" />
+  <meta name="twitter:description" content="Oakbase designs, deploys and runs measurable business operations for law and wealth management firms." />
   <meta name="twitter:image" content="https://oakbase.ai/assets/og-image.png" />
+  <meta name="twitter:image:alt" content="Oakbase — Managed AI Operations" />
 
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Oakbase",
-      "url": "https://oakbase.ai/",
-      "logo": "https://oakbase.ai/assets/oakbase-mark-h.svg",
-      "email": "hello@oakbase.ai",
-      "description": "Oakbase builds and manages AI agents for the operational and administrative work surrounding professional expertise.",
-      "areaServed": "Europe"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://oakbase.ai/#organization",
+          "name": "Oakbase",
+          "url": "https://oakbase.ai/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://oakbase.ai/#logo",
+            "url": "https://oakbase.ai/assets/oakbase-mark-h.svg"
+          },
+          "email": "hello@oakbase.ai"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://oakbase.ai/#website",
+          "url": "https://oakbase.ai/",
+          "name": "Oakbase",
+          "publisher": { "@id": "https://oakbase.ai/#organization" },
+          "inLanguage": "en"
+        },
+        {
+          "@type": "Service",
+          "@id": "https://oakbase.ai/#managed-ai-operations",
+          "name": "Managed AI Operations for Professional Services",
+          "serviceType": "Managed AI operations",
+          "description": "Oakbase designs, deploys and runs measurable business operations for law and wealth management firms.",
+          "provider": { "@id": "https://oakbase.ai/#organization" },
+          "areaServed": "Europe",
+          "audience": [
+            { "@type": "BusinessAudience", "audienceType": "Law firms" },
+            { "@type": "BusinessAudience", "audienceType": "Wealth management firms" }
+          ]
+        }
+      ]
     }
   </script>
 
@@ -52,8 +81,8 @@
   </script>
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="agentic.css?v=20260803-1" />
-  <script src="site.js?v=20260803-1" defer></script>
+  <link rel="stylesheet" href="agentic.css?v=20260803-2" />
+  <script src="site.js?v=20260803-2" defer></script>
 </head>
 
 <body>
@@ -93,7 +122,7 @@
     </div>
 
     <div class="rail-index" aria-hidden="true">
-      <span>AGENTIC OPERATIONS / 01</span>
+      <span>MANAGED OPERATIONS / 01</span>
       <i></i>
     </div>
   </aside>
@@ -120,8 +149,8 @@
   <main class="site-main" id="main-content">
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-copy">
-        <p class="eyebrow"><span></span><span data-i18n="hero.eyebrow">Agentic operations</span></p>
-        <h1 id="hero-title" data-i18n="hero.title">Let expert focus on what matters</h1>
+        <p class="eyebrow"><span></span><span data-i18n="hero.eyebrow">Managed AI operations for professional services</span></p>
+        <h1 id="hero-title" data-i18n="hero.title">Let experts focus on what matters</h1>
         <p class="hero-intro" data-i18n="hero.copy">Oakbase uses AI to design, deploy and run the operational work around professional judgement—for law and wealth management firms.</p>
         <div class="hero-actions">
           <a class="button button-dark" href="#demo-form" data-demo-link>
@@ -136,7 +165,7 @@
         <div class="hero-line" aria-hidden="true"><span></span></div>
       </div>
 
-      <div class="hero-product" aria-label="Oakbase Workspace control layer preview">
+      <div class="hero-product" aria-label="Illustrative Oakbase Workspace operational preview; figures are product examples, not customer results">
         <div class="product-rail" aria-hidden="true">
           <span class="material-symbols-outlined">arrow_circle_right</span>
           <span class="material-symbols-outlined">grid_view</span>
@@ -152,10 +181,7 @@
               <span class="material-symbols-outlined" aria-hidden="true">window</span>
               <strong>Oakbase Workspace</strong>
             </div>
-            <div class="product-status">
-              <span>CONTROL LAYER</span>
-              <strong>7 RUNNING AGENTS</strong>
-            </div>
+            <p class="product-demo-label" data-i18n="workspace.preview.label">Illustrative product data · not customer results</p>
           </div>
           <section class="workspace-preview workspace-conversation" data-workspace-conversation aria-label="Oakbase Workspace operational conversation">
             <nav class="workspace-scenario-nav" aria-label="Workspace conversation examples" data-workspace-scenario-nav>
@@ -234,7 +260,7 @@
         <p class="eyebrow"><span></span><span data-i18n="manifesto.kicker">Our manifesto</span></p>
         <h2 id="manifesto-title" data-i18n="manifesto.title">Your best people shouldn't be wasting time</h2>
       </div>
-      <p data-i18n="manifesto.copy">Repetitive work belongs to agents. Give your teams back the time, judgement and relationships that move your business forward.</p>
+      <p data-i18n="manifesto.copy">Your professionals keep the judgement. Oakbase runs the operation.</p>
       <span class="manifesto-marker" aria-hidden="true"></span>
     </section>
 
@@ -244,7 +270,7 @@
         <p class="eyebrow eyebrow-light"><span></span><span data-i18n="manifesto.kicker">Our manifesto</span></p>
         <p class="manifesto-spotlight-title" data-i18n="manifesto.title">Your best people shouldn't be wasting time</p>
       </div>
-      <p class="manifesto-spotlight-support" data-i18n="manifesto.copy">Repetitive work belongs to agents. Give your teams back the time, judgement and relationships that move your business forward.</p>
+      <p class="manifesto-spotlight-support" data-i18n="manifesto.copy">Your professionals keep the judgement. Oakbase runs the operation.</p>
       <div class="manifesto-spotlight-progress"><span></span></div>
     </div>
 
@@ -394,7 +420,7 @@
             <li><span>04</span><strong data-i18n="law.four.title">Pipeline Follow-through</strong><p data-i18n="law.four.copy">Identify stalled opportunities, prepare next actions and coordinate follow-ups.</p></li>
             <li><span>05</span><strong data-i18n="law.five.title">Client Intake &amp; Onboarding</strong><p data-i18n="law.five.copy">Coordinate screening, conflict checks, KYC/AML and the handoff from CRM to matter systems.</p></li>
           </ol>
-          <a class="text-link" href="#demo-form"><span data-i18n="law.cta">Explore law firm operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          <a class="text-link" href="/law-firms/"><span data-i18n="law.cta">Explore law firm operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </article>
 
         <article class="industry-column">
@@ -408,7 +434,7 @@
             <li><span>04</span><strong data-i18n="wealth.four.title">Client Data Readiness</strong><p data-i18n="wealth.four.copy">Identify missing fields, prepare evidence-backed updates and route exceptions for review.</p></li>
             <li><span>05</span><strong data-i18n="wealth.five.title">Finance &amp; Management Reporting</strong><p data-i18n="wealth.five.copy">Reconcile recurring data and prepare statements, KPIs and management commentary for review.</p></li>
           </ol>
-          <a class="text-link" href="#demo-form"><span data-i18n="wealth.cta">Explore wealth operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
+          <a class="text-link" href="/wealth-management/"><span data-i18n="wealth.cta">Explore wealth operations</span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></a>
         </article>
       </div>
     </section>
@@ -422,7 +448,7 @@
               <p class="eyebrow"><span></span><span data-i18n="method.kicker">From first workflow to managed operations</span></p>
               <h2 id="method-title" data-i18n="method.title">One useful operation in four weeks.</h2>
             </div>
-            <p data-i18n="method.copy">We start with one high-value operational job, prove it in production, then operate and expand the agentic system with your team.</p>
+            <p data-i18n="method.copy">We start with one high-value operation, establish its baseline, put it into production, then run and improve it with your team.</p>
           </header>
 
           <div class="method-first-operation">
@@ -459,7 +485,7 @@
                 <span class="method-step-number">05</span>
                 <span class="method-step-week" data-i18n="method.five.week">Monthly</span>
                 <strong data-i18n="method.five.title">Operate</strong>
-                <p data-i18n="method.five.copy">Monitor quality, resolve exceptions, improve live agents and deploy the next operations.</p>
+                <p data-i18n="method.five.copy">Monitor performance, resolve exceptions, improve the live operation and expand into the next operations.</p>
               </li>
             </ol>
           </div>
@@ -473,7 +499,7 @@
         <div class="trust-intro">
           <p class="eyebrow"><span></span><span data-i18n="trust.kicker">Built for sensitive operations</span></p>
           <h2 id="trust-title" data-i18n="trust.title">Trust is<br />non-negotiable.</h2>
-          <p data-i18n="trust.copy">Oakbase is built for the security, scale and privacy requirements of professional service firms—so agents can operate across sensitive workflows without compromising client confidentiality.</p>
+          <p data-i18n="trust.copy">Oakbase applies defined controls for sensitive operations: least-privilege access, human review, tenant isolation and auditable execution.</p>
         </div>
       </header>
       <ol class="trust-list">
@@ -483,11 +509,11 @@
             <span class="material-symbols-outlined" aria-hidden="true">enhanced_encryption</span>
             <div class="trust-pillar-body">
               <p class="trust-pillar-label" data-i18n="trust.one.label">Security</p>
-              <h3 id="trust-security-title" data-i18n="trust.one.title">Encrypted at every layer.</h3>
-              <p class="trust-pillar-copy" data-i18n="trust.one.copy">Data is encrypted in transit and at rest, with controlled access and complete visibility over agent activity.</p>
+              <h3 id="trust-security-title" data-i18n="trust.one.title">Protected in transit and at rest.</h3>
+              <p class="trust-pillar-copy" data-i18n="trust.one.copy">Encryption, least-privilege access and auditable activity protect data across the operation.</p>
               <ul class="trust-proof-list">
-                <li data-i18n="trust.one.proof.one">Encryption in transit + at rest</li>
-                <li data-i18n="trust.one.proof.two">Controlled access</li>
+                <li data-i18n="trust.one.proof.one">TLS in transit + encryption at rest</li>
+                <li data-i18n="trust.one.proof.two">Least-privilege access</li>
                 <li data-i18n="trust.one.proof.three">Auditable activity</li>
               </ul>
             </div>
@@ -499,12 +525,12 @@
             <span class="material-symbols-outlined" aria-hidden="true">account_tree</span>
             <div class="trust-pillar-body">
               <p class="trust-pillar-label" data-i18n="trust.two.label">Scalability</p>
-              <h3 id="trust-scale-title" data-i18n="trust.two.title">Enterprise-grade by design.</h3>
-              <p class="trust-pillar-copy" data-i18n="trust.two.copy">From one workflow to agents operating across teams and systems, Oakbase remains observable, governed and resilient as volume grows.</p>
+              <h3 id="trust-scale-title" data-i18n="trust.two.title">Controlled as operations grow.</h3>
+              <p class="trust-pillar-copy" data-i18n="trust.two.copy">Tenant isolation, permissions and observable execution keep each operation governed as teams and volume grow.</p>
               <ul class="trust-proof-list">
-                <li data-i18n="trust.two.proof.one">Resilient infrastructure</li>
-                <li data-i18n="trust.two.proof.two">Central control</li>
-                <li data-i18n="trust.two.proof.three">Multi-workflow</li>
+                <li data-i18n="trust.two.proof.one">Tenant isolation</li>
+                <li data-i18n="trust.two.proof.two">Operation permissions</li>
+                <li data-i18n="trust.two.proof.three">Observable execution</li>
               </ul>
             </div>
           </article>
@@ -515,12 +541,12 @@
             <span class="material-symbols-outlined" aria-hidden="true">privacy_tip</span>
             <div class="trust-pillar-body">
               <p class="trust-pillar-label" data-i18n="trust.three.label">Privacy</p>
-              <h3 id="trust-privacy-title" data-i18n="trust.three.title">Your data is not the product.</h3>
-              <p class="trust-pillar-copy" data-i18n="trust.three.copy">Model providers do not retain prompts, files or outputs and never use them for training. Your firm controls what operational records remain in Oakbase Workspace.</p>
+              <h3 id="trust-privacy-title" data-i18n="trust.three.title">Customer data stays controlled.</h3>
+              <p class="trust-pillar-copy" data-i18n="trust.three.copy">Customer Data is processed to perform requested features, not for model training. Content is handled transiently and operational records are minimised.</p>
               <ul class="trust-proof-list">
-                <li data-i18n="trust.three.proof.one">Zero data retention</li>
-                <li data-i18n="trust.three.proof.two">No training on customer data</li>
-                <li data-i18n="trust.three.proof.three">Firm-controlled retention</li>
+                <li data-i18n="trust.three.proof.one">Transient content processing</li>
+                <li data-i18n="trust.three.proof.two">No model training</li>
+                <li data-i18n="trust.three.proof.three">Firm-controlled permissions</li>
               </ul>
             </div>
           </article>
@@ -532,7 +558,7 @@
       <div class="demo-copy">
         <p class="eyebrow eyebrow-light"><span></span><span data-i18n="demo.kicker">Book a demo</span></p>
         <h2 id="demo-title" data-i18n="demo.title">Which operation should your team stop running manually?</h2>
-        <p data-i18n="demo.copy">Tell us the minimum context. We will review where agentic operations can create useful, measurable capacity first.</p>
+        <p data-i18n="demo.copy">Tell us the minimum context. We’ll define the operation, its baseline and the measurable outcome.</p>
         <a href="mailto:hello@oakbase.ai">hello@oakbase.ai</a>
       </div>
 
@@ -561,7 +587,7 @@
 
     <footer class="site-footer">
       <a href="#top" class="footer-brand"><img src="assets/oakbase-mark-h-light.svg" alt="" width="40" height="40" /><span>Oakbase</span></a>
-      <p data-i18n="footer.copy">© 2026 Oakbase. Agentic operations for professional service companies.</p>
+      <p data-i18n="footer.copy">© 2026 Oakbase. Managed AI operations for professional services firms.</p>
       <div class="footer-actions">
         <nav class="footer-legal-links" aria-label="Legal">
           <a href="/legal/" data-i18n="footer.legal">Legal notice</a>

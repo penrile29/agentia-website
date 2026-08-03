@@ -893,6 +893,19 @@ h1, h2, h3 {
   font-weight: 500;
 }
 
+.product-demo-label {
+  max-width: 230px;
+  margin: 0;
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 8px;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-align: right;
+  text-transform: uppercase;
+  opacity: 0.62;
+}
+
 .workspace-preview {
   min-height: 0;
   flex: 1;

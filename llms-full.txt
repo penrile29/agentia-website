@@ -1,0 +1,56 @@
+# Oakbase — Managed AI Operations for Professional Services
+
+Oakbase designs, deploys and runs defined business operations for professional services firms. Its initial industry focus is law and wealth management.
+
+## Operating boundary
+
+Professional judgement stays with lawyers, advisers and other regulated professionals. Oakbase manages operational execution around that judgement: preparation, coordination, follow-through, system updates, exception handling and approvals.
+
+Oakbase works alongside specialist professional tools and the business systems already used by a firm. Customers buy a managed operational capability rather than a generic chatbot, blank agent platform or workflow builder.
+
+## Operating model
+
+1. Map the current process, baseline and measurable outcome.
+2. Deploy the operation across approved systems, permissions and approval paths.
+3. Run background agents that prepare work and surface exceptions.
+4. Measure outputs and business results, then improve the operation continuously.
+
+Pricing follows the defined operation, its volume, complexity, required systems, service level and measurable output. Oakbase does not publish specific prices on this site.
+
+## Industry focus
+
+### Law firms
+
+Oakbase focuses on operational work around matters, billing and client delivery. Examples include time capture, client onboarding and matter administration.
+
+Read: https://oakbase.ai/law-firms/
+
+### Wealth management firms
+
+Oakbase focuses on operational work around onboarding, client reviews and data readiness. Professional advice and final regulated decisions remain with the adviser.
+
+Read: https://oakbase.ai/wealth-management/
+
+## Example: Time Capture
+
+The Time Capture operation uses authorised work signals to identify likely missing billable time, prepare proposed entries and send them to the relevant professional for review. Approved time can then be recorded in the appropriate system. The operation runs with individual context, permissions and approval rules for each professional.
+
+The website describes business outcome categories such as billable hours recorded, operation accuracy and operational hours saved. It does not present interface examples as customer results.
+
+Read: https://oakbase.ai/operations/time-capture/
+
+## Platform controls
+
+The public website describes controlled access, human approvals, audit trails, tenant isolation and business metrics. Configuration and provider details may vary by customer and operation; consult Oakbase for the applicable implementation.
+
+## Official pages
+
+- Homepage: https://oakbase.ai/
+- Security: https://oakbase.ai/security/
+- Privacy: https://oakbase.ai/privacy/
+- Providers and subprocessors: https://oakbase.ai/subprocessors/
+- Vulnerability reporting: https://oakbase.ai/security/reporting/
+- Legal notice: https://oakbase.ai/legal/
+- Terms of service: https://oakbase.ai/terms/
+
+Contact: hello@oakbase.ai
