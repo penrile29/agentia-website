@@ -1,3 +1,35 @@
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-400-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/ibm-plex-mono-500-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter Tight";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("assets/fonts/inter-tight-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Material Symbols Outlined";
+  font-style: normal;
+  font-weight: 300;
+  font-display: block;
+  src: url("assets/fonts/material-symbols-outlined.woff2") format("woff2");
+}
+
 :root {
   --ink: #111512;
   --forest: #10251d;
@@ -1495,6 +1527,19 @@ h1, h2, h3 {
   font-size: 12px;
 }
 
+.form-privacy {
+  margin: -2px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.form-privacy a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .form-status[data-state="success"] {
   color: #376331;
 }
@@ -1533,6 +1578,22 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.footer-actions {
+  justify-content: flex-end;
+}
+
+.footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 14px;
+}
+
+.footer-legal-links a,
+.footer-actions > a {
+  white-space: nowrap;
 }
 
 .site-footer button {
@@ -1949,6 +2010,11 @@ h1, h2, h3 {
 
   .site-footer p {
     text-align: left;
+  }
+
+  .footer-actions,
+  .footer-legal-links {
+    justify-content: flex-start;
   }
 }
 

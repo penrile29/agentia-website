@@ -234,10 +234,18 @@ const translations = {
       "form.operation": "Operation to free up first",
       "form.operationPlaceholder": "Matter intake, onboarding, reporting, documents, approvals...",
       "form.submit": "Send request",
+      "form.privacy": "Data controller: Oakbase. We use your details to answer your request and prepare the demo, and retain the lead for up to 12 months. This form is for commercial contact only; do not include customer content or information from connected services. Read the <a href=\"/privacy/\">Privacy Policy</a>.",
       "form.status.idle": "We will only use this data to answer your request and prepare the demo.",
       "form.status.sending": "Sending request...",
       "form.status.success": "Request sent. We will review it and get back to you shortly.",
       "form.status.error": "We could not send the request. Please try again or email hello@oakbase.ai.",
+      "footer.contact": "Contact",
+      "footer.legal": "Legal notice",
+      "footer.terms": "Terms",
+      "footer.privacy": "Privacy",
+      "footer.security": "Security",
+      "footer.reporting": "Report vulnerability",
+      "footer.subprocessors": "Providers",
       "footer.copy": "© 2026 Oakbase. Agentic operations for professional service companies."
     }
   },
@@ -476,10 +484,18 @@ const translations = {
       "form.operation": "Operación a liberar primero",
       "form.operationPlaceholder": "Intake de asuntos, onboarding, reporting, documentos, aprobaciones...",
       "form.submit": "Enviar solicitud",
+      "form.privacy": "Responsable del tratamiento: Oakbase. Usamos tus datos para responder a la solicitud y preparar la demo, y conservamos el lead durante un máximo de 12 meses. Este formulario es solo para contacto comercial: no incluyas contenido de clientes ni información de servicios conectados. Consulta la <a href=\"/privacy/\">Política de Privacidad</a>.",
       "form.status.idle": "Usaremos estos datos solo para responder a tu solicitud y preparar la demo.",
       "form.status.sending": "Enviando solicitud...",
       "form.status.success": "Solicitud enviada. La revisaremos y te responderemos en breve.",
       "form.status.error": "No hemos podido enviar la solicitud. Inténtalo de nuevo o escribe a hello@oakbase.ai.",
+      "footer.contact": "Contacto",
+      "footer.legal": "Aviso legal",
+      "footer.terms": "Términos",
+      "footer.privacy": "Privacidad",
+      "footer.security": "Seguridad",
+      "footer.reporting": "Reportar vulnerabilidad",
+      "footer.subprocessors": "Proveedores",
       "footer.copy": "© 2026 Oakbase. Operaciones agénticas para firmas de servicios profesionales."
     }
   }

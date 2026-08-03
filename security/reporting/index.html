@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-title-es="Divulgación responsable — Oakbase" data-title-en="Responsible Disclosure — Oakbase">Divulgación responsable — Oakbase</title>
+  <meta name="description" content="Política de divulgación responsable de vulnerabilidades de Oakbase.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="canonical" href="https://oakbase.ai/security/reporting/">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="stylesheet" href="/agentic.css?v=20260801-1">
+  <link rel="stylesheet" href="/legal/legal.css?v=20260801-1">
+  <script src="/legal/legal.js?v=20260801-1" defer></script>
+</head>
+<body class="legal-page">
+  <a class="legal-skip-link" href="#legal-content">Saltar al contenido / Skip to content</a>
+
+  <header class="legal-header">
+    <div class="legal-header-inner">
+      <a class="legal-brand" href="/" aria-label="Oakbase home">
+        <img src="/assets/oakbase-mark-h.svg" alt="" width="38" height="38">
+        <span>Oakbase</span>
+      </a>
+      <div class="legal-header-actions">
+        <a class="legal-back" href="/">
+          <span data-lang="es">Volver a oakbase.ai</span>
+          <span data-lang="en" hidden>Back to oakbase.ai</span>
+        </a>
+        <div class="legal-language" aria-label="Selector de idioma / Language selector">
+          <button type="button" data-legal-lang="es" aria-pressed="true">ES</button>
+          <button type="button" data-legal-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="legal-nav-wrap">
+    <nav class="legal-nav" aria-label="Legal">
+      <a href="/legal/"><span data-lang="es">Aviso legal</span><span data-lang="en" hidden>Legal notice</span></a>
+      <a href="/terms/"><span data-lang="es">Términos</span><span data-lang="en" hidden>Terms</span></a>
+      <a href="/privacy/"><span data-lang="es">Privacidad</span><span data-lang="en" hidden>Privacy</span></a>
+      <a href="/security/"><span data-lang="es">Seguridad</span><span data-lang="en" hidden>Security</span></a>
+      <a href="/security/reporting/" aria-current="page"><span data-lang="es">Reportar vulnerabilidad</span><span data-lang="en" hidden>Report a vulnerability</span></a>
+      <a href="/subprocessors/"><span data-lang="es">Proveedores</span><span data-lang="en" hidden>Providers</span></a>
+    </nav>
+  </div>
+
+  <main class="legal-shell" id="legal-content">
+    <section data-lang="es">
+      <header class="legal-hero">
+        <p class="legal-kicker">Seguridad</p>
+        <h1>Divulgación responsable</h1>
+        <p class="legal-lead">Canal y condiciones para comunicar vulnerabilidades de Oakbase de forma segura y coordinada.</p>
+        <div class="legal-meta"><span>Versión 1.0</span><span>2 de agosto de 2026</span><span>Idioma: español</span></div>
+      </header>
+
+      <div class="legal-document">
+        <aside class="legal-toc" aria-label="En esta página">
+          <strong>En esta página</strong>
+          <a href="#es-reportar">1. Cómo informar</a>
+          <a href="#es-alcance">2. Pruebas de buena fe</a>
+          <a href="#es-sla">3. Objetivos de corrección</a>
+          <a href="#es-coordinacion">4. Divulgación coordinada</a>
+          <a href="#es-recompensas">5. Recompensas</a>
+        </aside>
+
+        <article class="legal-content">
+          <section id="es-reportar">
+            <h2>1. Cómo informar</h2>
+            <p>Agradecemos los informes de buena fe que nos ayuden a investigar y corregir vulnerabilidades. Esta política no concede autorización para acceder a datos o sistemas de terceros ni para infringir la ley.</p>
+            <p>Envía el informe a <a href="mailto:security@oakbase.ai">security@oakbase.ai</a>. Incluye, cuando sea posible, el activo afectado, una descripción clara, pasos reproducibles, impacto estimado, evidencia mínima y una forma segura de contactar contigo. No incluyas datos personales, contenido del cliente ni credenciales en el correo.</p>
+            <p>Si encuentras datos personales o confidenciales, detén la prueba, no copies ni compartas la información, avísanos de inmediato y elimina cualquier copia local cuando te lo confirmemos.</p>
+          </section>
+
+          <section id="es-alcance">
+            <h2>2. Alcance y pruebas de buena fe</h2>
+            <p>Limita las pruebas a cuentas y datos propios o a un entorno para el que tengas autorización escrita. Usa la mínima interacción necesaria para demostrar el problema y evita afectar a la disponibilidad, integridad o confidencialidad del servicio.</p>
+            <h3>Pruebas prohibidas</h3>
+            <ul>
+              <li>Denegación de servicio, pruebas volumétricas o cualquier degradación deliberada.</li>
+              <li>Ingeniería social, phishing, spam, ataques físicos o contra empleados y proveedores.</li>
+              <li>Acceso, modificación, borrado, exfiltración o publicación de datos ajenos.</li>
+              <li>Instalación de malware, persistencia, movimiento lateral o evasión de controles.</li>
+              <li>Escaneos automatizados de gran volumen o explotación más allá de la prueba mínima.</li>
+              <li>Pruebas sobre servicios o infraestructuras de terceros sin su autorización expresa.</li>
+              <li>Uso de credenciales obtenidas de terceros o intento de acceso a otros tenants.</li>
+            </ul>
+          </section>
+
+          <section id="es-sla">
+            <h2>3. Triaje y objetivos de corrección</h2>
+            <p>Tras validar y clasificar un informe, aplicamos los siguientes objetivos. Los plazos empiezan cuando Oakbase confirma la vulnerabilidad y su severidad; no son una garantía contractual y pueden ajustarse si una corrección segura requiere coordinación con un proveedor o cliente.</p>
+            <div class="legal-table-wrap">
+              <table class="legal-table">
+                <thead><tr><th>Severidad</th><th>Objetivo</th></tr></thead>
+                <tbody>
+                  <tr><td>Crítica</td><td>Mitigación en un máximo de 24 horas; corrección objetivo en 7 días.</td></tr>
+                  <tr><td>Alta</td><td>Corrección objetivo en 15 días.</td></tr>
+                  <tr><td>Media</td><td>Corrección objetivo en 30 días.</td></tr>
+                  <tr><td>Baja</td><td>Corrección objetivo en 90 días.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="es-coordinacion">
+            <h2>4. Divulgación coordinada</h2>
+            <p>Mantén el informe confidencial mientras lo investigamos y acuerda con Oakbase cualquier publicación. Procuraremos comunicar el estado material del caso y, cuando proceda, coordinar una fecha de divulgación que permita proteger a los clientes.</p>
+          </section>
+
+          <section id="es-recompensas">
+            <h2>5. Recompensas</h2>
+            <p>Oakbase no mantiene un programa público de recompensas. Un informe no genera derecho a pago, reconocimiento o compensación salvo acuerdo previo y expreso por escrito.</p>
+          </section>
+        </article>
+      </div>
+    </section>
+
+    <section data-lang="en" hidden>
+      <header class="legal-hero">
+        <p class="legal-kicker">Security</p>
+        <h1>Responsible disclosure</h1>
+        <p class="legal-lead">The channel and rules for reporting Oakbase vulnerabilities safely and in a coordinated manner.</p>
+        <div class="legal-meta"><span>Version 1.0</span><span>2 August 2026</span><span>Language: English</span></div>
+      </header>
+
+      <div class="legal-document">
+        <aside class="legal-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#en-report">1. How to report</a>
+          <a href="#en-scope">2. Good-faith testing</a>
+          <a href="#en-sla">3. Remediation targets</a>
+          <a href="#en-coordination">4. Coordinated disclosure</a>
+          <a href="#en-rewards">5. Rewards</a>
+        </aside>
+
+        <article class="legal-content">
+          <section id="en-report">
+            <h2>1. How to report</h2>
+            <p>We welcome good-faith reports that help us investigate and remediate vulnerabilities. This policy does not authorize access to third-party data or systems, or any violation of law.</p>
+            <p>Send your report to <a href="mailto:security@oakbase.ai">security@oakbase.ai</a>. Where possible, include the affected asset, a clear description, reproducible steps, estimated impact, minimal evidence and a secure way to contact you. Do not include personal data, Customer Content or credentials in the email.</p>
+            <p>If you encounter personal or confidential data, stop testing, do not copy or share it, notify us immediately and delete any local copy when we confirm that you may do so.</p>
+          </section>
+
+          <section id="en-scope">
+            <h2>2. Scope and good-faith testing</h2>
+            <p>Limit testing to your own accounts and data, or to an environment for which you have written authorization. Use the minimum interaction needed to demonstrate the issue and avoid affecting service availability, integrity or confidentiality.</p>
+            <h3>Prohibited testing</h3>
+            <ul>
+              <li>Denial of service, volumetric testing or deliberate service degradation.</li>
+              <li>Social engineering, phishing, spam, physical attacks, or attacks on staff or suppliers.</li>
+              <li>Accessing, altering, deleting, exfiltrating or publishing another party's data.</li>
+              <li>Installing malware, persistence, lateral movement or control evasion.</li>
+              <li>High-volume automated scanning or exploitation beyond the minimum proof.</li>
+              <li>Testing third-party services or infrastructure without their express authorisation.</li>
+              <li>Using credentials obtained from third parties or attempting to access another tenant.</li>
+            </ul>
+          </section>
+
+          <section id="en-sla">
+            <h2>3. Triage and remediation targets</h2>
+            <p>Once a report is validated and classified, we apply the targets below. Time starts when Oakbase confirms the vulnerability and severity; these are not contractual guarantees and may be adjusted where a safe fix requires coordination with a supplier or customer.</p>
+            <div class="legal-table-wrap">
+              <table class="legal-table">
+                <thead><tr><th>Severity</th><th>Target</th></tr></thead>
+                <tbody>
+                  <tr><td>Critical</td><td>Mitigation within 24 hours; target fix within 7 days.</td></tr>
+                  <tr><td>High</td><td>Target fix within 15 days.</td></tr>
+                  <tr><td>Medium</td><td>Target fix within 30 days.</td></tr>
+                  <tr><td>Low</td><td>Target fix within 90 days.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="en-coordination">
+            <h2>4. Coordinated disclosure</h2>
+            <p>Keep the report confidential while we investigate and coordinate any publication with Oakbase. We will seek to provide material status updates and, where appropriate, agree a disclosure date that allows customers to be protected.</p>
+          </section>
+
+          <section id="en-rewards">
+            <h2>5. Rewards</h2>
+            <p>Oakbase does not operate a public bug-bounty programme. A report creates no entitlement to payment, recognition or compensation unless expressly agreed in writing beforehand.</p>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="legal-footer">
+    <p data-lang="es">Oakbase · Versión 1.0.</p>
+    <p data-lang="en" hidden>Oakbase · Version 1.0.</p>
+    <p><a href="mailto:security@oakbase.ai">security@oakbase.ai</a> · <a href="/.well-known/security.txt">security.txt</a></p>
+  </footer>
+</body>
+</html>

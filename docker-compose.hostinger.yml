@@ -11,8 +11,8 @@ services:
       CONTENT_REF="$${CONTENT_REF:?CONTENT_REF is required}";
       BASE="https://raw.githubusercontent.com/penrile29/agentia-website/$$CONTENT_REF";
       cd /usr/share/nginx/html;
-      rm -rf ./*;
-      mkdir -p assets/logos;
+      rm -rf ./.well-known ./*;
+      mkdir -p .well-known assets/fonts assets/logos legal privacy security/reporting subprocessors terms;
       wget -q -O /etc/nginx/conf.d/default.conf "$$BASE/nginx.conf";
       wget -q -O index.html "$$BASE/index.html";
       wget -q -O agentic.css "$$BASE/agentic.css";
@@ -45,6 +45,19 @@ services:
       wget -q -O assets/logos/openai-mark.svg "$$BASE/assets/logos/openai-mark.svg";
       wget -q -O assets/logos/salesforce.svg "$$BASE/assets/logos/salesforce.svg";
       wget -q -O assets/logos/sharepoint.svg "$$BASE/assets/logos/sharepoint.svg";
+      wget -q -O assets/fonts/ibm-plex-mono-400-latin.woff2 "$$BASE/assets/fonts/ibm-plex-mono-400-latin.woff2";
+      wget -q -O assets/fonts/ibm-plex-mono-500-latin.woff2 "$$BASE/assets/fonts/ibm-plex-mono-500-latin.woff2";
+      wget -q -O assets/fonts/inter-tight-latin.woff2 "$$BASE/assets/fonts/inter-tight-latin.woff2";
+      wget -q -O assets/fonts/material-symbols-outlined.woff2 "$$BASE/assets/fonts/material-symbols-outlined.woff2";
+      wget -q -O legal/index.html "$$BASE/legal/index.html";
+      wget -q -O legal/legal.css "$$BASE/legal/legal.css";
+      wget -q -O legal/legal.js "$$BASE/legal/legal.js";
+      wget -q -O terms/index.html "$$BASE/terms/index.html";
+      wget -q -O privacy/index.html "$$BASE/privacy/index.html";
+      wget -q -O security/index.html "$$BASE/security/index.html";
+      wget -q -O security/reporting/index.html "$$BASE/security/reporting/index.html";
+      wget -q -O subprocessors/index.html "$$BASE/subprocessors/index.html";
+      wget -q -O .well-known/security.txt "$$BASE/.well-known/security.txt";
       printf "ok\n" > health;
       exec nginx -g "daemon off;";
       '
