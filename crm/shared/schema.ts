@@ -368,7 +368,7 @@ export const objectLabels: Record<ObjectKey, ObjectLabel> = {
     singular: "Cuenta",
     plural: "Cuentas",
     apiName: "Account",
-    description: "Empresa u organizacion con la que Agentia mantiene relacion comercial.",
+    description: "Empresa u organizacion con la que Oakbase mantiene relacion comercial.",
   },
   contacts: {
     singular: "Contacto",
@@ -452,7 +452,7 @@ export const objectLabels: Record<ObjectKey, ObjectLabel> = {
     singular: "Producto",
     plural: "Productos",
     apiName: "Product2",
-    description: "Producto o servicio que Agentia vende.",
+    description: "Producto o servicio que Oakbase vende.",
   },
   users: {
     singular: "Usuario",

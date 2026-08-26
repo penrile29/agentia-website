@@ -11,10 +11,10 @@ import {
   pathFieldByObject,
 } from "../shared/schema.ts";
 import { createSeedData } from "../shared/seed.ts";
+import { getDefaultPassword } from "./config.ts";
 import {
   cascadeDelete,
   createAuthToken,
-  defaultPassword,
   getCollection,
   hashPassword,
   idPrefixes,
@@ -594,7 +594,7 @@ function pathStepFromRow(row: DbRow): PathStep {
 function ensureUserPasswords(data: CrmData): CrmData {
   for (const user of data.users) {
     if (!user.passwordHash || !user.passwordSalt) {
-      const password = hashPassword(defaultPassword);
+      const password = hashPassword(getDefaultPassword());
       user.passwordSalt = password.salt;
       user.passwordHash = password.hash;
       user.passwordUpdatedAt = user.passwordUpdatedAt ?? new Date().toISOString();

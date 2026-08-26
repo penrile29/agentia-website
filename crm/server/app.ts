@@ -68,7 +68,7 @@ export function createCrmApp() {
       rating: "Warm",
       isConverted: false,
       description: [
-        "Demo request from agentialabs.ai",
+        "Demo request from oakbase.ai",
         `Industry: ${demoRequest.industry}`,
         demoRequest.operation ? `First operation to explore: ${demoRequest.operation}` : undefined,
         demoRequest.pageUrl ? `Page: ${demoRequest.pageUrl}` : undefined,
@@ -250,7 +250,11 @@ function sanitizeRecords(object: ObjectKey, records: CrmRecord[]): CrmRecord[] {
 
 async function getMcpAuthError(request: Request): Promise<{ status: number; message: string; error: string } | undefined> {
   const expectedToken = process.env.CRM_MCP_TOKEN;
-  const actualToken = request.header("authorization")?.replace(/^Bearer\s+/i, "") ?? request.header("x-agentia-mcp-token") ?? "";
+  const actualToken =
+    request.header("authorization")?.replace(/^Bearer\s+/i, "") ??
+    request.header("x-oakbase-mcp-token") ??
+    request.header("x-agentia-mcp-token") ??
+    "";
   if (!actualToken) {
     return { status: 401, message: "OAuth requerido para conectar con el MCP del CRM.", error: "invalid_token" };
   }

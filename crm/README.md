@@ -1,11 +1,12 @@
-# Agentia Labs CRM
+# Oakbase CRM
 
-CRM operativo inspirado en Salesforce Sales Cloud para Leads, Cuentas, Contactos, Oportunidades, Propuestas, Facturas, Casos, Productos y Usuarios.
+CRM operativo de Oakbase para Leads, Cuentas, Contactos, Oportunidades, Propuestas, Facturas, Casos, Productos y Usuarios.
 
 ## Desarrollo local
 
 ```bash
 npm install
+cp .env.example .env
 npm run dev
 ```
 
@@ -13,8 +14,8 @@ Por defecto usa persistencia local en `data/agentia-crm.json`.
 
 Login demo:
 
-- `nuria@agentialabs.ai`
-- `Agentia2026!`
+- `nuria@oakbase.ai`
+- La contraseña se configura de forma privada en `CRM_DEFAULT_PASSWORD`; no se almacena en el repositorio.
 
 ## Supabase
 
@@ -33,6 +34,7 @@ CRM_DATA_BACKEND=supabase
 SUPABASE_URL=https://<project-ref>.supabase.co
 SUPABASE_SECRET_KEY=sb_secret_xxx
 CRM_AUTH_SECRET=<long-random-secret>
+CRM_DEFAULT_PASSWORD=<strong-private-password>
 CRM_MCP_TOKEN=<long-random-secret>
 ```
 
@@ -58,6 +60,7 @@ CRM_DATA_BACKEND=supabase
 SUPABASE_URL=https://<project-ref>.supabase.co
 SUPABASE_SECRET_KEY=sb_secret_xxx
 CRM_AUTH_SECRET=<long-random-secret>
+CRM_DEFAULT_PASSWORD=<strong-private-password>
 CRM_MCP_TOKEN=<long-random-secret>
 ```
 

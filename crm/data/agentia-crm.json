@@ -4,7 +4,7 @@
     {
       "id": "usr_admin",
       "name": "Nuria Cobo",
-      "email": "nuria@agentialabs.ai",
+      "email": "nuria@oakbase.ai",
       "role": "Admin",
       "isAdmin": true,
       "createdAt": "2026-06-24T09:00:00.000Z",
@@ -16,7 +16,7 @@
     {
       "id": "usr_sales",
       "name": "Mateo Ruiz",
-      "email": "mateo@agentialabs.ai",
+      "email": "mateo@oakbase.ai",
       "role": "Ventas",
       "isAdmin": false,
       "createdAt": "2026-06-24T09:00:00.000Z",
@@ -28,7 +28,7 @@
     {
       "id": "usr_success",
       "name": "Lucia Martin",
-      "email": "lucia@agentialabs.ai",
+      "email": "lucia@oakbase.ai",
       "role": "Customer Success",
       "isAdmin": false,
       "createdAt": "2026-06-24T09:00:00.000Z",
@@ -184,7 +184,7 @@
     },
     {
       "id": "opp_kinship_workspace",
-      "name": "Kinship - Agentia Workspace rollout",
+      "name": "Kinship - Oakbase Workspace rollout",
       "accountId": "acc_kinship",
       "contactId": "con_ana",
       "stageName": "Proposal/Price Quote",
@@ -283,7 +283,7 @@
     },
     {
       "id": "prd_workspace",
-      "name": "Agentia Workspace",
+      "name": "Oakbase Workspace",
       "productCode": "WORKSPACE",
       "family": "Workspace",
       "isActive": true,

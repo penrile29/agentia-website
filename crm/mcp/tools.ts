@@ -314,7 +314,7 @@ function enrichAccount(data: CrmData, account: CrmData["accounts"][number]) {
 
 export function createCrmMcpServer() {
   const server = new McpServer({
-    name: "agentia-crm",
+    name: "oakbase-crm",
     version: "0.1.0",
   });
 
@@ -322,7 +322,7 @@ export function createCrmMcpServer() {
     "crm_list_objects",
     {
       title: "List CRM objects",
-      description: "Lista los objetos disponibles en el CRM Agentia, con etiquetas y campos.",
+      description: "Lista los objetos disponibles en Oakbase CRM, con etiquetas y campos.",
     },
     async () => textJson({ objects: objectKeys, labels: objectLabels, fields: fieldConfigs }),
   );

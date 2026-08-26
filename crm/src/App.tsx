@@ -166,7 +166,7 @@ function App() {
     return (
       <main className="loading-shell">
         <div className="spinner" />
-        <p>Cargando Agentia CRM...</p>
+        <p>Cargando Oakbase CRM...</p>
       </main>
     );
   }
@@ -197,15 +197,15 @@ function App() {
           <span />
         </button>
         <div className="brand-lockup">
-          <img src="/agentia-mark-h.svg" alt="" />
+          <img src="/oakbase-mark-h-light.svg" alt="" />
           <div>
-            <strong>Agentia CRM</strong>
-            <span>Sales Workspace</span>
+            <strong>Oakbase CRM</strong>
+            <span>Commercial Operations</span>
           </div>
         </div>
         <div className="global-search">
           <Search size={16} />
-          <input placeholder="Buscar en Agentia CRM" />
+          <input placeholder="Buscar en Oakbase CRM" aria-label="Buscar en Oakbase CRM" />
         </div>
         <button className="icon-button" type="button" onClick={() => void loadData()} title="Actualizar">
           <RefreshCw size={17} />
@@ -279,7 +279,7 @@ function App() {
 }
 
 function LoginScreen({ error, onLogin }: { error: string | null; onLogin: (email: string, password: string) => Promise<void> }) {
-  const [email, setEmail] = useState("nuria@agentialabs.ai");
+  const [email, setEmail] = useState("nuria@oakbase.ai");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -299,17 +299,17 @@ function LoginScreen({ error, onLogin }: { error: string | null; onLogin: (email
 
   return (
     <main className="login-shell">
-      <section className="login-card" aria-label="Agentia CRM login">
+      <section className="login-card" aria-label="Acceso a Oakbase CRM">
         <div className="login-brand">
-          <img src="/agentia-mark-h.svg" alt="" />
+          <img src="/oakbase-mark-h.svg" alt="" />
           <div>
-            <strong>Agentia CRM</strong>
-            <span>Sales Workspace</span>
+            <strong>Oakbase CRM</strong>
+            <span>Commercial Operations</span>
           </div>
         </div>
         <div className="login-copy">
-          <p className="eyebrow">Login</p>
-          <h1>Accede a tu workspace comercial</h1>
+          <p className="eyebrow">Acceso seguro</p>
+          <h1>Tu operación comercial, en un solo lugar.</h1>
         </div>
         <form className="login-form" onSubmit={(event) => void submit(event)}>
           <label>
@@ -326,8 +326,8 @@ function LoginScreen({ error, onLogin }: { error: string | null; onLogin: (email
           </button>
         </form>
         <div className="login-hint">
-          <span>Demo</span>
-          <code>nuria@agentialabs.ai / Agentia2026!</code>
+          <span>Entorno privado</span>
+          <p>Usa las credenciales facilitadas por tu equipo.</p>
         </div>
       </section>
     </main>
@@ -417,7 +417,7 @@ function Dashboard({
       <div className="page-heading full-width">
         <div>
           <p className="eyebrow">Home</p>
-          <h1>Agentia Labs Sales Command Center</h1>
+          <h1>Oakbase Sales Command Center</h1>
           <span className="subtle-text">{periodBounds.label}</span>
         </div>
         <div className="heading-actions">

@@ -14,13 +14,12 @@ import {
   pathFieldByObject,
 } from "../shared/schema.ts";
 import { createSeedData } from "../shared/seed.ts";
+import { getAuthSecret, getDefaultPassword } from "./config.ts";
 
 export type LooseRecord = Record<string, unknown> & { id: string; createdAt?: string; updatedAt?: string };
 type MutableData = CrmData & Record<string, unknown>;
 
-export const defaultPassword = "Agentia2026!";
 const dataFile = process.env.CRM_DATA_FILE ?? defaultDataFilePath();
-const authSecret = process.env.CRM_AUTH_SECRET ?? "agentia-crm-local-development-secret";
 const tokenTtlMs = 1000 * 60 * 60 * 12;
 export const idPrefixes: Record<ObjectKey, string> = {
   leads: "lea",
@@ -750,7 +749,7 @@ function ensureAuthDefaults(data: CrmData): CrmData {
   let changed = false;
   for (const user of data.users) {
     if (!user.passwordHash || !user.passwordSalt) {
-      const password = hashPassword(defaultPassword);
+      const password = hashPassword(getDefaultPassword());
       user.passwordSalt = password.salt;
       user.passwordHash = password.hash;
       user.passwordUpdatedAt = user.passwordUpdatedAt ?? new Date().toISOString();
@@ -777,7 +776,7 @@ export function verifyPassword(password: string, salt?: string, expectedHash?: s
 export function createAuthToken(userId: string): string {
   const expiresAt = Date.now() + tokenTtlMs;
   const payload = `${userId}.${expiresAt}`;
-  const signature = createHmac("sha256", authSecret).update(payload).digest("base64url");
+  const signature = createHmac("sha256", getAuthSecret()).update(payload).digest("base64url");
   return `${payload}.${signature}`;
 }
 
@@ -785,7 +784,7 @@ export function verifyAuthToken(token: string): { userId: string } {
   const [userId, expiresAtRaw, signature] = token.split(".");
   if (!userId || !expiresAtRaw || !signature) throw new Error("Sesion no valida.");
   const payload = `${userId}.${expiresAtRaw}`;
-  const expected = createHmac("sha256", authSecret).update(payload).digest("base64url");
+  const expected = createHmac("sha256", getAuthSecret()).update(payload).digest("base64url");
   const actualBuffer = Buffer.from(signature);
   const expectedBuffer = Buffer.from(expected);
   if (actualBuffer.length !== expectedBuffer.length || !timingSafeEqual(actualBuffer, expectedBuffer)) {

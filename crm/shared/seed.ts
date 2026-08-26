@@ -28,9 +28,9 @@ function stamp<T extends { id: string }>(record: T): T & { createdAt: string; up
 
 export function createSeedData(): CrmData {
   const users: User[] = [
-    stamp({ id: "usr_admin", name: "Nuria Cobo", email: "nuria@agentialabs.ai", role: "Admin", isAdmin: true }),
-    stamp({ id: "usr_sales", name: "Mateo Ruiz", email: "mateo@agentialabs.ai", role: "Ventas", isAdmin: false }),
-    stamp({ id: "usr_success", name: "Lucia Martin", email: "lucia@agentialabs.ai", role: "Customer Success", isAdmin: false }),
+    stamp({ id: "usr_admin", name: "Nuria Cobo", email: "nuria@oakbase.ai", role: "Admin", isAdmin: true }),
+    stamp({ id: "usr_sales", name: "Mateo Ruiz", email: "mateo@oakbase.ai", role: "Ventas", isAdmin: false }),
+    stamp({ id: "usr_success", name: "Lucia Martin", email: "lucia@oakbase.ai", role: "Customer Success", isAdmin: false }),
   ];
 
   const products: Product[] = [
@@ -60,7 +60,7 @@ export function createSeedData(): CrmData {
     }),
     stamp({
       id: "prd_workspace",
-      name: "Agentia Workspace",
+      name: "Oakbase Workspace",
       productCode: "WORKSPACE",
       family: "Workspace",
       revenueType: "mrr",
@@ -174,7 +174,7 @@ export function createSeedData(): CrmData {
   const opportunities: Opportunity[] = [
     stamp({
       id: "opp_kinship_workspace",
-      name: "Kinship - Agentia Workspace rollout",
+      name: "Kinship - Oakbase Workspace rollout",
       accountId: "acc_kinship",
       contactId: "con_ana",
       stageName: "Proposal/Price Quote",

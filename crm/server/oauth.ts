@@ -1,9 +1,9 @@
 import { createHash, createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import type { Request, Response } from "express";
 import type { CrmData } from "../shared/schema.ts";
+import { getAuthSecret } from "./config.ts";
 import { authenticateUser, readData } from "./dataStore.ts";
 
-const oauthSecret = process.env.CRM_AUTH_SECRET ?? "agentia-crm-local-development-secret";
 const accessTokenTtlSeconds = 60 * 60;
 const refreshTokenTtlSeconds = 60 * 60 * 24 * 30;
 const authorizationCodeTtlSeconds = 60 * 5;
@@ -48,7 +48,7 @@ export function oauthProtectedResourceMetadata(request: Request) {
     authorization_servers: [baseUrl(request)],
     scopes_supported: scopes,
     bearer_methods_supported: ["header"],
-    resource_name: "Agentia CRM MCP",
+    resource_name: "Oakbase CRM MCP",
   };
 }
 
@@ -329,14 +329,14 @@ function verifyPkce(verifier: string, challenge?: string): boolean {
 
 function signPayload(input: SignedPayload): string {
   const payload = Buffer.from(JSON.stringify(input)).toString("base64url");
-  const signature = createHmac("sha256", oauthSecret).update(payload).digest("base64url");
+  const signature = createHmac("sha256", getAuthSecret()).update(payload).digest("base64url");
   return `${payload}.${signature}`;
 }
 
 function verifySignedPayload(token: string, kind: SignedKind): SignedPayload | undefined {
   const [payload, signature] = token.split(".");
   if (!payload || !signature) return undefined;
-  const expected = createHmac("sha256", oauthSecret).update(payload).digest("base64url");
+  const expected = createHmac("sha256", getAuthSecret()).update(payload).digest("base64url");
   if (!safeEqual(signature, expected)) return undefined;
   try {
     const parsed = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as SignedPayload;
@@ -365,25 +365,27 @@ function renderAuthorizeForm(params: AuthorizationParams, client: OAuthClient, e
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Conectar Agentia CRM con Claude</title>
+    <title>Conectar Oakbase CRM con Claude</title>
     <style>
-      body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f3f3f3; color: #181818; }
-      main { width: min(440px, calc(100vw - 32px)); border: 1px solid #dddbda; border-radius: 6px; background: #fff; box-shadow: 0 12px 32px rgba(24,24,24,.12); }
-      header { padding: 22px 24px 12px; border-bottom: 1px solid #ecebea; }
-      h1 { margin: 0 0 8px; font-size: 22px; line-height: 1.15; }
-      p { margin: 0; color: #5c5c5c; font-size: 14px; line-height: 1.45; }
+      body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: "Helvetica Neue", Arial, sans-serif; background: #f3f0e8; color: #111512; }
+      main { width: min(440px, calc(100vw - 32px)); overflow: hidden; border: 1px solid rgba(17,21,18,.22); border-top: 4px solid #bb694a; border-radius: 8px; background: #fbfaf6; box-shadow: 0 20px 54px rgba(10,23,18,.14); }
+      header { padding: 24px 24px 16px; border-bottom: 1px solid #ded9ce; }
+      h1 { margin: 0 0 8px; font-size: 24px; font-weight: 500; letter-spacing: -.025em; line-height: 1.1; }
+      p { margin: 0; color: #696d67; font-size: 14px; line-height: 1.45; }
       form { display: grid; gap: 12px; padding: 20px 24px 24px; }
-      label { display: grid; gap: 6px; color: #5c5c5c; font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      input { min-height: 36px; border: 1px solid #c9c9c9; border-radius: 4px; padding: 7px 9px; font: inherit; }
-      button { min-height: 38px; border: 1px solid #0176d3; border-radius: 4px; color: #fff; background: #0176d3; font-weight: 800; cursor: pointer; }
-      .error { padding: 10px 12px; border-radius: 4px; color: #ba0517; background: #fff1f2; font-size: 13px; font-weight: 750; }
+      label { display: grid; gap: 6px; color: #696d67; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+      input { min-height: 40px; border: 1px solid #c8c3b8; border-radius: 4px; padding: 7px 9px; color: #111512; background: #fff; font: inherit; }
+      input:focus { outline: 2px solid #bb694a; outline-offset: 2px; }
+      button { min-height: 42px; border: 1px solid #10251d; border-radius: 4px; color: #fbfaf6; background: #10251d; font-weight: 700; cursor: pointer; }
+      button:hover { border-color: #bb694a; background: #bb694a; }
+      .error { padding: 10px 12px; border-radius: 4px; color: #a53e28; background: #fbefec; font-size: 13px; font-weight: 700; }
       .scope { margin-top: 10px; font-size: 12px; }
     </style>
   </head>
   <body>
     <main>
       <header>
-        <h1>Conectar Agentia CRM</h1>
+        <h1>Conectar Oakbase CRM</h1>
         <p>Claude solicita acceso al MCP del CRM para <strong>${escapeHtml(client.clientName)}</strong>.</p>
         <p class="scope">Permisos: ${escapeHtml(normalizeScope(params.scope))}</p>
       </header>
