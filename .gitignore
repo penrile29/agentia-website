@@ -1,0 +1,5 @@
+# Local prototype diagnostics; not website source.
+.playwright-cli/
+output/playwright/
+output/pages/
+__pycache__/
