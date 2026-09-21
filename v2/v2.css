@@ -219,7 +219,21 @@
 #operation-list details .lean-link { font-size: 12px; margin: 6px 0 25px; }
 .lean-all-operations { margin-top: 23px; font-size: 12px; color: #606c52; border-bottom: 0; }
 .lean-close { padding: 0 var(--space); background: var(--forest); color: var(--paper); }
+.lean-security { padding-top: 76px; }
+.lean-security-heading { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); align-items: end; gap: 60px; }
+.lean-security .lean-eyebrow { color: #b1bea6; margin-bottom: 23px; }
+.lean-security-heading h2 { font-size: clamp(40px,4.3vw,62px); }
+.lean-security-heading em { color: #b6c9a4; }
+.lean-security-heading > p { max-width: 360px; padding-bottom: 4px; color: #c3ceba; font-size: 17px; line-height: 1.6; }
+.lean-security-principles { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 48px; margin-top: 52px; }
+.lean-security-principle { border-top: 1px solid #d8e0ce40; padding-top: 19px; }
+.lean-security-number { color: #b1bea6; font: 10px/1.6 var(--mono); letter-spacing: .055em; text-transform: uppercase; }
+.lean-security-principle h3 { font-size: clamp(24px,2.3vw,32px); line-height: 1.15; letter-spacing: -.03em; margin-top: 24px; }
+.lean-security-principle p { max-width: 360px; margin-top: 18px; color: #c3ceba; font-size: 15px; line-height: 1.7; }
+.lean-security-memory { max-width: 830px; margin-top: 35px !important; padding-bottom: 32px; color: #b1bea6; font-size: 13px; line-height: 1.7; }
+.lean-security-memory strong { color: var(--paper); font-weight: 400; }
 .lean-control-line { display: flex; align-items: center; gap: 17px; padding: 38px 0; border-bottom: 1px solid #d8e0ce25; }
+.lean-security + .lean-control-line { border-top: 1px solid #d8e0ce25; }
 .lean-control-line > .material-symbols-outlined { font-size: 18px; color: #b5c3a8; }
 .lean-control-line h2 { font-size: 27px; letter-spacing: -.025em; }
 .lean-control-copy { min-width: 0; }
@@ -287,6 +301,15 @@
  .lean-industry-tabs button { font-size: 11px; }
  #operation-list summary { font-size: 23px; }
  #operation-list details > p { font-size: 14px; }
+ .lean-security { padding-top: 56px; }
+ .lean-security-heading { grid-template-columns: 1fr; gap: 24px; }
+ .lean-security-heading > p { max-width: 480px; font-size: 16px; }
+ .lean-security-principles { grid-template-columns: 1fr; gap: 27px; margin-top: 34px; }
+ .lean-security-principle { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); column-gap: 32px; }
+ .lean-security-number { grid-column: 1/-1; }
+ .lean-security-principle h3 { font-size: 27px; margin-top: 16px; }
+ .lean-security-principle p { margin-top: 16px; }
+ .lean-security-memory { margin-top: 28px !important; }
  .lean-control-line h2 { font-size: 23px; }
  .lean-control-line { gap: 12px; flex-wrap: wrap; }
  .lean-control-line .lean-link { font-size: 11px; }
@@ -295,9 +318,10 @@
 }
 @media (max-width:520px) {
  .lean main > section,.lean #contact { scroll-margin-top: 68px; }
- .lean-header { height: 68px; padding-inline: 20px; }
- .lean-header nav { gap: 18px; }
- .lean-header nav a:last-child { display: none; }
+ .lean-header { height: 68px; padding-inline: 18px; gap: 12px; }
+ .lean-header nav { gap: 12px; font-size: 11px; }
+ .lean-header .lean-brand { font-size: 22px; gap: 7px; }
+ .lean-header .lean-brand img { width: 26px; height: 26px; }
  .lean-hero { padding: 49px 24px 15px; }
  .lean-eyebrow { font-size: 8px; letter-spacing: .045em; }
  .lean-hero h1 { font-size: 52px; margin: 28px -5px 25px; }
@@ -319,6 +343,12 @@
  .lean-industry-tabs button { font-size: 13px; }
  #operation-list summary { font-size: 26px; }
  .lean-close { padding-inline: 24px; }
+ .lean-security .lean-eyebrow { margin-bottom: 18px; }
+ .lean-security-heading h2 { font-size: clamp(34px,9vw,46px); }
+ .lean-security-heading > p { font-size: 15px; }
+ .lean-security-principle { display: block; }
+ .lean-security-principle h3 { font-size: 27px; }
+ .lean-security-principle p { margin-top: 14px; }
  .lean-control-line { display: grid; grid-template-columns: 18px minmax(0,1fr); align-items: start; padding-block: 28px; gap: 12px; }
  .lean-control-line > .material-symbols-outlined { padding-top: 3px; }
  .lean-control-line h2 { font-size: 24px; }

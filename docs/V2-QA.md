@@ -1,5 +1,13 @@
 # Local V2 verification — brain revision
 
+## Security and confidentiality — 21 September 2026
+
+Added three visible, open text columns within the existing dark control section: encryption in transit/at rest, EU data residency, and Zero Data Retention with AI providers. The introduction speaks to confidential matters, client relationships and accumulated expertise. A separate visible note distinguishes persistent Firm Memory from AI-provider non-retention. The Security navigation link now remains visible on mobile.
+
+Playwright visual review covered 1440×1000, 786×994, 680×900, 390×844 and 320×740. The columns adapt to rows and then a single text flow. At 320, 680 and 1440 pixels, explicit checks found no horizontal overflow or navigation overlap; the Security link reached `#control`, and all three principles remained present. The existing controls dialog opened and dismissed with Escape. Browser console reported zero errors/warnings. Source validation passed 26 references across six files and four scripts; `git diff --check` passed.
+
+Screenshots: `output/playwright/security-desktop.png`, `security-tablet.png`, `security-mid.png`, `security-mobile.png`, and `security-mobile-navigation.png`. These checks validate website presentation and interaction, not security infrastructure. The scope and existing policy alignment issue are recorded in `V2-CLAIMS-REVIEW.md`.
+
 ## Open operation timeline — 21 September 2026
 
 The tabbed six-panel example is replaced by four visible milestones: Firm Memory, proposed time, professional review and logged time. A noninteractive copy of the projected brain introduces the information inputs. The illustrative week is internally consistent: 38.5 hours proposed = 34.0 logged + 4.5 awaiting review. Figures are labelled illustrative and scoped to one professional/week; they are not customer results.

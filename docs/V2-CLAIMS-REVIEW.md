@@ -1,5 +1,13 @@
 # V2 claims review
 
+## Security positioning — 21 September 2026
+
+The user explicitly requested a visible security block for law firms covering encryption, EU residency and Zero Data Retention with AI. V2 now explains each in plain English and connects the safeguards to confidential matters, client relationships and accumulated expertise. These are user-supplied product commitments, not results of an infrastructure audit.
+
+The preserved security policy describes TLS and encryption at rest (`security/index.html:44`), AI inference configured against durable provider retention and no model training (`security/index.html:50`). Privacy scopes Customer Data processing to the EU/EEA (`privacy/index.html:145`); the new homepage follows the user's narrower EU wording. No specific region, model route, encryption algorithm, certification, end-to-end encryption or customer-held-key claim has been inferred.
+
+Zero Data Retention is expressly scoped to AI providers' requests/responses. Firm Memory persists in Oakbase under the firm's control. The existing policy conflict below remains unresolved: the original legal pages still describe transient Service content and were not rewritten as part of this marketing change. The public GitHub Pages site is a labelled website concept with simulated enquiries; oakbase.ai and its policies remain unchanged. This update supersedes historical statements below that the preview is local-only or has no residency/retention messaging.
+
 ## Messaging update — 18 September 2026
 
 The user has explicitly supplied Oakbase's positioning: persistent firm knowledge and relationship memory, prebuilt agents delivering Managed Operations and healthier records, and visibility/access control for people and agents. Current V2 copy follows that direction; `V2-MESSAGING.md` records it. The copy does not independently verify implementation. The preview remains local and illustrative, with no connected systems or live permission enforcement. Existing policies and the production site are untouched.
