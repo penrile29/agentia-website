@@ -1,23 +1,35 @@
 # Oakbase
 
-> Oakbase is a context engine and system of action for small and medium-sized professional services firms, with a ready-made legal ontology for law firms. It builds persistent firm memory from authorised work signals and equips each professional role with a purpose-built Operations Agent.
+> Oakbase is a context engine and system of action for small and medium-sized law firms. It builds persistent firm memory from authorised work signals and gives professionals role-specific Operations Agents that carry out administrative work in connected systems, under the firm's permissions and approval rules.
 
-## Product
+The context engine uses a ready-made legal ontology: a model of clients, matters, people, documents and commitments. It connects information with its source context and asks professionals to confirm uncertain relationships within their workflow. Operations Agents use that shared memory to support time capture, tasks, client follow-ups, CRM updates and invoicing.
 
-- [Firm memory](https://oakbase.ai/en/#platform): Clients, matters, people, documents and commitments connected with their source context. Uncertain relationships are referred to a professional within their workflow.
-- [Role-specific agents](https://oakbase.ai/en/#agents): Administrative skills for trainees, associates, senior associates, partners, administration and finance.
-- [Action in your systems](https://oakbase.ai/en/#operations): Use the Operations Agent from Claude, ChatGPT or Copilot through MCP, with your firm's access and approval rules.
-- [FAQs](https://oakbase.ai/en/#faq): How Oakbase works alongside a CRM, connects information and controls agent actions.
-- [Español](https://oakbase.ai/es/): Spanish homepage and localised illustrative examples.
+**What Oakbase is NOT:** Oakbase is not a general-purpose AI model or a replacement for a CRM or practice-management system. It is not positioned as a legal research or drafting product and does not replace professional legal judgment. It is not a wealth-management or investment-advisory product. Oakbase can complement general-purpose and legal-work AI; its focus is the firm's shared context and daily administrative operations.
 
-## Trust and legal
+**Entity:** Oakbase is operated by Oakbase SL, Spanish tax identifier (CIF) B05693742. Official website: https://oakbase.ai/. Contact: hello@oakbase.ai. The primary audience is small and medium-sized law firms within the broader professional-services market.
 
-- [Security](https://oakbase.ai/en/security/)
-- [Privacy](https://oakbase.ai/en/privacy/)
-- [Providers and subprocessors](https://oakbase.ai/en/subprocessors/)
-- [Vulnerability reporting](https://oakbase.ai/en/security/reporting/)
-- [Legal notice](https://oakbase.ai/en/legal/)
-- [Terms](https://oakbase.ai/en/terms/)
-- [Product overview](https://oakbase.ai/llms-full.txt)
+Available connections and actions depend on the firm's configuration. Website demonstrations are illustrative, not customer data or measured results.
 
-Website demonstrations, names, activity and proposed hours are illustrative, not customer results. Oakbase SL · CIF B05693742. Contact: hello@oakbase.ai
+## Product and comparisons
+
+- [Full product overview](https://oakbase.ai/llms-full.txt): Scope, workflows, roles, comparisons and controls.
+- [English homepage](https://oakbase.ai/en/): Product presentation.
+- [Spanish homepage](https://oakbase.ai/es/): Spanish presentation and examples.
+- [Firm memory](https://oakbase.ai/en/#platform): Shared legal context and source relationships.
+- [Operations Agents](https://oakbase.ai/en/#agents): Prepared administrative skills adapted to each role.
+- [Action in existing systems](https://oakbase.ai/en/#operations): Agent access through supported AI interfaces and MCP.
+- [Comparison](https://oakbase.ai/en/#compare): Oakbase alongside general-purpose AI and legal-work AI.
+- [FAQs](https://oakbase.ai/en/#faq): CRM coexistence, human review and agent controls.
+- [Contact](https://oakbase.ai/en/#contact): Request a conversation about your firm's workflows.
+
+## Security and company information
+
+- [Security](https://oakbase.ai/en/security/): Encryption, EU residency, access controls and LLM-provider retention.
+- [Privacy](https://oakbase.ai/en/privacy/): Personal information, persistent memory and retention.
+- [Providers and subprocessors](https://oakbase.ai/en/subprocessors/): Service-provider arrangements.
+- [Legal notice](https://oakbase.ai/en/legal/): Website operator and company identification.
+- [Terms](https://oakbase.ai/en/terms/): Contractual scope and responsibilities.
+
+## Optional
+
+- [Vulnerability reporting](https://oakbase.ai/en/security/reporting/): Report a security issue.
