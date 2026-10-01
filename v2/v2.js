@@ -236,6 +236,8 @@ SUCH DAMAGE.
  const copy=value=>typeof value==='string'?t(value):t(value.key,Object.fromEntries(Object.entries(value.vars||{}).map(([key,text])=>[key,t(text)])));
  const assets={"teams": "../assets/firm-knowledge/teams.svg", "outlook": "../assets/firm-knowledge/outlook.svg", "calendar": "../assets/firm-knowledge/calendar.svg", "whatsapp": "../assets/firm-knowledge/whatsapp.svg", "onenote": "../assets/firm-knowledge/onenote.svg", "gmail": "../assets/firm-knowledge/gmail.svg", "slack": "../assets/firm-knowledge/slack.svg", "salesforce": "../assets/firm-knowledge/salesforce.svg", "hubspot": "../assets/firm-knowledge/hubspot.svg", "clio": "../assets/firm-knowledge/clio.svg", "dynamics": "../assets/firm-knowledge/dynamics.svg"};
  const logo='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgcm9sZT0iaW1nIiBhcmlhLWxhYmVsPSJPYWtiYXNlIG1hcmsiPgogIDxnIGZpbGw9IiMxMjEzMGYiPgogICAgPGNpcmNsZSBjeD0iMTQiIGN5PSIxNCIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iMjMiIGN5PSIxNCIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iMzIiIGN5PSIxNCIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iNDEiIGN5PSIxNCIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iNTAiIGN5PSIxNCIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iMTQiIGN5PSIyMyIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iMjMiIGN5PSIyMyIgcj0iMy42IiAvPgogICAgPGNpcmNsZSBjeD0iMzIiIGN5PSIyMyIgcj0iMy42IiAvPgogICAgPGNpcmNsZSBjeD0iNDEiIGN5PSIyMyIgcj0iMy42IiAvPgogICAgPGNpcmNsZSBjeD0iMTQiIGN5PSIzMiIgcj0iMS44IiAvPgogICAgPGNpcmNsZSBjeD0iMjMiIGN5PSIzMiIgcj0iMy42IiAvPgogICAgPGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iNiIgLz4KICAgIDxjaXJjbGUgY3g9IjQxIiBjeT0iMzIiIHI9IjMuNiIgLz4KICAgIDxjaXJjbGUgY3g9IjUwIiBjeT0iMzIiIHI9IjEuOCIgLz4KICAgIDxjaXJjbGUgY3g9IjE0IiBjeT0iNDEiIHI9IjEuOCIgLz4KICAgIDxjaXJjbGUgY3g9IjIzIiBjeT0iNDEiIHI9IjMuNiIgLz4KICAgIDxjaXJjbGUgY3g9IjMyIiBjeT0iNDEiIHI9IjMuNiIgLz4KICAgIDxjaXJjbGUgY3g9IjQxIiBjeT0iNDEiIHI9IjMuNiIgLz4KICAgIDxjaXJjbGUgY3g9IjE0IiBjeT0iNTAiIHI9IjEuOCIgLz4KICAgIDxjaXJjbGUgY3g9IjIzIiBjeT0iNTAiIHI9IjEuOCIgLz4KICAgIDxjaXJjbGUgY3g9IjMyIiBjeT0iNTAiIHI9IjEuOCIgLz4KICAgIDxjaXJjbGUgY3g9IjQxIiBjeT0iNTAiIHI9IjEuOCIgLz4KICA8L2c+CiAgPGcgZmlsbD0iIzljN2EzZSI+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjIzIiByPSIyLjEiIC8+CiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjQxIiByPSIyLjEiIC8+CiAgPC9nPgo8L3N2Zz4K';
+ const scriptBase=new URL('.',document.currentScript.src);
+ Object.keys(assets).forEach(key=>{assets[key]=new URL(assets[key],scriptBase).href;});
  root.querySelectorAll('[data-oakbase]').forEach(el=>el.src=logo);root.querySelectorAll('[data-brand]').forEach(el=>el.src=assets[el.dataset.brand]);
  const roles=[
   {name:'Trainee / Junior',label:'For a Trainee / Junior',skills:[2,2,1,0,0,0],quote:'“I’ve proposed your time for Alder and organised your next tasks. Your draft client reminder is ready for review.”',context:'Time suggestions and task preparation, with client messages routed for review.'},
@@ -249,9 +251,10 @@ SUCH DAMAGE.
  const state={paused:false,selected:null,pace:1.1,depth:true,role:1,memoryNode:'alder',memoryView:'firm',memoryClient:'alder'};
  let memoryExplorer=null;
  const roleRows=root.querySelector('[data-role-rows]');
+ roleRows.replaceChildren();
  roles.forEach((role,i)=>{
   const row=document.createElement('tr'),heading=document.createElement('th'),button=document.createElement('button');heading.scope='row';button.type='button';button.className='oa-role-select';button.textContent=t(role.name);button.dataset.role=String(i);button.setAttribute('aria-pressed','false');button.addEventListener('click',()=>showRole(i));heading.append(button);row.append(heading);
-  role.skills.forEach((level,k)=>{const cell=document.createElement('td'),mark=document.createElement('span');cell.setAttribute('aria-label',t(skillNames[k])+': '+t(['Not a default skill','Supporting skill','Core skill'][level]));mark.setAttribute('aria-hidden','true');mark.className=level?'oa-skill-mark'+(level===1?' oa-support':''):'oa-skill-empty';if(!level)mark.textContent='—';cell.append(mark);row.append(cell);});roleRows.append(row);
+  role.skills.forEach((level,k)=>{const cell=document.createElement('td'),mark=document.createElement('span'),description=document.createElement('span');const meaning=t(['Not a default skill','Supporting skill','Core skill'][level]);cell.setAttribute('aria-label',t(skillNames[k])+': '+meaning);mark.setAttribute('aria-hidden','true');mark.className=level?'oa-skill-mark'+(level===1?' oa-support':''):'oa-skill-empty';if(!level)mark.textContent='—';description.className='oa-sr';description.textContent=meaning;cell.append(mark,description);row.append(cell);});roleRows.append(row);
  });
  const scene=root.querySelector('.oa-scene'),flow=root.querySelector('.oa-flow'),engine=root.querySelector('.oa-engine'),agent=root.querySelector('.oa-agent-card'),brain=root.querySelector('.oa-brain');
  const line=root.querySelector('[data-connection]'),delivery=root.querySelector('[data-delivery]');
@@ -347,7 +350,18 @@ SUCH DAMAGE.
  function tick(now){raf=0;if(!root.isConnected)return;const delta=lastFrame?Math.min(60,now-lastFrame):0;lastFrame=now;time+=delta*state.pace;draw();if(inView&&!state.paused&&!reduced.matches&&!document.hidden)raf=requestAnimationFrame(tick);}
  function sync(){if(raf)cancelAnimationFrame(raf);raf=0;lastFrame=0;if(reduced.matches)draw();if(inView&&!state.paused&&!reduced.matches&&!document.hidden)raf=requestAnimationFrame(tick);}
  const titles=['Follow-up draft','Suggested task for Ben','8 proposed hours'];
- function showRole(index,persist=true){state.role=index;root.querySelectorAll('[data-role]').forEach((button,i)=>{button.setAttribute('aria-pressed',String(i===index));button.closest('tr').dataset.selected=String(i===index);button.textContent=t(roles[i].name);button.closest('tr').querySelectorAll('td').forEach((cell,k)=>cell.setAttribute('aria-label',t(skillNames[k])+': '+t(['Not a default skill','Supporting skill','Core skill'][roles[i].skills[k]])));});const role=roles[index];root.querySelector('[data-role-name]').textContent=t(role.label);root.querySelector('[data-role-quote]').textContent=t(role.quote);root.querySelector('[data-role-context]').textContent=t(role.context);}
+ function showRole(index,persist=true){
+  state.role=index;
+  root.querySelectorAll('[data-role]').forEach((button,i)=>{
+   button.setAttribute('aria-pressed',String(i===index));button.closest('tr').dataset.selected=String(i===index);button.textContent=t(roles[i].name);
+   button.closest('tr').querySelectorAll('td').forEach((cell,k)=>{
+    const meaning=t(['Not a default skill','Supporting skill','Core skill'][roles[i].skills[k]]);
+    cell.setAttribute('aria-label',t(skillNames[k])+': '+meaning);cell.querySelector('.oa-sr').textContent=meaning;
+   });
+  });
+  const role=roles[index];root.querySelector('[data-role-name]').textContent=t(role.label);root.querySelector('[data-role-quote]').textContent=t(role.quote);root.querySelector('[data-role-context]').textContent=t(role.context);
+ }
+
  function createMemoryExplorer(){
   const viewport=root.querySelector('.oa-graph-viewport'),svg=root.querySelector('.oa-graph-lines'),nodeLayer=root.querySelector('[data-memory-nodes]'),edgeLayer=root.querySelector('[data-memory-edges]'),labelLayer=root.querySelector('[data-memory-edge-labels]');
   const data=[

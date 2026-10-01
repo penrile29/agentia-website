@@ -8,6 +8,8 @@
     en: { ...window.OakbaseStaticCopy?.en, ...window.OakbaseDynamicCopy?.en },
     es: { ...window.OakbaseStaticCopy?.es, ...window.OakbaseDynamicCopy?.es },
   };
+  const route = /^(.*\/)(es|en)(?:\/|$)/.exec(window.location.pathname);
+  const routeLanguage = route?.[2];
   const requested = new URLSearchParams(window.location.search).get('lang');
   let saved = '';
   try {
@@ -16,9 +18,35 @@
     // Language controls still work when browser storage is unavailable.
   }
   const browserLanguage = (navigator.languages?.[0] || navigator.language || 'en').toLowerCase();
-  let language = supported.includes(requested) ? requested
+  let language = routeLanguage || (supported.includes(requested) ? requested
     : supported.includes(saved) ? saved
-      : browserLanguage.startsWith('es') ? 'es' : 'en';
+      : browserLanguage.startsWith('es') ? 'es' : 'en');
+
+  function rememberLanguage(next) {
+    try {
+      localStorage.setItem(storageKey, next);
+      localStorage.setItem(legacyStorageKey, next);
+    } catch (_) {
+      // Language URLs preserve the choice when browser storage is unavailable.
+    }
+  }
+
+  function languageUrl(href, next) {
+    const url = new URL(href, window.location.href);
+    if (url.origin !== window.location.origin || !['http:', 'https:', 'file:'].includes(url.protocol)) return url;
+    if (routeLanguage) {
+      const targetRoute = /^(.*\/)(es|en)(?:\/|$)/.exec(url.pathname);
+      if (targetRoute) {
+        url.pathname = `${targetRoute[1]}${next}/${url.pathname.slice(targetRoute[0].length)}`;
+      } else if (url.pathname.startsWith(route[1])) {
+        url.pathname = `${route[1]}${next}/${url.pathname.slice(route[1].length)}`;
+      }
+      url.searchParams.delete('lang');
+    } else {
+      url.searchParams.set('lang', next);
+    }
+    return url;
+  }
 
   function t(key, values = {}) {
     const copy = catalogs[language][key] ?? catalogs.en[key] ?? key;
@@ -28,6 +56,12 @@
 
   function setLanguage(next, updateUrl = false) {
     if (!supported.includes(next)) return;
+    if (routeLanguage && next !== routeLanguage) {
+      // A static language URL must always retain its matching rendered language.
+      rememberLanguage(next);
+      window.location.assign(languageUrl(window.location.href, next).href);
+      return;
+    }
     language = next;
     document.documentElement.lang = language;
     document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -42,23 +76,21 @@
         element.setAttribute(attribute, t(element.getAttribute(`data-i18n-${attribute}`)));
       });
     }
-    document.querySelectorAll('[data-home-lang]').forEach(button => {
-      button.setAttribute('aria-pressed', String(button.dataset.homeLang === language));
+    document.querySelectorAll('[data-home-lang]').forEach(control => {
+      const selected = String(control.dataset.homeLang === language);
+      if (control.tagName === 'A') {
+        control.removeAttribute('aria-pressed');
+        control.setAttribute('aria-current', selected);
+      } else {
+        control.setAttribute('aria-pressed', selected);
+      }
     });
     document.querySelectorAll('.oa-site-footer nav a').forEach(link => {
-      const url = new URL(link.getAttribute('href'), window.location.href);
-      url.searchParams.set('lang', language);
-      link.href = url.href;
+      link.href = languageUrl(link.getAttribute('href'), language).href;
     });
-    try {
-      localStorage.setItem(storageKey, language);
-      localStorage.setItem(legacyStorageKey, language);
-    } catch (_) {
-      // The lang query parameter also preserves the choice when following links.
-    }
+    rememberLanguage(language);
     if (updateUrl) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', language);
+      const url = languageUrl(window.location.href, language);
       try {
         window.history.replaceState({}, '', url);
       } catch (_) {
@@ -70,8 +102,16 @@
   }
 
   window.OakbaseI18n = Object.freeze({ t, setLanguage, get language() { return language; } });
-  document.querySelectorAll('[data-home-lang]').forEach(button => {
-    button.addEventListener('click', () => setLanguage(button.dataset.homeLang, true));
+  document.querySelectorAll('[data-home-lang]').forEach(control => {
+    control.addEventListener('click', () => {
+      const next = control.dataset.homeLang;
+      if (!supported.includes(next)) return;
+      if (control.tagName === 'A' && control.getAttribute('href')) {
+        rememberLanguage(next);
+        return;
+      }
+      setLanguage(next, true);
+    });
   });
   setLanguage(language);
 })();

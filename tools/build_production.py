@@ -12,11 +12,13 @@ from urllib.parse import unquote, urlsplit
 import xml.etree.ElementTree as ET
 
 from build_pages import PUBLIC_FILES, ROOT, References, build as build_pages, validate_references
+from localize_production import generate as generate_languages
 
 
 ORIGIN = 'https://oakbase.ai'
 PAGES_ORIGIN = 'https://penrile29.github.io/agentia-website'
 ROUTES = ('/', '/legal/', '/terms/', '/privacy/', '/security/', '/security/reporting/', '/subprocessors/')
+LOCALIZED_ROUTES = tuple(f'/{lang}{route}' for lang in ('es', 'en') for route in ROUTES)
 PRODUCTION_FILES = ('404.html', 'llms.txt', 'llms-full.txt')
 # This inventory is intentionally explicit: private repository files and future
 # additions to assets/ must never become public through a recursive copy.
@@ -50,14 +52,15 @@ def validate_production(destination: Path) -> None:
         'assets/favicon.svg', '.well-known/security.txt', 'robots.txt',
         'sitemap.xml', 'build-info.json',
     } | {f'assets/firm-knowledge/{name}' for name in PUBLIC_ASSETS}
+    expected |= {route.lstrip('/') + 'index.html' for route in LOCALIZED_ROUTES}
     actual = {path.relative_to(destination).as_posix() for path in destination.rglob('*') if path.is_file()}
     if actual != expected:
         raise SystemExit(f'Production allowlist mismatch: extra={sorted(actual - expected)}, missing={sorted(expected - actual)}')
-    for route in ROUTES:
+    for route in ROUTES + LOCALIZED_ROUTES:
         path = destination / route.lstrip('/') / 'index.html'
         content = path.read_text(encoding='utf-8')
         metadata = Metadata(content)
-        expected_url = ORIGIN + route
+        expected_url = ORIGIN + (f'/en{route}' if route in ROUTES else route)
         if metadata.canonicals != [expected_url] or metadata.social_urls != [expected_url]:
             raise SystemExit(f'Invalid production metadata: {route}')
         if PAGES_ORIGIN in content:
@@ -76,7 +79,7 @@ def validate_production(destination: Path) -> None:
                 raise SystemExit(f'Missing production URL in {path.name}: {reference}')
     tree = ET.parse(destination / 'sitemap.xml')
     urls = [element.text for element in tree.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
-    if urls != [ORIGIN + route for route in ROUTES]:
+    if urls != [ORIGIN + route for route in LOCALIZED_ROUTES]:
         raise SystemExit('Sitemap does not match the approved production routes')
     if f'Sitemap: {ORIGIN}/sitemap.xml' not in (destination / 'robots.txt').read_text(encoding='utf-8'):
         raise SystemExit('robots.txt is missing the production sitemap')
@@ -91,7 +94,7 @@ def build(destination: Path) -> None:
     actual_assets = {path.relative_to(asset_root).as_posix() for path in asset_paths if path.is_file()}
     if actual_assets != PUBLIC_ASSETS:
         raise SystemExit('Review and update PUBLIC_ASSETS before publishing changed assets')
-    build_pages(destination)
+    build_pages(destination, preview=False)
     (destination / '.nojekyll').unlink()
     for route in ROUTES:
         path = destination / route.lstrip('/') / 'index.html'
@@ -99,13 +102,23 @@ def build(destination: Path) -> None:
         if not Metadata(content).social_urls:
             content = content.replace('</head>', f'  <meta property="og:url" content="{ORIGIN + route}">\n</head>', 1)
         path.write_text(content, encoding='utf-8')
+    generate_languages(destination, ROOT)
+    # Old URLs also have a static fallback for plain-file previews. Production
+    # nginx performs permanent redirects and respects explicit ?lang choices.
+    for route in ROUTES:
+        target = ORIGIN + '/en' + route
+        content = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>Oakbase</title><link rel="canonical" href="{target}">
+<meta property="og:url" content="{target}"><meta http-equiv="refresh" content="0;url={target}">
+</head><body><a href="{target}">Continue in English</a> · <a href="{ORIGIN}/es{route}">Continuar en español</a></body></html>'''
+        (destination / route.lstrip('/') / 'index.html').write_text(content, encoding='utf-8')
     for filename in PRODUCTION_FILES:
         shutil.copy2(ROOT / 'production-assets' / filename, destination / filename)
     shutil.copy2(ROOT / 'robots.txt', destination / 'robots.txt')
     (destination / '.well-known').mkdir()
     shutil.copy2(ROOT / '.well-known/security.txt', destination / '.well-known/security.txt')
     sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    sitemap += ''.join(f'  <url><loc>{ORIGIN + route}</loc></url>\n' for route in ROUTES)
+    sitemap += ''.join(f'  <url><loc>{ORIGIN + route}</loc></url>\n' for route in LOCALIZED_ROUTES)
     sitemap += '</urlset>\n'
     (destination / 'sitemap.xml').write_text(sitemap, encoding='utf-8')
     build_info_path = destination / 'build-info.json'
@@ -114,7 +127,7 @@ def build(destination: Path) -> None:
     build_info_path.write_text(json.dumps(build_info, indent=2) + '\n', encoding='utf-8')
     checked = validate_references(destination)
     validate_production(destination)
-    print(f'Built Oakbase production at {destination}; checked {checked} references and {len(ROUTES)} canonical routes.')
+    print(f'Built Oakbase production at {destination}; checked {checked} references and {len(LOCALIZED_ROUTES)} canonical routes.')
 
 
 if __name__ == '__main__':

@@ -1,10 +1,10 @@
 # Oakbase on GitHub Pages
 
-Public website: https://penrile29.github.io/agentia-website/
+Preview website: https://penrile29.github.io/agentia-website/
 
 The primary production domain is https://oakbase.ai; its separate Hostinger deployment is documented in `OAKBASE-AI.md`.
 
-The authored source lives on `codex/operational-memory-v2`, under `v2/`. GitHub Pages serves the generated files from the root of `gh-pages`. This makes V2 the Pages homepage while keeping the original website and its Hostinger configuration in the source repository unchanged.
+The authored source lives on `codex/operational-memory-v2`, under `v2/`. GitHub Pages serves the generated files from the root of `gh-pages`. This makes V2 the Pages homepage while maintaining a separate production artifact for Hostinger.
 
 ## Build
 
@@ -15,7 +15,7 @@ python3 tools/build_pages.py /path/to/an/empty/directory
 
 The build publishes the homepage, its `v2.css` and `v2.js`, and six local bilingual policy pages: `/legal/`, `/privacy/`, `/terms/`, `/security/`, `/security/reporting/` and `/subprocessors/`. Their shared stylesheet and language-switching script live in `/legal/`. All published source pages are explicitly listed in `PUBLIC_FILES` in `tools/build_pages.py`; the original root policy pages are retained only in the source repository. Fonts, icons and logos are served locally from `assets/firm-knowledge/` and `assets/favicon.svg`. Older brain scripts, the shared legacy stylesheet, CRM, development notes, local tools and test outputs are excluded. The output has `.nojekyll` and `build-info.json`, which records the source commit.
 
-Local asset paths are rewritten for the GitHub project URL and checked relative to each referring HTML, CSS and JavaScript file, including nested routes, font stylesheets and logos assigned by JavaScript. Directory links resolve to their `index.html`; page fragments are validated. Policy links stay on the same published website; the contact buttons open `hello@oakbase.ai` in the visitor’s email application. Graph data and agent actions are illustrative. The homepage is public and indexable.
+Local asset paths are rewritten for the GitHub project URL and checked relative to each referring HTML, CSS and JavaScript file, including nested routes, font stylesheets and logos assigned by JavaScript. Directory links resolve to their `index.html`; page fragments are validated. Policy links stay on the same published website; the contact buttons open `hello@oakbase.ai` in the visitor’s email application. Graph data and agent actions are illustrative. The preview remains public for review, but every published HTML page includes `noindex,follow` so search engines use oakbase.ai as the official website. Production calls the shared copier with preview mode disabled.
 
 Generated HTML versions its `v2.css`, `v2.js`, `legal.css` and `legal.js` URLs with the short source commit, for example `v2.css?v=3632f53`. Each release therefore requests fresh page styles and behavior without changing the published filenames.
 

@@ -88,7 +88,7 @@ def validate_references(destination: Path) -> int:
     return len(references)
 
 
-def build(destination: Path) -> None:
+def build(destination: Path, *, preview: bool = True) -> None:
     destination = destination.resolve()
     if destination.exists() and any(destination.iterdir()):
         raise SystemExit(f'Destination must be empty: {destination}')
@@ -103,6 +103,9 @@ def build(destination: Path) -> None:
         if source.suffix == '.html':
             content = re.sub(r'''(href|src)=(["'])([^"']+)\2''',
                              lambda match: version_asset(match, version), content)
+            if preview:
+                content = re.sub(r'<meta\s+name="robots"[^>]*>\s*', '', content)
+                content = content.replace('</head>', '  <meta name="robots" content="noindex,follow">\n</head>', 1)
         target = destination / filename
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding='utf-8')

@@ -1,9 +1,9 @@
 /* Homepage copy. Values with markup contain only trusted, authored HTML. */
 window.OakbaseStaticCopy = {
   "en": {
-    "metaTitle": "Oakbase — Your firm’s context. Your agent’s actions.",
-    "metaDescription": "Oakbase connects your firm’s knowledge into persistent legal context and equips every role with an Operations Agent that gets work done in your systems, from the AI you use.",
-    "metaSocialDescription": "A brain for your firm. An agent for your role. Action in your systems, from the AI you use.",
+    "metaTitle": "Oakbase | Legal context engine and AI operations agents",
+    "metaDescription": "A legal context engine and role-specific AI operations agents for law firms. Connect firm knowledge and get administrative work done in your existing systems.",
+    "metaSocialDescription": "Shared legal memory and role-specific AI agents that connect your firm's knowledge and handle administrative work in the systems you already use.",
     "siteDescription": "Oakbase website — Firm memory and your proactive Operations Agent",
     "skipToContent": "Skip to content",
     "homeLink": "Oakbase home",
@@ -127,9 +127,9 @@ window.OakbaseStaticCopy = {
     "legal": "Legal"
   },
   "es": {
-    "metaTitle": "Oakbase — El contexto de tu firma. Las acciones de tu agente.",
-    "metaDescription": "Oakbase conecta el conocimiento de tu firma en una memoria jurídica persistente y dota a cada profesional de un agente de operaciones que actúa en tus sistemas desde la IA que utilizas.",
-    "metaSocialDescription": "Un cerebro para tu firma. Un agente para tu rol. Acciones en tus sistemas desde la IA que utilizas.",
+    "metaTitle": "Oakbase | Memoria y agentes de IA para despachos de abogados",
+    "metaDescription": "Motor de contexto y agentes de IA para despachos de abogados. Conecta el conocimiento de la firma y automatiza tareas administrativas en tus sistemas.",
+    "metaSocialDescription": "Memoria jurídica compartida y agentes de IA por rol para conectar el conocimiento de tu despacho y gestionar tareas en los sistemas que ya utilizas.",
     "siteDescription": "Oakbase — La memoria de tu firma y tu agente de operaciones proactivo",
     "skipToContent": "Ir al contenido",
     "homeLink": "Inicio de Oakbase",
