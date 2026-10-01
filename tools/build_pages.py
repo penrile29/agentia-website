@@ -34,6 +34,8 @@ def build(destination: Path) -> None:
     destination = destination.resolve()
     if destination.exists() and any(destination.iterdir()):
         raise SystemExit(f'Destination must be empty: {destination}')
+    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    version = commit[:7]
     destination.mkdir(parents=True, exist_ok=True)
     for filename in PUBLIC_FILES:
         source = ROOT / 'v2' / filename
@@ -41,11 +43,13 @@ def build(destination: Path) -> None:
         # Policy links stay on the main domain; assets retain the project prefix.
         content = re.sub(r'href="/(privacy|security|terms|legal)/"', r'href="https://oakbase.ai/\1/"', content)
         content = content.replace('href="/"', 'href="https://oakbase.ai/"')
+        if filename == 'index.html':
+            content = content.replace('href="v2.css"', f'href="v2.css?v={version}"')
+            content = content.replace('src="v2.js"', f'src="v2.js?v={version}"')
         (destination / filename).write_text(content, encoding='utf-8')
     shutil.copytree(ROOT / 'assets/firm-knowledge', destination / 'assets/firm-knowledge')
     shutil.copy2(ROOT / 'assets/favicon.svg', destination / 'assets/favicon.svg')
     (destination / '.nojekyll').touch()
-    commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     (destination / 'build-info.json').write_text(json.dumps({'source_commit': commit, 'source_path': 'v2/'}, indent=2) + '\n', encoding='utf-8')
 
     references = References((destination / 'index.html').read_text(encoding='utf-8')).paths

@@ -15,6 +15,8 @@ The build publishes exactly `v2/index.html`, `v2/v2.css`, `v2/v2.js`, `assets/fi
 
 Local asset paths are rewritten for the GitHub project URL and checked in HTML, CSS and JavaScript, including logos assigned by JavaScript. Policy links lead to oakbase.ai; the contact buttons open `hello@oakbase.ai` in the visitor’s email application. Graph data and agent actions are illustrative. The homepage is public and indexable.
 
+The generated homepage versions its `v2.css` and `v2.js` URLs with the short source commit, for example `v2.css?v=3632f53`. Each release therefore requests fresh page styles and behavior without changing the published filenames.
+
 ## Publish
 
 Commit and push `codex/operational-memory-v2` first, then build from that commit into an empty directory. Review the generated website locally. Replace the published files in a checkout of the existing `gh-pages` branch with the generated directory, preserving `.git` and removing obsolete published assets. Commit that update and push `gh-pages` without force.
