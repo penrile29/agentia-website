@@ -33,7 +33,7 @@
       button.setAttribute("aria-pressed", String(button.dataset.legalLang === language));
     });
 
-    document.querySelectorAll('.legal-nav a').forEach((link) => {
+    document.querySelectorAll('.legal-nav a, .legal-brand, .legal-back').forEach((link) => {
       const url = new URL(link.getAttribute('href'), window.location.href);
       url.searchParams.set('lang', language);
       link.href = url.pathname + url.search + url.hash;
