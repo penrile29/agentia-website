@@ -85,7 +85,7 @@
         control.setAttribute('aria-pressed', selected);
       }
     });
-    document.querySelectorAll('.oa-site-footer nav a').forEach(link => {
+    document.querySelectorAll('.oa-site-footer nav a, [data-contact-privacy]').forEach(link => {
       link.href = languageUrl(link.getAttribute('href'), language).href;
     });
     rememberLanguage(language);
