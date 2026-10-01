@@ -1,0 +1,48 @@
+services:
+  website:
+    image: nginx:1.27-alpine
+    container_name: oakbase-website
+    restart: unless-stopped
+    environment:
+      CONTENT_REF: "${CONTENT_REF:?CONTENT_REF is required}"
+      CONFIG_REF: "${CONFIG_REF:?CONFIG_REF is required}"
+    command: >
+      /bin/sh -lc '
+      set -eu;
+      CONTENT_REF="$${CONTENT_REF:?CONTENT_REF is required}";
+      CONFIG_REF="$${CONFIG_REF:?CONFIG_REF is required}";
+      CONFIG_BASE="https://raw.githubusercontent.com/penrile29/agentia-website/$$CONFIG_REF";
+      mkdir -p /tmp/oakbase-release;
+      wget -q -O /tmp/oakbase-release.tar.gz "https://codeload.github.com/penrile29/agentia-website/tar.gz/$$CONTENT_REF";
+      tar -xzf /tmp/oakbase-release.tar.gz --strip-components=1 -C /tmp/oakbase-release;
+      test -s /tmp/oakbase-release/index.html;
+      test -s /tmp/oakbase-release/build-info.json;
+      grep -q "$$CONFIG_REF" /tmp/oakbase-release/build-info.json;
+      wget -q -O /etc/nginx/conf.d/default.conf "$$CONFIG_BASE/deploy/nginx.production.conf";
+      cp -a /tmp/oakbase-release/. /usr/share/nginx/html/;
+      nginx -t;
+      exec nginx -g "daemon off;";
+      '
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-public"
+      - "traefik.http.routers.oakbase-website.rule=Host(`${DOMAIN:-oakbase.ai}`) || Host(`www.${DOMAIN:-oakbase.ai}`) || Host(`${LEGACY_DOMAIN:-agentialabs.ai}`) || Host(`www.${LEGACY_DOMAIN:-agentialabs.ai}`)"
+      - "traefik.http.routers.oakbase-website.entrypoints=websecure"
+      - "traefik.http.routers.oakbase-website.tls=true"
+      - "traefik.http.routers.oakbase-website.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.oakbase-website.priority=20"
+      - "traefik.http.services.oakbase-website.loadbalancer.server.port=80"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true

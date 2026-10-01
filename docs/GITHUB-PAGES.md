@@ -2,6 +2,8 @@
 
 Public website: https://penrile29.github.io/agentia-website/
 
+The primary production domain is https://oakbase.ai; its separate Hostinger deployment is documented in `OAKBASE-AI.md`.
+
 The authored source lives on `codex/operational-memory-v2`, under `v2/`. GitHub Pages serves the generated files from the root of `gh-pages`. This makes V2 the Pages homepage while keeping the original website and its Hostinger configuration in the source repository unchanged.
 
 ## Build
