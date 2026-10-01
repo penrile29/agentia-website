@@ -13,6 +13,7 @@ import sys
 import tempfile
 from urllib.parse import unquote, urlsplit
 
+from build_pages import ASSET_LITERAL_RE, PUBLIC_FILES
 from preview_v2 import ROOT, resolve_public_path
 
 
@@ -145,6 +146,10 @@ class Validator:
     def javascript(self, source: Path, node: str, content: str | None = None,
                    script_type: str = '', line: int = 0) -> None:
         self.checked_scripts += 1
+        script = source.read_text(encoding='utf-8') if content is None else content
+        for match in ASSET_LITERAL_RE.finditer(script):
+            asset_line = script.count('\n', 0, match.start()) + (line or 1)
+            self.reference(source, 'asset', match.group(1), asset_line)
         if content is None:
             result = subprocess.run([node, '--check', str(source)], capture_output=True, text=True)
         else:
@@ -158,10 +163,12 @@ class Validator:
 
     def run(self) -> int:
         directory = ROOT / 'v2'
-        if not (directory / 'index.html').is_file():
-            print('FAIL: v2/index.html is missing.', file=sys.stderr)
+        sources = [directory / filename for filename in PUBLIC_FILES]
+        missing = [source for source in sources if not source.is_file()]
+        if missing:
+            for source in missing:
+                print(f'FAIL: {source.relative_to(ROOT)} is missing.', file=sys.stderr)
             return 1
-        sources = sorted(path for path in directory.rglob('*') if path.is_file())
         node = shutil.which('node')
         if not node:
             self.errors.append('Node.js is required for JavaScript syntax checks (node --check).')

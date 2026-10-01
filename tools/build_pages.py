@@ -14,6 +14,8 @@ from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parent.parent
+PUBLIC_FILES = ('index.html', 'v2.css', 'v2.js')
+ASSET_LITERAL_RE = re.compile(r'''["']((?:\.\./)?assets/[^"'\s]+)["']''')
 
 
 class References(HTMLParser):
@@ -33,17 +35,15 @@ def build(destination: Path) -> None:
     if destination.exists() and any(destination.iterdir()):
         raise SystemExit(f'Destination must be empty: {destination}')
     destination.mkdir(parents=True, exist_ok=True)
-    for source in (ROOT / 'v2').iterdir():
-        if source.is_file() and source.suffix in ('.html', '.css', '.js'):
-            content = source.read_text(encoding='utf-8')
-            content = content.replace('../assets/', 'assets/').replace('../agentic.css', 'agentic.css')
-            # Keep policy/comparison links on the existing main website. Root-relative
-            # links would otherwise leave GitHub's /agentia-website/ project prefix.
-            content = re.sub(r'href="/(privacy|security|terms|legal)/"', r'href="https://oakbase.ai/\1/"', content)
-            content = content.replace('href="/"', 'href="https://oakbase.ai/"')
-            (destination / source.name).write_text(content, encoding='utf-8')
-    shutil.copy2(ROOT / 'agentic.css', destination / 'agentic.css')
-    shutil.copytree(ROOT / 'assets', destination / 'assets')
+    for filename in PUBLIC_FILES:
+        source = ROOT / 'v2' / filename
+        content = source.read_text(encoding='utf-8').replace('../assets/', 'assets/')
+        # Policy links stay on the main domain; assets retain the project prefix.
+        content = re.sub(r'href="/(privacy|security|terms|legal)/"', r'href="https://oakbase.ai/\1/"', content)
+        content = content.replace('href="/"', 'href="https://oakbase.ai/"')
+        (destination / filename).write_text(content, encoding='utf-8')
+    shutil.copytree(ROOT / 'assets/firm-knowledge', destination / 'assets/firm-knowledge')
+    shutil.copy2(ROOT / 'assets/favicon.svg', destination / 'assets/favicon.svg')
     (destination / '.nojekyll').touch()
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     (destination / 'build-info.json').write_text(json.dumps({'source_commit': commit, 'source_path': 'v2/'}, indent=2) + '\n', encoding='utf-8')
@@ -51,6 +51,7 @@ def build(destination: Path) -> None:
     references = References((destination / 'index.html').read_text(encoding='utf-8')).paths
     for stylesheet in destination.glob('*.css'):
         references.extend(re.findall(r'url\([\'"]?([^\)\'\"]+)', stylesheet.read_text(encoding='utf-8')))
+    references.extend(ASSET_LITERAL_RE.findall((destination / 'v2.js').read_text(encoding='utf-8')))
     for reference in references:
         url = urlsplit(reference)
         if url.scheme or url.netloc or not url.path:
