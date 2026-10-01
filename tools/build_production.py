@@ -12,6 +12,7 @@ from urllib.parse import unquote, urlsplit
 import xml.etree.ElementTree as ET
 
 from build_pages import PUBLIC_FILES, ROOT, References, build as build_pages, validate_references
+from check_robots import check as check_robots
 from localize_production import generate as generate_languages
 
 
@@ -81,8 +82,9 @@ def validate_production(destination: Path) -> None:
     urls = [element.text for element in tree.findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')]
     if urls != [ORIGIN + route for route in LOCALIZED_ROUTES]:
         raise SystemExit('Sitemap does not match the approved production routes')
-    if f'Sitemap: {ORIGIN}/sitemap.xml' not in (destination / 'robots.txt').read_text(encoding='utf-8'):
-        raise SystemExit('robots.txt is missing the production sitemap')
+    robots_errors = check_robots((destination / 'robots.txt').read_text(encoding='utf-8'))
+    if robots_errors:
+        raise SystemExit('Invalid public crawler policy: ' + '; '.join(robots_errors))
 
 
 def build(destination: Path) -> None:
