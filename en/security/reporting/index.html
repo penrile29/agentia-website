@@ -1,0 +1,126 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-title-es="Divulgación responsable — Oakbase" data-title-en="Responsible Disclosure — Oakbase">Responsible Disclosure — Oakbase</title>
+  <meta name="description" content="How to report a security vulnerability to Oakbase responsibly.">
+  
+  <link rel="canonical" href="https://oakbase.ai/en/security/reporting/">
+  <link rel="icon" type="image/svg+xml" href="../../../assets/favicon.svg">
+  <link rel="stylesheet" href="../../../assets/firm-knowledge/dm-sans.css">
+  <link rel="stylesheet" href="../../../legal/legal.css?v=dc306ef">
+  <script src="../../../legal/legal.js?v=dc306ef" defer></script>
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27; &#x27;unsafe-inline&#x27;; img-src &#x27;self&#x27; data:; font-src &#x27;self&#x27;; connect-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;self&#x27;; form-action &#x27;none&#x27;">
+  <meta property="og:url" content="https://oakbase.ai/en/security/reporting/">
+<link rel="alternate" hreflang="es" href="https://oakbase.ai/es/security/reporting/"><link rel="alternate" hreflang="en" href="https://oakbase.ai/en/security/reporting/"><link rel="alternate" hreflang="x-default" href="https://oakbase.ai/en/security/reporting/"><meta property="og:locale" content="en_GB"></head>
+<body class="legal-page">
+  <a class="legal-skip-link" href="#legal-content">Skip to content</a>
+
+  <header class="legal-header">
+    <div class="legal-header-inner">
+      <a class="legal-brand" href="../../" aria-label="Oakbase home">
+        <img src="../../../assets/favicon.svg" alt="" width="27" height="27">
+        <span>oakbase</span>
+      </a>
+      <div class="legal-header-actions">
+        <a class="legal-back" href="../../">
+          
+          <span data-lang="en">Back to Oakbase</span>
+        </a>
+        <div class="legal-language" aria-label="Selector de idioma / Language selector">
+          <a data-legal-lang="es" aria-current="false" href="../../../es/security/reporting/" hreflang="es" lang="es">ES</a>
+          <a data-legal-lang="en" aria-current="true" href="./" hreflang="en" lang="en">EN</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="legal-nav-wrap">
+    <nav class="legal-nav" aria-label="Legal">
+      <a href="../../legal/"><span data-lang="en">Legal notice</span></a>
+      <a href="../../terms/"><span data-lang="en">Terms</span></a>
+      <a href="../../privacy/"><span data-lang="en">Privacy</span></a>
+      <a href="../"><span data-lang="en">Security</span></a>
+      <a href="./" aria-current="page"><span data-lang="en">Report a vulnerability</span></a>
+      <a href="../../subprocessors/"><span data-lang="en">Providers</span></a>
+    </nav>
+  </div>
+
+  <main class="legal-shell" id="legal-content">
+    
+
+    <section data-lang="en">
+      <header class="legal-hero">
+        <h1>Responsible disclosure</h1>
+        <p class="legal-lead">The channel and rules for reporting Oakbase vulnerabilities safely and in a coordinated manner.</p>
+      </header>
+
+      <div class="legal-document">
+        <aside class="legal-toc" aria-label="On this page">
+          <strong>On this page</strong>
+          <a href="#en-report">1. How to report</a>
+          <a href="#en-scope">2. Good-faith testing</a>
+          <a href="#en-sla">3. Remediation targets</a>
+          <a href="#en-coordination">4. Coordinated disclosure</a>
+          <a href="#en-rewards">5. Rewards</a>
+        </aside>
+
+        <article class="legal-content">
+          <section id="en-report">
+            <h2>1. How to report</h2>
+            <p>We welcome good-faith reports that help us investigate and remediate vulnerabilities. This policy does not authorize access to third-party data or systems, or any violation of law.</p>
+            <p>Send your report to <a href="mailto:security@oakbase.ai">security@oakbase.ai</a>. Where possible, include the affected asset, a clear description, reproducible steps, estimated impact, minimal evidence and a secure way to contact you. Do not include personal data, Customer Content or credentials in the email.</p>
+            <p>If you encounter personal or confidential data, stop testing, do not copy or share it, notify us immediately and delete any local copy when we confirm that you may do so.</p>
+          </section>
+
+          <section id="en-scope">
+            <h2>2. Scope and good-faith testing</h2>
+            <p>Limit testing to your own accounts and data, or to an environment for which you have written authorization. Use the minimum interaction needed to demonstrate the issue and avoid affecting service availability, integrity or confidentiality.</p>
+            <h3>Prohibited testing</h3>
+            <ul>
+              <li>Denial of service, volumetric testing or deliberate service degradation.</li>
+              <li>Social engineering, phishing, spam, physical attacks, or attacks on staff or suppliers.</li>
+              <li>Accessing, altering, deleting, exfiltrating or publishing another party's data.</li>
+              <li>Installing malware, persistence, lateral movement or control evasion.</li>
+              <li>High-volume automated scanning or exploitation beyond the minimum proof.</li>
+              <li>Testing third-party services or infrastructure without their express authorisation.</li>
+              <li>Using credentials obtained from third parties or attempting to access another tenant.</li>
+            </ul>
+          </section>
+
+          <section id="en-sla">
+            <h2>3. Triage and remediation targets</h2>
+            <p>Once a report is validated and classified, we apply the targets below. Time starts when Oakbase confirms the vulnerability and severity; these are not contractual guarantees and may be adjusted where a safe fix requires coordination with a supplier or customer.</p>
+            <div class="legal-table-wrap">
+              <table class="legal-table">
+                <thead><tr><th>Severity</th><th>Target</th></tr></thead>
+                <tbody>
+                  <tr><td>Critical</td><td>Mitigation within 24 hours; target fix within 7 days.</td></tr>
+                  <tr><td>High</td><td>Target fix within 15 days.</td></tr>
+                  <tr><td>Medium</td><td>Target fix within 30 days.</td></tr>
+                  <tr><td>Low</td><td>Target fix within 90 days.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="en-coordination">
+            <h2>4. Coordinated disclosure</h2>
+            <p>Keep the report confidential while we investigate and coordinate any publication with Oakbase. We will seek to provide material status updates and, where appropriate, agree a disclosure date that allows customers to be protected.</p>
+          </section>
+
+          <section id="en-rewards">
+            <h2>5. Rewards</h2>
+            <p>Oakbase does not operate a public bug-bounty programme. A report creates no entitlement to payment, recognition or compensation unless expressly agreed in writing beforehand.</p>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="legal-footer"><p>© 2026 Oakbase SL · CIF B05693742</p><p><a href="mailto:hello@oakbase.ai">hello@oakbase.ai</a></p></footer>
+</body>
+</html>

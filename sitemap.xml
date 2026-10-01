@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://oakbase.ai/</loc></url>
-  <url><loc>https://oakbase.ai/legal/</loc></url>
-  <url><loc>https://oakbase.ai/terms/</loc></url>
-  <url><loc>https://oakbase.ai/privacy/</loc></url>
-  <url><loc>https://oakbase.ai/security/</loc></url>
-  <url><loc>https://oakbase.ai/security/reporting/</loc></url>
-  <url><loc>https://oakbase.ai/subprocessors/</loc></url>
+  <url><loc>https://oakbase.ai/es/</loc></url>
+  <url><loc>https://oakbase.ai/es/legal/</loc></url>
+  <url><loc>https://oakbase.ai/es/terms/</loc></url>
+  <url><loc>https://oakbase.ai/es/privacy/</loc></url>
+  <url><loc>https://oakbase.ai/es/security/</loc></url>
+  <url><loc>https://oakbase.ai/es/security/reporting/</loc></url>
+  <url><loc>https://oakbase.ai/es/subprocessors/</loc></url>
+  <url><loc>https://oakbase.ai/en/</loc></url>
+  <url><loc>https://oakbase.ai/en/legal/</loc></url>
+  <url><loc>https://oakbase.ai/en/terms/</loc></url>
+  <url><loc>https://oakbase.ai/en/privacy/</loc></url>
+  <url><loc>https://oakbase.ai/en/security/</loc></url>
+  <url><loc>https://oakbase.ai/en/security/reporting/</loc></url>
+  <url><loc>https://oakbase.ai/en/subprocessors/</loc></url>
 </urlset>

@@ -2,6 +2,7 @@
 window.OakbaseDynamicCopy = {
   en: {},
   es: {
+    'Select a client to explore': 'Selecciona un cliente para explorar',
     'Alder Ltd.': 'Grupo Olivar',
     'Beacon': 'Faro SL',
     'Cedar Group': 'Grupo Encina',

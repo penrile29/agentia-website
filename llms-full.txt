@@ -10,7 +10,7 @@ The website illustrates signals from Microsoft Teams, Outlook, Calendar, WhatsAp
 
 When a relationship between information and a client or matter is unclear, Oakbase asks the professional for confirmation within their workflow. This human-in-the-loop process helps resolve uncertainty rather than silently treating an uncertain link as confirmed.
 
-Explore: https://oakbase.ai/#platform
+Explore: https://oakbase.ai/en/#platform
 
 ## A purpose-built agent for each role
 
@@ -20,7 +20,7 @@ A proactive daily briefing can connect a follow-up to an earlier commitment, pro
 
 The role matrix, graph, clients, people, messages, actions and proposed hours shown on the website are illustrative. They are not live customer data or measured customer results.
 
-Explore: https://oakbase.ai/#agents
+Explore: https://oakbase.ai/en/#agents
 
 ## Work done in your systems, from your AI
 
@@ -28,7 +28,7 @@ Professionals can access Oakbase from Claude, ChatGPT or Copilot through MCP. Th
 
 Oakbase works alongside the firm's CRM. The CRM remains the record of clients and opportunities; Oakbase connects it with communications, meetings and documents to build shared context. The agent can use that context to keep the CRM and other connected systems up to date.
 
-Explore: https://oakbase.ai/#operations
+Explore: https://oakbase.ai/en/#operations
 
 ## Security and control
 
@@ -38,15 +38,15 @@ The firm controls access for people and agents, and which actions require review
 
 ## Official pages
 
-- Homepage: https://oakbase.ai/
-- Spanish homepage: https://oakbase.ai/?lang=es
-- FAQs: https://oakbase.ai/#faq
-- Security: https://oakbase.ai/security/
-- Privacy: https://oakbase.ai/privacy/
-- Providers and subprocessors: https://oakbase.ai/subprocessors/
-- Vulnerability reporting: https://oakbase.ai/security/reporting/
-- Legal notice: https://oakbase.ai/legal/
-- Terms: https://oakbase.ai/terms/
+- Homepage: https://oakbase.ai/en/
+- Spanish homepage: https://oakbase.ai/es/
+- FAQs: https://oakbase.ai/en/#faq
+- Security: https://oakbase.ai/en/security/
+- Privacy: https://oakbase.ai/en/privacy/
+- Providers and subprocessors: https://oakbase.ai/en/subprocessors/
+- Vulnerability reporting: https://oakbase.ai/en/security/reporting/
+- Legal notice: https://oakbase.ai/en/legal/
+- Terms: https://oakbase.ai/en/terms/
 
 Operator: Oakbase SL · CIF B05693742.
 Contact: hello@oakbase.ai
