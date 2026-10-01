@@ -103,7 +103,7 @@ def localized_html(content: str, route: str, lang: str, data: dict) -> str:
         for attribute in ('aria-label', 'title', 'alt'):
             if node.attrs.get(attribute) in dynamic:
                 node.attrs[attribute] = dynamic[node.attrs[attribute]]
-        for key, attribute in [('data-i18n-content', 'content'), ('data-i18n-aria-label', 'aria-label'), ('data-i18n-title', 'title'), ('data-i18n-alt', 'alt')]:
+        for key, attribute in [('data-i18n-content', 'content'), ('data-i18n-aria-label', 'aria-label'), ('data-i18n-title', 'title'), ('data-i18n-alt', 'alt'), ('data-i18n-placeholder', 'placeholder')]:
             if key in node.attrs:
                 node.attrs[attribute] = copy[node.attrs[key]]
         if 'data-i18n' in node.attrs:

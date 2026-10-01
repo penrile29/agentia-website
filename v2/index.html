@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://crm-pi-nine-82.vercel.app; object-src 'none'; base-uri 'self'; form-action 'none'">
   <title data-i18n="metaTitle">Oakbase — Your firm’s context. Your agent’s actions.</title>
   <meta name="description" content="Oakbase connects your firm’s knowledge into persistent legal context and equips every role with an Operations Agent that gets work done in your systems, from the AI you use." data-i18n-content="metaDescription">
   <link rel="canonical" href="https://penrile29.github.io/agentia-website/">
@@ -23,6 +23,7 @@
   <script src="firm-graph.js" defer></script>
   <script src="i18n.js" defer></script>
   <script src="v2.js" defer></script>
+  <script src="contact.js" defer></script>
 </head>
 <body>
 <div id="oakbase-agent-message" aria-label="Oakbase website — Firm memory and your proactive Operations Agent" data-i18n-aria-label="siteDescription">
@@ -30,7 +31,7 @@
  <header class="oa-nav">
   <a class="oa-brand" href="#top" aria-label="Oakbase home" data-i18n-aria-label="homeLink"><img data-oakbase alt="">oakbase</a>
   <nav class="oa-nav-links" aria-label="Primary navigation" data-i18n-aria-label="primaryNavigation"><a href="#platform" data-i18n="navMemory">Firm memory</a><a href="#agents" data-i18n="navAgent">Your agent</a><a href="#control" data-i18n="security">Security</a></nav>
-  <div class="oa-nav-actions"><div class="oa-language" role="group" aria-label="Language / Idioma"><button type="button" data-home-lang="es" aria-label="Español" aria-pressed="false">ES</button><button type="button" data-home-lang="en" aria-label="English" aria-pressed="true">EN</button></div><a class="oa-contact-button" href="mailto:hello@oakbase.ai" data-i18n-html="contactAction">Let’s talk <span aria-hidden="true">↗</span></a></div>
+  <div class="oa-nav-actions"><div class="oa-language" role="group" aria-label="Language / Idioma"><button type="button" data-home-lang="es" aria-label="Español" aria-pressed="false">ES</button><button type="button" data-home-lang="en" aria-label="English" aria-pressed="true">EN</button></div><a class="oa-contact-button" href="#contact" data-i18n-html="contactAction">Let’s talk <span aria-hidden="true">↗</span></a></div>
  </header>
  <main id="main">
  <section class="oa-hero" id="top" aria-labelledby="oa-title"><div class="oa-eyebrow" data-i18n="heroEyebrow">Your firm’s system of action</div><h1 id="oa-title" data-i18n-html="heroTitle">Work flows in.<br>Your day moves forward.</h1><p class="oa-subtitle" data-i18n-html="heroSubtitle">A brain for your firm. An agent for your role.<br>Action in the systems you already use.</p></section>
@@ -104,8 +105,22 @@
    </div>
   </div>
  </section>
+ <section class="oa-comparison" id="compare" aria-labelledby="oa-comparison-title">
+  <div class="oa-section-kicker" data-i18n="comparisonKicker">04 / Where Oakbase fits</div>
+  <h2 id="oa-comparison-title" data-i18n-html="comparisonTitle">A clear role in<br>your AI stack.</h2>
+  <table class="oa-comparison-table">
+   <thead><tr><th scope="col" data-i18n="comparisonCategory">AI category</th><th scope="col" data-i18n="comparisonFocus">What it helps you do</th></tr></thead>
+   <tbody>
+    <tr><th scope="row"><span data-i18n="comparisonGeneral">General-purpose AI</span><small>Claude · ChatGPT · Gemini</small></th><td><h3 data-i18n="comparisonGeneralTitle">Broad assistance.</h3><p data-i18n="comparisonGeneralCopy">Research, write, analyse and work with connected applications.</p></td></tr>
+    <tr><th scope="row"><span data-i18n="comparisonLegal">AI for legal work</span><small>Harvey · Legora</small></th><td><h3 data-i18n="comparisonLegalTitle">Substantive legal work.</h3><p data-i18n="comparisonLegalCopy">Legal research, document review, drafting and legal workflows.</p></td></tr>
+    <tr class="oa-comparison-oakbase"><th scope="row"><span>Oakbase</span><small data-i18n="comparisonOakbase">Firm context and operations</small></th><td><h3 data-i18n="comparisonOakbaseTitle">Your firm’s memory. Its daily operations.</h3><p data-i18n="comparisonOakbaseCopy">Connect clients, matters and commitments in shared legal memory. Give every role an Operations Agent to prepare time entries, coordinate tasks, follow up and keep your systems up to date.</p></td></tr>
+   </tbody>
+  </table>
+  <p class="oa-comparison-note" data-i18n="comparisonNote">These tools can coexist. Oakbase focuses on the administrative work around each matter, with shared context and your firm’s approval rules.</p>
+  <details class="oa-comparison-sources"><summary data-i18n="comparisonSources">Product references</summary><p><a href="https://www.anthropic.com/news/claude-for-small-business" rel="external">Claude</a> · <a href="https://help.openai.com/en/articles/12628342-company-knowledge-in-chatgpt" rel="external">ChatGPT</a> · <a href="https://support.google.com/gemini/answer/14959807" rel="external">Gemini</a> · <a href="https://www.harvey.ai/solutions/litigation" rel="external">Harvey</a> · <a href="https://legora.com/product/workflows" rel="external">Legora</a></p></details>
+ </section>
  <section class="oa-security" id="control" aria-labelledby="oa-security-title">
-  <div class="oa-security-kicker" data-i18n="securityKicker">04 / Security</div>
+  <div class="oa-security-kicker" data-i18n="securityKicker">05 / Security</div>
   <h2 id="oa-security-title" data-i18n-html="securityTitle">Your firm’s knowledge.<br><span>Protected.</span></h2>
   <div class="oa-security-principles">
    <article class="oa-security-principle"><h3 data-i18n="encryptionTitle">Encryption</h3><p data-i18n="encryptionDescription">Your firm’s information is encrypted in transit and at rest, protecting confidential data as it moves and while it is stored.</p></article>
@@ -116,8 +131,12 @@
   <p class="oa-security-scope" data-i18n="retentionScope">Zero Data Retention applies to Oakbase’s LLM processing. Your firm’s persistent memory is retained in Oakbase.</p>
  </section>
  <section class="oa-faq" id="faq" aria-labelledby="oa-faq-title">
-  <div class="oa-faq-heading"><div class="oa-section-kicker" data-i18n="faqKicker">05 / FAQs</div><h2 id="oa-faq-title" data-i18n="faqTitle">Before you start.</h2></div>
+  <div class="oa-faq-heading"><div class="oa-section-kicker" data-i18n="faqKicker">06 / FAQs</div><h2 id="oa-faq-title" data-i18n="faqTitle">Before you start.</h2></div>
   <div class="oa-faq-list">
+   <details name="oakbase-faq"><summary><span data-i18n="faqLegalQuestion">Does Oakbase replace Harvey or Legora?</span><span class="oa-faq-toggle" aria-hidden="true"></span></summary><p data-i18n="faqLegalAnswer">They can coexist. Harvey and Legora support work such as legal research, document review and drafting. Oakbase focuses on shared firm context and daily operations: time capture, task coordination, follow-ups, invoicing and keeping the CRM up to date.</p></details>
+
+   <details name="oakbase-faq"><summary><span data-i18n="faqGeneralQuestion">What does Oakbase add if we already use Claude, ChatGPT or Gemini?</span><span class="oa-faq-toggle" aria-hidden="true"></span></summary><p data-i18n="faqGeneralAnswer">General-purpose AI can already work with connected applications and company knowledge. Oakbase brings context structured for a law firm: clients, matters, people and commitments linked in persistent shared memory. Its prebuilt Operations Agents use that context to handle daily administrative work for each role.</p></details>
+
    <details name="oakbase-faq"><summary><span data-i18n="faqCRMQuestion">How does Oakbase work alongside our CRM?</span><span class="oa-faq-toggle" aria-hidden="true"></span></summary><p data-i18n="faqCRMAnswer">Your CRM remains your record of clients and opportunities. Oakbase connects it with the work happening in emails, meetings and documents, building shared context. Your agent uses that context to keep your CRM and other connected systems up to date, within the permissions you set.</p></details>
    <details name="oakbase-faq"><summary><span data-i18n="faqBrainQuestion">How does the firm’s brain connect information?</span><span class="oa-faq-toggle" aria-hidden="true"></span></summary><p data-i18n="faqBrainAnswer">Oakbase starts with a legal ontology: clients, matters, people, documents and commitments. It uses this structure to connect information from authorised sources and preserve its origin. When a relationship is unclear, Oakbase asks the professional to confirm it within their workflow.</p></details>
    <details name="oakbase-faq"><summary><span data-i18n="faqAgentsQuestion">What does a prebuilt agent do for each role?</span><span class="oa-faq-toggle" aria-hidden="true"></span></summary><p data-i18n="faqAgentsAnswer">Agents come with administrative skills already prepared: proposing time entries, organising tasks, following up with clients or preparing invoices. Skills are matched to each role and use the firm’s shared memory, within its permissions and approval rules. You don’t have to design an agent from scratch.</p></details>
@@ -125,7 +144,24 @@
    <details name="oakbase-faq"><summary><span data-i18n="faqInterfaceQuestion">Do I need to use another application?</span><span class="oa-faq-toggle" aria-hidden="true"></span></summary><p data-i18n="faqInterfaceAnswer">You can access Oakbase from Claude, ChatGPT or Copilot through its MCP connection. From that interface, your agent uses the firm’s context to find information and act in connected systems, within its configured permissions.</p></details>
   </div>
  </section>
- <section class="oa-contact" id="contact" aria-labelledby="oa-contact-title"><h2 id="oa-contact-title" data-i18n-html="contactTitle">Put your firm’s<br>knowledge to work.</h2><a class="oa-contact-button" href="mailto:hello@oakbase.ai" data-i18n-html="contactAction">Let’s talk <span aria-hidden="true">↗</span></a></section>
+ <section class="oa-contact" id="contact" aria-labelledby="oa-contact-title">
+  <div class="oa-contact-copy"><h2 id="oa-contact-title" data-i18n-html="contactTitle">Put your firm’s<br>knowledge to work.</h2><p data-i18n="contactIntro">Tell us about your firm and the work you want to free up. We’ll get in touch to explore how Oakbase can help.</p><p class="oa-contact-email"><span data-i18n="formEmailAlternative">Prefer email?</span> <a href="mailto:hello@oakbase.ai">hello@oakbase.ai</a></p></div>
+  <form class="oa-contact-form" data-contact-form data-endpoint="https://crm-pi-nine-82.vercel.app/api/public" method="post" aria-labelledby="oa-contact-title">
+   <p class="oa-form-required" data-i18n="formRequired">All fields are required unless marked optional.</p>
+   <div class="oa-form-trap" aria-hidden="true"><label>Website<input type="text" name="websiteUrl" tabindex="-1" autocomplete="off" maxlength="200"></label></div>
+   <label><span data-i18n="formFirstName">First name</span><input name="firstName" type="text" autocomplete="given-name" maxlength="80" required></label>
+   <label><span data-i18n="formLastName">Last name</span><input name="lastName" type="text" autocomplete="family-name" maxlength="120" required></label>
+   <label><span data-i18n="formEmail">Work email</span><input name="email" type="email" autocomplete="email" maxlength="180" required></label>
+   <label><span data-i18n="formCompany">Firm</span><input name="company" type="text" autocomplete="organization" maxlength="160" required></label>
+   <label><span data-i18n="formPhone">Phone</span><input name="phone" type="tel" autocomplete="tel" maxlength="60" required></label>
+   <label><span data-i18n="formIndustry">Firm type</span><select name="industry" required><option value="" data-i18n="formIndustryPlaceholder">Select one</option><option value="Law firm" data-i18n="formIndustryLaw">Law firm</option><option value="Tax and accounting" data-i18n="formIndustryTax">Tax and accounting</option><option value="Consulting" data-i18n="formIndustryConsulting">Consulting</option><option value="Other professional services" data-i18n="formIndustryOther">Other professional services</option></select></label>
+   <label class="oa-form-full"><span><span data-i18n="formOperation">What would you like to improve?</span> <small data-i18n="formOptional">Optional</small></span><textarea name="operation" rows="3" maxlength="1200" placeholder="Time capture, client follow-ups, invoicing…" data-i18n-placeholder="formPlaceholder"></textarea></label>
+   <p class="oa-form-privacy oa-form-full"><span data-i18n="formPrivacy">Oakbase SL uses these details to respond to your request and keeps the contact history for up to 12 months after the last relevant interaction. Please don’t include confidential client or matter information.</span> <a href="privacy/" data-contact-privacy data-i18n="formPrivacyLink">Privacy policy</a>.</p>
+   <button class="oa-contact-button" type="submit" disabled><span data-contact-submit data-i18n="formSubmit">Let’s talk</span><span aria-hidden="true">↗</span></button>
+   <p class="oa-form-status oa-form-full" data-contact-status role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+   <noscript><p class="oa-form-full" data-i18n="formNoScript">To use the form, enable JavaScript. You can also email hello@oakbase.ai.</p></noscript>
+  </form>
+ </section>
  </main>
  <footer class="oa-site-footer"><span>© 2026 Oakbase SL · CIF B05693742</span><nav aria-label="Legal information" data-i18n-aria-label="legalNavigation"><a href="privacy/" data-i18n="privacy">Privacy</a><a href="security/" data-i18n="security">Security</a><a href="terms/" data-i18n="terms">Terms</a><a href="legal/" data-i18n="legal">Legal</a></nav></footer>
  <span class="oa-sr" aria-live="polite" data-announcement></span>

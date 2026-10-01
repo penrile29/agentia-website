@@ -30,6 +30,20 @@ Oakbase works alongside the firm's CRM. The CRM remains the record of clients an
 
 Explore: https://oakbase.ai/en/#operations
 
+## How Oakbase compares with other AI tools
+
+General-purpose AI, including Claude, ChatGPT and Gemini, supports broad research, writing, analysis and work with connected applications. Legal-work AI, including Harvey and Legora, supports substantive legal work such as research, document review, drafting and legal workflows. These categories overlap and can coexist.
+
+Oakbase focuses on shared legal firm context and daily administrative operations. Its persistent memory connects clients, matters, people and commitments, while role-specific Operations Agents help with time capture, tasks, follow-ups, invoicing and CRM updates. This comparison describes product focus, not exclusive capabilities or integrations with every product named.
+
+Compare: https://oakbase.ai/en/#compare
+
+## Contact
+
+The Let's talk form sends a contact request to Oakbase CRM. It collects first name, last name, firm, work email, phone and firm type, with an optional description of the work to improve. The privacy policy explains commercial-contact processing. Do not submit confidential client or matter information through this form.
+
+Contact form: https://oakbase.ai/en/#contact
+
 ## Security and control
 
 The website describes encryption in transit and at rest, EU data residency and Zero Data Retention for the LLM services used. Persistent firm memory held by Oakbase is distinct from retention by a model provider. The firm's authorised context can persist for the service, while LLM-provider retention is governed by the applicable Zero Data Retention arrangements.

@@ -308,3 +308,50 @@ body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:anti
 #oakbase-agent-message .oa-graph-viewport[data-view="client"] .oa-graph-node:hover .oa-graph-label,#oakbase-agent-message .oa-graph-viewport[data-view="client"] .oa-graph-node:focus-visible .oa-graph-label{opacity:1}
 #oakbase-agent-message .oa-graph-node:hover,#oakbase-agent-message .oa-graph-node:focus-visible{z-index:5}
 @media(max-width:620px){#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Client"]{width:76px}#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Client"] .oa-graph-label{font-size:9px;max-width:75px}}
+
+/* Compare the job each category does, with a single emphasis on Oakbase. */
+#oakbase-agent-message .oa-comparison{max-width:1240px;margin:0 auto;padding:72px 36px 66px;border-top:1px solid #e9e9e9;scroll-margin-top:34px}
+#oakbase-agent-message .oa-comparison h2{font-size:44px;font-weight:500;line-height:1.1;letter-spacing:-1.5px;margin:0 0 37px}
+#oakbase-agent-message .oa-comparison-table{width:100%;border-collapse:collapse;text-align:left;table-layout:fixed}
+#oakbase-agent-message .oa-comparison-table thead th{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#818181;font-weight:500;padding:0 23px 14px}
+#oakbase-agent-message .oa-comparison-table th:first-child{width:34%}
+#oakbase-agent-message .oa-comparison-table tbody th,#oakbase-agent-message .oa-comparison-table td{padding:25px 23px;border-top:1px solid #e9e9e9;vertical-align:top}
+#oakbase-agent-message .oa-comparison-table tbody th{font-size:17px;font-weight:500;line-height:1.4;letter-spacing:-.3px}
+#oakbase-agent-message .oa-comparison-table small{display:block;font-size:12px;font-weight:400;color:#777;letter-spacing:0;line-height:1.5;margin-top:6px}
+#oakbase-agent-message .oa-comparison-table h3{font-size:18px;font-weight:500;letter-spacing:-.4px;line-height:1.35;margin:0 0 7px}
+#oakbase-agent-message .oa-comparison-table p{font-size:13px;color:#707070;line-height:1.7;max-width:590px}
+#oakbase-agent-message .oa-comparison-oakbase{background:#f3f4f2}
+#oakbase-agent-message .oa-comparison-oakbase th{box-shadow:inset 2px 0 #292e2b}
+#oakbase-agent-message .oa-comparison-note{font-size:12px;line-height:1.75;color:#717171;max-width:740px;margin:22px 0 12px}
+#oakbase-agent-message .oa-comparison-sources{font-size:10px;color:#777;line-height:1.7}
+#oakbase-agent-message .oa-comparison-sources summary{cursor:pointer;width:fit-content}
+#oakbase-agent-message .oa-comparison-sources p{padding-top:7px}
+#oakbase-agent-message .oa-comparison-sources a{color:inherit;text-underline-offset:3px}
+
+/* A direct commercial conversation, with the existing CRM behind the form. */
+#oakbase-agent-message .oa-contact{display:grid;grid-template-columns:1fr 1.15fr;align-items:start;gap:80px;max-width:1240px;margin:0 auto;padding:76px 36px 65px;text-align:left;scroll-margin-top:30px}
+#oakbase-agent-message .oa-contact-copy h2{font-size:43px;font-weight:500;letter-spacing:-1.5px;line-height:1.12;margin:0 0 23px}
+#oakbase-agent-message .oa-contact-copy>p{font-size:14px;color:#777;line-height:1.75;max-width:330px}
+#oakbase-agent-message .oa-contact-copy .oa-contact-email{font-size:12px;margin-top:35px}
+#oakbase-agent-message .oa-contact-email a{display:block;width:fit-content;color:#333;text-decoration:underline;text-underline-offset:4px;margin-top:3px}
+#oakbase-agent-message .oa-contact-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:23px 22px;position:relative;min-width:0}
+#oakbase-agent-message .oa-contact-form label{display:flex;flex-direction:column;gap:7px;font-size:12px;color:#454545;line-height:1.5;min-width:0}
+#oakbase-agent-message .oa-contact-form label small{font-size:10px;color:#777;margin-left:5px}
+#oakbase-agent-message .oa-contact-form input,#oakbase-agent-message .oa-contact-form select,#oakbase-agent-message .oa-contact-form textarea{width:100%;min-width:0;border:0;border-bottom:1px solid #cfcfcf;border-radius:0;background:transparent;padding:9px 0 12px;font:inherit;font-size:16px;line-height:1.4;color:#242424;box-shadow:none}
+#oakbase-agent-message .oa-contact-form select{padding-right:17px}
+#oakbase-agent-message .oa-contact-form textarea{resize:vertical;min-height:88px;font-size:14px}
+#oakbase-agent-message .oa-contact-form textarea::placeholder{color:#888;font-size:13px;opacity:1}
+#oakbase-agent-message .oa-contact-form input:focus,#oakbase-agent-message .oa-contact-form select:focus,#oakbase-agent-message .oa-contact-form textarea:focus{outline:2px solid #333;outline-offset:5px;border-bottom-color:#333}
+#oakbase-agent-message .oa-form-full,#oakbase-agent-message .oa-form-required{grid-column:1/-1}
+#oakbase-agent-message .oa-form-required{font-size:10px;color:#777;margin:0 0 -3px}
+#oakbase-agent-message .oa-form-privacy{font-size:10px;color:#747474;line-height:1.75;margin:0}
+#oakbase-agent-message .oa-form-privacy a{color:#454545;text-decoration:underline;text-underline-offset:2px}
+#oakbase-agent-message .oa-contact-form .oa-contact-button{border:1px solid #141414;justify-self:start;margin:0;min-width:144px;gap:30px}
+#oakbase-agent-message .oa-contact-form .oa-contact-button:disabled{opacity:.55;cursor:default}
+#oakbase-agent-message .oa-form-status{font-size:12px;line-height:1.65;color:#4c5d50;margin:0;min-height:0}
+#oakbase-agent-message .oa-form-status:empty{display:none}
+#oakbase-agent-message .oa-form-status[data-state="error"],#oakbase-agent-message .oa-form-status[data-state="invalid"]{color:#993d30}
+#oakbase-agent-message .oa-form-trap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(100%);white-space:nowrap;pointer-events:none}
+@media(max-width:850px){#oakbase-agent-message .oa-contact{gap:36px;grid-template-columns:.9fr 1.1fr}#oakbase-agent-message .oa-contact-copy h2{font-size:35px}#oakbase-agent-message .oa-comparison h2{font-size:38px}}
+@media(max-width:620px){#oakbase-agent-message .oa-comparison{padding:46px 23px}#oakbase-agent-message .oa-comparison h2{font-size:33px;margin-bottom:27px}#oakbase-agent-message .oa-comparison-table th:first-child{width:38%}#oakbase-agent-message .oa-comparison-table tbody th,#oakbase-agent-message .oa-comparison-table td{padding:18px 10px}#oakbase-agent-message .oa-comparison-table thead th{padding:0 10px 11px;font-size:9px}#oakbase-agent-message .oa-comparison-table tbody th{font-size:13px}#oakbase-agent-message .oa-comparison-table h3{font-size:15px}#oakbase-agent-message .oa-comparison-table small{font-size:10px}#oakbase-agent-message .oa-comparison-table p{font-size:12px}#oakbase-agent-message .oa-contact{grid-template-columns:1fr;gap:30px;padding:50px 23px}#oakbase-agent-message .oa-contact-copy h2{font-size:35px}#oakbase-agent-message .oa-contact-copy .oa-contact-email{margin-top:18px}#oakbase-agent-message .oa-contact-form{gap:22px 17px}}
+@media(max-width:380px){#oakbase-agent-message .oa-contact-form{grid-template-columns:1fr}#oakbase-agent-message .oa-comparison-table tbody th,#oakbase-agent-message .oa-comparison-table td{padding:16px 8px}}
