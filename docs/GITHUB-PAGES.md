@@ -17,6 +17,8 @@ Local asset paths are rewritten for the GitHub project URL and checked relative 
 
 Generated HTML versions its `v2.css`, `v2.js`, `legal.css` and `legal.js` URLs with the short source commit, for example `v2.css?v=3632f53`. Each release therefore requests fresh page styles and behavior without changing the published filenames.
 
+The homepage also publishes versioned `i18n.js`, `i18n-static.js` and `i18n-dynamic.js`. Its ES/EN switch translates both page copy and interactive examples without resetting the selected graph or role. The homepage and policy pages share the `oakbase-language` preference; `?lang=es` or `?lang=en` takes precedence over that saved choice, with the browser language used on a first visit.
+
 ## Publish
 
 Commit and push `codex/operational-memory-v2` first, then build from that commit into an empty directory. Review the generated website locally. Replace the published files in a checkout of the existing `gh-pages` branch with the generated directory, preserving `.git` and removing obsolete published assets. Commit that update and push `gh-pages` without force.

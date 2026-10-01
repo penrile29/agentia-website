@@ -15,7 +15,7 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC_FILES = (
-    'index.html', 'v2.css', 'v2.js',
+    'index.html', 'v2.css', 'v2.js', 'i18n.js', 'i18n-static.js', 'i18n-dynamic.js',
     'legal/index.html', 'legal/legal.css', 'legal/legal.js',
     'privacy/index.html', 'terms/index.html', 'security/index.html',
     'security/reporting/index.html', 'subprocessors/index.html',
@@ -23,7 +23,7 @@ PUBLIC_FILES = (
 ASSET_LITERAL_RE = re.compile(r'''["']((?:\.\./)*assets/[^"'\s]+)["']''')
 CSS_URL_RE = re.compile(r'''url\(\s*(['"]?)(.*?)\1\s*\)''', re.IGNORECASE)
 CSS_IMPORT_RE = re.compile(r'''@import\s+['"]([^'"]+)['"]''', re.IGNORECASE)
-VERSIONED_FILES = frozenset({'v2.css', 'v2.js', 'legal.css', 'legal.js'})
+VERSIONED_FILES = frozenset({'v2.css', 'v2.js', 'i18n.js', 'i18n-static.js', 'i18n-dynamic.js', 'legal.css', 'legal.js'})
 
 
 class References(HTMLParser):
