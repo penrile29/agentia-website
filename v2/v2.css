@@ -251,6 +251,22 @@ body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:anti
 #oakbase-agent-message .oa-security-control h3{font-size:20px;min-height:0;margin-bottom:9px}
 #oakbase-agent-message .oa-security-control p{font-size:13px;line-height:1.7;color:#b4bcb7}
 #oakbase-agent-message .oa-security-scope{margin-top:25px}
+#oakbase-agent-message .oa-faq{display:grid;grid-template-columns:minmax(210px,.7fr) minmax(0,1.3fr);gap:64px;max-width:1240px;margin:0 auto;padding:68px 36px 36px;scroll-margin-top:20px}
+#oakbase-agent-message .oa-faq h2{font-size:38px;line-height:1.12;letter-spacing:-1.4px;font-weight:500}
+#oakbase-agent-message .oa-faq-list{border-top:1px solid var(--oa-line);min-width:0}
+#oakbase-agent-message .oa-faq details{border-bottom:1px solid var(--oa-line)}
+#oakbase-agent-message .oa-faq summary{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:74px;padding:21px 0;list-style:none;cursor:pointer;font-size:16px;font-weight:500;line-height:1.45;letter-spacing:-.25px}
+#oakbase-agent-message .oa-faq summary::-webkit-details-marker{display:none}
+#oakbase-agent-message .oa-faq summary:focus-visible{outline:2px solid currentColor;outline-offset:5px}
+#oakbase-agent-message .oa-faq summary:hover{color:#606060}
+#oakbase-agent-message .oa-faq-toggle{position:relative;width:16px;height:16px;flex:none;color:#666}
+#oakbase-agent-message .oa-faq-toggle::before,#oakbase-agent-message .oa-faq-toggle::after{content:"";position:absolute;left:1px;top:7px;width:14px;height:1px;background:currentColor}
+#oakbase-agent-message .oa-faq-toggle::after{transform:rotate(90deg);transition:transform .18s ease}
+#oakbase-agent-message .oa-faq details[open] .oa-faq-toggle::after{transform:rotate(0)}
+#oakbase-agent-message .oa-faq details p{padding:0 40px 24px 0;color:#666;font-size:14px;line-height:1.75;max-width:640px}
+@media(max-width:850px){#oakbase-agent-message .oa-faq{padding:52px 26px 26px;gap:32px;grid-template-columns:minmax(180px,.6fr) minmax(0,1.4fr)}#oakbase-agent-message .oa-faq h2{font-size:33px}}
+@media(max-width:620px){#oakbase-agent-message .oa-faq{grid-template-columns:1fr;gap:28px;padding:44px 23px 20px}#oakbase-agent-message .oa-faq h2{font-size:33px}#oakbase-agent-message .oa-faq summary{font-size:15px;gap:20px;padding:20px 0}#oakbase-agent-message .oa-faq details p{padding-right:20px;font-size:13px}}
+@media(max-width:380px){#oakbase-agent-message .oa-faq{padding-left:19px;padding-right:19px}}
 #oakbase-agent-message .oa-contact{display:flex;align-items:center;justify-content:space-between;gap:32px;max-width:1240px;margin:0 auto;padding:64px 36px}
 #oakbase-agent-message .oa-contact h2{font-size:38px;line-height:1.12;letter-spacing:-1.4px;font-weight:500}
 #oakbase-agent-message .oa-site-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1240px;margin:0 auto;padding:25px 36px 32px;border-top:1px solid #e9e9e9;font-size:12px;color:#707070}
