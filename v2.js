@@ -364,93 +364,90 @@ SUCH DAMAGE.
 
  function createMemoryExplorer(){
   const viewport=root.querySelector('.oa-graph-viewport'),svg=root.querySelector('.oa-graph-lines'),nodeLayer=root.querySelector('[data-memory-nodes]'),edgeLayer=root.querySelector('[data-memory-edges]'),labelLayer=root.querySelector('[data-memory-edge-labels]');
-  const data=[
-   {id:'alder',name:'Alder Ltd.',kind:'Client',x:.02,y:.43,description:'The client behind the acquisition. Its people, matters and commitments remain connected in the firm’s memory.',brand:'clio',source:'Clio · Client record',quote:'Alder Ltd. — active client. Matter: Alder acquisition.'},
-   {id:'acquisition',name:'Alder acquisition',kind:'Matter',x:.27,y:.42,description:'A connected view of the client, agreement, meetings, milestones and proposed time behind this matter.',brand:'clio',source:'Clio · Matter record',quote:'Alder acquisition — agreement review ahead of the Friday client session.'},
-   {id:'maya',name:'Maya',kind:'Person',x:.03,y:.04,description:'Alder’s client contact. Her meeting with Alex is the source of the promise to send an updated timeline.',brand:'outlook',source:'Outlook · Client thread',quote:'Please share the updated timeline ahead of our next review.'},
-   {id:'alex',name:'Alex',kind:'Person',x:.72,y:.51,description:'One professional, connected work across the firm. Meetings, time proposals and client commitments stay linked to Alex and the sources behind them.',brand:'clio',source:'Clio · Matter team',quote:'Alex — part of the matter team for Alder, Beacon, Cedar, Atlas and Harbor.'},
-   {id:'ben',name:'Ben',kind:'Person',x:.71,y:.02,description:'A reviewer and commitment owner across the firm. Each responsibility stays connected to its matter, source conversation and client deadline.',brand:'onenote',source:'OneNote · Thursday handover',quote:'Ben to review the agreement before the Friday client session.'},
-   {id:'meeting',name:'Thursday meeting',kind:'Source',x:.25,y:.04,description:'The meeting links Maya, Alex and the acquisition. It also records the commitment behind the next client follow-up.',brand:'teams',source:'Teams · Thursday meeting',quote:'Alex: I’ll send you the updated timeline before the next review.'},
-   {id:'timeline',name:'Send updated timeline',kind:'Commitment',x:.03,y:.83,description:'Why follow up with Maya? Alex promised an updated timeline in Thursday’s client meeting. The commitment stays linked to its source.',brand:'teams',source:'Teams · Thursday meeting',quote:'Alex: I’ll send you the updated timeline before the next review.'},
-   {id:'agreement',name:'Agreement v3',kind:'Document',x:.49,y:.04,description:'The agreement for Alder’s acquisition, linked to its review note, proposed reviewer and upcoming client session.',brand:'clio',source:'Clio · Matter document',quote:'Alder acquisition agreement — version 3, awaiting review.'},
-   {id:'review_note',name:'Thursday handover',kind:'Source',x:.49,y:.85,description:'This note explains who should review the agreement and why the Friday client session matters.',brand:'onenote',source:'OneNote · Thursday handover',quote:'Ben to review the agreement before the Friday client session.'},
-   {id:'review_task',name:'Review agreement',kind:'Suggested task',x:.51,y:.43,description:'Why is Ben’s review a priority? The handover names him as reviewer, and the agreement needs review before the Friday client session. The task is still a suggestion.',brand:'onenote',source:'OneNote · Thursday handover',quote:'Ben to review the agreement before the Friday client session.'},
-   {id:'client_review',name:'Friday client review',kind:'Milestone',x:.95,y:.04,description:'The upcoming client session provides the timing behind the proposed agreement review.',brand:'calendar',source:'Calendar · Client session',quote:'Friday — Alder acquisition review with the client.'},
-   {id:'time',name:'4.5h proposed',kind:'Time proposal',x:.25,y:.87,description:'Suggested time for Alex on Alder’s acquisition, linked to matter activity. The duration and billing narrative are pending review.',brand:'calendar',source:'Calendar · Matter activity',quote:'Alder acquisition — 4.5 hours proposed. Not yet logged.'},
-   {id:'beacon',name:'Beacon',kind:'Client',x:.96,y:.36,description:'A separate client, connected to its contract matter. Alex provides the link to work across the firm.',brand:'clio',source:'Clio · Client record',quote:'Beacon — active client. Matter: Beacon contract.'},
-   {id:'contract',name:'Beacon contract',kind:'Matter',x:.94,y:.67,description:'This matter connects Beacon, Alex and an unanswered question about the scope of the contract review.',brand:'clio',source:'Clio · Matter record',quote:'Beacon contract — scope clarification outstanding.'},
-   {id:'email',name:'Scope clarification',kind:'Source',x:.94,y:.95,description:'A client email raises a specific question. That question remains connected to the matter and the person who needs to respond.',brand:'outlook',source:'Outlook · Beacon email',quote:'Could you confirm whether the renewal clauses are included in the review?'},
-   {id:'scope',name:'Confirm contract scope',kind:'Open question',x:.70,y:.95,description:'Alex needs to clarify the scope of Beacon’s review. The question stays linked to the original client message.',brand:'outlook',source:'Outlook · Beacon email',quote:'Could you confirm whether the renewal clauses are included in the review?'}
-  ];
-  const groups=[
-   {id:'cedar',name:'Cedar Group',matter:'Cedar advisory',contact:'Nina',document:'Board memo',commitment:'Send board summary',source:'Advisory call',brand:'teams',owner:'alex',quote:'Alex will send the board summary after reviewing the advisory memo.'},
-   {id:'atlas',name:'Atlas Labs',matter:'Atlas financing',contact:'Leo',document:'Term sheet',commitment:'Send conditions list',source:'Lender email',brand:'outlook',owner:'alex',quote:'Alex will send the outstanding conditions after reviewing the term sheet.'},
-   {id:'willow',name:'Willow Health',matter:'Willow employment',contact:'Ella',document:'Staff policy',commitment:'Send policy update',source:'HR handover',brand:'onenote',owner:'ben',quote:'Ben to send the revised staff policy before the HR briefing.'},
-   {id:'meridian',name:'Meridian Ltd.',matter:'Meridian sale',contact:'Sam',document:'Disclosure list',commitment:'Confirm disclosures',source:'Buyer email',brand:'gmail',owner:'ben',quote:'Ben will confirm the remaining disclosures before the buyer review.'},
-   {id:'harbor',name:'Harbor Studio',matter:'Harbor licence',contact:'Mia',document:'Licence draft',commitment:'Confirm usage rights',source:'Licensing call',brand:'teams',owner:'alex',quote:'Alex to confirm whether the draft covers international usage.'}
-  ];
-  data.forEach(n=>n.group=['beacon','contract','email','scope'].includes(n.id)?'beacon':'alder');
-  groups.forEach(g=>{
-   const rows=[
-    [g.id,g.name,'Client','The client, its people and its matters form a lasting part of the firm’s knowledge.','clio','Clio · Client record',{key:'{client} — active client. Matter: {matter}.',vars:{client:g.name,matter:g.matter}}],
-    [g.id+'_matter',g.matter,'Matter',{key:'A connected view of the people, documents and commitments behind {matter}.',vars:{matter:g.matter}},'clio','Clio · Matter record',{key:'{matter} — active matter for {client}.',vars:{matter:g.matter,client:g.name}}],
-    [g.id+'_contact',g.contact,'Person',{key:'{client}’s contact, connected to the conversation and the work it set in motion.',vars:{client:g.name}},g.brand,{key:'{brand} · {source}',vars:{brand:brandNames[g.brand]||g.brand,source:g.source}},g.quote],
-    [g.id+'_document',g.document,'Document',{key:'The document linked to {matter} and the next commitment to the client.',vars:{matter:g.matter}},'clio','Clio · Matter document',{key:'{document} — filed under {matter}.',vars:{document:g.document,matter:g.matter}}],
-    [g.id+'_commitment',g.commitment,'Commitment','A commitment preserved with its source, related document and the professional responsible.',g.brand,{key:'{brand} · {source}',vars:{brand:brandNames[g.brand]||g.brand,source:g.source}},g.quote],
-    [g.id+'_source',g.source,'Source','The original conversation explains the next step and who agreed to take it.',g.brand,{key:'{brand} · {source}',vars:{brand:brandNames[g.brand]||g.brand,source:g.source}},g.quote]
-   ];
-   rows.forEach(([id,name,kind,description,brand,source,quote])=>data.push({id,name,kind,description,brand,source,quote,group:g.id}));
-  });
-  const connections=[
-   ['alder','acquisition','has matter'],['maya','alder','contact at'],['meeting','acquisition','concerns'],['maya','meeting','attended'],['alex','meeting','attended'],['meeting','timeline','records promise'],['timeline','alex','owned by'],
-   ['agreement','acquisition','belongs to'],['review_note','agreement','concerns'],['review_note','ben','names reviewer'],['review_note','client_review','records milestone'],['client_review','acquisition','belongs to'],['review_task','agreement','reviews'],['review_task','ben','suggested for'],['review_task','client_review','needed before'],['review_task','review_note','supported by'],
-   ['time','acquisition','allocated to'],['time','alex','proposed for'],['beacon','contract','has matter'],['alex','contract','works on'],['email','contract','concerns'],['email','scope','raises'],['scope','alex','needs input from']
-  ];
-  groups.forEach(g=>connections.push([g.id,g.id+'_matter','has matter'],[g.id+'_contact',g.id,'contact at'],[g.id+'_document',g.id+'_matter','belongs to'],[g.id+'_source',g.id+'_matter','concerns'],[g.id+'_source',g.id+'_contact','includes'],[g.id+'_source',g.id+'_commitment','records commitment'],[g.id+'_commitment',g.id+'_document','concerns'],[g.id+'_commitment',g.owner,'owned by']));
-  connections.forEach((e,i)=>connections[i]={from:e[0],to:e[1],label:e[2]});
-  const byId=new Map(data.map(n=>[n.id,n]));
-  const centers={alder:[.25,.24],beacon:[.71,.17],cedar:[.85,.49],atlas:[.71,.81],willow:[.39,.78],meridian:[.13,.61],harbor:[.51,.46]};
-  const mobileCenters={alder:[.26,.13],beacon:[.74,.22],cedar:[.76,.56],atlas:[.69,.76],willow:[.25,.84],meridian:[.24,.53],harbor:[.48,.36]};
-  const alderLayout={alder:[0,-.1],acquisition:[.12,.48],maya:[-.88,-.18],alex:[.95,.72],ben:[.85,-.72],meeting:[-.56,-.82],timeline:[-.92,.6],agreement:[.18,-.85],review_note:[.14,1.18],review_task:[.86,.05],client_review:[1.6,-.26],time:[-.47,1.16]};
-  const beaconLayout={beacon:[0,0],contract:[.1,.62],email:[.89,-.45],scope:[.99,.61]};
-  const clusterLayout=[[0,0],[.3,.7],[-.65,-.6],[.94,-.46],[-.55,.85],[-1,.08]];
-  data.forEach(n=>n.local=n.group==='alder'?alderLayout[n.id]:n.group==='beacon'?beaconLayout[n.id]:clusterLayout[data.filter(p=>p.group===n.group).indexOf(n)]);
+  const {nodes:data,connections}=window.OakbaseFirmGraph.build();
+  const byId=new Map(data.map(n=>[n.id,n])),clients=data.filter(n=>n.kind==='Client');
+  // Build indexes once: rendering must not scan every edge for every node.
+  const adjacent=new Map(data.map(n=>[n.id,[]])),members=new Map(clients.map(n=>[n.id,new Set()]));
+  connections.forEach(edge=>{adjacent.get(edge.from).push({edge,node:byId.get(edge.to)});adjacent.get(edge.to).push({edge,node:byId.get(edge.from)});});
+  data.forEach(n=>members.get(n.group).add(n.id));
+  data.filter(n=>n.actor).forEach(n=>adjacent.get(n.id).forEach(({node})=>members.get(node.group).add(n.id)));
+  const neighbors=id=>adjacent.get(id)||[];
+  const inClient=n=>members.get(state.memoryClient).has(n.id);
+  const visibleNeighbors=id=>neighbors(id).filter(({node})=>!compact||inClient(node));
   if(!byId.has(state.memoryNode))state.memoryNode='alder';
-  if(!centers[state.memoryClient])state.memoryClient='alder';
+  if(!members.has(state.memoryClient))state.memoryClient='alder';
   let graphWidth=0,graphHeight=0,compact=false,zoom=1,panX=0,panY=0,drag=null,flight=0;
-  const neighbors=id=>connections.filter(e=>e.from===id||e.to===id).map(e=>({edge:e,node:byId.get(e.from===id?e.to:e.from)}));
-  const visibleNeighbors=id=>neighbors(id).filter(({node})=>!compact||node.group===state.memoryClient||['alex','ben'].includes(node.id));
-  const inClient=n=>n.group===state.memoryClient||(['alex','ben'].includes(n.id)&&connections.some(e=>(e.to===n.id&&byId.get(e.from).group===state.memoryClient)||(e.from===n.id&&byId.get(e.to).group===state.memoryClient)));
+  let positionCache=null,positionKey='';
   data.forEach(n=>{const b=document.createElement('button'),dot=document.createElement('span'),label=document.createElement('span');b.type='button';b.className='oa-graph-node cursor-interaction';b.dataset.memoryNode=n.id;b.dataset.kind=n.kind;b.setAttribute('aria-label',t(n.name)+', '+t(n.kind));b.setAttribute('aria-pressed','false');dot.className='oa-graph-dot';dot.setAttribute('aria-hidden','true');label.className='oa-graph-label';label.textContent=t(n.name);b.append(dot,label);b.addEventListener('click',()=>select(n.id));nodeLayer.append(b);n.button=b;});
   connections.forEach(e=>{e.path=addSVG('path',{},edgeLayer);e.text=addSVG('text',{},labelLayer);e.text.textContent=t(e.label);});
   function basePositions(){
-   const points=new Map();data.forEach(n=>{const shared=state.memoryView==='client'&&n.group!==state.memoryClient&&inClient(n),c=(compact?mobileCenters:centers)[shared?state.memoryClient:n.group],local=shared?[.05,-.95]:n.local;points.set(n.id,{x:graphWidth*(c[0]+local[0]*(compact?.075:.09)),y:graphHeight*(c[1]+local[1]*(compact?.075:.13))});});return points;
+   const key=[graphWidth,graphHeight,compact,state.memoryView,state.memoryClient].join(':');
+   if(positionCache&&positionKey===key)return positionCache;
+   const points=new Map(),columns=compact?Math.max(2,Math.min(4,Math.floor(graphWidth/94))):graphWidth<850?6:8,rows=Math.ceil(clients.length/columns);
+   const cellWidth=(graphWidth-38)/columns,cellHeight=(graphHeight-62)/rows;
+   clients.forEach((client,index)=>{
+    const column=index%columns,row=Math.floor(index/columns);
+    const cx=19+(column+.5)*cellWidth+Math.sin(index*2.4)*cellWidth*.075;
+    const cy=20+(row+.5)*cellHeight+Math.cos(index*1.8)*cellHeight*.065;
+    points.set(client.id,{x:cx,y:cy});
+    const matters=neighbors(client.id).filter(({node})=>node.kind==='Matter').map(({node})=>node);
+    matters.forEach((matter,i)=>{
+     const angle=-Math.PI/2+i*Math.PI*2/3;
+     const mx=cx+Math.cos(angle)*cellWidth*.29,my=cy+Math.sin(angle)*cellHeight*.30;
+     points.set(matter.id,{x:mx,y:my});
+     const records=data.filter(n=>n.matter===matter.id&&n.id!==matter.id&&!n.actor);
+     records.forEach((node,j)=>{
+      const spread=records.length>5?Math.PI*1.6:Math.PI*1.25;
+      const theta=angle-spread/2+(j+.5)*spread/records.length;
+      points.set(node.id,{x:mx+Math.cos(theta)*cellWidth*.23,y:my+Math.sin(theta)*cellHeight*.25});
+     });
+    });
+    data.filter(n=>n.group===client.id&&!points.has(n.id)).forEach((node,i)=>points.set(node.id,{x:cx+(i%2?-.20:.20)*cellWidth,y:cy+.12*cellHeight}));
+   });
+   if(state.memoryView==='client'){
+    const center=points.get(state.memoryClient),actors=data.filter(n=>n.actor&&inClient(n));
+    actors.forEach((node,i)=>points.set(node.id,{x:center.x+(i-(actors.length-1)/2)*cellWidth*.32,y:center.y+cellHeight*.05}));
+   }
+   positionKey=key;positionCache=points;return points;
   }
   function positions(){
-   let points=basePositions();
+   let points=new Map([...basePositions()].map(([id,p])=>[id,{...p}]));
    if(compact&&state.memoryView==='client'){
     points=new Map([[state.memoryNode,{x:graphWidth/2,y:48}]]);
-    visibleNeighbors(state.memoryNode).forEach(({node},i)=>points.set(node.id,{x:graphWidth*(i%2?.74:.26),y:143+Math.floor(i/2)*88}));
+    const connected=visibleNeighbors(state.memoryNode),rowCount=Math.ceil(connected.length/2);
+    const spacing=Math.min(88,(graphHeight-190)/Math.max(1,rowCount-1));
+    connected.forEach(({node},i)=>points.set(node.id,{x:graphWidth*(i%2?.74:.26),y:143+Math.floor(i/2)*spacing}));
    }
    points.forEach(p=>{p.x=(p.x-graphWidth/2)*zoom+graphWidth/2+panX;p.y=(p.y-graphHeight/2)*zoom+graphHeight/2+panY;});return points;
   }
   function drawGraph(){
-   const points=positions(),detail=state.memoryView==='client',selected=byId.get(state.memoryNode),activeIds=new Set([state.memoryNode,...neighbors(state.memoryNode).map(r=>r.node.id)]);
+   const points=positions(),detail=state.memoryView==='client',selected=byId.get(state.memoryNode),activeIds=new Set([state.memoryNode,...neighbors(state.memoryNode).map(r=>r.node.id)]),visibleIds=new Set();
    viewport.dataset.view=state.memoryView;
-   data.forEach(n=>{const p=points.get(n.id),inside=inClient(n);n.button.hidden=!p;if(!p)return;n.button.disabled=detail?!inside:compact&&n.kind!=='Client';n.button.dataset.selected=String(detail&&n.id===state.memoryNode);n.button.dataset.related=String(!detail||activeIds.has(n.id)||selected.kind==='Client'&&inside);n.button.dataset.inClient=String(inside);n.button.setAttribute('aria-pressed',String(detail&&n.id===state.memoryNode));n.button.style.transform=`translate(${p.x-n.button.offsetWidth/2}px,${p.y-12}px)`;});
+   data.forEach(n=>{
+    const p=points.get(n.id),inside=inClient(n),visible=p&&(!detail||inside)&&p.x>-85&&p.x<graphWidth+85&&p.y>-70&&p.y<graphHeight+60;
+    n.button.hidden=!visible;if(!visible)return;visibleIds.add(n.id);
+    n.button.disabled=!detail&&compact&&n.kind!=='Client';n.button.tabIndex=detail||n.kind==='Client'?0:-1;
+    n.button.dataset.selected=String(detail&&n.id===state.memoryNode);
+    n.button.dataset.related=String(!detail||activeIds.has(n.id)||selected.kind==='Client'&&inside);
+    n.button.dataset.label=String(compact||n.kind==='Client'||n.kind==='Matter'||activeIds.has(n.id));
+    n.button.dataset.inClient=String(inside);n.button.setAttribute('aria-pressed',String(detail&&n.id===state.memoryNode));
+    // CSS centring avoids hundreds of forced layout reads during a zoom.
+    n.button.style.transform=`translate(${p.x}px,${p.y-12}px) translateX(-50%)`;
+   });
    connections.forEach((e,i)=>{
-    const a=points.get(e.from),b=points.get(e.to),inside=inClient(byId.get(e.from))&&inClient(byId.get(e.to)),active=detail&&inside&&(e.from===state.memoryNode||e.to===state.memoryNode),visible=!!a&&!!b;
+    const a=points.get(e.from),b=points.get(e.to),active=detail&&(e.from===state.memoryNode||e.to===state.memoryNode),visible=visibleIds.has(e.from)&&visibleIds.has(e.to);
     e.path.style.display=visible?'':'none';e.text.style.display=visible&&active&&!compact&&viewport.dataset.flying!=='true'?'':'none';if(!visible)return;
     const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy)||1,offset=(i%2?1:-1)*Math.min(15,length*.045),mx=(a.x+b.x)/2-dy/length*offset,my=(a.y+b.y)/2+dx/length*offset;
-    e.path.setAttribute('d',`M ${a.x} ${a.y} Q ${mx} ${my} ${b.x} ${b.y}`);e.path.dataset.active=String(active);e.path.style.opacity=detail?(active?'1':inside?'.85':'.18'):'.9';
-    const t=.56,u=1-t;e.text.setAttribute('x',u*u*a.x+2*u*t*mx+t*t*b.x);e.text.setAttribute('y',u*u*a.y+2*u*t*my+t*t*b.y-6);
+    e.path.setAttribute('d',`M ${a.x} ${a.y} Q ${mx} ${my} ${b.x} ${b.y}`);e.path.dataset.active=String(active);
+    e.path.style.opacity=detail?(active?'1':'.65'):(byId.get(e.from).group!==byId.get(e.to).group?'.23':'.85');
+    if(active){const t=.56,u=1-t;e.text.setAttribute('x',u*u*a.x+2*u*t*mx+t*t*b.x);e.text.setAttribute('y',u*u*a.y+2*u*t*my+t*t*b.y-6);}
    });
-   root.querySelector('[data-graph-zoom="out"]').disabled=zoom<=1;root.querySelector('[data-graph-zoom="in"]').disabled=zoom>=5;
+   root.querySelector('[data-graph-zoom="out"]').disabled=compact&&detail||zoom<=1;root.querySelector('[data-graph-zoom="in"]').disabled=compact&&detail||zoom>=12;
   }
   function targetCamera(){
    if(state.memoryView==='firm'||compact)return {zoom:1,x:0,y:0};
-   const points=basePositions(),cluster=data.filter(inClient).map(n=>points.get(n.id)),xs=cluster.map(p=>p.x),ys=cluster.map(p=>p.y),left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys),scale=Math.min(3.4,(graphWidth-160)/(right-left),(graphHeight-140)/(bottom-top));
-   return {zoom:scale,x:(graphWidth/2-(left+right)/2)*scale,y:(graphHeight/2-(top+bottom)/2)*scale-10};
+   const points=basePositions(),cluster=data.filter(inClient).map(n=>points.get(n.id)),xs=cluster.map(p=>p.x),ys=cluster.map(p=>p.y),left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys),scale=Math.min(10,(graphWidth-200)/(right-left),(graphHeight-170)/(bottom-top));
+   return {zoom:scale,x:(graphWidth/2-(left+right)/2)*scale,y:(graphHeight/2-(top+bottom)/2)*scale-12};
   }
   function stopFlight(){if(flight)cancelAnimationFrame(flight);flight=0;viewport.dataset.flying='false';}
   function moveCamera(target,animate=true){
@@ -459,11 +456,11 @@ SUCH DAMAGE.
    const step=now=>{const t=Math.min(1,(now-started)/720),ease=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;zoom=start.zoom+(target.zoom-start.zoom)*ease;panX=start.x+(target.x-start.x)*ease;panY=start.y+(target.y-start.y)*ease;drawGraph();if(t<1)flight=requestAnimationFrame(step);else{flight=0;viewport.dataset.flying='false';drawGraph();}};flight=requestAnimationFrame(step);
   }
   function updateChrome(){
-   const detail=state.memoryView==='client';root.querySelector('[data-graph-name]').textContent=detail?t(byId.get(state.memoryClient).name):t('Firm knowledge');root.querySelector('[data-graph-explore-label]').textContent=t(detail?'View firm':'Explore Alder');const explore=root.querySelector('[data-graph-explore]');explore.dataset.detail=String(detail);explore.setAttribute('aria-label',t(detail?'View the whole firm':'Explore Alder: zoom into client knowledge'));root.querySelector('.oa-graph-inspector').hidden=!detail;root.querySelector('[data-graph-hint]').textContent=detail?t(compact?'Select a node to follow its connections':'Drag to move · Select a node to explore'):t('{clients} clients · {records} connected records',{clients:data.filter(n=>n.kind==='Client').length,records:data.length});root.querySelector('[data-graph-counts]').textContent=t('Illustrative firm knowledge');
+   const detail=state.memoryView==='client';root.querySelector('[data-graph-name]').textContent=detail?t(byId.get(state.memoryClient).name):t('Firm knowledge');root.querySelector('[data-graph-explore-label]').textContent=t(detail?'View firm':'Explore Alder');const explore=root.querySelector('[data-graph-explore]');explore.dataset.detail=String(detail);explore.setAttribute('aria-label',t(detail?'View the whole firm':'Explore Alder: zoom into client knowledge'));root.querySelector('.oa-graph-inspector').hidden=!detail;root.querySelector('[data-graph-hint]').textContent=detail?t(compact?'Select a node to follow its connections':'Drag to move · Select a node to explore'):t('{clients} clients · {matters} matters · {records} connected records',{clients:clients.length,matters:data.filter(n=>n.kind==='Matter').length,records:data.length});root.querySelector('[data-graph-counts]').textContent=t('Illustrative firm knowledge');
   }
   function updateInspector(){
    const id=state.memoryNode,n=byId.get(id);root.querySelector('[data-memory-type]').textContent=t(n.kind);root.querySelector('[data-memory-title]').textContent=t(n.name);root.querySelector('[data-memory-description]').textContent=copy(n.description);root.querySelector('[data-memory-source]').textContent=copy(n.source);root.querySelector('[data-memory-quote]').textContent='“'+copy(n.quote)+'”';const logo=root.querySelector('[data-memory-source-logo]');logo.src=assets[n.brand];logo.alt=brandNames[n.brand]||n.brand;
-   const list=root.querySelector('[data-memory-relations]');list.replaceChildren();neighbors(id).forEach(({edge,node})=>{const b=document.createElement('button'),relation=document.createElement('span');b.type='button';b.className='cursor-interaction';relation.textContent=edge.from===id?t(edge.label)+' →':'← '+t(edge.label);b.append(relation,document.createTextNode(t(node.name)));b.setAttribute('aria-label',t('Explore {name}: {relation}',{name:t(node.name),relation:t(edge.label)}));b.addEventListener('click',()=>{select(node.id);byId.get(node.id).button.focus({preventScroll:true});});list.append(b);});
+   const list=root.querySelector('[data-memory-relations]');list.replaceChildren();neighbors(id).forEach(({edge,node})=>{const b=document.createElement('button'),relation=document.createElement('span');b.type='button';b.className='cursor-interaction';relation.textContent=edge.from===id?t(edge.label)+' →':'← '+t(edge.label);b.append(relation,document.createTextNode(t(node.name)));b.setAttribute('aria-label',t('Explore {name}: {relation}',{name:t(node.name),relation:t(edge.label)}));b.addEventListener('click',()=>{select(node.id);const title=root.querySelector('[data-memory-title]');title.tabIndex=-1;title.focus({preventScroll:true});});list.append(b);});
   }
   function select(id,persist=true,animate=true){
    if(!byId.has(id))return;const n=byId.get(id),oldGroup=state.memoryClient,wasFirm=state.memoryView==='firm';
@@ -472,19 +469,19 @@ SUCH DAMAGE.
    if(wasFirm||oldGroup!==state.memoryClient||compact)moveCamera(targetCamera(),animate);else drawGraph();
   }
   function viewFirm(persist=true,animate=true){state.memoryView='firm';updateChrome();moveCamera(targetCamera(),animate);}
-  function measure(){const w=viewport.clientWidth,h=viewport.clientHeight;if(w===graphWidth&&h===graphHeight)return;graphWidth=w;graphHeight=h;compact=w<600;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);updateChrome();moveCamera(targetCamera(),false);}
+  function measure(){const w=viewport.clientWidth,cols=Math.max(2,Math.min(4,Math.floor(w/94)));viewport.style.height=w<600?Math.max(660,Math.ceil(clients.length/cols)*56+62)+'px':'';const h=viewport.clientHeight;if(w===graphWidth&&h===graphHeight)return;graphWidth=w;graphHeight=h;compact=w<600;svg.setAttribute('viewBox',`0 0 ${w} ${h}`);updateChrome();moveCamera(targetCamera(),false);}
   root.querySelector('[data-graph-explore]').addEventListener('click',()=>state.memoryView==='firm'?select('alder'):viewFirm());
-  root.querySelectorAll('[data-graph-zoom]').forEach(b=>b.addEventListener('click',()=>{stopFlight();const next=clamp(zoom+(b.dataset.graphZoom==='in'?.35:-.35),1,5),ratio=next/zoom;moveCamera({zoom:next,x:panX*ratio,y:panY*ratio});}));
+  root.querySelectorAll('[data-graph-zoom]').forEach(b=>b.addEventListener('click',()=>{if(compact&&state.memoryView==='client')return;stopFlight();const next=clamp(zoom+(b.dataset.graphZoom==='in'?.65:-.65),1,12),ratio=next/zoom;moveCamera({zoom:next,x:panX*ratio,y:panY*ratio});}));
   root.querySelector('[data-graph-fit]').addEventListener('click',()=>moveCamera(targetCamera()));
   viewport.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;stopFlight();drag={id:e.pointerId,x:e.clientX,y:e.clientY,panX,panY};viewport.setPointerCapture(e.pointerId);viewport.dataset.dragging='true';});
-  viewport.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;panX=clamp(drag.panX+e.clientX-drag.x,-graphWidth*4,graphWidth*4);panY=clamp(drag.panY+e.clientY-drag.y,-graphHeight*4,graphHeight*4);drawGraph();});
+  viewport.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;panX=clamp(drag.panX+e.clientX-drag.x,-graphWidth*Math.max(1,zoom/2),graphWidth*Math.max(1,zoom/2));panY=clamp(drag.panY+e.clientY-drag.y,-graphHeight*Math.max(1,zoom/2),graphHeight*Math.max(1,zoom/2));drawGraph();});
   const endDrag=()=>{drag=null;viewport.dataset.dragging='false';};viewport.addEventListener('pointerup',endDrag);viewport.addEventListener('pointercancel',endDrag);viewport.addEventListener('lostpointercapture',endDrag);
   new ResizeObserver(measure).observe(viewport);measure();updateInspector();
   function refreshLanguage(){
    data.forEach(n=>{n.button.querySelector('.oa-graph-label').textContent=t(n.name);n.button.setAttribute('aria-label',t(n.name)+', '+t(n.kind));});
    connections.forEach(e=>e.text.textContent=t(e.label));updateChrome();updateInspector();drawGraph();
   }
-  return {select,refreshLanguage,restore:data=>{if(centers[data.memoryClient])state.memoryClient=data.memoryClient;if(data.memoryView==='client')select(data.memoryNode||'alder',false,false);else viewFirm(false,false);},selectedLabel:()=>t(byId.get(state.memoryNode)?.name||'')};
+  return {select,refreshLanguage,restore:data=>{if(members.has(data.memoryClient))state.memoryClient=data.memoryClient;if(data.memoryView==='client')select(data.memoryNode||'alder',false,false);else viewFirm(false,false);},selectedLabel:()=>t(byId.get(state.memoryNode)?.name||'')};
  }
  function showAction(index,persist=true){state.selected=index;root.querySelectorAll('[data-action]').forEach((button,i)=>{button.setAttribute('aria-expanded',String(i===index));root.querySelector('#oa-detail-'+i).hidden=i!==index;});root.querySelector('[data-announcement]').textContent=index===null?'':t('{title} opened.',{title:t(titles[index])});}
  root.querySelectorAll('[data-action]').forEach((button,i)=>button.addEventListener('click',()=>showAction(state.selected===i?null:i)));
