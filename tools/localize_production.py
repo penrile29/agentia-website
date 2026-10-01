@@ -77,7 +77,7 @@ def site_data(root: Path) -> dict:
     script = r"""
 const fs = require('node:fs'), vm = require('node:vm');
 const root = process.argv[1], context = {window:{}};
-for (const file of ['i18n-static.js','i18n-dynamic.js'])
+for (const file of ['i18n-static.js','i18n-dynamic.js','firm-graph.js'])
   vm.runInNewContext(fs.readFileSync(root+'/v2/'+file,'utf8'),context,{timeout:1000});
 const source=fs.readFileSync(root+'/v2/v2.js','utf8');
 const roles=source.match(/const roles=(\[[\s\S]*?\]);\s*const skillNames/);
