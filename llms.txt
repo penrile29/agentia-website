@@ -1,0 +1,23 @@
+# Oakbase
+
+> Oakbase is a context engine and system of action for small and medium-sized professional services firms, with a ready-made legal ontology for law firms. It builds persistent firm memory from authorised work signals and equips each professional role with a purpose-built Operations Agent.
+
+## Product
+
+- [Firm memory](https://oakbase.ai/#platform): Clients, matters, people, documents and commitments connected with their source context. Uncertain relationships are referred to a professional within their workflow.
+- [Role-specific agents](https://oakbase.ai/#agents): Administrative skills for trainees, associates, senior associates, partners, administration and finance.
+- [Action in your systems](https://oakbase.ai/#operations): Use the Operations Agent from Claude, ChatGPT or Copilot through MCP, with your firm's access and approval rules.
+- [FAQs](https://oakbase.ai/#faq): How Oakbase works alongside a CRM, connects information and controls agent actions.
+- [Español](https://oakbase.ai/?lang=es): Spanish homepage and localised illustrative examples.
+
+## Trust and legal
+
+- [Security](https://oakbase.ai/security/)
+- [Privacy](https://oakbase.ai/privacy/)
+- [Providers and subprocessors](https://oakbase.ai/subprocessors/)
+- [Vulnerability reporting](https://oakbase.ai/security/reporting/)
+- [Legal notice](https://oakbase.ai/legal/)
+- [Terms](https://oakbase.ai/terms/)
+- [Product overview](https://oakbase.ai/llms-full.txt)
+
+Website demonstrations, names, activity and proposed hours are illustrative, not customer results. Oakbase SL · CIF B05693742. Contact: hello@oakbase.ai

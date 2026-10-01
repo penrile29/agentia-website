@@ -1,4 +1,6 @@
 {
-  "source_commit": "8b4bb6a479a231e2c17f4a0fc694471ec28e21c3",
-  "source_path": "v2/"
+  "source_commit": "3b725646552cc4bc4f06b08173fa05344471fdad",
+  "source_path": "v2/",
+  "site_url": "https://oakbase.ai",
+  "target": "production"
 }

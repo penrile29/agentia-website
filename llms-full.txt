@@ -1,0 +1,52 @@
+# Oakbase — Your firm's context. Your agent's actions.
+
+Oakbase is a context engine and system of action for small and medium-sized professional services firms. Its law-firm experience combines three capabilities: persistent firm memory, a purpose-built Operations Agent for each professional role, and action in the systems the firm already uses.
+
+## Persistent firm memory
+
+Oakbase connects authorised work signals from communications, meetings, notes and business systems. Its ready-made legal ontology relates clients, matters, people, documents and commitments, preserving what happened, why, and the source context behind those relationships. The resulting memory is a lasting asset for the firm, available to authorised people and agents.
+
+The website illustrates signals from Microsoft Teams, Outlook, Calendar, WhatsApp, OneNote, Gmail, Slack, Salesforce, HubSpot, Microsoft Dynamics 365 and Clio. The connections and permissions enabled for a firm determine what Oakbase can access and act on.
+
+When a relationship between information and a client or matter is unclear, Oakbase asks the professional for confirmation within their workflow. This human-in-the-loop process helps resolve uncertainty rather than silently treating an uncertain link as confirmed.
+
+Explore: https://oakbase.ai/#platform
+
+## A purpose-built agent for each role
+
+Oakbase provides prepared administrative skills for trainees, associates, senior associates, partners, administration and finance. Skills include proposing time entries, managing tasks and priorities, following up with clients, updating CRM records, preparing invoices and following up on payments. The firm defines each role's skills, access and approval rules.
+
+A proactive daily briefing can connect a follow-up to an earlier commitment, propose a review task based on a handover and deadline, and prepare hours by matter for the professional to review before logging them.
+
+The role matrix, graph, clients, people, messages, actions and proposed hours shown on the website are illustrative. They are not live customer data or measured customer results.
+
+Explore: https://oakbase.ai/#agents
+
+## Work done in your systems, from your AI
+
+Professionals can access Oakbase from Claude, ChatGPT or Copilot through MCP. Their Operations Agent combines firm context with role-specific skills to consult information and act in connected systems. Actions are subject to the firm's permissions and approval rules.
+
+Oakbase works alongside the firm's CRM. The CRM remains the record of clients and opportunities; Oakbase connects it with communications, meetings and documents to build shared context. The agent can use that context to keep the CRM and other connected systems up to date.
+
+Explore: https://oakbase.ai/#operations
+
+## Security and control
+
+The website describes encryption in transit and at rest, EU data residency and Zero Data Retention for the LLM services used. Persistent firm memory held by Oakbase is distinct from retention by a model provider. The firm's authorised context can persist for the service, while LLM-provider retention is governed by the applicable Zero Data Retention arrangements.
+
+The firm controls access for people and agents, and which actions require review. The security, privacy and contractual pages describe the applicable scope, retention and provider arrangements.
+
+## Official pages
+
+- Homepage: https://oakbase.ai/
+- Spanish homepage: https://oakbase.ai/?lang=es
+- FAQs: https://oakbase.ai/#faq
+- Security: https://oakbase.ai/security/
+- Privacy: https://oakbase.ai/privacy/
+- Providers and subprocessors: https://oakbase.ai/subprocessors/
+- Vulnerability reporting: https://oakbase.ai/security/reporting/
+- Legal notice: https://oakbase.ai/legal/
+- Terms: https://oakbase.ai/terms/
+
+Operator: Oakbase SL · CIF B05693742.
+Contact: hello@oakbase.ai
