@@ -381,34 +381,17 @@ SUCH DAMAGE.
   data.forEach(n=>{const b=document.createElement('button'),dot=document.createElement('span'),label=document.createElement('span');b.type='button';b.className='oa-graph-node cursor-interaction';b.dataset.memoryNode=n.id;b.dataset.kind=n.kind;b.setAttribute('aria-label',t(n.name)+', '+t(n.kind));b.setAttribute('aria-pressed','false');dot.className='oa-graph-dot';dot.setAttribute('aria-hidden','true');label.className='oa-graph-label';label.textContent=t(n.name);b.append(dot,label);b.addEventListener('click',()=>select(n.id));nodeLayer.append(b);n.button=b;});
   connections.forEach(e=>{e.path=addSVG('path',{},edgeLayer);e.text=addSVG('text',{},labelLayer);e.text.textContent=t(e.label);});
   function basePositions(){
-   const key=[graphWidth,graphHeight,compact,state.memoryView,state.memoryClient].join(':');
-   if(positionCache&&positionKey===key)return positionCache;
-   const points=new Map(),columns=compact?Math.max(2,Math.min(4,Math.floor(graphWidth/94))):graphWidth<850?6:8,rows=Math.ceil(clients.length/columns);
-   const cellWidth=(graphWidth-38)/columns,cellHeight=(graphHeight-62)/rows;
-   clients.forEach((client,index)=>{
-    const column=index%columns,row=Math.floor(index/columns);
-    const cx=19+(column+.5)*cellWidth+Math.sin(index*2.4)*cellWidth*.075;
-    const cy=20+(row+.5)*cellHeight+Math.cos(index*1.8)*cellHeight*.065;
-    points.set(client.id,{x:cx,y:cy});
-    const matters=neighbors(client.id).filter(({node})=>node.kind==='Matter').map(({node})=>node);
-    matters.forEach((matter,i)=>{
-     const angle=-Math.PI/2+i*Math.PI*2/3;
-     const mx=cx+Math.cos(angle)*cellWidth*.29,my=cy+Math.sin(angle)*cellHeight*.30;
-     points.set(matter.id,{x:mx,y:my});
-     const records=data.filter(n=>n.matter===matter.id&&n.id!==matter.id&&!n.actor);
-     records.forEach((node,j)=>{
-      const spread=records.length>5?Math.PI*1.6:Math.PI*1.25;
-      const theta=angle-spread/2+(j+.5)*spread/records.length;
-      points.set(node.id,{x:mx+Math.cos(theta)*cellWidth*.23,y:my+Math.sin(theta)*cellHeight*.25});
-     });
-    });
-    data.filter(n=>n.group===client.id&&!points.has(n.id)).forEach((node,i)=>points.set(node.id,{x:cx+(i%2?-.20:.20)*cellWidth,y:cy+.12*cellHeight}));
-   });
-   if(state.memoryView==='client'){
-    const center=points.get(state.memoryClient),actors=data.filter(n=>n.actor&&inClient(n));
-    actors.forEach((node,i)=>points.set(node.id,{x:center.x+(i-(actors.length-1)/2)*cellWidth*.32,y:center.y+cellHeight*.05}));
+   const key=[graphWidth,graphHeight].join(':');
+   if(!positionCache||positionKey!==key){
+    positionCache=window.OakbaseFirmLayout.build(data,connections,graphWidth,graphHeight);positionKey=key;
+    data.forEach(n=>n.button.style.setProperty('--firm-dot',`${positionCache.get(n.id).radius*2}px`));
    }
-   positionKey=key;positionCache=points;return points;
+   const points=new Map(positionCache);
+   if(state.memoryView==='client'){
+    const center=points.get(state.memoryClient),actors=data.filter(n=>n.actor&&inClient(n)),radius=Math.sqrt(graphWidth*graphHeight/clients.length)*.28;
+    actors.forEach((node,i)=>{const angle=-.45+i*2.4;points.set(node.id,{x:center.x+Math.cos(angle)*radius,y:center.y+Math.sin(angle)*radius});});
+   }
+   return points;
   }
   function positions(){
    let points=new Map([...basePositions()].map(([id,p])=>[id,{...p}]));
@@ -429,17 +412,17 @@ SUCH DAMAGE.
     n.button.disabled=!detail&&compact&&n.kind!=='Client';n.button.tabIndex=detail||n.kind==='Client'?0:-1;
     n.button.dataset.selected=String(detail&&n.id===state.memoryNode);
     n.button.dataset.related=String(!detail||activeIds.has(n.id)||selected.kind==='Client'&&inside);
-    n.button.dataset.label=String(compact||n.kind==='Client'||n.kind==='Matter'||activeIds.has(n.id));
+    n.button.dataset.label=String(compact||n.kind==='Client'||n.kind==='Matter'||selected.kind!=='Client'&&activeIds.has(n.id));
     n.button.dataset.inClient=String(inside);n.button.setAttribute('aria-pressed',String(detail&&n.id===state.memoryNode));
     // CSS centring avoids hundreds of forced layout reads during a zoom.
     n.button.style.transform=`translate(${p.x}px,${p.y-12}px) translateX(-50%)`;
    });
    connections.forEach((e,i)=>{
     const a=points.get(e.from),b=points.get(e.to),active=detail&&(e.from===state.memoryNode||e.to===state.memoryNode),visible=visibleIds.has(e.from)&&visibleIds.has(e.to);
-    e.path.style.display=visible?'':'none';e.text.style.display=visible&&active&&!compact&&viewport.dataset.flying!=='true'?'':'none';if(!visible)return;
+    e.path.style.display=visible?'':'none';e.text.style.display=visible&&active&&selected.kind!=='Client'&&!compact&&viewport.dataset.flying!=='true'?'':'none';if(!visible)return;
     const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy)||1,offset=(i%2?1:-1)*Math.min(15,length*.045),mx=(a.x+b.x)/2-dy/length*offset,my=(a.y+b.y)/2+dx/length*offset;
     e.path.setAttribute('d',`M ${a.x} ${a.y} Q ${mx} ${my} ${b.x} ${b.y}`);e.path.dataset.active=String(active);
-    e.path.style.opacity=detail?(active?'1':'.65'):(byId.get(e.from).group!==byId.get(e.to).group?'.23':'.85');
+    e.path.style.opacity=detail?(active?'1':'.65'):(byId.get(e.from).group!==byId.get(e.to).group?'.035':byId.get(e.from).kind==='Client'?'.72':'.44');
     if(active){const t=.56,u=1-t;e.text.setAttribute('x',u*u*a.x+2*u*t*mx+t*t*b.x);e.text.setAttribute('y',u*u*a.y+2*u*t*my+t*t*b.y-6);}
    });
    root.querySelector('[data-graph-zoom="out"]').disabled=compact&&detail||zoom<=1;root.querySelector('[data-graph-zoom="in"]').disabled=compact&&detail||zoom>=12;
