@@ -101,7 +101,7 @@ body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:anti
 #oakbase-agent-message .oa-graph-actions button:hover{background:#f2f2f2}
 #oakbase-agent-message .oa-graph-actions button:disabled{opacity:.28;cursor:default}
 #oakbase-agent-message .oa-graph-actions svg{width:15px;height:15px}
-#oakbase-agent-message .oa-graph-viewport{height:560px;position:relative;overflow:clip;touch-action:pan-y;background:#fcfcfc;background-image:radial-gradient(#dbdbdb .65px,transparent .65px);background-size:21px 21px;cursor:grab}
+#oakbase-agent-message .oa-graph-viewport{height:720px;position:relative;overflow:clip;touch-action:pan-y;background:#fcfcfc;background-image:radial-gradient(#dbdbdb .65px,transparent .65px);background-size:21px 21px;cursor:grab}
 #oakbase-agent-message .oa-graph-explore{display:flex;align-items:center;gap:8px;min-height:34px;padding:7px 11px;border:1px solid #dedede;border-radius:7px;background:#fff;color:#343434;font-size:12px;white-space:nowrap}
 #oakbase-agent-message .oa-graph-explore:hover{background:#f7f7f7;border-color:#bbb}
 #oakbase-agent-message .oa-graph-explore svg{width:14px;height:14px}
@@ -152,7 +152,7 @@ body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:anti
 #oakbase-agent-message .oa-graph-quote{font-size:13px;line-height:1.7;color:#4d4d4d}
 #oakbase-agent-message .oa-graph-evidence-note{font-size:11px;line-height:1.5;color:#939393;margin-top:10px}
 @media(max-width:850px){#oakbase-agent-message .oa-memory-heading{gap:28px}#oakbase-agent-message .oa-memory-heading .oa-section-copy{max-width:300px}#oakbase-agent-message .oa-graph-node{width:114px}#oakbase-agent-message .oa-graph-label{font-size:11px;max-width:112px}#oakbase-agent-message .oa-graph-inspector{gap:24px;padding:21px}#oakbase-agent-message .oa-graph-evidence{padding-left:20px}}
-@media(max-width:620px){#oakbase-agent-message .oa-memory-heading{display:block}#oakbase-agent-message .oa-memory-heading .oa-section-copy{margin-top:17px;max-width:380px}#oakbase-agent-message .oa-memory-explorer{margin-top:25px;border-radius:13px}#oakbase-agent-message .oa-graph-toolbar{padding:12px 11px;gap:7px}#oakbase-agent-message .oa-graph-name{font-size:12px;gap:6px}#oakbase-agent-message .oa-graph-actions{gap:0}#oakbase-agent-message .oa-graph-actions button{width:31px;height:36px}#oakbase-agent-message .oa-graph-viewport{height:410px}#oakbase-agent-message .oa-graph-node{width:114px;min-height:54px}#oakbase-agent-message .oa-graph-label{font-size:11px;max-width:110px}#oakbase-agent-message .oa-graph-caption{padding:11px 14px;display:block}#oakbase-agent-message .oa-graph-caption span+span{display:none}#oakbase-agent-message .oa-graph-inspector{grid-template-columns:1fr;gap:22px;padding:19px 16px;min-height:0}#oakbase-agent-message .oa-graph-evidence{padding:19px 0 0;border-left:0;border-top:1px solid #eee}#oakbase-agent-message .oa-graph-inspector h3{font-size:22px}}
+@media(max-width:620px){#oakbase-agent-message .oa-memory-heading{display:block}#oakbase-agent-message .oa-memory-heading .oa-section-copy{margin-top:17px;max-width:380px}#oakbase-agent-message .oa-memory-explorer{margin-top:25px;border-radius:13px}#oakbase-agent-message .oa-graph-toolbar{padding:12px 11px;gap:7px}#oakbase-agent-message .oa-graph-name{font-size:12px;gap:6px}#oakbase-agent-message .oa-graph-actions{gap:0}#oakbase-agent-message .oa-graph-actions button{width:31px;height:36px}#oakbase-agent-message .oa-graph-viewport{height:660px}#oakbase-agent-message .oa-graph-node{width:114px;min-height:54px}#oakbase-agent-message .oa-graph-label{font-size:11px;max-width:110px}#oakbase-agent-message .oa-graph-caption{padding:11px 14px;display:block}#oakbase-agent-message .oa-graph-caption span+span{display:none}#oakbase-agent-message .oa-graph-inspector{grid-template-columns:1fr;gap:22px;padding:19px 16px;min-height:0}#oakbase-agent-message .oa-graph-evidence{padding:19px 0 0;border-left:0;border-top:1px solid #eee}#oakbase-agent-message .oa-graph-inspector h3{font-size:22px}}
 #oakbase-agent-message .oa-role-section{margin-top:61px}
 #oakbase-agent-message .oa-role-heading{display:flex;align-items:end;justify-content:space-between;gap:35px;margin-bottom:28px}
 #oakbase-agent-message .oa-role-heading h3{font-size:30px;font-weight:500;line-height:1.15;letter-spacing:-1px;max-width:440px}
@@ -296,3 +296,15 @@ body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:anti
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 #oakbase-agent-message .oa-language a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}
+
+/* A firm-wide map: show the scale first, reveal evidence on selection. */
+#oakbase-agent-message .oa-graph-node[hidden]{display:none}
+#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Client"]{width:108px;height:43px}
+#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Client"] .oa-graph-label{font-size:10px;max-width:106px;overflow:hidden;text-overflow:ellipsis}
+#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node:not([data-kind="Client"]){width:22px;height:24px;min-height:24px}
+#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node:not([data-kind="Client"]) .oa-graph-dot{width:4px;height:4px;box-shadow:0 0 0 2px #fcfcfc}
+#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Matter"] .oa-graph-dot{width:7px;height:7px}
+#oakbase-agent-message .oa-graph-viewport[data-view="client"] .oa-graph-node[data-label="false"] .oa-graph-label{opacity:0}
+#oakbase-agent-message .oa-graph-viewport[data-view="client"] .oa-graph-node:hover .oa-graph-label,#oakbase-agent-message .oa-graph-viewport[data-view="client"] .oa-graph-node:focus-visible .oa-graph-label{opacity:1}
+#oakbase-agent-message .oa-graph-node:hover,#oakbase-agent-message .oa-graph-node:focus-visible{z-index:5}
+@media(max-width:620px){#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Client"]{width:76px}#oakbase-agent-message .oa-graph-viewport[data-view="firm"] .oa-graph-node[data-kind="Client"] .oa-graph-label{font-size:9px;max-width:75px}}
