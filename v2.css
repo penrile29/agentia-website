@@ -13,7 +13,7 @@ body{margin:0;font-family:'DM Sans',Arial,sans-serif;-webkit-font-smoothing:anti
 #oakbase-agent-message .oa-hero{text-align:center;padding:24px 32px 0}
 #oakbase-agent-message .oa-eyebrow{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--oa-muted);margin-bottom:15px}
 #oakbase-agent-message h1{font-size:60px;line-height:1.04;letter-spacing:-3px;font-weight:500}
-#oakbase-agent-message .oa-subtitle{font-size:14px;line-height:1.55;color:var(--oa-muted);margin:17px auto 0;max-width:520px}
+#oakbase-agent-message .oa-subtitle{font-size:15px;line-height:1.6;color:var(--oa-muted);margin:17px auto 0;max-width:740px;text-wrap:pretty}
 #oakbase-agent-message .oa-scene{display:grid;grid-template-columns:minmax(0,1fr) minmax(350px,.91fr);gap:66px;align-items:start;margin:37px 36px 0;position:relative}
 #oakbase-agent-message .oa-connection{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 #oakbase-agent-message .oa-connection path{fill:none;stroke:#e2e2e2;stroke-width:1}
