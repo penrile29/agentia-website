@@ -1,6 +1,6 @@
 /* English keys stay stable; Spanish examples use a consistent set of fictional clients and people. App brands are unchanged. */
 window.OakbaseDynamicCopy = {
-  en: {},
+  en: {'Illustrative firm knowledge': 'Illustrative law firm knowledge'},
   es: {
     'Select a client to explore': 'Selecciona un cliente para explorar',
     'Alder Ltd.': 'Grupo Olivar',
