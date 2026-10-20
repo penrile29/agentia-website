@@ -25,10 +25,11 @@ PRODUCTION_FILES = ('404.html', 'llms.txt', 'llms-full.txt')
 # additions to assets/ must never become public through a recursive copy.
 PUBLIC_ASSETS = frozenset({
     'ASSET-SOURCES.md', 'LICENSE-dashboard-icons', 'LICENSE-gilbarbara-logos',
-    'LICENSE-lobehub-icons', 'LICENSE-lucide', 'OFL-DM-Sans.txt',
+    'LICENSE-lobehub-icons', 'LICENSE-lucide', 'OFL-DM-Sans.txt', 'OFL-Instrument-Serif.txt',
     'calendar.svg', 'chatgpt.svg', 'claude.svg', 'clio.svg', 'copilot.svg',
     'dm-sans-latin-1.woff2', 'dm-sans.css', 'dynamics.svg', 'gmail.svg',
-    'hubspot.svg', 'lucide-0.468.0.min.js', 'onenote.svg', 'outlook.svg',
+    'hubspot.svg', 'instrument-serif.css', 'instrument-serif-regular.ttf',
+    'lucide-0.468.0.min.js', 'onenote.svg', 'outlook.svg',
     'salesforce.svg', 'slack.svg', 'teams.svg', 'whatsapp.svg',
 })
 
