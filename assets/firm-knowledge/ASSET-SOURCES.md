@@ -8,6 +8,5 @@ These files preserve the assets used in the approved Oakbase website prototype. 
 - `hubspot.svg`, `clio.svg`, and `dynamics.svg`: decoded without modification from the approved prototype's embedded SVG assets.
 - `lucide-0.468.0.min.js`: [Lucide](https://lucide.dev), pinned to version 0.468.0, UMD distribution. See `LICENSE-lucide`.
 - `dm-sans-latin-1.woff2`: DM Sans, Latin variable font served by Google Fonts. `dm-sans.css` declares the 400, 500, and 600 weights used by the site. See `OFL-DM-Sans.txt`.
-- `instrument-serif-regular.ttf`: Instrument Serif, upright regular font served by Google Fonts (`https://fonts.gstatic.com/s/instrumentserif/v5/jizBRFtNs2ka5fXjeivQ4LroWlx-2zI.ttf`). Used only for the editorial hero; emphasized words use browser-synthesized bold, matching the approved preview. See `OFL-Instrument-Serif.txt` from `https://github.com/google/fonts/blob/main/ofl/instrumentserif/OFL.txt`.
 
 Product names and logos belong to their respective trademark owners. Their appearance identifies the tools shown in the illustrative workflow.
