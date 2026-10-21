@@ -2522,6 +2522,11 @@ img {
 .relationship {
   font-size: 9px;
 }
+.relationship,
+.map-hint {
+  color: #666;
+  background: #fff;
+}
 .brain-workspace:not([data-current-stage="0"])[data-current-stage]
   .map-branches
   .entity {
