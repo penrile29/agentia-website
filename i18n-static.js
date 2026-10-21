@@ -52,7 +52,7 @@ window.OakbaseStaticCopy = {
     "timeSources": "Calendar + work activity",
     "briefingFooter": "Prepared for you. Ready for your review.",
     "memoryKicker": "01 / The firm’s brain",
-    "memoryTitle": "Connected knowledge.<br>Ready to act.",
+    "memoryTitle": "A Brain for your company.<br>Ready to act.",
     "memoryDescription": "We connect clients, people and daily work in a persistent, searchable memory that stays current, structured for your industry.",
     "memoryExplorerDescription": "Explore the firm’s connected memory",
     "memoryGraphDescription": "Knowledge graph: explore a client and its connected information",
