@@ -32,7 +32,7 @@
 #oakbase-agent-message .oa-video-time>span+span{color:#7a7a7a}
 #oakbase-agent-message .oa-video-current{font-size:11px;line-height:1.4;color:#757575;margin-left:7px;flex:1}
 #oakbase-agent-message .oa-video-restart{margin-left:auto}
-#oakbase-agent-message .oa-story-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:13px;margin:8px 0 0;border-top:1px solid #eee;padding-top:8px}
+#oakbase-agent-message .oa-story-steps{display:grid;grid-template-columns:repeat(var(--chapters,5),1fr);gap:13px;margin:8px 0 0;border-top:1px solid #eee;padding-top:8px}
 #oakbase-agent-message .oa-story-steps button{border:0;background:none;color:#6c6c6c;cursor:pointer;text-align:left;padding:7px 0;font:400 10px/1.5 'DM Sans',sans-serif;min-height:32px}
 #oakbase-agent-message .oa-story-steps button span{font-size:9px;margin-right:8px;color:#707070}
 #oakbase-agent-message .oa-story-steps button[aria-current=step]{color:#816633;font-weight:500}
@@ -119,4 +119,41 @@
 }
 @media(prefers-reduced-motion:reduce){
  #oakbase-agent-message .oa-video-start-icon,#oakbase-agent-message .oa-story-panel,#oakbase-agent-message .oa-graph-viewport .oa-graph-node,#oakbase-agent-message .oa-graph-viewport .oa-graph-lines path{animation:none!important;transition:none!important}
+}
+
+/* The final shot reuses the existing Operations Agent briefing. */
+#oakbase-agent-message .oa-video-agent-scene{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:26px 24px;box-sizing:border-box;pointer-events:none;transform-origin:50% 60%;will-change:transform,opacity}
+#oakbase-agent-message .oa-video-agent-scene[hidden]{display:none}
+#oakbase-agent-message .oa-video-agent-kicker{font-size:10px;letter-spacing:1px;text-transform:uppercase;line-height:1.5;color:#816633;text-align:center;margin:0}
+#oakbase-agent-message .oa-video-agent-card{width:min(570px,100%);max-height:calc(100% - 38px);flex-shrink:1;overflow:auto;pointer-events:auto;border-radius:19px;box-shadow:0 15px 50px -30px #20202040}
+#oakbase-agent-message .oa-video-agent-card .oa-agent-top{padding:17px 21px}
+#oakbase-agent-message .oa-video-agent-card .oa-message{padding-top:17px}
+#oakbase-agent-message .oa-video-agent-card h2{font-size:26px}
+#oakbase-agent-message .oa-video-agent-card .oa-message-intro{max-width:440px}
+#oakbase-agent-message .oa-video-agent-card .oa-action:first-child{background:#fbf8f2;border:1px solid #e7dcc9;border-radius:9px;margin:0 -10px;padding:0 10px}
+#oakbase-agent-message .oa-video-agent-card .oa-action:first-child .oa-action-icon{background:#eee5d4;color:#816633}
+#oakbase-agent-message .oa-video-agent-card .oa-action:first-child .oa-action-note{color:#7c633b}
+#oakbase-agent-message .oa-video-agent-card .oa-action-btn{transition:none}
+#oakbase-agent-message .oa-video-agent-card .oa-action-btn:focus-visible{outline:2px solid #92703a;outline-offset:-2px;border-radius:6px}
+#oakbase-agent-message .oa-video-agent-card .oa-detail{font-size:12px;line-height:1.6}
+#oakbase-agent-message .oa-video-agent-card .oa-video-agent-evidence{margin:12px 0;padding-left:12px;border-left:2px solid #b8a180;font-size:12px;line-height:1.65}
+#oakbase-agent-message .oa-video-agent-card .oa-sources{flex-wrap:wrap}
+#oakbase-agent-message .oa-video-agent-card :is(.oa-time,.oa-agent-status,.oa-sources,.oa-action-note,.oa-message-footer){color:#707070}
+@media(max-width:794px){
+ #oakbase-agent-message .oa-video-agent-scene{padding:22px 14px;gap:13px}
+ #oakbase-agent-message .oa-video-agent-kicker{font-size:9px;letter-spacing:.7px}
+ #oakbase-agent-message .oa-video-agent-card{border-radius:17px;max-height:calc(100% - 35px)}
+ #oakbase-agent-message .oa-video-agent-card .oa-agent-top{padding:15px 16px}
+ #oakbase-agent-message .oa-video-agent-card .oa-message{padding:16px 16px 0}
+ #oakbase-agent-message .oa-video-agent-card .oa-message-footer{padding-left:16px;padding-right:16px}
+ #oakbase-agent-message .oa-video-agent-card h2{font-size:23px}
+ #oakbase-agent-message .oa-video-agent-card .oa-action-title{font-size:12px}
+ #oakbase-agent-message .oa-video-agent-card .oa-action-note{font-size:10px}
+ #oakbase-agent-message .oa-video-agent-card .oa-action-btn{padding:12px 0}
+}
+@media(max-width:380px){
+ #oakbase-agent-message .oa-video-agent-scene{padding-left:10px;padding-right:10px}
+ #oakbase-agent-message .oa-video-agent-card .oa-new{display:none}
+ #oakbase-agent-message .oa-video-agent-card .oa-agent-top{padding:14px 13px}
+ #oakbase-agent-message .oa-video-agent-card .oa-message{padding-left:13px;padding-right:13px}
 }

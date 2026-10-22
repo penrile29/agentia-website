@@ -384,7 +384,7 @@ SUCH DAMAGE.
   const storyOriginalNodes=data.slice(),storyOriginalConnections=connections.slice();
   const storyEssential=new Set(['alder','acquisition','maya','alex','meeting']);
   const storyIds=['story_email','story_commitment','story_task','story_agent'];
-  const storyDuration=15,storyChapters=Object.freeze([0,3,6,9,12]);
+  const storyDuration=18,storyChapters=Object.freeze([0,3,6,9,12,15]);
   const storyIntroHold=.3,storyIntroEnd=1.5,storyChapterTransition=1.1;
   const storyState={active:false,returning:false,epoch:0,step:0,created:false,animateArrivals:true,targetZoom:1,motion:null,timeline:false,time:0,reducedMotion:false,visualKey:'',revision:0,cameraCache:null,timelineStyles:new Map(),copy:{nodes:{},edges:{}}};
   const storyNodeSpecs=[
@@ -585,7 +585,7 @@ SUCH DAMAGE.
     const target=storyCameraTarget();drawGraph();return storyFly(target,animate,1800);
    },
    setStep(step,{animate=true}={}){
-    if(storyState.timeline){const value=Math.max(0,Math.min(4,Math.floor(Number(step)||0)));return Promise.resolve({...storySeek(storyChapters[value],{reducedMotion:!animate||reduced.matches}),cancelled:false});}
+    if(storyState.timeline){const value=Math.max(0,Math.min(storyChapters.length-1,Math.floor(Number(step)||0)));return Promise.resolve({...storySeek(storyChapters[value],{reducedMotion:!animate||reduced.matches}),cancelled:false});}
     if(!storyState.active)return story.begin({animate}).then(result=>{if(!result.cancelled)return story.setStep(step,{animate:false});return result;});
     storyState.step=Math.max(0,Math.min(4,Math.floor(Number(step)||0)));
     storyState.animateArrivals=Boolean(animate&&!reduced.matches);
