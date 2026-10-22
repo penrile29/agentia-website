@@ -57,13 +57,14 @@
   const svg=name=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icon(name)}</svg>`;
   const formatTime=value=>`0:${String(Math.floor(value)).padStart(2,'0')}`;
   const nodes=viewport.querySelector('[data-memory-nodes]');
+  const graphLayers=[nodes,viewport.querySelector('.oa-graph-lines')];
   const header=document.createElement('div');header.className='oa-video-header';
   header.innerHTML='<div><span data-video-eyebrow></span><strong data-video-title></strong></div><button class="oa-video-explore" type="button"></button>';
   explorer.prepend(header);
   const poster=document.createElement('div');poster.className='oa-video-poster';
   poster.innerHTML=`<button class="oa-video-start" type="button"><span class="oa-video-start-icon">${svg('play')}</span><strong data-video-poster-title></strong><span data-video-poster-body></span><small data-video-watch></small></button>`;
   viewport.append(poster);
-  // The scene is the native graph. This transparent layer only adds its annotation.
+  // Annotations stay connected to the graph until the final conversation close-up.
   const stage=document.createElement('div');stage.className='oa-story-stage';stage.hidden=true;
   stage.innerHTML='<svg class="oa-story-pointer" aria-hidden="true"><path></path></svg><aside class="oa-story-panel" aria-live="polite" aria-atomic="true"></aside>';
   viewport.append(stage);
@@ -110,6 +111,14 @@
     if(focusedAction)panel.querySelector('[data-story-task]:not(:disabled)')?.focus({preventScroll:true});
   }
   function positionPanel(){
+    const finalShot=started&&!exploring&&step===5;
+    const progress=finalShot?(reduced.matches?1:Math.min(1,Math.max(0,(currentTime-chapters[5])/.9))):0;
+    const focus=progress*progress*(3-2*progress);
+    const pointer=stage.querySelector('svg');
+    graphLayers.forEach(layer=>{layer.style.opacity=String(1-focus);layer.style.visibility=focus===1?'hidden':'';});
+    pointer.style.opacity=String(1-focus);pointer.style.visibility=focus===1?'hidden':'';
+    stage.style.backgroundColor=`rgba(252,252,252,${focus})`;
+    panel.style.setProperty('--chat-focus',focus);panel.style.removeProperty('transform');
     if(!started||exploring||currentTime<(reduced.matches?introHold:introEnd)){stage.hidden=true;return;}
     const point=api.story.getPoint(detail||anchors[Math.max(0,step)]);if(!point){stage.hidden=true;return;}
     stage.hidden=false;
@@ -117,10 +126,18 @@
     let left,top;
     if(mobile){left=Math.max(12,(w-pw)/2);top=Math.min(h-ph-16,Math.max(300,point.y+52));}
     else{left=point.x+80;if(left+pw>w-18)left=point.x-pw-80;left=Math.max(18,Math.min(w-pw-18,left));top=Math.max(22,Math.min(h-ph-22,point.y-ph*.45));}
+    let scale=1;
+    if(finalShot){
+      const target=Math.max(.75,Math.min(mobile||detail?1:1.65,(w-32)/pw,(h-40)/ph));
+      scale=1+(target-1)*focus;
+      left+=( (w-pw*scale)/2-left)*focus;top+=( (h-ph*scale)/2-top)*focus;
+      left=Math.max(16,Math.min(w-pw*scale-16,left));top=Math.max(20,Math.min(h-ph*scale-20,top));
+      panel.style.transform=`scale(${scale})`;
+    }
     panel.style.left=`${left}px`;panel.style.top=`${top}px`;
-    const pointer=stage.querySelector('svg'),path=pointer.querySelector('path');pointer.setAttribute('viewBox',`0 0 ${w} ${h}`);
-    const endX=Math.max(left+12,Math.min(left+pw-12,point.x)),endY=mobile?top:Math.max(top+15,Math.min(top+ph-15,point.y));
-    const x=mobile?endX:point.x<left?left:point.x>left+pw?left+pw:endX;
+    const path=pointer.querySelector('path');pointer.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    const endX=Math.max(left+12,Math.min(left+pw*scale-12,point.x)),endY=mobile?top:Math.max(top+15,Math.min(top+ph*scale-15,point.y));
+    const x=mobile?endX:point.x<left?left:point.x>left+pw*scale?left+pw*scale:endX;
     path.setAttribute('d',`M ${point.x} ${point.y} L ${x} ${endY}`);
   }
   function renderControls(){
@@ -130,7 +147,7 @@
     explorer.dataset.storyPaused=String(!playing);explorer.dataset.videoPlaying=String(playing);
     poster.hidden=started||exploring;footer.hidden=exploring;
     mode.textContent=exploring?x.backVideo:x.explore;
-    renderActionFrame();
+    renderActionFrame();positionPanel();
   }
   function updateProgress(force=false){
     const frame=Math.floor(currentTime*10);if(!force&&frame===lastProgress)return;lastProgress=frame;
@@ -169,7 +186,7 @@
     const result=api.story.seek(currentTime,{reducedMotion:reduced.matches});
     const next=result.step;if(step!==next){step=next;renderChapter();}
     else if(panel.querySelector('[data-story-close]'))renderPanel();
-    renderActionFrame();updateProgress();renderControlsIfNeeded();
+    renderActionFrame();positionPanel();updateProgress();renderControlsIfNeeded();
   }
   let controlState='';
   function renderControlsIfNeeded(){const next=[playing,started,exploring,currentTime>=duration].join(':');if(next!==controlState){controlState=next;renderControls();}}

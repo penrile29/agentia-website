@@ -133,7 +133,8 @@
 #oakbase-agent-message .oa-story-action [data-action-part]{transition:none;animation:none}
 /* The agent brings this one task into a small, proactive conversation. */
 #oakbase-agent-message .oa-story-panel.oa-story-action-panel{width:320px}
-#oakbase-agent-message .oa-story-panel.oa-story-chat-panel{padding:0;border-radius:14px;background:#fff;border-color:#dfdcd6;box-shadow:0 8px 28px #2620180d}
+#oakbase-agent-message .oa-story-panel.oa-story-chat-panel{padding:0;border-radius:14px;background:#fff;border-color:#dfdcd6;box-shadow:0 8px 28px #2620180d;max-height:calc(100% - 40px)}
+#oakbase-agent-message .oa-story-panel{transform-origin:0 0}
 #oakbase-agent-message .oa-story-chat-header{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid #eee}
 #oakbase-agent-message .oa-story-chat-avatar{display:grid;place-items:center;width:31px;height:31px;flex-shrink:0;border-radius:9px;background:#1c1c1c}
 #oakbase-agent-message .oa-story-chat-avatar img{width:19px;height:19px;object-fit:contain;filter:brightness(0) invert(1)}
@@ -157,6 +158,8 @@
  #oakbase-agent-message .oa-story-chat-header{padding:11px 13px}
  #oakbase-agent-message .oa-story-chat-body{padding:11px 12px 12px}
  #oakbase-agent-message .oa-story-chat-bubble{padding:11px}
- #oakbase-agent-message .oa-story-chat-bubble p{font-size:12px;line-height:1.65}
+ #oakbase-agent-message .oa-story-chat-bubble p{font-size:calc(12px + 4px * var(--chat-focus,0));line-height:1.65}
+ #oakbase-agent-message .oa-story-chat-header strong{font-size:calc(12px + 2px * var(--chat-focus,0))}
+ #oakbase-agent-message .oa-story-chat-bubble .oa-story-task-button{font-size:calc(11px + 2px * var(--chat-focus,0))}
  #oakbase-agent-message .oa-story-chat-composer{padding:9px 13px}
 }
