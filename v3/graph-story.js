@@ -4,7 +4,7 @@
   const explorer = document.querySelector('.oa-memory-explorer');
   const viewport = explorer?.querySelector('.oa-graph-viewport');
   const api = window.OakbaseMemoryExplorer;
-  if (!explorer || !viewport || !api) return;
+  if (!explorer || !viewport || !api?.story) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const source = window.OakbaseFirmGraph.build();
   const originals = new Map(source.nodes.map(node => [node.id, node]));
@@ -46,144 +46,146 @@
       read:'Read the source email', close:'Close detail', complete:'Story complete', stepLabel:'Go to step', provenance:'Commitment evidence',
     },
   };
-  let step = -1, playing = false, timer = 0, focusTimer = 0, dueAt = 0, remaining = 0, focused = false, detail = '', completed = false;
-  const durations = [5100, 6500, 5700, 5200, 7000];
-  const lang = () => document.documentElement.lang === 'es' ? 'es' : 'en';
-  const c = () => copy[lang()];
-  const t = value => window.OakbaseI18n?.t(value) || value;
-  const icon = name => ({ play:'<path d="m8 5 11 7-11 7Z"/>', pause:'<path d="M8 5v14M16 5v14"/>', reset:'<path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/>', mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>', check:'<path d="m5 12 4 4L19 6"/>', arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>', bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>', close:'<path d="m6 6 12 12M18 6 6 18"/>' }[name] || '');
-  const svg = name => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icon(name)}</svg>`;
-  const control = document.createElement('div'); control.className = 'oa-story-controls';
-  control.innerHTML = '<button type="button" class="oa-story-play"><span data-story-icon></span><span data-story-play-label></span></button><button type="button" class="oa-story-reset" hidden></button>';
+  let step=-1, playing=false, timer=0, focusTimer=0, dueAt=0, remaining=0, detail='', completed=false, cameraReady=false, generation=0;
+  const durations=[6500,6500,5500,5500,7000];
+  const lang=()=>document.documentElement.lang==='es'?'es':'en';
+  const c=()=>copy[lang()];
+  const t=value=>window.OakbaseI18n?.t(value)||value;
+  const icon=name=>({play:'<path d="m8 5 11 7-11 7Z"/>',pause:'<path d="M8 5v14M16 5v14"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',check:'<path d="m5 12 4 4L19 6"/>',arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>'}[name]||'');
+  const svg=name=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icon(name)}</svg>`;
+  const control=document.createElement('div');control.className='oa-story-controls';
+  control.innerHTML='<button type="button" class="oa-story-play"><span data-story-icon></span><span data-story-play-label></span></button><button type="button" class="oa-story-reset" hidden></button>';
   explorer.querySelector('.oa-graph-toolbar').append(control);
-  const intro = document.createElement('div'); intro.className = 'oa-story-intro';
-  intro.innerHTML = '<span data-story-intro></span><span data-story-intro-small></span>';
+  const intro=document.createElement('div');intro.className='oa-story-intro';
+  intro.innerHTML='<span data-story-intro></span><span data-story-intro-small></span>';
   explorer.querySelector('.oa-graph-toolbar').after(intro);
-  const stage = document.createElement('div'); stage.className='oa-story-stage'; stage.hidden=true;
-  stage.innerHTML = '<div class="oa-story-heading"><span class="oa-story-eyebrow" data-story-status></span><h3 data-story-title></h3><p data-story-subtitle></p></div><svg class="oa-story-agent-link" aria-hidden="true"></svg><div class="oa-story-map"><svg class="oa-story-connections" aria-hidden="true"></svg><div class="oa-story-entities"></div></div><aside class="oa-story-panel" aria-live="polite" aria-atomic="true"></aside>';
+  // This layer only contains the annotation. All nodes and edges remain in the
+  // original explorer layers, rendered by its original camera.
+  const stage=document.createElement('div');stage.className='oa-story-stage';stage.hidden=true;
+  stage.innerHTML='<svg class="oa-story-pointer" aria-hidden="true"><path></path></svg><aside class="oa-story-panel" aria-live="polite" aria-atomic="true"></aside>';
   viewport.append(stage);
-  const footer = document.createElement('div'); footer.className='oa-story-footer'; footer.hidden=true;
+  const footer=document.createElement('div');footer.className='oa-story-footer';footer.hidden=true;
   footer.innerHTML='<div class="oa-story-steps" role="group"></div><p class="oa-story-disclosure"></p><span class="oa-story-announcement" role="status" aria-live="polite"></span>';
   explorer.querySelector('.oa-graph-caption').after(footer);
-  const play = control.querySelector('.oa-story-play'), reset = control.querySelector('.oa-story-reset');
-  const panel = stage.querySelector('.oa-story-panel'), map=stage.querySelector('.oa-story-map'), entities=stage.querySelector('.oa-story-entities'), lines=stage.querySelector('.oa-story-connections');
-  const nativeLayers = [viewport.querySelector('[data-memory-nodes]'), viewport.querySelector('.oa-graph-lines'), viewport.querySelector('.oa-graph-controls')];
-  const nodeSpecs=[
-    {id:'alder',kind:'Client',x:54,y:12,at:0}, {id:'acquisition',kind:'Matter',x:64,y:37,at:0},
-    {id:'maya',kind:'Contact',x:20,y:13,at:0}, {id:'meeting',kind:'Source',x:32,y:37,at:0},
-    {id:'alex',kind:'Person',x:13,y:55,at:0}, {id:'story_email',kind:'Email',x:22,y:79,at:1},
-    {id:'story_commitment',kind:'Commitment',x:60,y:63,at:2}, {id:'story_task',kind:'Task',x:78,y:86,at:3},
-  ];
-  const links=[['maya','alder',0],['alder','acquisition',0],['meeting','acquisition',0],['alex','meeting',0],['maya','meeting',0],['alex','story_email',1],['story_email','story_commitment',2],['story_commitment','acquisition',2],['story_commitment','alex',2],['story_commitment','story_task',3]];
-  function name(node) { return node.id === 'story_email' ? c().newEmail : node.id === 'story_commitment' ? c().newCommitment : node.id === 'story_task' ? c().newTask : t(originals.get(node.id).name); }
-  nodeSpecs.forEach(node=>{
-    const button=document.createElement('button');button.type='button';button.className='oa-story-node';button.dataset.kind=node.kind;button.dataset.storyNode=node.id;
-    button.style.left=`${node.x}%`;button.style.top=`${node.y}%`;
-    button.innerHTML='<span class="oa-story-node-dot" aria-hidden="true"></span><span class="oa-story-node-kind"></span><span class="oa-story-node-name"></span>';
-    button.addEventListener('click',()=>{pause();detail=node.id;renderPanel();});entities.append(button);node.button=button;
-  });
-  function drawLines(){
-    const width=map.clientWidth,height=map.clientHeight;if(!width||!height)return;
-    lines.setAttribute('viewBox',`0 0 ${width} ${height}`);lines.replaceChildren();
-    links.filter(link=>link[2]<=step).forEach(([from,to,at])=>{
-      const a=nodeSpecs.find(node=>node.id===from),b=nodeSpecs.find(node=>node.id===to);
-      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d',`M ${a.x*width/100} ${a.y*height/100} L ${b.x*width/100} ${b.y*height/100}`);
-      path.setAttribute('pathLength','1');path.dataset.new=String(at>0);path.dataset.current=String(at===step);lines.append(path);
-      if(width>460 && ((from==='story_email'&&to==='story_commitment')||(from==='story_commitment'&&to==='story_task'))){
-        const label=document.createElementNS('http://www.w3.org/2000/svg','text');
-        label.setAttribute('x',String((a.x+b.x)*width/200));label.setAttribute('y',String((a.y+b.y)*height/200+(from==='story_email'?-9:14)));
-        label.textContent=from==='story_email'?c().relation[3]:c().relation[4];lines.append(label);
-      }
-    });
-    const agentLink=stage.querySelector('.oa-story-agent-link');agentLink.replaceChildren();
-    if(step===4&&stage.clientWidth>740){
-      agentLink.setAttribute('viewBox',`0 0 ${stage.clientWidth} ${stage.clientHeight}`);
-      const task=nodeSpecs.find(node=>node.id==='story_task'),sx=map.offsetLeft+width*task.x/100,sy=map.offsetTop+height*task.y/100,ex=panel.offsetLeft-5,ey=panel.offsetTop+panel.offsetHeight*.64;
-      const path=document.createElementNS('http://www.w3.org/2000/svg','path');
-      path.setAttribute('d',`M ${sx+14} ${sy} C ${ex-30} ${sy}, ${ex-80} ${ey}, ${ex} ${ey} m -5 -4 5 4 -5 4`);agentLink.append(path);
-      const label=document.createElementNS('http://www.w3.org/2000/svg','text');label.setAttribute('x',String(ex-55));label.setAttribute('y',String(ey-12));label.textContent=lang()==='es'?'recupera':'retrieves';agentLink.append(label);
-    }
+  const play=control.querySelector('.oa-story-play'),reset=control.querySelector('.oa-story-reset'),panel=stage.querySelector('.oa-story-panel');
+  const anchors=['alder','story_email','story_commitment','story_task','story_agent'];
+  function syncCopy(){
+    const x=c();
+    api.story.setCopy({nodes:{
+      story_email:{name:x.newEmail,description:x.emailText,source:x.recorded,quote:x.emailText},
+      story_commitment:{name:x.commitmentTitle,description:x.commitmentBody,source:x.recorded,quote:x.emailText},
+      story_task:{name:x.taskTitle,description:x.taskBody,source:x.recorded,quote:x.emailText},
+      story_agent:{name:x.agentLabel,description:x.agentBody,source:x.recorded,quote:x.emailText},
+    },edges:{'sent':lang()==='es'?'envía':'sent','records commitment':x.relation[3],'becomes task':x.relation[4],'retrieved by':lang()==='es'?'recupera':'retrieves','addressed to':lang()==='es'?'dirigido a':'addressed to','owned by':lang()==='es'?'responsable':'owned by','concerns':lang()==='es'?'corresponde a':'concerns','assigned to':lang()==='es'?'responsable':'assigned to'}});
   }
   function email(){return `<div class="oa-story-card-top">${svg('mail')}<span>${c().emailMeta}</span></div><h4>${c().emailTitle}</h4><blockquote>${c().emailText}</blockquote><div class="oa-story-card-note">${c().matter} · ${c().matterName}</div>`;}
   function fields(){return `<dl><div><dt>${c().owner}</dt><dd>${c().person}</dd></div><div><dt>${c().due}</dt><dd>${c().deadline}</dd></div><div><dt>${c().matter}</dt><dd>${c().matterName}</dd></div></dl>`;}
   function renderPanel(){
-    const x=c();let html='';
-    if(detail && !detail.startsWith('story_')){
-      const node=nodeSpecs.find(node=>node.id===detail), original=originals.get(detail);
-      const text=typeof original.description==='object'?original.description[lang()]:t(original.description);
-      html=`<span class="oa-story-card-label">${x.nodeTypes[node.kind]}</span><h4>${name(node)}</h4><p>${text||x.contextText}</p><button type="button" class="oa-story-text-button" data-story-close>${x.close} ${svg('close')}</button>`;
-    } else if(detail==='story_email') {
+    if(step<0)return;const x=c();let html='';
+    if(detail&&!detail.startsWith('story_')){
+      const node=originals.get(detail);if(!node)return;
+      const description=typeof node.description==='object'?node.description[lang()]:t(node.description);
+      html=`<span class="oa-story-card-label">${t(node.kind)}</span><h4>${t(node.name)}</h4><p>${description||x.contextText}</p><button type="button" class="oa-story-text-button" data-story-close>${x.close} ${svg('close')}</button>`;
+    }else if(detail==='story_email'){
       html=`${email()}<button type="button" class="oa-story-text-button" data-story-close>${x.close} ${svg('close')}</button>`;
-    } else if(detail==='story_task'||detail==='story_commitment') {
+    }else if(detail==='story_task'||detail==='story_commitment'){
       html=`<span class="oa-story-card-label">${x.provenance}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<blockquote class="oa-story-evidence">${x.emailText}</blockquote><span class="oa-story-evidence-source">${x.recorded}</span><button type="button" class="oa-story-text-button" data-story-close>${step===4?x.back:x.close} ${svg('close')}</button>`;
-    } else if(step===0){
-      html=`<span class="oa-story-card-label">Shared Firm Brain</span><h4>${x.contextTitle}</h4><p>${x.contextText}</p><div class="oa-story-card-note">${x.sourceLabel}<br><strong>${x.sourceText}</strong></div>`;
-    } else if(step===1) html=email();
-    else if(step===2) html=`<span class="oa-story-card-label">${x.captured}</span><h4>${x.commitmentTitle}</h4>${fields()}<p>${x.commitmentBody}</p><button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
-    else if(step===3) html=`<span class="oa-story-card-label">${x.created}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<p>${x.taskBody}</p><button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
-    else html=`<div class="oa-story-card-top">${svg('bell')}<span>${x.agentLabel}</span></div><h4>${x.agentTitle}</h4><p class="oa-story-notification">${x.agentBody}</p><div class="oa-story-notification-task">${svg('check')}<span>${x.taskTitle}<small>${x.pending} · ${x.deadline}</small></span></div><p class="oa-story-card-note">${x.agentFoot}</p><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button>`;
+    }else if(step===0){
+      html=`<span class="oa-story-card-label">Shared Firm Brain</span><h4>${t(originals.get('alder').name)}</h4><p>${x.contextText}</p>`;
+    }else if(step===1)html=email();
+    else if(step===2)html=`<span class="oa-story-card-label">${x.captured}</span><h4>${x.commitmentTitle}</h4>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
+    else if(step===3)html=`<span class="oa-story-card-label">${x.created}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
+    else html=`<div class="oa-story-card-top">${svg('bell')}<span>${x.agentLabel}</span></div><h4>${x.agentTitle}</h4><p class="oa-story-notification">${x.agentBody}</p><div class="oa-story-card-note">${x.agentFoot}</div><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button>`;
     panel.innerHTML=html;
     panel.querySelector('[data-story-evidence]')?.addEventListener('click',()=>{pause();detail='story_email';renderPanel();panel.querySelector('[data-story-close]').focus({preventScroll:true});});
     panel.querySelector('[data-story-task]')?.addEventListener('click',()=>{pause();detail='story_task';renderPanel();panel.querySelector('[data-story-close]').focus({preventScroll:true});});
     panel.querySelector('[data-story-close]')?.addEventListener('click',()=>{detail='';renderPanel();play.focus({preventScroll:true});});
+    positionPanel();
+  }
+  function positionPanel(){
+    if(step<0||!cameraReady){stage.hidden=true;return;}
+    const point=api.story.getPoint(detail||anchors[step]);if(!point){stage.hidden=true;return;}
+    stage.hidden=false;
+    const w=viewport.clientWidth,h=viewport.clientHeight,pw=panel.offsetWidth,ph=panel.offsetHeight,mobile=w<740;
+    let left,top;
+    if(mobile){left=Math.max(12,(w-pw)/2);top=Math.min(h-ph-18,Math.max(300,point.y+58));}
+    else{
+      left=point.x+80;
+      if(left+pw>w-18)left=point.x-pw-80;
+      left=Math.max(18,Math.min(w-pw-18,left));top=Math.max(25,Math.min(h-ph-24,point.y-ph*.45));
+    }
+    panel.style.left=`${left}px`;panel.style.top=`${top}px`;
+    const pointer=stage.querySelector('svg'),path=pointer.querySelector('path');pointer.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    const endX=Math.max(left+12,Math.min(left+pw-12,point.x)),endY=mobile?top:Math.max(top+15,Math.min(top+ph-15,point.y));
+    const x=mobile?endX:point.x<left?left:point.x>left+pw?left+pw:endX;
+    path.setAttribute('d',`M ${point.x} ${point.y} L ${x} ${endY}`);
   }
   function renderControls(){
     const x=c(),label=playing?x.pause:step<0?x.play:completed?x.replay:x.resume;
-    control.querySelector('[data-story-play-label]').textContent=label;
-    control.querySelector('[data-story-icon]').innerHTML=svg(playing?'pause':'play');
-    play.setAttribute('aria-label',label); reset.textContent=x.reset;reset.hidden=step<0;
-    intro.querySelector('[data-story-intro]').textContent=x.intro;intro.querySelector('[data-story-intro-small]').textContent=x.introSmall;
+    control.querySelector('[data-story-play-label]').textContent=label;control.querySelector('[data-story-icon]').innerHTML=svg(playing?'pause':'play');
+    play.setAttribute('aria-label',label);reset.textContent=x.reset;reset.hidden=step<0;
+    intro.querySelector('[data-story-intro]').textContent=step<0?x.intro:x.titles[step];
+    intro.querySelector('[data-story-intro-small]').textContent=step<0?x.introSmall:`0${step+1} / 05 · ${x.status[step]}`;
+    explorer.dataset.storyPaused=String(!playing);
   }
   function render(){
-    renderControls();if(step<0)return;
-    const x=c();stage.querySelector('[data-story-status]').textContent=`0${step+1} / 05 · ${x.status[step]}`;
-    stage.querySelector('[data-story-title]').textContent=x.titles[step];stage.querySelector('[data-story-subtitle]').textContent=x.subtitles[step];
-    stage.dataset.step=String(step);footer.querySelector('.oa-story-disclosure').textContent=x.illustration;
+    syncCopy();renderControls();if(step<0)return;
+    const x=c();stage.dataset.step=String(step);footer.querySelector('.oa-story-disclosure').textContent=x.illustration;
     const steps=footer.querySelector('.oa-story-steps');steps.setAttribute('aria-label',lang()==='es'?'Pasos de la historia':'Story steps');
-    if(!steps.children.length) x.steps.forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();go(i);});steps.append(b);});
+    if(!steps.children.length)x.steps.forEach((_,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();go(i);});steps.append(b);});
     [...steps.children].forEach((b,i)=>{b.innerHTML=`<span>0${i+1}</span>${x.steps[i]}`;b.setAttribute('aria-label',`${x.stepLabel} ${i+1}: ${x.steps[i]}`);b.setAttribute('aria-current',i===step?'step':'false');b.dataset.done=String(i<step);});
-    nodeSpecs.forEach(node=>{node.button.hidden=node.at>step;node.button.dataset.current=String(node.at===step&&step>0);node.button.querySelector('.oa-story-node-kind').textContent=x.nodeTypes[node.kind];node.button.querySelector('.oa-story-node-name').textContent=name(node);node.button.setAttribute('aria-label',`${x.nodeTypes[node.kind]}: ${name(node)}`);});
-    renderPanel();drawLines();explorer.querySelector('[data-graph-hint]').textContent=lang()==='es'?'Selecciona un elemento para ver su información':'Select an item to see its context';
-    footer.querySelector('[role=status]').textContent=x.titles[step]+' '+x.subtitles[step];
-  }
-  function focusStory(){
-    focused=true;stage.hidden=false;explorer.dataset.storyFocused='true';
-    nativeLayers.forEach(layer=>{layer.inert=true;});drawLines();
+    renderPanel();footer.querySelector('[role=status]').textContent=x.titles[step]+' '+x.subtitles[step];
+    explorer.querySelector('[data-graph-hint]').textContent=lang()==='es'?'El mismo grafo, enriquecido por el trabajo diario':'The same graph, enriched by everyday work';
   }
   function clearTimers(){clearTimeout(timer);clearTimeout(focusTimer);timer=focusTimer=0;}
   function schedule(){dueAt=performance.now()+remaining;timer=setTimeout(()=>{if(step<4)go(step+1);else{playing=false;completed=true;remaining=0;renderControls();footer.querySelector('[role=status]').textContent=c().complete;}},remaining);}
+  async function startCamera(token){
+    focusTimer=0;await api.story.begin({animate:!reduced.matches});
+    if(token!==generation||step<0)return;
+    cameraReady=true;positionPanel();
+  }
   function go(next,opening=false){
     clearTimers();step=next;completed=false;detail='';remaining=durations[next];
-    explorer.dataset.storyActive='true';footer.hidden=false;intro.hidden=true;
-    explorer.querySelector('[data-graph-explore]').hidden=true;
-    if(opening&&!reduced.matches){
-      api.restore({memoryView:'firm',memoryClient:'alder'});
-      // A short establishing shot preserves the full firm, then uses its existing camera.
-      focusTimer=setTimeout(()=>{api.select('alder',false,true);focusTimer=setTimeout(focusStory,760);},850);
-    } else {api.select('alder',false,false);focusStory();}
+    explorer.dataset.storyActive='true';footer.hidden=false;explorer.querySelector('[data-graph-explore]').hidden=true;
+    const token=++generation;
+    if(opening){
+      cameraReady=false;stage.hidden=true;
+      // The first frame is the original firm. Its camera then moves continuously.
+      api.story.end({animate:false});
+      if(reduced.matches)startCamera(token);else focusTimer=setTimeout(()=>startCamera(token),600);
+    }else{
+      if(!api.story.active)api.story.begin({animate:false});
+      api.story.setStep(next,{animate:playing&&!reduced.matches});cameraReady=true;
+    }
     render();if(playing)schedule();
   }
   function pause(){
-    if(!playing)return;remaining=Math.max(1,dueAt-performance.now());playing=false;clearTimers();
-    if(!focused)focusStory();renderControls();
+    if(!playing)return;remaining=Math.max(1,dueAt-performance.now());playing=false;
+    clearTimeout(timer);timer=0;
+    // Preserve the establishing shot or current camera position when paused.
+    if(focusTimer){clearTimeout(focusTimer);focusTimer=-1;}
+    api.story.pause?.();renderControls();
   }
   play.addEventListener('click',()=>{
-    if(playing){pause();return;}
-    playing=true;
-    if(step<0||completed){focused=false;stage.hidden=true;delete explorer.dataset.storyFocused;nativeLayers.forEach(layer=>{layer.inert=false;});go(0,true);}
-    else{detail='';renderPanel();renderControls();schedule();}
+    if(playing){pause();return;}playing=true;
+    if(step<0||completed)go(0,true);
+    else{detail='';renderPanel();renderControls();if(focusTimer===-1)startCamera(generation);else api.story.resume?.();schedule();}
   });
   reset.addEventListener('click',()=>{
-    clearTimers();step=-1;playing=false;focused=false;completed=false;detail='';stage.hidden=footer.hidden=true;intro.hidden=false;
-    delete explorer.dataset.storyActive;delete explorer.dataset.storyFocused;nativeLayers.forEach(layer=>{layer.inert=false;});
-    explorer.querySelector('[data-graph-explore]').hidden=false;api.restore({memoryView:'firm',memoryClient:'alder'});renderControls();play.focus({preventScroll:true});
+    clearTimers();++generation;step=-1;playing=false;cameraReady=false;completed=false;detail='';stage.hidden=footer.hidden=true;
+    delete explorer.dataset.storyActive;delete explorer.dataset.storyPaused;explorer.querySelector('[data-graph-explore]').hidden=false;
+    api.story.end({animate:!reduced.matches});renderControls();play.focus({preventScroll:true});
   });
+  viewport.addEventListener('click',event=>{
+    const button=event.target.closest('[data-memory-node]');if(step<0||!button)return;
+    event.preventDefault();event.stopImmediatePropagation();pause();detail=button.dataset.memoryNode;cameraReady=true;renderPanel();
+  },true);
+  viewport.addEventListener('focusin',event=>{if(step>=0&&event.target.closest('[data-memory-node],.oa-story-panel'))pause();});
   stage.addEventListener('pointerdown',event=>event.stopPropagation());
-  stage.addEventListener('focusin',pause);
+  viewport.addEventListener('oakbase:graphframe',positionPanel);
   document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});
   document.addEventListener('oakbase:languagechange',render);
   new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)pause();},{threshold:0}).observe(explorer);
-  new ResizeObserver(drawLines).observe(map);
-  renderControls();
+  new ResizeObserver(positionPanel).observe(panel);
+  renderControls();syncCopy();
 })();

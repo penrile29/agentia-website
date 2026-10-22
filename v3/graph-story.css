@@ -8,33 +8,17 @@
 #oakbase-agent-message .oa-story-reset:hover{border-color:#aaa;color:#141414}
 #oakbase-agent-message .oa-story-intro{display:flex;justify-content:space-between;gap:12px;padding:12px 20px;border-bottom:1px solid #ededed;font-size:12px;line-height:1.5;color:#555;background:#fff}
 #oakbase-agent-message .oa-story-intro span+span{color:#6c6c6c}
-#oakbase-agent-message [data-story-active] .oa-graph-inspector{display:none}
-#oakbase-agent-message [data-story-focused] .oa-graph-viewport{cursor:default}
-#oakbase-agent-message [data-story-focused] .oa-graph-viewport>[data-memory-nodes],
-#oakbase-agent-message [data-story-focused] .oa-graph-viewport>.oa-graph-lines,
-#oakbase-agent-message [data-story-focused] .oa-graph-viewport>.oa-graph-controls{visibility:hidden;pointer-events:none}
-#oakbase-agent-message .oa-story-stage{position:absolute;inset:0;background:#fcfcfc;cursor:default;animation:oa-story-enter .45s ease both}
-#oakbase-agent-message .oa-story-heading{position:absolute;left:32px;top:28px;right:32px;z-index:1;pointer-events:none}
-#oakbase-agent-message .oa-story-eyebrow{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#8a6c3e;font-weight:500}
-#oakbase-agent-message .oa-story-heading h3{font:500 25px/1.2 'DM Sans',sans-serif;letter-spacing:-.7px;margin:12px 0 8px;color:#222;max-width:760px}
-#oakbase-agent-message .oa-story-heading p{font-size:13px;line-height:1.55;color:#6c6c6c;margin:0}
-#oakbase-agent-message .oa-story-map{position:absolute;left:2%;width:60%;top:165px;bottom:43px}
-#oakbase-agent-message .oa-story-connections{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-#oakbase-agent-message .oa-story-connections path{fill:none;stroke:#d5d8da;stroke-width:1.2}
-#oakbase-agent-message .oa-story-connections path[data-new=true]{stroke:#bda98a;stroke-width:1.4}
-#oakbase-agent-message .oa-story-connections path[data-current=true]{stroke:#9c7a3e;stroke-dasharray:1;stroke-dashoffset:0;animation:oa-story-line .85s ease both}
-#oakbase-agent-message .oa-story-node{position:absolute;transform:translate(-50%,-12px);width:145px;min-height:68px;border:0;background:transparent;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;z-index:1;padding:0 4px;animation:oa-story-enter .45s ease both}
-#oakbase-agent-message .oa-story-node-dot{display:block;flex-shrink:0;width:18px;height:18px;background:#8b9295;border:4px solid #fcfcfc;box-shadow:0 0 0 1px #c4c9cb;border-radius:50%;margin:3px 0 5px}
-#oakbase-agent-message .oa-story-node[data-kind=Client] .oa-story-node-dot{width:26px;height:26px;background:#3c4144;margin-top:-1px;margin-bottom:1px;box-shadow:0 0 0 1px #9ca1a4}
-#oakbase-agent-message .oa-story-node[data-kind=Matter] .oa-story-node-dot{background:#fcfcfc;border:2px solid #5f686d;width:20px;height:20px;box-shadow:0 0 0 4px #fcfcfc;margin-top:2px;margin-bottom:4px}
-#oakbase-agent-message .oa-story-node[data-kind=Source] .oa-story-node-dot,#oakbase-agent-message .oa-story-node[data-kind=Email] .oa-story-node-dot{border-radius:3px;background:#929b9e}
-#oakbase-agent-message .oa-story-node[data-kind=Commitment] .oa-story-node-dot{background:#9c7a3e;transform:rotate(45deg);border-radius:3px;box-shadow:0 0 0 1px #bda98a}
-#oakbase-agent-message .oa-story-node[data-kind=Task] .oa-story-node-dot{border-radius:5px;background:#fff;border:2px solid #9c7a3e;box-shadow:0 0 0 4px #fcfcfc}
-#oakbase-agent-message .oa-story-node[data-current=true] .oa-story-node-dot{box-shadow:0 0 0 5px #ede5d8,0 0 0 9px #fcfcfc}
-#oakbase-agent-message .oa-story-node-kind{font-size:9px;letter-spacing:.75px;text-transform:uppercase;color:#6c6c6c;background:#fcfcfc;padding:0 3px}
-#oakbase-agent-message .oa-story-node-name{font-size:12px;line-height:1.35;color:#3e4447;background:#fcfcfc;max-width:138px;padding:0 4px;letter-spacing:-.1px}
-#oakbase-agent-message .oa-story-node:hover .oa-story-node-name{text-decoration:underline;text-underline-offset:3px}
-#oakbase-agent-message .oa-story-panel{position:absolute;right:27px;top:185px;width:33%;padding:25px;background:white;border:1px solid #e5e5e5;border-radius:11px;box-shadow:0 8px 30px #1b242b06;animation:oa-story-enter .4s ease both;color:#505050}
+
+#oakbase-agent-message .oa-story-intro{min-height:49px;align-items:center}
+#oakbase-agent-message [data-story-active="true"] .oa-story-intro span:first-child{font-weight:500;color:#343434}
+#oakbase-agent-message [data-story-active="true"] .oa-story-intro span+span{color:#816633;font-size:10px;white-space:nowrap}
+#oakbase-agent-message [data-story-active="true"] .oa-graph-inspector{display:none}
+#oakbase-agent-message [data-story-active="true"] .oa-graph-controls{visibility:hidden;pointer-events:none}
+#oakbase-agent-message [data-story-active="true"] .oa-graph-viewport{cursor:default}
+#oakbase-agent-message .oa-story-stage{position:absolute;inset:0;pointer-events:none;z-index:8;background:transparent}
+#oakbase-agent-message .oa-story-pointer{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+#oakbase-agent-message .oa-story-pointer path{fill:none;stroke:#cbbba3;stroke-width:1;stroke-dasharray:3 4}
+#oakbase-agent-message .oa-story-panel{position:absolute;width:282px;padding:21px;background:#fff;border:1px solid #e2ded7;border-radius:10px;box-shadow:0 6px 28px #1b242b08;color:#505050;pointer-events:auto;max-height:calc(100% - 48px);overflow:auto;transition:left .5s ease,top .5s ease}
 #oakbase-agent-message .oa-story-panel h4{font-size:20px;line-height:1.25;letter-spacing:-.45px;color:#232323;font-weight:500;margin:14px 0}
 #oakbase-agent-message .oa-story-panel p{font-size:13px;line-height:1.7;margin:14px 0;color:#666}
 #oakbase-agent-message .oa-story-panel svg{width:18px;height:18px;flex-shrink:0}
@@ -66,58 +50,58 @@
 #oakbase-agent-message .oa-story-steps button[data-done=true]{border-color:#969b9d}
 #oakbase-agent-message .oa-story-disclosure{font:400 10px/1.6 'DM Sans',sans-serif;color:#6c6c6c;margin:8px 0 0}
 #oakbase-agent-message .oa-story-announcement{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-#oakbase-agent-message .oa-story-stage[hidden],#oakbase-agent-message .oa-story-footer[hidden],#oakbase-agent-message .oa-story-intro[hidden],#oakbase-agent-message .oa-story-reset[hidden],#oakbase-agent-message .oa-story-node[hidden]{display:none}
-#oakbase-agent-message [data-story-active] [data-graph-explore]{display:none}
+#oakbase-agent-message .oa-story-stage[hidden],#oakbase-agent-message .oa-story-footer[hidden],#oakbase-agent-message .oa-story-reset[hidden]{display:none}
+#oakbase-agent-message [data-story-active="true"] [data-graph-explore]{display:none}
 #oakbase-agent-message .oa-story-controls button:focus-visible,#oakbase-agent-message .oa-story-stage button:focus-visible,#oakbase-agent-message .oa-story-steps button:focus-visible{outline:2px solid #9c7a3e;outline-offset:5px}
-@keyframes oa-story-enter{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
-@keyframes oa-story-line{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-/* Node positions are fixed: entering must not override their centring transform. */
-#oakbase-agent-message .oa-story-node{animation-name:oa-story-node-enter}
-@keyframes oa-story-node-enter{from{opacity:0}to{opacity:1}}
-@media(max-width:900px){
- #oakbase-agent-message .oa-story-panel{right:18px;width:35%;padding:20px}
- #oakbase-agent-message .oa-story-map{left:1%;width:59%}
- #oakbase-agent-message .oa-story-heading h3{font-size:23px}
- #oakbase-agent-message .oa-story-node{width:116px}
- #oakbase-agent-message .oa-story-node-name{font-size:11px}
-}
-@media(max-width:740px){
+
+/* The native graph remains visible. Only emphasis changes as knowledge arrives. */
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node{transition:opacity .7s ease;z-index:2}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-story-essential="true"] .oa-graph-label{opacity:1!important;font-size:12px;font-weight:500;color:#363b3e}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node:not([data-story-essential="true"]) .oa-graph-label{opacity:0}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node:not([data-story-essential="true"]):hover .oa-graph-label,
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node:not([data-story-essential="true"]):focus-visible .oa-graph-label{opacity:1}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-story-node] .oa-graph-dot{width:15px;height:15px;background:#9c7a3e;border:3px solid #fcfcfc;box-shadow:0 0 0 1px #b59b73;border-radius:3px}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-memory-node="story_commitment"] .oa-graph-dot{transform:rotate(45deg)}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-memory-node="story_task"] .oa-graph-dot{background:#fcfcfc;border:2px solid #9c7a3e;box-shadow:0 0 0 4px #fcfcfc}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-memory-node="story_agent"] .oa-graph-dot{border-radius:50%;background:#343a3c;box-shadow:0 0 0 1px #7c8387}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-story-node] .oa-graph-label{opacity:1!important;font-size:11px;font-weight:500;color:#70572e;max-width:132px}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-lines path[data-story-edge]{stroke:#a88b5d;stroke-width:1.3}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-lines text[data-story-edge]{fill:#816633;font-size:10px}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] [data-memory-node="maya"] .oa-graph-label{transform:translate(-45px,-28px)}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] [data-memory-node="acquisition"] .oa-graph-label{transform:translate(46px,-27px)}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] [data-memory-node="meeting"] .oa-graph-label{transform:translate(45px,8px)}
+#oakbase-agent-message [data-story-paused="true"] .oa-graph-node,#oakbase-agent-message [data-story-paused="true"] .oa-graph-lines path{animation-play-state:paused}
+@media(max-width:794px){
  #oakbase-agent-message .oa-story-controls{gap:7px;flex-wrap:wrap}
  #oakbase-agent-message .oa-story-controls button{font-size:11px;padding:9px;min-height:36px}
- #oakbase-agent-message .oa-story-reset{font-size:10px}
- #oakbase-agent-message .oa-story-intro{display:block;font-size:11px;padding:12px 14px}
- #oakbase-agent-message .oa-story-intro span+span{display:block;font-size:10px;margin-top:3px}
- #oakbase-agent-message [data-story-active] .oa-graph-name{width:100%;margin-bottom:4px}
- #oakbase-agent-message [data-story-active] .oa-story-controls{margin-left:0;width:100%;justify-content:space-between}
- #oakbase-agent-message [data-story-focused] .oa-graph-viewport{height:920px!important}
- #oakbase-agent-message .oa-story-heading{left:19px;right:19px;top:24px}
- #oakbase-agent-message .oa-story-heading h3{font-size:21px;line-height:1.25;letter-spacing:-.5px;margin:10px 0 8px}
- #oakbase-agent-message .oa-story-heading p{font-size:12px;line-height:1.55}
- #oakbase-agent-message .oa-story-eyebrow{font-size:9px;letter-spacing:.7px}
- #oakbase-agent-message .oa-story-map{left:4%;right:4%;width:92%;top:180px;height:310px;bottom:auto}
- #oakbase-agent-message .oa-story-node{width:99px;gap:3px}
- #oakbase-agent-message .oa-story-node-name{font-size:10px;line-height:1.3;padding:0 2px}
- #oakbase-agent-message .oa-story-node-kind{font-size:8px;letter-spacing:.3px}
- #oakbase-agent-message .oa-story-panel{left:17px;right:17px;top:545px;width:auto;padding:20px;max-height:none}
- #oakbase-agent-message .oa-story-panel h4{font-size:18px;margin:10px 0}
+ #oakbase-agent-message .oa-story-intro{display:block;font-size:11px;padding:12px 14px;min-height:72px}
+ #oakbase-agent-message .oa-story-intro span+span{display:block;font-size:10px;margin-top:5px}
+ #oakbase-agent-message [data-story-active="true"] .oa-graph-name{width:100%;margin-bottom:4px}
+ #oakbase-agent-message [data-story-active="true"] .oa-story-controls{margin-left:0;width:100%;justify-content:space-between}
+ #oakbase-agent-message .oa-story-panel{width:calc(100% - 30px);max-width:430px;padding:18px;max-height:calc(100% - 320px);transition:none}
+ #oakbase-agent-message .oa-story-panel h4{font-size:17px;margin:10px 0}
  #oakbase-agent-message .oa-story-panel p{font-size:12px;line-height:1.6;margin:11px 0}
- #oakbase-agent-message .oa-story-panel blockquote{font-size:13px;margin:16px 0;line-height:1.65}
- #oakbase-agent-message .oa-story-panel dl{margin:13px 0}
+ #oakbase-agent-message .oa-story-panel blockquote{font-size:13px;margin:14px 0;line-height:1.65}
+ #oakbase-agent-message .oa-story-panel dl{margin:12px 0}
  #oakbase-agent-message .oa-story-panel dl div{padding:7px 0}
- #oakbase-agent-message .oa-story-panel .oa-story-card-note{margin-top:14px;padding-top:11px}
+ #oakbase-agent-message .oa-story-panel .oa-story-card-note{margin-top:13px;padding-top:10px}
  #oakbase-agent-message .oa-story-footer{padding:0 13px 15px}
  #oakbase-agent-message .oa-story-steps{gap:7px;padding-top:13px}
  #oakbase-agent-message .oa-story-steps button{font-size:9px;text-align:center;padding:8px 0;line-height:1.4;min-height:52px}
  #oakbase-agent-message .oa-story-steps button span{display:block;margin:0 0 5px;font-size:9px}
  #oakbase-agent-message .oa-story-disclosure{font-size:9px}
+ #oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-story-essential="true"] .oa-graph-label{font-size:10px;max-width:100px}
 }
 @media(prefers-reduced-motion:reduce){
- #oakbase-agent-message .oa-story-stage,#oakbase-agent-message .oa-story-node,#oakbase-agent-message .oa-story-panel,#oakbase-agent-message .oa-story-connections path{animation:none;transition:none}
+ #oakbase-agent-message .oa-story-panel,#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node,#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-lines path{animation:none!important;transition:none!important}
 }
 
-#oakbase-agent-message .oa-story-connections text{font:10px "DM Sans",sans-serif;fill:#816633;stroke:#fcfcfc;stroke-width:5px;paint-order:stroke;text-anchor:middle}
-@media(max-width:740px){#oakbase-agent-message [data-story-focused] .oa-graph-viewport{height:1010px!important}}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-node[data-story-node][data-story-arrival="true"]{animation:oa-native-arrival .75s ease both}
+#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-lines path[data-story-arrival="true"]{stroke-dasharray:1;animation:oa-native-edge 1s ease both}
+@keyframes oa-native-arrival{from{opacity:0}to{opacity:1}}
+@keyframes oa-native-edge{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 
-#oakbase-agent-message .oa-story-agent-link{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-#oakbase-agent-message .oa-story-agent-link path{fill:none;stroke:#9c7a3e;stroke-width:1.2;stroke-dasharray:3 4}
-#oakbase-agent-message .oa-story-agent-link text{font:10px "DM Sans",sans-serif;fill:#816633;stroke:#fcfcfc;stroke-width:5px;paint-order:stroke;text-anchor:middle}
+@media(max-width:794px){#oakbase-agent-message .oa-graph-viewport[data-story-active="true"] .oa-graph-lines text[data-story-edge]{display:none}}
+
+#oakbase-agent-message .oa-graph-viewport[data-flying="true"][data-story-active="true"] .oa-graph-node:not([data-kind="Client"]) .oa-graph-label{opacity:0!important}
+#oakbase-agent-message .oa-graph-viewport[data-flying="true"] .oa-story-panel{transition:none}
