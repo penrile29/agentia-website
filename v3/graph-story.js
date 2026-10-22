@@ -49,8 +49,10 @@
   Object.assign(copy.es,{videoLabel:'Oakbase en acción',videoTitle:'Del correo a tu agente',posterTitle:'El trabajo se conecta.',posterBody:'Un correo crea un compromiso. Tu agente te trae la tarea.',watch:'Ver la historia',explore:'Explorar el grafo',backVideo:'Volver al vídeo',progress:'Progreso de la historia',restart:'Reiniciar vídeo',keys:'Espacio para reproducir o pausar. Flechas izquierda y derecha para retroceder o avanzar cinco segundos.',of:'de'});
   Object.assign(copy.en,{videoLabel:'Oakbase in action',videoTitle:'From an email to your agent',posterTitle:'See work connect.',posterBody:'An email creates a commitment. Your agent brings you the task.',watch:'Watch the story',explore:'Explore the graph',backVideo:'Back to the video',progress:'Story progress',restart:'Restart video',keys:'Space to play or pause. Left and right arrows to skip back or forward five seconds.',of:'of'});
   const {duration,chapters,introHold,introEnd,chapterTransition}=api.story;
-  Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al mensaje',chatStatus:'Con el contexto de tu firma',chatNow:'Ahora · Mensaje proactivo',chatMessage:'Álex, tienes pendiente <strong>enviar el presupuesto actualizado a Marta</strong> antes del viernes a las 12:00.',chatReply:'Responder a tu agente…',chatDemo:'Responder a tu agente (demostración no editable)'});
-  Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the message',chatStatus:'With your firm’s context',chatNow:'Now · Proactive message',chatMessage:'Alex, you still need to <strong>send Maya the revised fee estimate</strong> by Friday at noon.',chatReply:'Reply to your agent…',chatDemo:'Reply to your agent (non-editable demonstration)'});
+  Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al mensaje',chatStatus:'Con el contexto de tu firma',chatMessage:'Álex, tienes pendiente <strong>enviar el presupuesto actualizado a Marta</strong> antes del viernes a las 12:00.',chatReply:'Responder a tu agente…',chatDemo:'Responder a tu agente (demostración no editable)'});
+  Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the message',chatStatus:'With your firm’s context',chatMessage:'Alex, you still need to <strong>send Maya the revised fee estimate</strong> by Friday at noon.',chatReply:'Reply to your agent…',chatDemo:'Reply to your agent (non-editable demonstration)'});
+  const streamStart=chapters[5]+.12,streamEnd=chapters[5]+1.6;
+  let stream=null;
   let currentTime=0,step=-1,playing=false,started=false,exploring=false,detail='',raf=0,lastFrame=0,lastProgress=-1,scrubbing=false,resumeAfterScrub=false;
   const lang=()=>document.documentElement.lang==='es'?'es':'en',c=()=>copy[lang()],t=value=>window.OakbaseI18n?.t(value)||value;
   const icon=name=>({play:'<path d="m8 5 11 7-11 7Z"/>',pause:'<path d="M8 5v14M16 5v14"/>',replay:'<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>'}[name]||'');
@@ -98,9 +100,12 @@
     else if(step===1)html=email();
     else if(step===2)html=`<span class="oa-story-card-label">${x.captured}</span><h4>${x.commitmentTitle}</h4>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
     else if(step===3)html=`<span class="oa-story-card-label">${x.created}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
-    else if(step===5)html=`<div class="oa-story-chat"><header class="oa-story-chat-header"><span class="oa-story-chat-avatar" aria-hidden="true"></span><div><strong>${x.agentLabel}</strong><span>${x.chatStatus}</span></div></header><div class="oa-story-chat-body"><div class="oa-story-chat-time">${x.chatNow}</div><div class="oa-story-chat-bubble" data-action-part="message"><p>${x.chatMessage}</p><div class="oa-story-chat-source">${svg('mail')}<span>${x.recorded}</span></div><div data-action-part="cta"><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button></div></div></div><div class="oa-story-chat-composer"><input type="text" disabled placeholder="${x.chatReply}" aria-label="${x.chatDemo}"><span aria-hidden="true">${svg('arrow')}</span></div></div>`;
+    else if(step===5)html=`<div class="oa-story-chat"><header class="oa-story-chat-header"><span class="oa-story-chat-avatar" aria-hidden="true"></span><div><strong>${x.agentLabel}</strong><span>${x.chatStatus}</span></div></header><div class="oa-story-chat-body"><div class="oa-story-chat-bubble"><p><span class="oa-story-stream-reader">${x.chatMessage}</span><span class="oa-story-stream" aria-hidden="true">${x.chatMessage}</span></p><div class="oa-story-chat-source" data-action-part="chatSource">${svg('mail')}<span>${x.recorded}</span></div><div data-action-part="cta"><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button></div></div></div><div class="oa-story-chat-composer"><input type="text" disabled placeholder="${x.chatReply}" aria-label="${x.chatDemo}"><span aria-hidden="true">${svg('arrow')}</span></div></div>`;
     else html=`<div class="oa-story-action"><div class="oa-story-card-top">${svg('bell')}<span>${x.agentLabel}</span><span class="oa-story-state">${x.pending}</span></div><h4 data-action-part="title">${x.taskTitle}</h4><div data-action-part="context">${fields()}</div><div class="oa-story-origin" data-action-part="source">${svg('mail')}<span>${x.recorded}</span></div></div>`;
+    // The accessible message is stable; visual tokens never enter the live region.
+    panel.setAttribute('aria-live',step===5&&!detail?'off':'polite');
     panel.innerHTML=html;
+    prepareStream();
     panel.dataset.language=lang();panel.dataset.phase=phase;panel.classList.toggle('oa-story-action-panel',step>=4&&!detail);panel.classList.toggle('oa-story-chat-panel',step===5&&!detail);
     const avatar=panel.querySelector('.oa-story-chat-avatar'),brand=document.querySelector('.oa-scene .oa-avatar img');
     if(avatar&&brand){const img=document.createElement('img');img.src=brand.src;img.alt='';avatar.append(img);}
@@ -165,16 +170,48 @@
     poster.querySelector('[data-video-poster-title]').textContent=x.posterTitle;poster.querySelector('[data-video-poster-body]').textContent=x.posterBody;poster.querySelector('[data-video-watch]').textContent=`${x.watch} · ${formatTime(duration)}`;poster.querySelector('button').setAttribute('aria-label',x.watch);
     footer.querySelector('.oa-story-disclosure').textContent=x.illustration;footer.querySelector('.oa-video-keys').textContent=x.keys;range.setAttribute('aria-label',x.progress);
     const list=footer.querySelector('.oa-story-steps');list.setAttribute('aria-label',lang()==='es'?'Capítulos del vídeo':'Video chapters');
-    if(!list.children.length)chapters.forEach((at,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();detail='';seek(i===0?introEnd:at+Math.max(chapterTransition,1));});list.append(b);});
+    if(!list.children.length)chapters.forEach((at,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();detail='';seek(i===0?introEnd:i===chapters.length-1?duration:at+Math.max(chapterTransition,1));});list.append(b);});
     [...list.children].forEach((b,i)=>{b.innerHTML=`<span>${String(i+1).padStart(2,'0')}</span>${x.steps[i]}`;b.setAttribute('aria-label',`${x.stepLabel} ${i+1}: ${x.steps[i]}`);});
     syncCopy();renderControls();renderChapter();updateProgress(true);
   }
+  function prepareStream(){
+    const visual=panel.querySelector('.oa-story-stream');stream=null;
+    if(!visual)return;
+    const walker=document.createTreeWalker(visual,NodeFilter.SHOW_TEXT),texts=[];
+    while(walker.nextNode())texts.push(walker.currentNode);
+    const tokens=[];let weight=0;
+    texts.forEach(text=>{
+      const fragment=document.createDocumentFragment();
+      for(const chunk of text.textContent.match(/\s*\S+\s*|\s+/g)||[]){
+        const token=document.createElement('span');token.className='oa-story-stream-token';token.textContent=chunk;
+        token.style.visibility='hidden';
+        // Short bursts, with a little more space after punctuation.
+        weight+=Math.min(chunk.trim().length,8)+2+(/[,.:;!?]\s*$/.test(chunk)?3:0);
+        tokens.push({element:token,at:weight});fragment.append(token);
+      }
+      text.replaceWith(fragment);
+    });
+    stream={visual,tokens,weight,count:-1};
+  }
+  function renderStream(){
+    if(!stream)return;
+    const progress=reduced.matches?1:Math.max(0,Math.min(1,(currentTime-streamStart)/(streamEnd-streamStart)));
+    const count=progress===1?stream.tokens.length:stream.tokens.filter(token=>token.at<=progress*stream.weight).length;
+    if(count===stream.count)return;
+    stream.count=count;
+    stream.visual.dataset.empty=String(count===0);
+    stream.tokens.forEach((token,index)=>{
+      token.element.style.visibility=index<count?'visible':'hidden';
+      token.element.dataset.cursor=String(count<stream.tokens.length&&index===count-1);
+    });
+  }
   function renderActionFrame(){
     if(step<4||detail)return;
-    const times={title:chapters[4],context:chapters[4]+.3,source:chapters[4]+1,message:chapters[5],cta:chapters[5]+.35};
+    renderStream();
+    const times={title:chapters[4],context:chapters[4]+.3,source:chapters[4]+1,chatSource:reduced.matches?chapters[5]:streamEnd,cta:reduced.matches?chapters[5]:streamEnd+.1};
     panel.querySelectorAll('[data-action-part]').forEach(part=>{
       const elapsed=currentTime-times[part.dataset.actionPart];
-      const progress=reduced.matches?(elapsed>=0?1:0):Math.min(1,Math.max(0,elapsed/.45));
+      const progress=reduced.matches?(elapsed>=0?1:0):Math.min(1,Math.max(0,(elapsed+1e-9)/(step===5?.3:.45)));
       const eased=progress*progress*(3-2*progress);
       part.style.opacity=String(eased);part.style.transform=reduced.matches?'none':`translateY(${5*(1-eased)}px)`;
       part.inert=progress<1;part.setAttribute('aria-hidden',String(progress===0));

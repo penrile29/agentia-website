@@ -141,7 +141,6 @@
 #oakbase-agent-message .oa-story-chat-header strong{display:block;font-size:12px;line-height:1.5;font-weight:500;color:#252525}
 #oakbase-agent-message .oa-story-chat-header>div>span{display:block;font-size:10px;line-height:1.5;color:#707070}
 #oakbase-agent-message .oa-story-chat-body{padding:13px 15px 15px;background:#fcfcfb}
-#oakbase-agent-message .oa-story-chat-time{font-size:9px;color:#756242;line-height:1.5;margin:0 0 8px 2px}
 #oakbase-agent-message .oa-story-chat-bubble{padding:13px;border:1px solid #e7e3db;background:#fff;border-radius:2px 11px 11px 11px}
 #oakbase-agent-message .oa-story-chat-bubble p{font-size:13px;line-height:1.65;margin:0;color:#4b4b4b}
 #oakbase-agent-message .oa-story-chat-bubble p strong{font-weight:500;color:#242424}
@@ -163,3 +162,11 @@
  #oakbase-agent-message .oa-story-chat-bubble .oa-story-task-button{font-size:calc(11px + 2px * var(--chat-focus,0))}
  #oakbase-agent-message .oa-story-chat-composer{padding:9px 13px}
 }
+
+/* Hidden tokens reserve the final layout, so the camera does not jump as text arrives. */
+#oakbase-agent-message .oa-story-stream{position:relative;display:block}
+#oakbase-agent-message .oa-story-stream-token{position:relative}
+#oakbase-agent-message .oa-story-stream[data-empty="true"]:before,#oakbase-agent-message .oa-story-stream-token[data-cursor="true"]:after{content:'';position:absolute;width:.4em;height:.4em;border-radius:50%;background:#333;pointer-events:none}
+#oakbase-agent-message .oa-story-stream[data-empty="true"]:before{left:0;top:.63em}
+#oakbase-agent-message .oa-story-stream-token[data-cursor="true"]:after{left:100%;top:.45em}
+#oakbase-agent-message .oa-story-stream-reader{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
