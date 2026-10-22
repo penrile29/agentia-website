@@ -384,8 +384,8 @@ SUCH DAMAGE.
   const storyOriginalNodes=data.slice(),storyOriginalConnections=connections.slice();
   const storyEssential=new Set(['alder','acquisition','maya','alex','meeting']);
   const storyIds=['story_email','story_commitment','story_task','story_agent'];
-  const storyDuration=18,storyChapters=Object.freeze([0,3,6,9,12,15]);
-  const storyIntroHold=.3,storyIntroEnd=1.5,storyChapterTransition=1.1;
+  const storyDuration=12,storyChapters=Object.freeze([0,2,4,6,8,10]);
+  const storyIntroHold=.2,storyIntroEnd=1,storyChapterTransition=.75;
   const storyState={active:false,returning:false,epoch:0,step:0,created:false,animateArrivals:true,targetZoom:1,motion:null,timeline:false,time:0,reducedMotion:false,visualKey:'',revision:0,cameraCache:null,timelineStyles:new Map(),copy:{nodes:{},edges:{}}};
   const storyNodeSpecs=[
    {id:'story_email',kind:'Source',name:'Email from Alex',description:'A sent email contains a new commitment to the client.',source:'Outlook · Sent email',quote:'I commit to sending you the revised fee estimate by Friday before 12 pm.',brand:'outlook',storyAt:1},
