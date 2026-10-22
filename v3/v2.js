@@ -445,7 +445,7 @@ SUCH DAMAGE.
    const points=storyWorldPoints(basePositions()),cluster=[...storyOriginalNodes.filter(n=>n.group==='alder').map(n=>points.get(n.id)),...storyIds.slice(0,step).map(id=>points.get(id))].filter(Boolean);
    if(!cluster.length||!graphWidth||!graphHeight)return {zoom:1,x:0,y:0};
    const left=Math.min(...cluster.map(p=>p.x)),right=Math.max(...cluster.map(p=>p.x)),top=Math.min(...cluster.map(p=>p.y)),bottom=Math.max(...cluster.map(p=>p.y));
-   const mobile=graphWidth<740,padLeft=mobile?42:75,padRight=mobile?42:330,padTop=mobile?25:95,padBottom=mobile?graphHeight-Math.min(graphHeight-340,400):85;
+   const mobile=graphWidth<740,padLeft=mobile?42:75,padRight=mobile?42:330,padTop=mobile?25:95,padBottom=mobile?graphHeight-Math.min(graphHeight-(step>=4?395:340),400):85;
    const availableWidth=Math.max(150,graphWidth-padLeft-padRight),availableHeight=Math.max(180,graphHeight-padTop-padBottom);
    const scale=Math.max(1.05,Math.min(mobile?4:7.5,availableWidth/Math.max(1,right-left),availableHeight/Math.max(1,bottom-top)));
    const centerX=padLeft+availableWidth/2,centerY=padTop+availableHeight/2;
@@ -475,7 +475,7 @@ SUCH DAMAGE.
    if(enabled){
     n.button.dataset.storyEssential=String(storyEssential.has(n.id));
     n.button.style.opacity=String(n.storyOnly?storyArrival(n.storyAt):n.group==='alder'?(storyEssential.has(n.id)?1:1-.55*blend):1-.94*blend);
-    if(n.storyOnly)n.button.dataset.storyCurrent=String(n.storyAt===storyState.step);
+    if(n.storyOnly)n.button.dataset.storyCurrent=String(n.storyAt===Math.min(4,storyState.step));
    }else{
     n.button.style.removeProperty('opacity');delete n.button.dataset.storyEssential;delete n.button.dataset.storyCurrent;
    }
@@ -498,7 +498,7 @@ SUCH DAMAGE.
    const primary=e.storyOnly&&storyIds.includes(e.from)&&storyIds.includes(e.to);
    const arrival=e.storyOnly?storyArrival(Math.max(byId.get(e.from).storyAt||0,byId.get(e.to).storyAt||0),1):1;
    e.path.style.opacity=String(e.storyOnly?(primary?1:.32)*arrival:local?1-.50*blend:1-.97*blend);
-   e.path.dataset.storyCurrent=String(Boolean(e.storyOnly&&(byId.get(e.from).storyAt===storyState.step||byId.get(e.to).storyAt===storyState.step)));
+   e.path.dataset.storyCurrent=String(Boolean(e.storyOnly&&(byId.get(e.from).storyAt===Math.min(4,storyState.step)||byId.get(e.to).storyAt===Math.min(4,storyState.step))));
    e.text.style.display=e.storyOnly&&e.storyPrimary&&viewport.dataset.flying!=='true'?'':'none';
   }
   function storyFrame(){
