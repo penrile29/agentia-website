@@ -12,9 +12,9 @@
     es: {
       play:'Reproducir historia', pause:'Pausar', resume:'Continuar', replay:'Volver a reproducir', reset:'Volver al grafo',
       intro:'De un correo a una tarea. Así se conecta el trabajo.', introSmall:'Pulsa reproducir para ver el ejemplo.',
-      steps:['El contexto','El correo','El compromiso','La tarea','El agente','Tu acción'],
-      titles:['Todo empieza con lo que tu firma ya sabe.','Un correo incorpora una nueva señal.','El compromiso queda conectado al contexto.','Lo acordado se convierte en una tarea.','El agente recoge la tarea con su contexto.','Un compromiso, listo para que lo revises.'],
-      subtitles:['Un cliente, su asunto y las personas que trabajan en él.','Una promesa concreta, dentro de una conversación de trabajo.','Qué hay que hacer, quién lo hará y para cuándo.','Una acción pendiente, con responsable, fecha y evidencia.','Conoce el responsable, la fecha y el correo de origen.','Tu agente te trae la acción pendiente con la información que necesitas.'],
+      steps:['El contexto','El correo','El compromiso','La tarea','El agente','Te escribe'],
+      titles:['Todo empieza con lo que tu firma ya sabe.','Un correo incorpora una nueva señal.','El compromiso queda conectado al contexto.','Lo acordado se convierte en una tarea.','El agente recoge la tarea con su contexto.','Tu agente te escribe antes de que preguntes.'],
+      subtitles:['Un cliente, su asunto y las personas que trabajan en él.','Una promesa concreta, dentro de una conversación de trabajo.','Qué hay que hacer, quién lo hará y para cuándo.','Una acción pendiente, con responsable, fecha y evidencia.','Conoce el responsable, la fecha y el correo de origen.','La tarea del Brain llega a tu conversación, con su contexto.'],
       status:['Contexto compartido','Nueva señal de trabajo','Compromiso identificado','Tarea preparada','Aviso proactivo'],
       contextTitle:'El contexto ya está conectado', contextText:'Grupo Olivar está preparando una adquisición. Marta es el contacto del cliente. Álex participó en la reunión del jueves.',
       sourceLabel:'Fuente', sourceText:'Reunión del jueves · calendario', emailTitle:'Presupuesto de la adquisición', emailMeta:'Álex → Marta · correo enviado',
@@ -30,9 +30,9 @@
     en: {
       play:'Play the story', pause:'Pause', resume:'Continue', replay:'Replay story', reset:'Back to the graph',
       intro:'From an email to a task. See how work connects.', introSmall:'Press play to explore the example.',
-      steps:['Context','Email','Commitment','Task','Agent','Your action'],
-      titles:['It starts with what your firm already knows.','An email brings in a new work signal.','The commitment connects to its context.','What was agreed becomes a task.','The agent retrieves the task with its context.','One commitment, ready for your review.'],
-      subtitles:['A client, their matter and the people working on it.','A specific promise, made in the course of everyday work.','What needs doing, who will do it and by when.','A pending action, with an owner, a deadline and evidence.','It knows the owner, the deadline and the source email.','Your agent brings you the pending action with the context you need.'],
+      steps:['Context','Email','Commitment','Task','Agent','Your message'],
+      titles:['It starts with what your firm already knows.','An email brings in a new work signal.','The commitment connects to its context.','What was agreed becomes a task.','The agent retrieves the task with its context.','Your agent messages you before you ask.'],
+      subtitles:['A client, their matter and the people working on it.','A specific promise, made in the course of everyday work.','What needs doing, who will do it and by when.','A pending action, with an owner, a deadline and evidence.','It knows the owner, the deadline and the source email.','The task from the Brain reaches your conversation, with its context.'],
       status:['Shared context','New work signal','Commitment identified','Task prepared','Proactive notification'],
       contextTitle:'The context is already connected', contextText:'Alder Ltd. is preparing an acquisition. Maya is the client contact. Alex attended the Thursday meeting.',
       sourceLabel:'Source', sourceText:'Thursday meeting · calendar', emailTitle:'Acquisition fee estimate', emailMeta:'Alex → Maya · sent email',
@@ -49,8 +49,8 @@
   Object.assign(copy.es,{videoLabel:'Oakbase en acción',videoTitle:'Del correo a tu agente',posterTitle:'El trabajo se conecta.',posterBody:'Un correo crea un compromiso. Tu agente te trae la tarea.',watch:'Ver la historia',explore:'Explorar el grafo',backVideo:'Volver al vídeo',progress:'Progreso de la historia',restart:'Reiniciar vídeo',keys:'Espacio para reproducir o pausar. Flechas izquierda y derecha para retroceder o avanzar cinco segundos.',of:'de'});
   Object.assign(copy.en,{videoLabel:'Oakbase in action',videoTitle:'From an email to your agent',posterTitle:'See work connect.',posterBody:'An email creates a commitment. Your agent brings you the task.',watch:'Watch the story',explore:'Explore the graph',backVideo:'Back to the video',progress:'Story progress',restart:'Restart video',keys:'Space to play or pause. Left and right arrows to skip back or forward five seconds.',of:'of'});
   const {duration,chapters,introHold,introEnd,chapterTransition}=api.story;
-  Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al compromiso'});
-  Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the commitment'});
+  Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al mensaje',chatStatus:'Con el contexto de tu firma',chatNow:'Ahora · Mensaje proactivo',chatMessage:'Álex, tienes pendiente <strong>enviar el presupuesto actualizado a Marta</strong> antes del viernes a las 12:00.',chatReply:'Responder a tu agente…',chatDemo:'Responder a tu agente (demostración no editable)'});
+  Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the message',chatStatus:'With your firm’s context',chatNow:'Now · Proactive message',chatMessage:'Alex, you still need to <strong>send Maya the revised fee estimate</strong> by Friday at noon.',chatReply:'Reply to your agent…',chatDemo:'Reply to your agent (non-editable demonstration)'});
   let currentTime=0,step=-1,playing=false,started=false,exploring=false,detail='',raf=0,lastFrame=0,lastProgress=-1,scrubbing=false,resumeAfterScrub=false;
   const lang=()=>document.documentElement.lang==='es'?'es':'en',c=()=>copy[lang()],t=value=>window.OakbaseI18n?.t(value)||value;
   const icon=name=>({play:'<path d="m8 5 11 7-11 7Z"/>',pause:'<path d="M8 5v14M16 5v14"/>',replay:'<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>'}[name]||'');
@@ -87,22 +87,27 @@
   function fields(){return `<dl><div><dt>${c().owner}</dt><dd>${c().person}</dd></div><div><dt>${c().due}</dt><dd>${c().deadline}</dd></div><div><dt>${c().matter}</dt><dd>${c().matterName}</dd></div></dl>`;}
   function renderPanel(){
     if(step<0){stage.hidden=true;return;}
-    // The final two chapters assemble the same card without replacing its DOM.
-    if(step>=4&&!detail&&panel.dataset.language===lang()&&panel.querySelector('.oa-story-action')){renderActionFrame();positionPanel();return;}
+    const phase=step===5?'conversation':'context';
+    if(step>=4&&!detail&&panel.dataset.language===lang()&&panel.dataset.phase===phase&&panel.querySelector('.oa-story-action,.oa-story-chat')){renderActionFrame();positionPanel();return;}
     const x=c();let html='';
+    const focusedAction=panel.querySelector('[data-story-task]')===document.activeElement;
     if(detail==='story_email')html=`${email()}<button type="button" class="oa-story-text-button" data-story-close>${x.close} ${svg('close')}</button>`;
     else if(detail==='story_task')html=`<span class="oa-story-card-label">${x.provenance}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<blockquote class="oa-story-evidence">${x.emailText}</blockquote><span class="oa-story-evidence-source">${x.recorded}</span><button type="button" class="oa-story-text-button" data-story-close>${x.back} ${svg('close')}</button>`;
     else if(step===0)html=`<span class="oa-story-card-label">Shared Firm Brain</span><h4>${t(originals.get('alder').name)}</h4><p>${x.contextText}</p>`;
     else if(step===1)html=email();
     else if(step===2)html=`<span class="oa-story-card-label">${x.captured}</span><h4>${x.commitmentTitle}</h4>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
     else if(step===3)html=`<span class="oa-story-card-label">${x.created}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
-    else html=`<div class="oa-story-action"><div class="oa-story-card-top">${svg('bell')}<span>${x.agentLabel}</span><span class="oa-story-state">${x.pending}</span></div><h4 data-action-part="title">${x.taskTitle}</h4><div data-action-part="context">${fields()}</div><div class="oa-story-origin" data-action-part="source">${svg('mail')}<span>${x.recorded}</span></div><div data-action-part="cta"><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button></div></div>`;
+    else if(step===5)html=`<div class="oa-story-chat"><header class="oa-story-chat-header"><span class="oa-story-chat-avatar" aria-hidden="true"></span><div><strong>${x.agentLabel}</strong><span>${x.chatStatus}</span></div></header><div class="oa-story-chat-body"><div class="oa-story-chat-time">${x.chatNow}</div><div class="oa-story-chat-bubble" data-action-part="message"><p>${x.chatMessage}</p><div class="oa-story-chat-source">${svg('mail')}<span>${x.recorded}</span></div><div data-action-part="cta"><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button></div></div></div><div class="oa-story-chat-composer"><input type="text" disabled placeholder="${x.chatReply}" aria-label="${x.chatDemo}"><span aria-hidden="true">${svg('arrow')}</span></div></div>`;
+    else html=`<div class="oa-story-action"><div class="oa-story-card-top">${svg('bell')}<span>${x.agentLabel}</span><span class="oa-story-state">${x.pending}</span></div><h4 data-action-part="title">${x.taskTitle}</h4><div data-action-part="context">${fields()}</div><div class="oa-story-origin" data-action-part="source">${svg('mail')}<span>${x.recorded}</span></div></div>`;
     panel.innerHTML=html;
-    panel.dataset.language=lang();panel.classList.toggle('oa-story-action-panel',step>=4&&!detail);
+    panel.dataset.language=lang();panel.dataset.phase=phase;panel.classList.toggle('oa-story-action-panel',step>=4&&!detail);panel.classList.toggle('oa-story-chat-panel',step===5&&!detail);
+    const avatar=panel.querySelector('.oa-story-chat-avatar'),brand=document.querySelector('.oa-scene .oa-avatar img');
+    if(avatar&&brand){const img=document.createElement('img');img.src=brand.src;img.alt='';avatar.append(img);}
     panel.querySelector('[data-story-evidence]')?.addEventListener('click',()=>{pause();detail='story_email';renderPanel();panel.querySelector('[data-story-close]').focus({preventScroll:true});});
     panel.querySelector('[data-story-task]')?.addEventListener('click',()=>{pause();detail='story_task';renderPanel();panel.querySelector('[data-story-close]').focus({preventScroll:true});});
     panel.querySelector('[data-story-close]')?.addEventListener('click',()=>{detail='';renderPanel();play.focus({preventScroll:true});});
     renderActionFrame();positionPanel();
+    if(focusedAction)panel.querySelector('[data-story-task]:not(:disabled)')?.focus({preventScroll:true});
   }
   function positionPanel(){
     if(!started||exploring||currentTime<(reduced.matches?introHold:introEnd)){stage.hidden=true;return;}
@@ -149,7 +154,7 @@
   }
   function renderActionFrame(){
     if(step<4||detail)return;
-    const times={title:chapters[4],context:chapters[4]+.3,source:chapters[4]+1,cta:chapters[5]+.1};
+    const times={title:chapters[4],context:chapters[4]+.3,source:chapters[4]+1,message:chapters[5],cta:chapters[5]+.35};
     panel.querySelectorAll('[data-action-part]').forEach(part=>{
       const elapsed=currentTime-times[part.dataset.actionPart];
       const progress=reduced.matches?(elapsed>=0?1:0):Math.min(1,Math.max(0,elapsed/.45));
