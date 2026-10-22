@@ -384,7 +384,8 @@ SUCH DAMAGE.
   const storyOriginalNodes=data.slice(),storyOriginalConnections=connections.slice();
   const storyEssential=new Set(['alder','acquisition','maya','alex','meeting']);
   const storyIds=['story_email','story_commitment','story_task','story_agent'];
-  const storyDuration=32,storyChapters=Object.freeze([0,6.5,13,19,25]);
+  const storyDuration=15,storyChapters=Object.freeze([0,3,6,9,12]);
+  const storyIntroHold=.3,storyIntroEnd=1.5,storyChapterTransition=1.1;
   const storyState={active:false,returning:false,epoch:0,step:0,created:false,animateArrivals:true,targetZoom:1,motion:null,timeline:false,time:0,reducedMotion:false,visualKey:'',revision:0,cameraCache:null,timelineStyles:new Map(),copy:{nodes:{},edges:{}}};
   const storyNodeSpecs=[
    {id:'story_email',kind:'Source',name:'Email from Alex',description:'A sent email contains a new commitment to the client.',source:'Outlook · Sent email',quote:'I commit to sending you the revised fee estimate by Friday before 12 pm.',brand:'outlook',storyAt:1},
@@ -460,7 +461,7 @@ SUCH DAMAGE.
   }
   function storyVisible(n){return !n.storyOnly||storyArrival(n.storyAt)>0;}
   function storyBlend(){
-   if(storyState.timeline)return storyState.reducedMotion?(storyState.time>=.6?1:0):storyEase((storyState.time-.6)/2.2);
+   if(storyState.timeline)return storyState.reducedMotion?(storyState.time>=storyIntroHold?1:0):storyEase((storyState.time-storyIntroHold)/(storyIntroEnd-storyIntroHold));
    return storyState.active||storyState.returning?clamp((zoom-1)/Math.max(.05,storyState.targetZoom-1)):0;
   }
   function storyNodeFrame(n,visible){
@@ -470,7 +471,7 @@ SUCH DAMAGE.
     else if(!shown||storyState.timeline)delete n.button.dataset.storyArrival;
     n.storyShown=shown;
    }
-   const enabled=(storyState.active||storyState.returning)&&(!storyState.timeline||storyState.time>=.6),blend=storyBlend();
+   const enabled=(storyState.active||storyState.returning)&&(!storyState.timeline||storyState.time>=storyIntroHold),blend=storyBlend();
    if(enabled){
     n.button.dataset.storyEssential=String(storyEssential.has(n.id));
     n.button.style.opacity=String(n.storyOnly?storyArrival(n.storyAt):n.group==='alder'?(storyEssential.has(n.id)?1:1-.55*blend):1-.94*blend);
@@ -492,7 +493,7 @@ SUCH DAMAGE.
    }
   }
   function storyEdgeFrame(e){
-   if(!(storyState.active||storyState.returning)||(storyState.timeline&&storyState.time<.6))return;
+   if(!(storyState.active||storyState.returning)||(storyState.timeline&&storyState.time<storyIntroHold))return;
    const blend=storyBlend(),local=byId.get(e.from).group==='alder'&&byId.get(e.to).group==='alder';
    const primary=e.storyOnly&&storyIds.includes(e.from)&&storyIds.includes(e.to);
    const arrival=e.storyOnly?storyArrival(Math.max(byId.get(e.from).storyAt||0,byId.get(e.to).storyAt||0),1):1;
@@ -501,7 +502,7 @@ SUCH DAMAGE.
    e.text.style.display=e.storyOnly&&e.storyPrimary&&viewport.dataset.flying!=='true'?'':'none';
   }
   function storyFrame(){
-   viewport.dataset.storyActive=String((storyState.active||storyState.returning)&&!(storyState.timeline&&storyState.time<.6));viewport.dataset.storyStep=String(storyState.step);viewport.dataset.storyTimeline=String(storyState.timeline);
+   viewport.dataset.storyActive=String((storyState.active||storyState.returning)&&!(storyState.timeline&&storyState.time<storyIntroHold));viewport.dataset.storyStep=String(storyState.step);viewport.dataset.storyTimeline=String(storyState.timeline);
    viewport.dispatchEvent(new CustomEvent('oakbase:graphframe',{detail:{active:storyState.active,step:storyState.step,time:storyState.time,timeline:storyState.timeline,zoom}}));
   }
   function storyTimelineStyles(enable){
@@ -526,11 +527,11 @@ SUCH DAMAGE.
    }
    const targets=storyState.cameraCache.targets,overview={zoom:1,x:0,y:0};
    let from=overview,to=overview,progress=1;
-   if(time>=.6){
-    from=overview;to=targets[0];progress=motionReduced?1:clamp((time-.6)/2.2);
+   if(time>=storyIntroHold){
+    from=overview;to=targets[0];progress=motionReduced?1:clamp((time-storyIntroHold)/(storyIntroEnd-storyIntroHold));
     for(let index=1;index<storyChapters.length;index++){
      if(time<storyChapters[index])break;
-     from=targets[index-1];to=targets[index];progress=motionReduced?1:clamp((time-storyChapters[index])/1.1);
+     from=targets[index-1];to=targets[index];progress=motionReduced?1:clamp((time-storyChapters[index])/storyChapterTransition);
     }
    }
    const eased=storyEase(progress);storyState.targetZoom=to.zoom;
@@ -545,7 +546,7 @@ SUCH DAMAGE.
    }else if(storyState.motion||flight)stopFlight();
    storyState.time=time;storyState.reducedMotion=Boolean(reducedMotion);
    storyState.step=storyChapters.reduce((step,start,index)=>time>=start?index:step,0);
-   const view=time<.6?'firm':'client';
+   const view=time<storyIntroHold?'firm':'client';
    if(state.memoryView!==view||entering){state.memoryView=view;updateChrome();if(view==='client')updateInspector();}
    const target=storyTimelineCamera(time,storyState.reducedMotion);
    const arrivals=storyIds.flatMap((_,index)=>[storyArrival(index+1),storyArrival(index+1,1)]);
@@ -575,7 +576,7 @@ SUCH DAMAGE.
    });
   }
   const story={
-   duration:storyDuration,chapters:storyChapters,seek:storySeek,
+   duration:storyDuration,chapters:storyChapters,introHold:storyIntroHold,introEnd:storyIntroEnd,chapterTransition:storyChapterTransition,seek:storySeek,
    get active(){return storyState.active;},get step(){return storyState.step;},get time(){return storyState.time;},get paused(){return Boolean(storyState.motion?.paused);},
    begin({animate=true}={}){
     if(storyState.timeline){storyTimelineStyles(false);storyState.timeline=false;storyState.visualKey='';}

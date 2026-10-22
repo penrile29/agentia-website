@@ -48,7 +48,7 @@
   };
   Object.assign(copy.es,{videoLabel:'Oakbase en acción',videoTitle:'De un correo a una tarea',posterTitle:'El trabajo se conecta.',posterBody:'Un correo crea un compromiso. Tu agente te trae la tarea.',watch:'Ver la historia',explore:'Explorar el grafo',backVideo:'Volver al vídeo',progress:'Progreso de la historia',restart:'Reiniciar vídeo',keys:'Espacio para reproducir o pausar. Flechas izquierda y derecha para retroceder o avanzar cinco segundos.',of:'de'});
   Object.assign(copy.en,{videoLabel:'Oakbase in action',videoTitle:'From an email to a task',posterTitle:'See work connect.',posterBody:'An email creates a commitment. Your agent brings you the task.',watch:'Watch the story',explore:'Explore the graph',backVideo:'Back to the video',progress:'Story progress',restart:'Restart video',keys:'Space to play or pause. Left and right arrows to skip back or forward five seconds.',of:'of'});
-  const duration=api.story.duration||32,chapters=api.story.chapters||[0,6.5,13,19,25];
+  const {duration,chapters,introHold,introEnd,chapterTransition}=api.story;
   let currentTime=0,step=-1,playing=false,started=false,exploring=false,detail='',raf=0,lastFrame=0,lastProgress=-1,scrubbing=false,resumeAfterScrub=false;
   const lang=()=>document.documentElement.lang==='es'?'es':'en',c=()=>copy[lang()],t=value=>window.OakbaseI18n?.t(value)||value;
   const icon=name=>({play:'<path d="m8 5 11 7-11 7Z"/>',pause:'<path d="M8 5v14M16 5v14"/>',replay:'<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>'}[name]||'');
@@ -66,7 +66,7 @@
   stage.innerHTML='<svg class="oa-story-pointer" aria-hidden="true"><path></path></svg><aside class="oa-story-panel" aria-live="polite" aria-atomic="true"></aside>';
   viewport.append(stage);
   const footer=document.createElement('div');footer.className='oa-video-footer';
-  footer.innerHTML=`<div class="oa-video-track"><input class="oa-video-seek" type="range" min="0" max="${duration}" step="0.1" value="0"><div class="oa-video-ticks" aria-hidden="true">${chapters.slice(1).map(at=>`<i style="left:${at/duration*100}%"></i>`).join('')}</div></div><div class="oa-video-controls"><button class="oa-video-toggle" type="button"></button><span class="oa-video-time" aria-hidden="true"><span data-video-time>0:00</span><span> / 0:32</span></span><span class="oa-video-current" aria-hidden="true"></span><button class="oa-video-restart" type="button">${svg('replay')}</button></div><div class="oa-story-steps" role="group"></div><p class="oa-story-disclosure"></p><span class="oa-story-announcement" role="status" aria-live="polite"></span><span class="oa-video-keys" id="oa-video-keys"></span>`;
+  footer.innerHTML=`<div class="oa-video-track"><input class="oa-video-seek" type="range" min="0" max="${duration}" step="0.1" value="0"><div class="oa-video-ticks" aria-hidden="true">${chapters.slice(1).map(at=>`<i style="left:${at/duration*100}%"></i>`).join('')}</div></div><div class="oa-video-controls"><button class="oa-video-toggle" type="button"></button><span class="oa-video-time" aria-hidden="true"><span data-video-time>0:00</span><span> / ${formatTime(duration)}</span></span><span class="oa-video-current" aria-hidden="true"></span><button class="oa-video-restart" type="button">${svg('replay')}</button></div><div class="oa-story-steps" role="group"></div><p class="oa-story-disclosure"></p><span class="oa-story-announcement" role="status" aria-live="polite"></span><span class="oa-video-keys" id="oa-video-keys"></span>`;
   explorer.querySelector('.oa-graph-caption').after(footer);
   const play=footer.querySelector('.oa-video-toggle'),reset=footer.querySelector('.oa-video-restart'),range=footer.querySelector('input'),panel=stage.querySelector('.oa-story-panel'),mode=header.querySelector('button');
   const anchors=['alder','story_email','story_commitment','story_task','story_agent'];
@@ -98,7 +98,7 @@
     positionPanel();
   }
   function positionPanel(){
-    if(!started||exploring||currentTime<(reduced.matches?.6:2.8)){stage.hidden=true;return;}
+    if(!started||exploring||currentTime<(reduced.matches?introHold:introEnd)){stage.hidden=true;return;}
     const point=api.story.getPoint(detail||anchors[Math.max(0,step)]);if(!point){stage.hidden=true;return;}
     stage.hidden=false;
     const w=viewport.clientWidth,h=viewport.clientHeight,pw=panel.offsetWidth,ph=panel.offsetHeight,mobile=w<740;
@@ -132,10 +132,10 @@
   }
   function renderLanguage(){
     const x=c();header.querySelector('[data-video-eyebrow]').textContent=x.videoLabel;header.querySelector('[data-video-title]').textContent=x.videoTitle;
-    poster.querySelector('[data-video-poster-title]').textContent=x.posterTitle;poster.querySelector('[data-video-poster-body]').textContent=x.posterBody;poster.querySelector('[data-video-watch]').textContent=`${x.watch} · 0:32`;poster.querySelector('button').setAttribute('aria-label',x.watch);
+    poster.querySelector('[data-video-poster-title]').textContent=x.posterTitle;poster.querySelector('[data-video-poster-body]').textContent=x.posterBody;poster.querySelector('[data-video-watch]').textContent=`${x.watch} · ${formatTime(duration)}`;poster.querySelector('button').setAttribute('aria-label',x.watch);
     footer.querySelector('.oa-story-disclosure').textContent=x.illustration;footer.querySelector('.oa-video-keys').textContent=x.keys;range.setAttribute('aria-label',x.progress);
     const list=footer.querySelector('.oa-story-steps');list.setAttribute('aria-label',lang()==='es'?'Capítulos del vídeo':'Video chapters');
-    if(!list.children.length)chapters.forEach((at,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();detail='';seek(i===0?2.8:at+1.1);});list.append(b);});
+    if(!list.children.length)chapters.forEach((at,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();detail='';seek(i===0?introEnd:at+chapterTransition);});list.append(b);});
     [...list.children].forEach((b,i)=>{b.innerHTML=`<span>${String(i+1).padStart(2,'0')}</span>${x.steps[i]}`;b.setAttribute('aria-label',`${x.stepLabel} ${i+1}: ${x.steps[i]}`);});
     syncCopy();renderControls();renderChapter();updateProgress(true);
   }
