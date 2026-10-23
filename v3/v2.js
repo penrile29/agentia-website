@@ -384,7 +384,7 @@ SUCH DAMAGE.
   const storyOriginalNodes=data.slice(),storyOriginalConnections=connections.slice();
   const storyEssential=new Set(['alder','acquisition','maya','alex','meeting']);
   const storyIds=['story_email','story_commitment','story_task','story_agent'];
-  const storyDuration=12,storyChapters=Object.freeze([0,2,4,6,8,10]);
+  const storyDuration=18,storyChapters=Object.freeze([0,2,4,6,8,10]);
   const storyIntroHold=.2,storyIntroEnd=1,storyChapterTransition=.75;
   const storyState={active:false,returning:false,epoch:0,step:0,created:false,animateArrivals:true,targetZoom:1,motion:null,timeline:false,time:0,reducedMotion:false,visualKey:'',revision:0,cameraCache:null,timelineStyles:new Map(),copy:{nodes:{},edges:{}}};
   const storyNodeSpecs=[

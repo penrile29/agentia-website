@@ -51,7 +51,8 @@
   const {duration,chapters,introHold,introEnd,chapterTransition}=api.story;
   Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al mensaje',chatStatus:'Con el contexto de tu firma',chatMessage:'Álex, tienes pendiente <strong>enviar el presupuesto actualizado a Marta</strong> antes del viernes a las 12:00.',chatReply:'Responder a tu agente…',chatDemo:'Responder a tu agente (demostración no editable)'});
   Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the message',chatStatus:'With your firm’s context',chatMessage:'Alex, you still need to <strong>send Maya the revised fee estimate</strong> by Friday at noon.',chatReply:'Reply to your agent…',chatDemo:'Reply to your agent (non-editable demonstration)'});
-  const streamStart=chapters[5]+.12,streamEnd=chapters[5]+1.6;
+  // Finish the message and its action by 14s, then hold the final shot for 4s.
+  const streamStart=chapters[5]+.12,streamEnd=chapters[5]+3.6;
   let stream=null;
   let currentTime=0,step=-1,playing=false,started=false,exploring=false,detail='',raf=0,lastFrame=0,lastProgress=-1,scrubbing=false,resumeAfterScrub=false;
   const lang=()=>document.documentElement.lang==='es'?'es':'en',c=()=>copy[lang()],t=value=>window.OakbaseI18n?.t(value)||value;
