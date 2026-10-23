@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 
 from build_pages import PUBLIC_FILES, ROOT, References, build as build_pages, validate_references
 from check_robots import check as check_robots
+from extend_graph_story import EXTENSIONS, SCOPE, extend
 from localize_production import generate as generate_languages
 
 
@@ -49,7 +50,7 @@ class Metadata(HTMLParser):
 
 
 def validate_production(destination: Path) -> None:
-    expected = set(PUBLIC_FILES) | set(PRODUCTION_FILES) | {
+    expected = set(PUBLIC_FILES) | set(PRODUCTION_FILES) | set(EXTENSIONS) | {
         'assets/favicon.svg', '.well-known/security.txt', 'robots.txt',
         'sitemap.xml', 'build-info.json',
     } | {f'assets/firm-knowledge/{name}' for name in PUBLIC_ASSETS}
@@ -104,6 +105,7 @@ def build(destination: Path) -> None:
         if not Metadata(content).social_urls:
             content = content.replace('</head>', f'  <meta property="og:url" content="{ORIGIN + route}">\n</head>', 1)
         path.write_text(content, encoding='utf-8')
+    extend(destination, ROOT / 'v3')
     generate_languages(destination, ROOT)
     # Old URLs also have a static fallback for plain-file previews. Production
     # nginx performs permanent redirects and respects explicit ?lang choices.
@@ -125,7 +127,7 @@ def build(destination: Path) -> None:
     (destination / 'sitemap.xml').write_text(sitemap, encoding='utf-8')
     build_info_path = destination / 'build-info.json'
     build_info = json.loads(build_info_path.read_text(encoding='utf-8'))
-    build_info.update({'site_url': ORIGIN, 'target': 'production'})
+    build_info.update({'site_url': ORIGIN, 'target': 'production', 'source_extension': 'v3/graph-story', 'scope': SCOPE})
     build_info_path.write_text(json.dumps(build_info, indent=2) + '\n', encoding='utf-8')
     checked = validate_references(destination)
     validate_production(destination)

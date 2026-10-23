@@ -1,6 +1,6 @@
 # Oakbase production deployment
 
-The public production website is https://oakbase.ai. GitHub Pages remains a separate preview. Both are authored from `v2/` on `codex/operational-memory-v2`.
+The public production website is https://oakbase.ai. GitHub Pages remains a separate preview. Both use the original `v2/` sources on `codex/operational-memory-v2`. Production additionally includes the approved graph-to-agent animation from `v3/graph-story*`; `tools/extend_graph_story.py` applies the same extension to preview and production before language generation. The original `v2/` files remain intact.
 
 ## Build and publish
 
@@ -28,3 +28,9 @@ Privacy and provider disclosures distinguish oakbase.ai on Hostinger from the Gi
 `tools/localize_production.py` renders the existing copy catalogs and role data into both languages during the build. Role skills and the selected role example exist before JavaScript; the runtime restores interactions without duplicating rows. The legal source panels are filtered to one language per generated page. Organization and WebSite JSON-LD identify Oakbase SL using only published facts. `tools/check_indexing.py` checks canonical and language relationships, sitemap coverage, translated initial copy, role rows, structured identity and local references.
 
 Before this indexing release, the rollback pair was `CONTENT_REF=ea8743014b8727491028816d7da25fbb168822a1` and `CONFIG_REF=3b725646552cc4bc4f06b08173fa05344471fdad`.
+
+## Graph story release — 23 October 2026
+
+The approved 18-second animation is generated into both `/es/` and `/en/`. Only `graph-story.js` and `graph-story.css` are added to the public allowlist; the native graph extension is embedded in the generated `v2.js`. Preview robots rules and the preview Spanish redirect are excluded from production.
+
+Previous rollback pair before this release: `CONTENT_REF=1610fea2110799e20981a9816e62d36b74946447`, `CONFIG_REF=8215dbd02e5bc703c93e07b1cb46dabfccb1d540`.
