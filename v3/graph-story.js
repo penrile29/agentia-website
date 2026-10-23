@@ -56,14 +56,22 @@
   let stream=null;
   let currentTime=0,step=-1,playing=false,started=false,exploring=false,detail='',raf=0,lastFrame=0,lastProgress=-1,scrubbing=false,resumeAfterScrub=false;
   const lang=()=>document.documentElement.lang==='es'?'es':'en',c=()=>copy[lang()],t=value=>window.OakbaseI18n?.t(value)||value;
-  const icon=name=>({play:'<path d="m8 5 11 7-11 7Z"/>',pause:'<path d="M8 5v14M16 5v14"/>',replay:'<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>'}[name]||'');
+  const icon=name=>({
+    graph:'<circle cx="6" cy="6" r="2"/><circle cx="18" cy="7" r="2"/><circle cx="11" cy="18" r="2"/><path d="m8 6 8 1M7 8l3 8m7-7-5 7"/>',
+    play:'<path d="m8 5 11 7-11 7Z"/>',
+    pause:'<path d="M8 5v14M16 5v14"/>',
+    replay:'<path d="M4 10a8 8 0 1 1 1 8M4 4v6h6"/>',
+    mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',
+    arrow:'<path d="M5 12h14m-5-5 5 5-5 5"/>',
+    bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',
+    close:'<path d="m6 6 12 12M18 6 6 18"/>'
+  }[name]||'');
   const svg=name=>`<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icon(name)}</svg>`;
   const formatTime=value=>`0:${String(Math.floor(value)).padStart(2,'0')}`;
   const nodes=viewport.querySelector('[data-memory-nodes]');
   const graphLayers=[nodes,viewport.querySelector('.oa-graph-lines')];
-  const header=document.createElement('div');header.className='oa-video-header';
-  header.innerHTML='<div><span data-video-eyebrow></span><strong data-video-title></strong></div><button class="oa-video-explore" type="button"></button>';
-  explorer.prepend(header);
+  const mode=document.createElement('button');mode.className='oa-video-explore';mode.type='button';
+  viewport.append(mode);
   const poster=document.createElement('div');poster.className='oa-video-poster';
   poster.innerHTML=`<button class="oa-video-start" type="button"><span class="oa-video-start-icon">${svg('play')}</span><strong data-video-poster-title></strong><span data-video-poster-body></span><small data-video-watch></small></button>`;
   viewport.append(poster);
@@ -76,7 +84,7 @@
   const footer=document.createElement('div');footer.className='oa-video-footer';
   footer.innerHTML=`<div class="oa-video-track"><input class="oa-video-seek" type="range" min="0" max="${duration}" step="0.1" value="0"></div><span class="oa-story-announcement" role="status" aria-live="polite"></span><span class="oa-video-keys" id="oa-video-keys"></span>`;
   explorer.querySelector('.oa-graph-caption').after(footer);
-  const range=footer.querySelector('input'),panel=stage.querySelector('.oa-story-panel'),mode=header.querySelector('button');
+  const range=footer.querySelector('input'),panel=stage.querySelector('.oa-story-panel');
   const anchors=['alder','story_email','story_commitment','story_task','story_agent','story_agent'];
   explorer.tabIndex=0;explorer.setAttribute('aria-describedby','oa-video-keys');
   function syncCopy(){
@@ -148,7 +156,8 @@
     play.innerHTML=svg(playing?'pause':currentTime>=duration?'replay':'play');play.setAttribute('aria-label',label);play.title=label;
     explorer.dataset.storyPaused=String(!playing);explorer.dataset.videoPlaying=String(playing);
     poster.hidden=started||exploring;footer.hidden=exploring;play.hidden=!started||exploring;
-    mode.textContent=exploring?x.backVideo:x.explore;
+    const modeLabel=exploring?x.backVideo:x.explore;
+    mode.innerHTML=svg(exploring?'play':'graph');mode.setAttribute('aria-label',modeLabel);mode.title=modeLabel;
     renderActionFrame();positionPanel();
   }
   function updateProgress(force=false){
@@ -161,9 +170,9 @@
     if(started){renderPanel();footer.querySelector('[role=status]').textContent=x.titles[Math.max(0,step)]+' '+x.subtitles[Math.max(0,step)];}
   }
   function renderLanguage(){
-    const x=c();header.querySelector('[data-video-eyebrow]').textContent=x.videoLabel;header.querySelector('[data-video-title]').textContent=x.videoTitle;
+    const x=c();
     poster.querySelector('[data-video-poster-title]').textContent=x.posterTitle;poster.querySelector('[data-video-poster-body]').textContent=x.posterBody;poster.querySelector('[data-video-watch]').textContent=`${x.watch} · ${formatTime(duration)}`;poster.querySelector('button').setAttribute('aria-label',x.watch);
-    header.querySelector('[data-video-eyebrow]').title=x.illustration;footer.querySelector('.oa-video-keys').textContent=x.keys;range.setAttribute('aria-label',x.progress);
+    footer.querySelector('.oa-video-keys').textContent=x.illustration+' '+x.keys;range.setAttribute('aria-label',x.progress);
     syncCopy();renderControls();renderChapter();updateProgress(true);
   }
   function prepareStream(){
@@ -251,14 +260,16 @@
     explorer.classList.toggle('oa-video-mode',!exploring);nodes.inert=!exploring;if(!exploring)nodes.setAttribute('aria-hidden','true');else nodes.removeAttribute('aria-hidden');
     explorer.setAttribute('aria-describedby',exploring?'':'oa-video-keys');stage.hidden=true;renderControls();
   }
-  mode.addEventListener('click',()=>{
-    pause();finishScrub(false);exploring=!exploring;api.story.end({animate:false});applyMode();
+  mode.addEventListener('click',event=>{
+    event.stopPropagation();pause();finishScrub(false);exploring=!exploring;api.story.end({animate:false});applyMode();
     if(!exploring&&started){step=-1;seek(currentTime);}else if(exploring)delete explorer.dataset.storyActive;
   });
   // Annotation buttons remain usable, while graph exploration is an explicit mode.
   viewport.addEventListener('click',event=>{if(!exploring&&event.target.closest('[data-memory-node]')){event.preventDefault();event.stopImmediatePropagation();}},true);
   viewport.addEventListener('focusin',event=>{if(!exploring&&event.target.closest('.oa-story-panel'))pause();});
   stage.addEventListener('pointerdown',event=>event.stopPropagation());
+  mode.addEventListener('pointerdown',event=>event.stopPropagation());
+  play.addEventListener('pointerdown',event=>event.stopPropagation());
   viewport.addEventListener('oakbase:graphframe',positionPanel);
   document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();finishScrub(false);}});
   document.addEventListener('oakbase:languagechange',renderLanguage);
