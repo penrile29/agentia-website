@@ -51,7 +51,7 @@
   const {duration,chapters,introHold,introEnd}=api.story;
   Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al mensaje',chatStatus:'Con el contexto de tu firma',chatMessage:'Álex, tienes pendiente <strong>enviar el presupuesto actualizado a Marta</strong> antes del viernes a las 12:00.',chatReply:'Responder a tu agente…',chatDemo:'Responder a tu agente (demostración no editable)'});
   Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the message',chatStatus:'With your firm’s context',chatMessage:'Alex, you still need to <strong>send Maya the revised fee estimate</strong> by Friday at noon.',chatReply:'Reply to your agent…',chatDemo:'Reply to your agent (non-editable demonstration)'});
-  // Finish the message and its action by 14s, then hold the final shot for 4s.
+  // Finish the message and source by 14s, then hold the final shot for reading.
   const streamStart=chapters[5]+.12,streamEnd=chapters[5]+3.6;
   let stream=null;
   let currentTime=0,step=-1,playing=false,started=false,exploring=false,detail='',raf=0,lastFrame=0,lastProgress=-1,scrubbing=false,resumeAfterScrub=false;
@@ -95,14 +95,12 @@
     const phase=step===5?'conversation':'context';
     if(step>=4&&!detail&&panel.dataset.language===lang()&&panel.dataset.phase===phase&&panel.querySelector('.oa-story-action,.oa-story-chat')){renderActionFrame();positionPanel();return;}
     const x=c();let html='';
-    const focusedAction=panel.querySelector('[data-story-task]')===document.activeElement;
     if(detail==='story_email')html=`${email()}<button type="button" class="oa-story-text-button" data-story-close>${x.close} ${svg('close')}</button>`;
-    else if(detail==='story_task')html=`<span class="oa-story-card-label">${x.provenance}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<blockquote class="oa-story-evidence">${x.emailText}</blockquote><span class="oa-story-evidence-source">${x.recorded}</span><button type="button" class="oa-story-text-button" data-story-close>${x.back} ${svg('close')}</button>`;
     else if(step===0)html=`<span class="oa-story-card-label">Shared Firm Brain</span><h4>${t(originals.get('alder').name)}</h4><p>${x.contextText}</p>`;
     else if(step===1)html=email();
     else if(step===2)html=`<span class="oa-story-card-label">${x.captured}</span><h4>${x.commitmentTitle}</h4>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
     else if(step===3)html=`<span class="oa-story-card-label">${x.created}</span><h4>${x.taskTitle}</h4><span class="oa-story-state">${x.pending}</span>${fields()}<button type="button" class="oa-story-text-button" data-story-evidence>${x.read} ${svg('arrow')}</button>`;
-    else if(step===5)html=`<div class="oa-story-chat"><header class="oa-story-chat-header"><span class="oa-story-chat-avatar" aria-hidden="true"></span><div><strong>${x.agentLabel}</strong><span>${x.chatStatus}</span></div></header><div class="oa-story-chat-body"><div class="oa-story-chat-bubble"><p><span class="oa-story-stream-reader">${x.chatMessage}</span><span class="oa-story-stream" aria-hidden="true">${x.chatMessage}</span></p><div class="oa-story-chat-source" data-action-part="chatSource">${svg('mail')}<span>${x.recorded}</span></div><div data-action-part="cta"><button type="button" class="oa-story-task-button" data-story-task>${x.taskButton} ${svg('arrow')}</button></div></div></div><div class="oa-story-chat-composer"><input type="text" disabled placeholder="${x.chatReply}" aria-label="${x.chatDemo}"><span aria-hidden="true">${svg('arrow')}</span></div></div>`;
+    else if(step===5)html=`<div class="oa-story-chat"><header class="oa-story-chat-header"><span class="oa-story-chat-avatar" aria-hidden="true"></span><div><strong>${x.agentLabel}</strong><span>${x.chatStatus}</span></div></header><div class="oa-story-chat-body"><div class="oa-story-chat-bubble"><p><span class="oa-story-stream-reader">${x.chatMessage}</span><span class="oa-story-stream" aria-hidden="true">${x.chatMessage}</span></p><div class="oa-story-chat-source" data-action-part="chatSource">${svg('mail')}<span>${x.recorded}</span></div></div></div><div class="oa-story-chat-composer"><div class="oa-story-chat-reply"><input type="text" disabled placeholder="${x.chatReply}" aria-label="${x.chatDemo}"><span aria-hidden="true">${svg('arrow')}</span></div></div></div>`;
     else html=`<div class="oa-story-action"><div class="oa-story-card-top">${svg('bell')}<span>${x.agentLabel}</span><span class="oa-story-state">${x.pending}</span></div><h4 data-action-part="title">${x.taskTitle}</h4><div data-action-part="context">${fields()}</div><div class="oa-story-origin" data-action-part="source">${svg('mail')}<span>${x.recorded}</span></div></div>`;
     // The accessible message is stable; visual tokens never enter the live region.
     panel.setAttribute('aria-live',step===5&&!detail?'off':'polite');
@@ -112,10 +110,8 @@
     const avatar=panel.querySelector('.oa-story-chat-avatar'),brand=document.querySelector('.oa-scene .oa-avatar img');
     if(avatar&&brand){const img=document.createElement('img');img.src=brand.src;img.alt='';avatar.append(img);}
     panel.querySelector('[data-story-evidence]')?.addEventListener('click',()=>{pause();detail='story_email';renderPanel();panel.querySelector('[data-story-close]').focus({preventScroll:true});});
-    panel.querySelector('[data-story-task]')?.addEventListener('click',()=>{pause();detail='story_task';renderPanel();panel.querySelector('[data-story-close]').focus({preventScroll:true});});
     panel.querySelector('[data-story-close]')?.addEventListener('click',()=>{detail='';renderPanel();play.focus({preventScroll:true});});
     renderActionFrame();positionPanel();
-    if(focusedAction)panel.querySelector('[data-story-task]:not(:disabled)')?.focus({preventScroll:true});
   }
   function positionPanel(){
     const finalShot=started&&!exploring&&step===5;
@@ -204,7 +200,7 @@
   function renderActionFrame(){
     if(step<4||detail)return;
     renderStream();
-    const times={title:chapters[4],context:chapters[4]+.3,source:chapters[4]+1,chatSource:reduced.matches?chapters[5]:streamEnd,cta:reduced.matches?chapters[5]:streamEnd+.1};
+    const times={title:chapters[4],context:chapters[4]+.3,source:chapters[4]+1,chatSource:reduced.matches?chapters[5]:streamEnd};
     panel.querySelectorAll('[data-action-part]').forEach(part=>{
       const elapsed=currentTime-times[part.dataset.actionPart];
       const progress=reduced.matches?(elapsed>=0?1:0):Math.min(1,Math.max(0,(elapsed+1e-9)/(step===5?.3:.45)));
