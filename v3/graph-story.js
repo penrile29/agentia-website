@@ -46,9 +46,9 @@
       read:'Read the source email', close:'Close detail', complete:'Story complete', stepLabel:'Go to step', provenance:'Commitment evidence',
     },
   };
-  Object.assign(copy.es,{videoLabel:'Oakbase en acción',videoTitle:'Del correo a tu agente',posterTitle:'El trabajo se conecta.',posterBody:'Un correo crea un compromiso. Tu agente te trae la tarea.',watch:'Ver la historia',explore:'Explorar el grafo',backVideo:'Volver al vídeo',progress:'Progreso de la historia',restart:'Reiniciar vídeo',keys:'Espacio para reproducir o pausar. Flechas izquierda y derecha para retroceder o avanzar cinco segundos.',of:'de'});
-  Object.assign(copy.en,{videoLabel:'Oakbase in action',videoTitle:'From an email to your agent',posterTitle:'See work connect.',posterBody:'An email creates a commitment. Your agent brings you the task.',watch:'Watch the story',explore:'Explore the graph',backVideo:'Back to the video',progress:'Story progress',restart:'Restart video',keys:'Space to play or pause. Left and right arrows to skip back or forward five seconds.',of:'of'});
-  const {duration,chapters,introHold,introEnd,chapterTransition}=api.story;
+  Object.assign(copy.es,{videoLabel:'Ejemplo ilustrativo · Brain en desarrollo',videoTitle:'Del correo a tu agente',posterTitle:'El trabajo se conecta.',posterBody:'Un correo crea un compromiso. Tu agente te trae la tarea.',watch:'Ver la historia',explore:'Explorar el grafo',backVideo:'Volver al vídeo',progress:'Progreso de la historia',restart:'Reiniciar vídeo',keys:'Espacio para reproducir o pausar. Flechas izquierda y derecha para retroceder o avanzar cinco segundos.',of:'de'});
+  Object.assign(copy.en,{videoLabel:'Illustrative demo · Brain in development',videoTitle:'From an email to your agent',posterTitle:'See work connect.',posterBody:'An email creates a commitment. Your agent brings you the task.',watch:'Watch the story',explore:'Explore the graph',backVideo:'Back to the video',progress:'Story progress',restart:'Restart video',keys:'Space to play or pause. Left and right arrows to skip back or forward five seconds.',of:'of'});
+  const {duration,chapters,introHold,introEnd}=api.story;
   Object.assign(copy.es,{taskButton:'Revisar compromiso',back:'Volver al mensaje',chatStatus:'Con el contexto de tu firma',chatMessage:'Álex, tienes pendiente <strong>enviar el presupuesto actualizado a Marta</strong> antes del viernes a las 12:00.',chatReply:'Responder a tu agente…',chatDemo:'Responder a tu agente (demostración no editable)'});
   Object.assign(copy.en,{taskButton:'Review commitment',back:'Back to the message',chatStatus:'With your firm’s context',chatMessage:'Alex, you still need to <strong>send Maya the revised fee estimate</strong> by Friday at noon.',chatReply:'Reply to your agent…',chatDemo:'Reply to your agent (non-editable demonstration)'});
   // Finish the message and its action by 14s, then hold the final shot for 4s.
@@ -71,11 +71,12 @@
   const stage=document.createElement('div');stage.className='oa-story-stage';stage.hidden=true;
   stage.innerHTML='<svg class="oa-story-pointer" aria-hidden="true"><path></path></svg><aside class="oa-story-panel" aria-live="polite" aria-atomic="true"></aside>';
   viewport.append(stage);
+  const play=document.createElement('button');play.className='oa-video-toggle';play.type='button';play.hidden=true;
+  viewport.append(play);
   const footer=document.createElement('div');footer.className='oa-video-footer';
-  footer.innerHTML=`<div class="oa-video-track"><input class="oa-video-seek" type="range" min="0" max="${duration}" step="0.1" value="0"><div class="oa-video-ticks" aria-hidden="true">${chapters.slice(1).map(at=>`<i style="left:${at/duration*100}%"></i>`).join('')}</div></div><div class="oa-video-controls"><button class="oa-video-toggle" type="button"></button><span class="oa-video-time" aria-hidden="true"><span data-video-time>0:00</span><span> / ${formatTime(duration)}</span></span><span class="oa-video-current" aria-hidden="true"></span><button class="oa-video-restart" type="button">${svg('replay')}</button></div><div class="oa-story-steps" role="group"></div><p class="oa-story-disclosure"></p><span class="oa-story-announcement" role="status" aria-live="polite"></span><span class="oa-video-keys" id="oa-video-keys"></span>`;
+  footer.innerHTML=`<div class="oa-video-track"><input class="oa-video-seek" type="range" min="0" max="${duration}" step="0.1" value="0"></div><span class="oa-story-announcement" role="status" aria-live="polite"></span><span class="oa-video-keys" id="oa-video-keys"></span>`;
   explorer.querySelector('.oa-graph-caption').after(footer);
-  footer.style.setProperty('--chapters',chapters.length);
-  const play=footer.querySelector('.oa-video-toggle'),reset=footer.querySelector('.oa-video-restart'),range=footer.querySelector('input'),panel=stage.querySelector('.oa-story-panel'),mode=header.querySelector('button');
+  const range=footer.querySelector('input'),panel=stage.querySelector('.oa-story-panel'),mode=header.querySelector('button');
   const anchors=['alder','story_email','story_commitment','story_task','story_agent','story_agent'];
   explorer.tabIndex=0;explorer.setAttribute('aria-describedby','oa-video-keys');
   function syncCopy(){
@@ -149,9 +150,8 @@
   function renderControls(){
     const x=c(),label=playing?x.pause:currentTime>=duration?x.replay:started?x.resume:x.play;
     play.innerHTML=svg(playing?'pause':currentTime>=duration?'replay':'play');play.setAttribute('aria-label',label);play.title=label;
-    reset.setAttribute('aria-label',x.restart);reset.title=x.restart;
     explorer.dataset.storyPaused=String(!playing);explorer.dataset.videoPlaying=String(playing);
-    poster.hidden=started||exploring;footer.hidden=exploring;
+    poster.hidden=started||exploring;footer.hidden=exploring;play.hidden=!started||exploring;
     mode.textContent=exploring?x.backVideo:x.explore;
     renderActionFrame();positionPanel();
   }
@@ -159,20 +159,15 @@
     const frame=Math.floor(currentTime*10);if(!force&&frame===lastProgress)return;lastProgress=frame;
     range.value=String(currentTime);range.style.setProperty('--progress',`${currentTime/duration*100}%`);
     range.setAttribute('aria-valuetext',`${formatTime(currentTime)} ${c().of} ${formatTime(duration)} · ${c().steps[Math.max(0,step)]}`);
-    footer.querySelector('[data-video-time]').textContent=formatTime(currentTime);
   }
   function renderChapter(){
-    const x=c();footer.querySelector('.oa-video-current').textContent=x.steps[Math.max(0,step)];
-    [...footer.querySelector('.oa-story-steps').children].forEach((b,i)=>{b.setAttribute('aria-current',i===step&&started?'step':'false');b.dataset.done=String(i<step);});
+    const x=c();
     if(started){renderPanel();footer.querySelector('[role=status]').textContent=x.titles[Math.max(0,step)]+' '+x.subtitles[Math.max(0,step)];}
   }
   function renderLanguage(){
     const x=c();header.querySelector('[data-video-eyebrow]').textContent=x.videoLabel;header.querySelector('[data-video-title]').textContent=x.videoTitle;
     poster.querySelector('[data-video-poster-title]').textContent=x.posterTitle;poster.querySelector('[data-video-poster-body]').textContent=x.posterBody;poster.querySelector('[data-video-watch]').textContent=`${x.watch} · ${formatTime(duration)}`;poster.querySelector('button').setAttribute('aria-label',x.watch);
-    footer.querySelector('.oa-story-disclosure').textContent=x.illustration;footer.querySelector('.oa-video-keys').textContent=x.keys;range.setAttribute('aria-label',x.progress);
-    const list=footer.querySelector('.oa-story-steps');list.setAttribute('aria-label',lang()==='es'?'Capítulos del vídeo':'Video chapters');
-    if(!list.children.length)chapters.forEach((at,i)=>{const b=document.createElement('button');b.type='button';b.addEventListener('click',()=>{pause();detail='';seek(i===0?introEnd:i===chapters.length-1?duration:at+Math.max(chapterTransition,1));});list.append(b);});
-    [...list.children].forEach((b,i)=>{b.innerHTML=`<span>${String(i+1).padStart(2,'0')}</span>${x.steps[i]}`;b.setAttribute('aria-label',`${x.stepLabel} ${i+1}: ${x.steps[i]}`);});
+    header.querySelector('[data-video-eyebrow]').title=x.illustration;footer.querySelector('.oa-video-keys').textContent=x.keys;range.setAttribute('aria-label',x.progress);
     syncCopy();renderControls();renderChapter();updateProgress(true);
   }
   function prepareStream(){
@@ -242,7 +237,6 @@
   }
   function toggle(){if(playing)pause();else start();}
   play.addEventListener('click',toggle);poster.querySelector('button').addEventListener('click',()=>{start();play.focus({preventScroll:true});});
-  reset.addEventListener('click',()=>{pause();scrubbing=false;resumeAfterScrub=false;started=false;currentTime=0;step=-1;detail='';api.story.end({animate:false});stage.hidden=true;renderControlsIfNeeded();renderChapter();updateProgress(true);play.focus({preventScroll:true});});
   function finishScrub(resume=true){if(!scrubbing)return;scrubbing=false;const shouldResume=resume&&resumeAfterScrub&&currentTime<duration;resumeAfterScrub=false;if(shouldResume)start();}
   range.addEventListener('pointerdown',()=>{scrubbing=true;resumeAfterScrub=playing;pause();});
   range.addEventListener('input',()=>{const resume=!scrubbing&&playing;pause();seek(range.value);if(resume&&currentTime<duration)start();});
