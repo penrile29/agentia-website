@@ -1,6 +1,7 @@
 /* Homepage copy. Values with markup contain only trusted, authored HTML. */
 window.OakbaseStaticCopy = {
   "en": {
+    "inceptionMember": "Member of NVIDIA Inception",
     "metaTitle": "Oakbase | AI-native operations for professional services",
     "metaDescription": "Oakbase builds your firm’s context and deploys role-specific Operations Agents for time capture, follow-ups, billing and CRM updates in your existing systems.",
     "metaSocialDescription": "AI-native operations for professional services firms. Shared firm context and pre-built agents for everyday work.",
@@ -171,6 +172,7 @@ window.OakbaseStaticCopy = {
     "formRequired": "All fields are required unless marked optional."
   },
   "es": {
+    "inceptionMember": "Miembro de NVIDIA Inception",
     "metaTitle": "Oakbase | Operaciones con IA para servicios profesionales",
     "metaDescription": "Oakbase construye el contexto de tu firma y despliega agentes de operaciones por rol para gestionar horas, seguimientos, facturación y CRM en tus sistemas.",
     "metaSocialDescription": "Operaciones con IA para firmas de servicios profesionales. Contexto compartido y agentes preconfigurados para el trabajo diario.",

@@ -31,6 +31,7 @@ PUBLIC_ASSETS = frozenset({
     'dm-sans-latin-1.woff2', 'dm-sans.css', 'dynamics.svg', 'gmail.svg',
     'hubspot.svg', 'lucide-0.468.0.min.js', 'onenote.svg', 'outlook.svg',
     'salesforce.svg', 'slack.svg', 'teams.svg', 'whatsapp.svg',
+    'nvidia-inception-program-badge-rgb-for-screen.svg',
 })
 
 
